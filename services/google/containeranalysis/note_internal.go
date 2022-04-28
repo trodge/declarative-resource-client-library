@@ -688,63 +688,6 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.Vulnerability != nil || rawInitial.Vulnerability != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
-			rawDesired.Vulnerability = nil
-			rawInitial.Vulnerability = nil
-		}
-	}
-
-	if rawDesired.Build != nil || rawInitial.Build != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
-			rawDesired.Build = nil
-			rawInitial.Build = nil
-		}
-	}
-
-	if rawDesired.Image != nil || rawInitial.Image != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
-			rawDesired.Image = nil
-			rawInitial.Image = nil
-		}
-	}
-
-	if rawDesired.Package != nil || rawInitial.Package != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
-			rawDesired.Package = nil
-			rawInitial.Package = nil
-		}
-	}
-
-	if rawDesired.Deployment != nil || rawInitial.Deployment != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Discovery, rawDesired.Attestation) {
-			rawDesired.Deployment = nil
-			rawInitial.Deployment = nil
-		}
-	}
-
-	if rawDesired.Discovery != nil || rawInitial.Discovery != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Attestation) {
-			rawDesired.Discovery = nil
-			rawInitial.Discovery = nil
-		}
-	}
-
-	if rawDesired.Attestation != nil || rawInitial.Attestation != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery) {
-			rawDesired.Attestation = nil
-			rawInitial.Attestation = nil
-		}
-	}
-
 	canonicalDesired := &Note{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -762,8 +705,8 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 		canonicalDesired.LongDescription = rawDesired.LongDescription
 	}
 	canonicalDesired.RelatedUrl = canonicalizeNoteRelatedUrlSlice(rawDesired.RelatedUrl, rawInitial.RelatedUrl, opts...)
-	if dcl.IsZeroValue(rawDesired.ExpirationTime) || (dcl.IsEmptyValueIndirect(rawDesired.ExpirationTime) && dcl.IsEmptyValueIndirect(rawInitial.ExpirationTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.ExpirationTime) && dcl.IsEmptyValueIndirect(rawInitial.ExpirationTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.ExpirationTime = rawInitial.ExpirationTime
 	} else {
 		canonicalDesired.ExpirationTime = rawDesired.ExpirationTime
@@ -784,6 +727,55 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.Vulnerability != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Build, canonicalDesired.Image, canonicalDesired.Package, canonicalDesired.Deployment, canonicalDesired.Discovery, canonicalDesired.Attestation) {
+			canonicalDesired.Vulnerability = nil
+		}
+	}
+
+	if canonicalDesired.Build != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Vulnerability, canonicalDesired.Image, canonicalDesired.Package, canonicalDesired.Deployment, canonicalDesired.Discovery, canonicalDesired.Attestation) {
+			canonicalDesired.Build = nil
+		}
+	}
+
+	if canonicalDesired.Image != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Vulnerability, canonicalDesired.Build, canonicalDesired.Package, canonicalDesired.Deployment, canonicalDesired.Discovery, canonicalDesired.Attestation) {
+			canonicalDesired.Image = nil
+		}
+	}
+
+	if canonicalDesired.Package != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Vulnerability, canonicalDesired.Build, canonicalDesired.Image, canonicalDesired.Deployment, canonicalDesired.Discovery, canonicalDesired.Attestation) {
+			canonicalDesired.Package = nil
+		}
+	}
+
+	if canonicalDesired.Deployment != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Vulnerability, canonicalDesired.Build, canonicalDesired.Image, canonicalDesired.Package, canonicalDesired.Discovery, canonicalDesired.Attestation) {
+			canonicalDesired.Deployment = nil
+		}
+	}
+
+	if canonicalDesired.Discovery != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Vulnerability, canonicalDesired.Build, canonicalDesired.Image, canonicalDesired.Package, canonicalDesired.Deployment, canonicalDesired.Attestation) {
+			canonicalDesired.Discovery = nil
+		}
+	}
+
+	if canonicalDesired.Attestation != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Vulnerability, canonicalDesired.Build, canonicalDesired.Image, canonicalDesired.Package, canonicalDesired.Deployment, canonicalDesired.Discovery) {
+			canonicalDesired.Attestation = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -888,14 +880,53 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 
 	rawNew.Project = rawDesired.Project
 
+	if rawNew.Vulnerability != nil {
+		if dcl.AnySet(rawNew.Build, rawNew.Image, rawNew.Package, rawNew.Deployment, rawNew.Discovery, rawNew.Attestation) && rawDesired.Vulnerability == nil {
+			rawNew.Vulnerability = nil
+		}
+	}
+
+	if rawNew.Build != nil {
+		if dcl.AnySet(rawNew.Vulnerability, rawNew.Image, rawNew.Package, rawNew.Deployment, rawNew.Discovery, rawNew.Attestation) && rawDesired.Build == nil {
+			rawNew.Build = nil
+		}
+	}
+
+	if rawNew.Image != nil {
+		if dcl.AnySet(rawNew.Vulnerability, rawNew.Build, rawNew.Package, rawNew.Deployment, rawNew.Discovery, rawNew.Attestation) && rawDesired.Image == nil {
+			rawNew.Image = nil
+		}
+	}
+
+	if rawNew.Package != nil {
+		if dcl.AnySet(rawNew.Vulnerability, rawNew.Build, rawNew.Image, rawNew.Deployment, rawNew.Discovery, rawNew.Attestation) && rawDesired.Package == nil {
+			rawNew.Package = nil
+		}
+	}
+
+	if rawNew.Deployment != nil {
+		if dcl.AnySet(rawNew.Vulnerability, rawNew.Build, rawNew.Image, rawNew.Package, rawNew.Discovery, rawNew.Attestation) && rawDesired.Deployment == nil {
+			rawNew.Deployment = nil
+		}
+	}
+
+	if rawNew.Discovery != nil {
+		if dcl.AnySet(rawNew.Vulnerability, rawNew.Build, rawNew.Image, rawNew.Package, rawNew.Deployment, rawNew.Attestation) && rawDesired.Discovery == nil {
+			rawNew.Discovery = nil
+		}
+	}
+
+	if rawNew.Attestation != nil {
+		if dcl.AnySet(rawNew.Vulnerability, rawNew.Build, rawNew.Image, rawNew.Package, rawNew.Deployment, rawNew.Discovery) && rawDesired.Attestation == nil {
+			rawNew.Attestation = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyOption) *NoteRelatedUrl {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -905,12 +936,12 @@ func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyO
 
 	cDes := &NoteRelatedUrl{}
 
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) {
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
 	}
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
@@ -921,7 +952,7 @@ func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyO
 
 func canonicalizeNoteRelatedUrlSlice(des, initial []NoteRelatedUrl, opts ...dcl.ApplyOption) []NoteRelatedUrl {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1015,10 +1046,7 @@ func canonicalizeNewNoteRelatedUrlSlice(c *Client, des, nw []NoteRelatedUrl) []N
 }
 
 func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.ApplyOption) *NoteVulnerability {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1028,14 +1056,14 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 
 	cDes := &NoteVulnerability{}
 
-	if dcl.IsZeroValue(des.CvssScore) || (dcl.IsEmptyValueIndirect(des.CvssScore) && dcl.IsEmptyValueIndirect(initial.CvssScore)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CvssScore) && dcl.IsEmptyValueIndirect(initial.CvssScore) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CvssScore = initial.CvssScore
 	} else {
 		cDes.CvssScore = des.CvssScore
 	}
-	if dcl.IsZeroValue(des.Severity) || (dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Severity = initial.Severity
 	} else {
 		cDes.Severity = des.Severity
@@ -1043,8 +1071,8 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 	cDes.Details = canonicalizeNoteVulnerabilityDetailsSlice(des.Details, initial.Details, opts...)
 	cDes.CvssV3 = canonicalizeNoteVulnerabilityCvssV3(des.CvssV3, initial.CvssV3, opts...)
 	cDes.WindowsDetails = canonicalizeNoteVulnerabilityWindowsDetailsSlice(des.WindowsDetails, initial.WindowsDetails, opts...)
-	if dcl.IsZeroValue(des.SourceUpdateTime) || (dcl.IsEmptyValueIndirect(des.SourceUpdateTime) && dcl.IsEmptyValueIndirect(initial.SourceUpdateTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SourceUpdateTime) && dcl.IsEmptyValueIndirect(initial.SourceUpdateTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SourceUpdateTime = initial.SourceUpdateTime
 	} else {
 		cDes.SourceUpdateTime = des.SourceUpdateTime
@@ -1055,7 +1083,7 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 
 func canonicalizeNoteVulnerabilitySlice(des, initial []NoteVulnerability, opts ...dcl.ApplyOption) []NoteVulnerability {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1146,10 +1174,7 @@ func canonicalizeNewNoteVulnerabilitySlice(c *Client, des, nw []NoteVulnerabilit
 }
 
 func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails, opts ...dcl.ApplyOption) *NoteVulnerabilityDetails {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1159,51 +1184,51 @@ func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails
 
 	cDes := &NoteVulnerabilityDetails{}
 
-	if dcl.StringCanonicalize(des.SeverityName, initial.SeverityName) || dcl.IsZeroValue(des.SeverityName) {
+	if dcl.StringCanonicalize(des.SeverityName, initial.SeverityName) {
 		cDes.SeverityName = initial.SeverityName
 	} else {
 		cDes.SeverityName = des.SeverityName
 	}
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
 	}
-	if dcl.StringCanonicalize(des.PackageType, initial.PackageType) || dcl.IsZeroValue(des.PackageType) {
+	if dcl.StringCanonicalize(des.PackageType, initial.PackageType) {
 		cDes.PackageType = initial.PackageType
 	} else {
 		cDes.PackageType = des.PackageType
 	}
-	if dcl.StringCanonicalize(des.AffectedCpeUri, initial.AffectedCpeUri) || dcl.IsZeroValue(des.AffectedCpeUri) {
+	if dcl.StringCanonicalize(des.AffectedCpeUri, initial.AffectedCpeUri) {
 		cDes.AffectedCpeUri = initial.AffectedCpeUri
 	} else {
 		cDes.AffectedCpeUri = des.AffectedCpeUri
 	}
-	if dcl.StringCanonicalize(des.AffectedPackage, initial.AffectedPackage) || dcl.IsZeroValue(des.AffectedPackage) {
+	if dcl.StringCanonicalize(des.AffectedPackage, initial.AffectedPackage) {
 		cDes.AffectedPackage = initial.AffectedPackage
 	} else {
 		cDes.AffectedPackage = des.AffectedPackage
 	}
 	cDes.AffectedVersionStart = canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des.AffectedVersionStart, initial.AffectedVersionStart, opts...)
 	cDes.AffectedVersionEnd = canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des.AffectedVersionEnd, initial.AffectedVersionEnd, opts...)
-	if dcl.StringCanonicalize(des.FixedCpeUri, initial.FixedCpeUri) || dcl.IsZeroValue(des.FixedCpeUri) {
+	if dcl.StringCanonicalize(des.FixedCpeUri, initial.FixedCpeUri) {
 		cDes.FixedCpeUri = initial.FixedCpeUri
 	} else {
 		cDes.FixedCpeUri = des.FixedCpeUri
 	}
-	if dcl.StringCanonicalize(des.FixedPackage, initial.FixedPackage) || dcl.IsZeroValue(des.FixedPackage) {
+	if dcl.StringCanonicalize(des.FixedPackage, initial.FixedPackage) {
 		cDes.FixedPackage = initial.FixedPackage
 	} else {
 		cDes.FixedPackage = des.FixedPackage
 	}
 	cDes.FixedVersion = canonicalizeNoteVulnerabilityDetailsFixedVersion(des.FixedVersion, initial.FixedVersion, opts...)
-	if dcl.BoolCanonicalize(des.IsObsolete, initial.IsObsolete) || dcl.IsZeroValue(des.IsObsolete) {
+	if dcl.BoolCanonicalize(des.IsObsolete, initial.IsObsolete) {
 		cDes.IsObsolete = initial.IsObsolete
 	} else {
 		cDes.IsObsolete = des.IsObsolete
 	}
-	if dcl.IsZeroValue(des.SourceUpdateTime) || (dcl.IsEmptyValueIndirect(des.SourceUpdateTime) && dcl.IsEmptyValueIndirect(initial.SourceUpdateTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SourceUpdateTime) && dcl.IsEmptyValueIndirect(initial.SourceUpdateTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SourceUpdateTime = initial.SourceUpdateTime
 	} else {
 		cDes.SourceUpdateTime = des.SourceUpdateTime
@@ -1214,7 +1239,7 @@ func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails
 
 func canonicalizeNoteVulnerabilityDetailsSlice(des, initial []NoteVulnerabilityDetails, opts ...dcl.ApplyOption) []NoteVulnerabilityDetails {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1329,10 +1354,7 @@ func canonicalizeNewNoteVulnerabilityDetailsSlice(c *Client, des, nw []NoteVulne
 }
 
 func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *NoteVulnerabilityDetailsAffectedVersionStart, opts ...dcl.ApplyOption) *NoteVulnerabilityDetailsAffectedVersionStart {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1342,29 +1364,29 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 
 	cDes := &NoteVulnerabilityDetailsAffectedVersionStart{}
 
-	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
 	}
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
 	}
-	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) {
 		cDes.FullName = initial.FullName
 	} else {
 		cDes.FullName = des.FullName
@@ -1375,7 +1397,7 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 
 func canonicalizeNoteVulnerabilityDetailsAffectedVersionStartSlice(des, initial []NoteVulnerabilityDetailsAffectedVersionStart, opts ...dcl.ApplyOption) []NoteVulnerabilityDetailsAffectedVersionStart {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1472,10 +1494,7 @@ func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client,
 }
 
 func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVulnerabilityDetailsAffectedVersionEnd, opts ...dcl.ApplyOption) *NoteVulnerabilityDetailsAffectedVersionEnd {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1485,29 +1504,29 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 
 	cDes := &NoteVulnerabilityDetailsAffectedVersionEnd{}
 
-	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
 	}
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
 	}
-	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) {
 		cDes.FullName = initial.FullName
 	} else {
 		cDes.FullName = des.FullName
@@ -1518,7 +1537,7 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 
 func canonicalizeNoteVulnerabilityDetailsAffectedVersionEndSlice(des, initial []NoteVulnerabilityDetailsAffectedVersionEnd, opts ...dcl.ApplyOption) []NoteVulnerabilityDetailsAffectedVersionEnd {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1615,10 +1634,7 @@ func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, d
 }
 
 func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerabilityDetailsFixedVersion, opts ...dcl.ApplyOption) *NoteVulnerabilityDetailsFixedVersion {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1628,29 +1644,29 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 
 	cDes := &NoteVulnerabilityDetailsFixedVersion{}
 
-	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
 	}
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
 	}
-	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) {
 		cDes.FullName = initial.FullName
 	} else {
 		cDes.FullName = des.FullName
@@ -1661,7 +1677,7 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 
 func canonicalizeNoteVulnerabilityDetailsFixedVersionSlice(des, initial []NoteVulnerabilityDetailsFixedVersion, opts ...dcl.ApplyOption) []NoteVulnerabilityDetailsFixedVersion {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1758,10 +1774,7 @@ func canonicalizeNewNoteVulnerabilityDetailsFixedVersionSlice(c *Client, des, nw
 }
 
 func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, opts ...dcl.ApplyOption) *NoteVulnerabilityCvssV3 {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1771,68 +1784,68 @@ func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, 
 
 	cDes := &NoteVulnerabilityCvssV3{}
 
-	if dcl.IsZeroValue(des.BaseScore) || (dcl.IsEmptyValueIndirect(des.BaseScore) && dcl.IsEmptyValueIndirect(initial.BaseScore)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BaseScore) && dcl.IsEmptyValueIndirect(initial.BaseScore) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BaseScore = initial.BaseScore
 	} else {
 		cDes.BaseScore = des.BaseScore
 	}
-	if dcl.IsZeroValue(des.ExploitabilityScore) || (dcl.IsEmptyValueIndirect(des.ExploitabilityScore) && dcl.IsEmptyValueIndirect(initial.ExploitabilityScore)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ExploitabilityScore) && dcl.IsEmptyValueIndirect(initial.ExploitabilityScore) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ExploitabilityScore = initial.ExploitabilityScore
 	} else {
 		cDes.ExploitabilityScore = des.ExploitabilityScore
 	}
-	if dcl.IsZeroValue(des.ImpactScore) || (dcl.IsEmptyValueIndirect(des.ImpactScore) && dcl.IsEmptyValueIndirect(initial.ImpactScore)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ImpactScore) && dcl.IsEmptyValueIndirect(initial.ImpactScore) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ImpactScore = initial.ImpactScore
 	} else {
 		cDes.ImpactScore = des.ImpactScore
 	}
-	if dcl.IsZeroValue(des.AttackVector) || (dcl.IsEmptyValueIndirect(des.AttackVector) && dcl.IsEmptyValueIndirect(initial.AttackVector)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AttackVector) && dcl.IsEmptyValueIndirect(initial.AttackVector) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AttackVector = initial.AttackVector
 	} else {
 		cDes.AttackVector = des.AttackVector
 	}
-	if dcl.IsZeroValue(des.AttackComplexity) || (dcl.IsEmptyValueIndirect(des.AttackComplexity) && dcl.IsEmptyValueIndirect(initial.AttackComplexity)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AttackComplexity) && dcl.IsEmptyValueIndirect(initial.AttackComplexity) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AttackComplexity = initial.AttackComplexity
 	} else {
 		cDes.AttackComplexity = des.AttackComplexity
 	}
-	if dcl.IsZeroValue(des.PrivilegesRequired) || (dcl.IsEmptyValueIndirect(des.PrivilegesRequired) && dcl.IsEmptyValueIndirect(initial.PrivilegesRequired)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PrivilegesRequired) && dcl.IsEmptyValueIndirect(initial.PrivilegesRequired) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PrivilegesRequired = initial.PrivilegesRequired
 	} else {
 		cDes.PrivilegesRequired = des.PrivilegesRequired
 	}
-	if dcl.IsZeroValue(des.UserInteraction) || (dcl.IsEmptyValueIndirect(des.UserInteraction) && dcl.IsEmptyValueIndirect(initial.UserInteraction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.UserInteraction) && dcl.IsEmptyValueIndirect(initial.UserInteraction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.UserInteraction = initial.UserInteraction
 	} else {
 		cDes.UserInteraction = des.UserInteraction
 	}
-	if dcl.IsZeroValue(des.Scope) || (dcl.IsEmptyValueIndirect(des.Scope) && dcl.IsEmptyValueIndirect(initial.Scope)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Scope) && dcl.IsEmptyValueIndirect(initial.Scope) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Scope = initial.Scope
 	} else {
 		cDes.Scope = des.Scope
 	}
-	if dcl.IsZeroValue(des.ConfidentialityImpact) || (dcl.IsEmptyValueIndirect(des.ConfidentialityImpact) && dcl.IsEmptyValueIndirect(initial.ConfidentialityImpact)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ConfidentialityImpact) && dcl.IsEmptyValueIndirect(initial.ConfidentialityImpact) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ConfidentialityImpact = initial.ConfidentialityImpact
 	} else {
 		cDes.ConfidentialityImpact = des.ConfidentialityImpact
 	}
-	if dcl.IsZeroValue(des.IntegrityImpact) || (dcl.IsEmptyValueIndirect(des.IntegrityImpact) && dcl.IsEmptyValueIndirect(initial.IntegrityImpact)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.IntegrityImpact) && dcl.IsEmptyValueIndirect(initial.IntegrityImpact) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.IntegrityImpact = initial.IntegrityImpact
 	} else {
 		cDes.IntegrityImpact = des.IntegrityImpact
 	}
-	if dcl.IsZeroValue(des.AvailabilityImpact) || (dcl.IsEmptyValueIndirect(des.AvailabilityImpact) && dcl.IsEmptyValueIndirect(initial.AvailabilityImpact)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AvailabilityImpact) && dcl.IsEmptyValueIndirect(initial.AvailabilityImpact) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AvailabilityImpact = initial.AvailabilityImpact
 	} else {
 		cDes.AvailabilityImpact = des.AvailabilityImpact
@@ -1843,7 +1856,7 @@ func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, 
 
 func canonicalizeNoteVulnerabilityCvssV3Slice(des, initial []NoteVulnerabilityCvssV3, opts ...dcl.ApplyOption) []NoteVulnerabilityCvssV3 {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1930,10 +1943,7 @@ func canonicalizeNewNoteVulnerabilityCvssV3Slice(c *Client, des, nw []NoteVulner
 }
 
 func canonicalizeNoteVulnerabilityWindowsDetails(des, initial *NoteVulnerabilityWindowsDetails, opts ...dcl.ApplyOption) *NoteVulnerabilityWindowsDetails {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1943,17 +1953,17 @@ func canonicalizeNoteVulnerabilityWindowsDetails(des, initial *NoteVulnerability
 
 	cDes := &NoteVulnerabilityWindowsDetails{}
 
-	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
+	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) {
 		cDes.CpeUri = initial.CpeUri
 	} else {
 		cDes.CpeUri = des.CpeUri
 	}
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
@@ -1965,7 +1975,7 @@ func canonicalizeNoteVulnerabilityWindowsDetails(des, initial *NoteVulnerability
 
 func canonicalizeNoteVulnerabilityWindowsDetailsSlice(des, initial []NoteVulnerabilityWindowsDetails, opts ...dcl.ApplyOption) []NoteVulnerabilityWindowsDetails {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2063,10 +2073,7 @@ func canonicalizeNewNoteVulnerabilityWindowsDetailsSlice(c *Client, des, nw []No
 }
 
 func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(des, initial *NoteVulnerabilityWindowsDetailsFixingKbs, opts ...dcl.ApplyOption) *NoteVulnerabilityWindowsDetailsFixingKbs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2076,12 +2083,12 @@ func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(des, initial *NoteVuln
 
 	cDes := &NoteVulnerabilityWindowsDetailsFixingKbs{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) {
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -2092,7 +2099,7 @@ func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(des, initial *NoteVuln
 
 func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbsSlice(des, initial []NoteVulnerabilityWindowsDetailsFixingKbs, opts ...dcl.ApplyOption) []NoteVulnerabilityWindowsDetailsFixingKbs {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2186,10 +2193,7 @@ func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, des
 }
 
 func canonicalizeNoteBuild(des, initial *NoteBuild, opts ...dcl.ApplyOption) *NoteBuild {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2199,7 +2203,7 @@ func canonicalizeNoteBuild(des, initial *NoteBuild, opts ...dcl.ApplyOption) *No
 
 	cDes := &NoteBuild{}
 
-	if dcl.StringCanonicalize(des.BuilderVersion, initial.BuilderVersion) || dcl.IsZeroValue(des.BuilderVersion) {
+	if dcl.StringCanonicalize(des.BuilderVersion, initial.BuilderVersion) {
 		cDes.BuilderVersion = initial.BuilderVersion
 	} else {
 		cDes.BuilderVersion = des.BuilderVersion
@@ -2210,7 +2214,7 @@ func canonicalizeNoteBuild(des, initial *NoteBuild, opts ...dcl.ApplyOption) *No
 
 func canonicalizeNoteBuildSlice(des, initial []NoteBuild, opts ...dcl.ApplyOption) []NoteBuild {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2301,10 +2305,7 @@ func canonicalizeNewNoteBuildSlice(c *Client, des, nw []NoteBuild) []NoteBuild {
 }
 
 func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *NoteImage {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2314,7 +2315,7 @@ func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *No
 
 	cDes := &NoteImage{}
 
-	if dcl.StringCanonicalize(des.ResourceUrl, initial.ResourceUrl) || dcl.IsZeroValue(des.ResourceUrl) {
+	if dcl.StringCanonicalize(des.ResourceUrl, initial.ResourceUrl) {
 		cDes.ResourceUrl = initial.ResourceUrl
 	} else {
 		cDes.ResourceUrl = des.ResourceUrl
@@ -2326,7 +2327,7 @@ func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *No
 
 func canonicalizeNoteImageSlice(des, initial []NoteImage, opts ...dcl.ApplyOption) []NoteImage {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2418,10 +2419,7 @@ func canonicalizeNewNoteImageSlice(c *Client, des, nw []NoteImage) []NoteImage {
 }
 
 func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts ...dcl.ApplyOption) *NoteImageFingerprint {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2431,7 +2429,7 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 
 	cDes := &NoteImageFingerprint{}
 
-	if dcl.StringCanonicalize(des.V1Name, initial.V1Name) || dcl.IsZeroValue(des.V1Name) {
+	if dcl.StringCanonicalize(des.V1Name, initial.V1Name) {
 		cDes.V1Name = initial.V1Name
 	} else {
 		cDes.V1Name = des.V1Name
@@ -2447,7 +2445,7 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 
 func canonicalizeNoteImageFingerprintSlice(des, initial []NoteImageFingerprint, opts ...dcl.ApplyOption) []NoteImageFingerprint {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2544,10 +2542,7 @@ func canonicalizeNewNoteImageFingerprintSlice(c *Client, des, nw []NoteImageFing
 }
 
 func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption) *NotePackage {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2557,7 +2552,7 @@ func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption)
 
 	cDes := &NotePackage{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -2569,7 +2564,7 @@ func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption)
 
 func canonicalizeNotePackageSlice(des, initial []NotePackage, opts ...dcl.ApplyOption) []NotePackage {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2661,10 +2656,7 @@ func canonicalizeNewNotePackageSlice(c *Client, des, nw []NotePackage) []NotePac
 }
 
 func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, opts ...dcl.ApplyOption) *NotePackageDistribution {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2674,29 +2666,29 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 
 	cDes := &NotePackageDistribution{}
 
-	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
+	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) {
 		cDes.CpeUri = initial.CpeUri
 	} else {
 		cDes.CpeUri = des.CpeUri
 	}
-	if dcl.IsZeroValue(des.Architecture) || (dcl.IsEmptyValueIndirect(des.Architecture) && dcl.IsEmptyValueIndirect(initial.Architecture)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Architecture) && dcl.IsEmptyValueIndirect(initial.Architecture) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Architecture = initial.Architecture
 	} else {
 		cDes.Architecture = des.Architecture
 	}
 	cDes.LatestVersion = canonicalizeNotePackageDistributionLatestVersion(des.LatestVersion, initial.LatestVersion, opts...)
-	if dcl.StringCanonicalize(des.Maintainer, initial.Maintainer) || dcl.IsZeroValue(des.Maintainer) {
+	if dcl.StringCanonicalize(des.Maintainer, initial.Maintainer) {
 		cDes.Maintainer = initial.Maintainer
 	} else {
 		cDes.Maintainer = des.Maintainer
 	}
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) {
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
 	}
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
@@ -2707,7 +2699,7 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 
 func canonicalizeNotePackageDistributionSlice(des, initial []NotePackageDistribution, opts ...dcl.ApplyOption) []NotePackageDistribution {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2808,10 +2800,7 @@ func canonicalizeNewNotePackageDistributionSlice(c *Client, des, nw []NotePackag
 }
 
 func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageDistributionLatestVersion, opts ...dcl.ApplyOption) *NotePackageDistributionLatestVersion {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2821,29 +2810,29 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 
 	cDes := &NotePackageDistributionLatestVersion{}
 
-	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
 	}
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
 	}
-	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) {
 		cDes.FullName = initial.FullName
 	} else {
 		cDes.FullName = des.FullName
@@ -2854,7 +2843,7 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 
 func canonicalizeNotePackageDistributionLatestVersionSlice(des, initial []NotePackageDistributionLatestVersion, opts ...dcl.ApplyOption) []NotePackageDistributionLatestVersion {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2951,10 +2940,7 @@ func canonicalizeNewNotePackageDistributionLatestVersionSlice(c *Client, des, nw
 }
 
 func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOption) *NoteDiscovery {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2964,8 +2950,8 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 
 	cDes := &NoteDiscovery{}
 
-	if dcl.IsZeroValue(des.AnalysisKind) || (dcl.IsEmptyValueIndirect(des.AnalysisKind) && dcl.IsEmptyValueIndirect(initial.AnalysisKind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AnalysisKind) && dcl.IsEmptyValueIndirect(initial.AnalysisKind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AnalysisKind = initial.AnalysisKind
 	} else {
 		cDes.AnalysisKind = des.AnalysisKind
@@ -2976,7 +2962,7 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 
 func canonicalizeNoteDiscoverySlice(des, initial []NoteDiscovery, opts ...dcl.ApplyOption) []NoteDiscovery {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3063,10 +3049,7 @@ func canonicalizeNewNoteDiscoverySlice(c *Client, des, nw []NoteDiscovery) []Not
 }
 
 func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyOption) *NoteDeployment {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3087,7 +3070,7 @@ func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyO
 
 func canonicalizeNoteDeploymentSlice(des, initial []NoteDeployment, opts ...dcl.ApplyOption) []NoteDeployment {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3178,10 +3161,7 @@ func canonicalizeNewNoteDeploymentSlice(c *Client, des, nw []NoteDeployment) []N
 }
 
 func canonicalizeNoteAttestation(des, initial *NoteAttestation, opts ...dcl.ApplyOption) *NoteAttestation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3198,7 +3178,7 @@ func canonicalizeNoteAttestation(des, initial *NoteAttestation, opts ...dcl.Appl
 
 func canonicalizeNoteAttestationSlice(des, initial []NoteAttestation, opts ...dcl.ApplyOption) []NoteAttestation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3287,10 +3267,7 @@ func canonicalizeNewNoteAttestationSlice(c *Client, des, nw []NoteAttestation) [
 }
 
 func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...dcl.ApplyOption) *NoteAttestationHint {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3300,7 +3277,7 @@ func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...
 
 	cDes := &NoteAttestationHint{}
 
-	if dcl.StringCanonicalize(des.HumanReadableName, initial.HumanReadableName) || dcl.IsZeroValue(des.HumanReadableName) {
+	if dcl.StringCanonicalize(des.HumanReadableName, initial.HumanReadableName) {
 		cDes.HumanReadableName = initial.HumanReadableName
 	} else {
 		cDes.HumanReadableName = des.HumanReadableName
@@ -3311,7 +3288,7 @@ func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...
 
 func canonicalizeNoteAttestationHintSlice(des, initial []NoteAttestationHint, opts ...dcl.ApplyOption) []NoteAttestationHint {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

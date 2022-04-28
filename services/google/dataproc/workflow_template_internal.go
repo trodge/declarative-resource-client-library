@@ -795,8 +795,8 @@ func canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial *WorkflowTe
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -881,10 +881,7 @@ func canonicalizeWorkflowTemplateNewState(c *Client, rawNew, rawDesired *Workflo
 }
 
 func canonicalizeWorkflowTemplatePlacement(des, initial *WorkflowTemplatePlacement, opts ...dcl.ApplyOption) *WorkflowTemplatePlacement {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -902,7 +899,7 @@ func canonicalizeWorkflowTemplatePlacement(des, initial *WorkflowTemplatePlaceme
 
 func canonicalizeWorkflowTemplatePlacementSlice(des, initial []WorkflowTemplatePlacement, opts ...dcl.ApplyOption) []WorkflowTemplatePlacement {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -992,10 +989,7 @@ func canonicalizeNewWorkflowTemplatePlacementSlice(c *Client, des, nw []Workflow
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedCluster(des, initial *WorkflowTemplatePlacementManagedCluster, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedCluster {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1005,14 +999,14 @@ func canonicalizeWorkflowTemplatePlacementManagedCluster(des, initial *WorkflowT
 
 	cDes := &WorkflowTemplatePlacementManagedCluster{}
 
-	if dcl.StringCanonicalize(des.ClusterName, initial.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
+	if dcl.StringCanonicalize(des.ClusterName, initial.ClusterName) {
 		cDes.ClusterName = initial.ClusterName
 	} else {
 		cDes.ClusterName = des.ClusterName
 	}
 	cDes.Config = canonicalizeWorkflowTemplatePlacementManagedClusterConfig(des.Config, initial.Config, opts...)
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -1023,7 +1017,7 @@ func canonicalizeWorkflowTemplatePlacementManagedCluster(des, initial *WorkflowT
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterSlice(des, initial []WorkflowTemplatePlacementManagedCluster, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedCluster {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1115,10 +1109,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterSlice(c *Client, des,
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1128,14 +1119,14 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfig(des, initial *Wor
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfig{}
 
-	if dcl.IsZeroValue(des.StagingBucket) || (dcl.IsEmptyValueIndirect(des.StagingBucket) && dcl.IsEmptyValueIndirect(initial.StagingBucket)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.StagingBucket) && dcl.IsEmptyValueIndirect(initial.StagingBucket) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.StagingBucket = initial.StagingBucket
 	} else {
 		cDes.StagingBucket = des.StagingBucket
 	}
-	if dcl.IsZeroValue(des.TempBucket) || (dcl.IsEmptyValueIndirect(des.TempBucket) && dcl.IsEmptyValueIndirect(initial.TempBucket)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TempBucket) && dcl.IsEmptyValueIndirect(initial.TempBucket) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TempBucket = initial.TempBucket
 	} else {
 		cDes.TempBucket = des.TempBucket
@@ -1157,7 +1148,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfig(des, initial *Wor
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1256,10 +1247,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigSlice(c *Client
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1269,36 +1257,36 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(d
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig{}
 
-	if dcl.StringCanonicalize(des.Zone, initial.Zone) || dcl.IsZeroValue(des.Zone) {
+	if dcl.StringCanonicalize(des.Zone, initial.Zone) {
 		cDes.Zone = initial.Zone
 	} else {
 		cDes.Zone = des.Zone
 	}
-	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
 	}
-	if dcl.IsZeroValue(des.Subnetwork) || (dcl.IsEmptyValueIndirect(des.Subnetwork) && dcl.IsEmptyValueIndirect(initial.Subnetwork)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Subnetwork) && dcl.IsEmptyValueIndirect(initial.Subnetwork) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Subnetwork = initial.Subnetwork
 	} else {
 		cDes.Subnetwork = des.Subnetwork
 	}
-	if dcl.BoolCanonicalize(des.InternalIPOnly, initial.InternalIPOnly) || dcl.IsZeroValue(des.InternalIPOnly) {
+	if dcl.BoolCanonicalize(des.InternalIPOnly, initial.InternalIPOnly) {
 		cDes.InternalIPOnly = initial.InternalIPOnly
 	} else {
 		cDes.InternalIPOnly = des.InternalIPOnly
 	}
-	if dcl.IsZeroValue(des.PrivateIPv6GoogleAccess) || (dcl.IsEmptyValueIndirect(des.PrivateIPv6GoogleAccess) && dcl.IsEmptyValueIndirect(initial.PrivateIPv6GoogleAccess)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PrivateIPv6GoogleAccess) && dcl.IsEmptyValueIndirect(initial.PrivateIPv6GoogleAccess) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PrivateIPv6GoogleAccess = initial.PrivateIPv6GoogleAccess
 	} else {
 		cDes.PrivateIPv6GoogleAccess = des.PrivateIPv6GoogleAccess
 	}
-	if dcl.IsZeroValue(des.ServiceAccount) || (dcl.IsEmptyValueIndirect(des.ServiceAccount) && dcl.IsEmptyValueIndirect(initial.ServiceAccount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ServiceAccount) && dcl.IsEmptyValueIndirect(initial.ServiceAccount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ServiceAccount = initial.ServiceAccount
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
@@ -1313,8 +1301,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(d
 	} else {
 		cDes.Tags = des.Tags
 	}
-	if dcl.IsZeroValue(des.Metadata) || (dcl.IsEmptyValueIndirect(des.Metadata) && dcl.IsEmptyValueIndirect(initial.Metadata)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Metadata) && dcl.IsEmptyValueIndirect(initial.Metadata) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Metadata = initial.Metadata
 	} else {
 		cDes.Metadata = des.Metadata
@@ -1327,7 +1315,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(d
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1429,10 +1417,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigGceClusterConfi
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(des, initial *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1442,13 +1427,13 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigRe
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity{}
 
-	if dcl.IsZeroValue(des.ConsumeReservationType) || (dcl.IsEmptyValueIndirect(des.ConsumeReservationType) && dcl.IsEmptyValueIndirect(initial.ConsumeReservationType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ConsumeReservationType) && dcl.IsEmptyValueIndirect(initial.ConsumeReservationType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ConsumeReservationType = initial.ConsumeReservationType
 	} else {
 		cDes.ConsumeReservationType = des.ConsumeReservationType
 	}
-	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) {
 		cDes.Key = initial.Key
 	} else {
 		cDes.Key = des.Key
@@ -1464,7 +1449,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigRe
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinitySlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1558,10 +1543,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigGceClusterConfi
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(des, initial *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1571,8 +1553,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNo
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity{}
 
-	if dcl.IsZeroValue(des.NodeGroup) || (dcl.IsEmptyValueIndirect(des.NodeGroup) && dcl.IsEmptyValueIndirect(initial.NodeGroup)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NodeGroup) && dcl.IsEmptyValueIndirect(initial.NodeGroup) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NodeGroup = initial.NodeGroup
 	} else {
 		cDes.NodeGroup = des.NodeGroup
@@ -1583,7 +1565,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNo
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinitySlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1670,10 +1652,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigGceClusterConfi
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigMasterConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigMasterConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1683,32 +1662,32 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfig(des, 
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigMasterConfig{}
 
-	if dcl.IsZeroValue(des.NumInstances) || (dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumInstances = initial.NumInstances
 	} else {
 		cDes.NumInstances = des.NumInstances
 	}
-	if dcl.IsZeroValue(des.Image) || (dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
 	}
-	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) {
 		cDes.MachineType = initial.MachineType
 	} else {
 		cDes.MachineType = des.MachineType
 	}
 	cDes.DiskConfig = canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(des.DiskConfig, initial.DiskConfig, opts...)
-	if dcl.IsZeroValue(des.Preemptibility) || (dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Preemptibility = initial.Preemptibility
 	} else {
 		cDes.Preemptibility = des.Preemptibility
 	}
 	cDes.Accelerators = canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsSlice(des.Accelerators, initial.Accelerators, opts...)
-	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) {
 		cDes.MinCpuPlatform = initial.MinCpuPlatform
 	} else {
 		cDes.MinCpuPlatform = des.MinCpuPlatform
@@ -1719,7 +1698,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfig(des, 
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigMasterConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigMasterConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1822,10 +1801,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigMasterConfigSli
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1835,19 +1811,19 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskCo
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig{}
 
-	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) || dcl.IsZeroValue(des.BootDiskType) {
+	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) {
 		cDes.BootDiskType = initial.BootDiskType
 	} else {
 		cDes.BootDiskType = des.BootDiskType
 	}
-	if dcl.IsZeroValue(des.BootDiskSizeGb) || (dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BootDiskSizeGb = initial.BootDiskSizeGb
 	} else {
 		cDes.BootDiskSizeGb = des.BootDiskSizeGb
 	}
-	if dcl.IsZeroValue(des.NumLocalSsds) || (dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumLocalSsds = initial.NumLocalSsds
 	} else {
 		cDes.NumLocalSsds = des.NumLocalSsds
@@ -1858,7 +1834,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskCo
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1949,10 +1925,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigMasterConfigDis
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1967,7 +1940,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigManage
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2061,10 +2034,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigMasterConfigMan
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(des, initial *WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2074,13 +2044,13 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccele
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators{}
 
-	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) {
 		cDes.AcceleratorType = initial.AcceleratorType
 	} else {
 		cDes.AcceleratorType = des.AcceleratorType
 	}
-	if dcl.IsZeroValue(des.AcceleratorCount) || (dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
@@ -2091,7 +2061,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccele
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2182,10 +2152,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcc
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigWorkerConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2195,32 +2162,32 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(des, 
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigWorkerConfig{}
 
-	if dcl.IsZeroValue(des.NumInstances) || (dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumInstances = initial.NumInstances
 	} else {
 		cDes.NumInstances = des.NumInstances
 	}
-	if dcl.IsZeroValue(des.Image) || (dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
 	}
-	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) {
 		cDes.MachineType = initial.MachineType
 	} else {
 		cDes.MachineType = des.MachineType
 	}
 	cDes.DiskConfig = canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(des.DiskConfig, initial.DiskConfig, opts...)
-	if dcl.IsZeroValue(des.Preemptibility) || (dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Preemptibility = initial.Preemptibility
 	} else {
 		cDes.Preemptibility = des.Preemptibility
 	}
 	cDes.Accelerators = canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsSlice(des.Accelerators, initial.Accelerators, opts...)
-	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) {
 		cDes.MinCpuPlatform = initial.MinCpuPlatform
 	} else {
 		cDes.MinCpuPlatform = des.MinCpuPlatform
@@ -2231,7 +2198,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(des, 
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigWorkerConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2334,10 +2301,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigWorkerConfigSli
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2347,19 +2311,19 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskCo
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig{}
 
-	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) || dcl.IsZeroValue(des.BootDiskType) {
+	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) {
 		cDes.BootDiskType = initial.BootDiskType
 	} else {
 		cDes.BootDiskType = des.BootDiskType
 	}
-	if dcl.IsZeroValue(des.BootDiskSizeGb) || (dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BootDiskSizeGb = initial.BootDiskSizeGb
 	} else {
 		cDes.BootDiskSizeGb = des.BootDiskSizeGb
 	}
-	if dcl.IsZeroValue(des.NumLocalSsds) || (dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumLocalSsds = initial.NumLocalSsds
 	} else {
 		cDes.NumLocalSsds = des.NumLocalSsds
@@ -2370,7 +2334,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskCo
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2461,10 +2425,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDis
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2479,7 +2440,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManage
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2573,10 +2534,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigWorkerConfigMan
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(des, initial *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2586,13 +2544,13 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccele
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators{}
 
-	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) {
 		cDes.AcceleratorType = initial.AcceleratorType
 	} else {
 		cDes.AcceleratorType = des.AcceleratorType
 	}
-	if dcl.IsZeroValue(des.AcceleratorCount) || (dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
@@ -2603,7 +2561,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccele
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2694,10 +2652,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcc
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2707,32 +2662,32 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerCon
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig{}
 
-	if dcl.IsZeroValue(des.NumInstances) || (dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumInstances = initial.NumInstances
 	} else {
 		cDes.NumInstances = des.NumInstances
 	}
-	if dcl.IsZeroValue(des.Image) || (dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
 	}
-	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) {
 		cDes.MachineType = initial.MachineType
 	} else {
 		cDes.MachineType = des.MachineType
 	}
 	cDes.DiskConfig = canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(des.DiskConfig, initial.DiskConfig, opts...)
-	if dcl.IsZeroValue(des.Preemptibility) || (dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Preemptibility = initial.Preemptibility
 	} else {
 		cDes.Preemptibility = des.Preemptibility
 	}
 	cDes.Accelerators = canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsSlice(des.Accelerators, initial.Accelerators, opts...)
-	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) {
 		cDes.MinCpuPlatform = initial.MinCpuPlatform
 	} else {
 		cDes.MinCpuPlatform = des.MinCpuPlatform
@@ -2743,7 +2698,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerCon
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2846,10 +2801,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigSecondaryWorker
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2859,19 +2811,19 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerCon
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig{}
 
-	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) || dcl.IsZeroValue(des.BootDiskType) {
+	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) {
 		cDes.BootDiskType = initial.BootDiskType
 	} else {
 		cDes.BootDiskType = des.BootDiskType
 	}
-	if dcl.IsZeroValue(des.BootDiskSizeGb) || (dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BootDiskSizeGb = initial.BootDiskSizeGb
 	} else {
 		cDes.BootDiskSizeGb = des.BootDiskSizeGb
 	}
-	if dcl.IsZeroValue(des.NumLocalSsds) || (dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumLocalSsds = initial.NumLocalSsds
 	} else {
 		cDes.NumLocalSsds = des.NumLocalSsds
@@ -2882,7 +2834,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerCon
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2973,10 +2925,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigSecondaryWorker
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2991,7 +2940,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerCon
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3085,10 +3034,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigSecondaryWorker
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(des, initial *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3098,13 +3044,13 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerCon
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators{}
 
-	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) {
 		cDes.AcceleratorType = initial.AcceleratorType
 	} else {
 		cDes.AcceleratorType = des.AcceleratorType
 	}
-	if dcl.IsZeroValue(des.AcceleratorCount) || (dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
@@ -3115,7 +3061,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerCon
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3206,10 +3152,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigSecondaryWorker
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3219,19 +3162,19 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(des
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig{}
 
-	if dcl.StringCanonicalize(des.ImageVersion, initial.ImageVersion) || dcl.IsZeroValue(des.ImageVersion) {
+	if dcl.StringCanonicalize(des.ImageVersion, initial.ImageVersion) {
 		cDes.ImageVersion = initial.ImageVersion
 	} else {
 		cDes.ImageVersion = des.ImageVersion
 	}
-	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
-	if dcl.IsZeroValue(des.OptionalComponents) || (dcl.IsEmptyValueIndirect(des.OptionalComponents) && dcl.IsEmptyValueIndirect(initial.OptionalComponents)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.OptionalComponents) && dcl.IsEmptyValueIndirect(initial.OptionalComponents) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.OptionalComponents = initial.OptionalComponents
 	} else {
 		cDes.OptionalComponents = des.OptionalComponents
@@ -3242,7 +3185,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(des
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3333,10 +3276,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigS
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigInitializationActions(des, initial *WorkflowTemplatePlacementManagedClusterConfigInitializationActions, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigInitializationActions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3346,12 +3286,12 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigInitializationActi
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigInitializationActions{}
 
-	if dcl.StringCanonicalize(des.ExecutableFile, initial.ExecutableFile) || dcl.IsZeroValue(des.ExecutableFile) {
+	if dcl.StringCanonicalize(des.ExecutableFile, initial.ExecutableFile) {
 		cDes.ExecutableFile = initial.ExecutableFile
 	} else {
 		cDes.ExecutableFile = des.ExecutableFile
 	}
-	if dcl.StringCanonicalize(des.ExecutionTimeout, initial.ExecutionTimeout) || dcl.IsZeroValue(des.ExecutionTimeout) {
+	if dcl.StringCanonicalize(des.ExecutionTimeout, initial.ExecutionTimeout) {
 		cDes.ExecutionTimeout = initial.ExecutionTimeout
 	} else {
 		cDes.ExecutionTimeout = des.ExecutionTimeout
@@ -3362,7 +3302,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigInitializationActi
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigInitializationActionsSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigInitializationActions, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigInitializationActions {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3456,10 +3396,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigInitializationA
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3469,8 +3406,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(d
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig{}
 
-	if dcl.IsZeroValue(des.GcePdKmsKeyName) || (dcl.IsEmptyValueIndirect(des.GcePdKmsKeyName) && dcl.IsEmptyValueIndirect(initial.GcePdKmsKeyName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GcePdKmsKeyName) && dcl.IsEmptyValueIndirect(initial.GcePdKmsKeyName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GcePdKmsKeyName = initial.GcePdKmsKeyName
 	} else {
 		cDes.GcePdKmsKeyName = des.GcePdKmsKeyName
@@ -3481,7 +3418,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(d
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3568,10 +3505,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigEncryptionConfi
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3581,8 +3515,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig{}
 
-	if dcl.IsZeroValue(des.Policy) || (dcl.IsEmptyValueIndirect(des.Policy) && dcl.IsEmptyValueIndirect(initial.Policy)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Policy) && dcl.IsEmptyValueIndirect(initial.Policy) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Policy = initial.Policy
 	} else {
 		cDes.Policy = des.Policy
@@ -3593,7 +3527,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3680,10 +3614,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigAutoscalingConf
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigSecurityConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3700,7 +3631,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecurityConfig(des
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecurityConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigSecurityConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigSecurityConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3789,10 +3720,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigSecurityConfigS
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3802,79 +3730,79 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerb
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig{}
 
-	if dcl.BoolCanonicalize(des.EnableKerberos, initial.EnableKerberos) || dcl.IsZeroValue(des.EnableKerberos) {
+	if dcl.BoolCanonicalize(des.EnableKerberos, initial.EnableKerberos) {
 		cDes.EnableKerberos = initial.EnableKerberos
 	} else {
 		cDes.EnableKerberos = des.EnableKerberos
 	}
-	if dcl.StringCanonicalize(des.RootPrincipalPassword, initial.RootPrincipalPassword) || dcl.IsZeroValue(des.RootPrincipalPassword) {
+	if dcl.StringCanonicalize(des.RootPrincipalPassword, initial.RootPrincipalPassword) {
 		cDes.RootPrincipalPassword = initial.RootPrincipalPassword
 	} else {
 		cDes.RootPrincipalPassword = des.RootPrincipalPassword
 	}
-	if dcl.IsZeroValue(des.KmsKey) || (dcl.IsEmptyValueIndirect(des.KmsKey) && dcl.IsEmptyValueIndirect(initial.KmsKey)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.KmsKey) && dcl.IsEmptyValueIndirect(initial.KmsKey) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.KmsKey = initial.KmsKey
 	} else {
 		cDes.KmsKey = des.KmsKey
 	}
-	if dcl.StringCanonicalize(des.Keystore, initial.Keystore) || dcl.IsZeroValue(des.Keystore) {
+	if dcl.StringCanonicalize(des.Keystore, initial.Keystore) {
 		cDes.Keystore = initial.Keystore
 	} else {
 		cDes.Keystore = des.Keystore
 	}
-	if dcl.StringCanonicalize(des.Truststore, initial.Truststore) || dcl.IsZeroValue(des.Truststore) {
+	if dcl.StringCanonicalize(des.Truststore, initial.Truststore) {
 		cDes.Truststore = initial.Truststore
 	} else {
 		cDes.Truststore = des.Truststore
 	}
-	if dcl.StringCanonicalize(des.KeystorePassword, initial.KeystorePassword) || dcl.IsZeroValue(des.KeystorePassword) {
+	if dcl.StringCanonicalize(des.KeystorePassword, initial.KeystorePassword) {
 		cDes.KeystorePassword = initial.KeystorePassword
 	} else {
 		cDes.KeystorePassword = des.KeystorePassword
 	}
-	if dcl.StringCanonicalize(des.KeyPassword, initial.KeyPassword) || dcl.IsZeroValue(des.KeyPassword) {
+	if dcl.StringCanonicalize(des.KeyPassword, initial.KeyPassword) {
 		cDes.KeyPassword = initial.KeyPassword
 	} else {
 		cDes.KeyPassword = des.KeyPassword
 	}
-	if dcl.StringCanonicalize(des.TruststorePassword, initial.TruststorePassword) || dcl.IsZeroValue(des.TruststorePassword) {
+	if dcl.StringCanonicalize(des.TruststorePassword, initial.TruststorePassword) {
 		cDes.TruststorePassword = initial.TruststorePassword
 	} else {
 		cDes.TruststorePassword = des.TruststorePassword
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustRealm, initial.CrossRealmTrustRealm) || dcl.IsZeroValue(des.CrossRealmTrustRealm) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustRealm, initial.CrossRealmTrustRealm) {
 		cDes.CrossRealmTrustRealm = initial.CrossRealmTrustRealm
 	} else {
 		cDes.CrossRealmTrustRealm = des.CrossRealmTrustRealm
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustKdc, initial.CrossRealmTrustKdc) || dcl.IsZeroValue(des.CrossRealmTrustKdc) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustKdc, initial.CrossRealmTrustKdc) {
 		cDes.CrossRealmTrustKdc = initial.CrossRealmTrustKdc
 	} else {
 		cDes.CrossRealmTrustKdc = des.CrossRealmTrustKdc
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustAdminServer, initial.CrossRealmTrustAdminServer) || dcl.IsZeroValue(des.CrossRealmTrustAdminServer) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustAdminServer, initial.CrossRealmTrustAdminServer) {
 		cDes.CrossRealmTrustAdminServer = initial.CrossRealmTrustAdminServer
 	} else {
 		cDes.CrossRealmTrustAdminServer = des.CrossRealmTrustAdminServer
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustSharedPassword, initial.CrossRealmTrustSharedPassword) || dcl.IsZeroValue(des.CrossRealmTrustSharedPassword) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustSharedPassword, initial.CrossRealmTrustSharedPassword) {
 		cDes.CrossRealmTrustSharedPassword = initial.CrossRealmTrustSharedPassword
 	} else {
 		cDes.CrossRealmTrustSharedPassword = des.CrossRealmTrustSharedPassword
 	}
-	if dcl.StringCanonicalize(des.KdcDbKey, initial.KdcDbKey) || dcl.IsZeroValue(des.KdcDbKey) {
+	if dcl.StringCanonicalize(des.KdcDbKey, initial.KdcDbKey) {
 		cDes.KdcDbKey = initial.KdcDbKey
 	} else {
 		cDes.KdcDbKey = des.KdcDbKey
 	}
-	if dcl.IsZeroValue(des.TgtLifetimeHours) || (dcl.IsEmptyValueIndirect(des.TgtLifetimeHours) && dcl.IsEmptyValueIndirect(initial.TgtLifetimeHours)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TgtLifetimeHours) && dcl.IsEmptyValueIndirect(initial.TgtLifetimeHours) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TgtLifetimeHours = initial.TgtLifetimeHours
 	} else {
 		cDes.TgtLifetimeHours = des.TgtLifetimeHours
 	}
-	if dcl.StringCanonicalize(des.Realm, initial.Realm) || dcl.IsZeroValue(des.Realm) {
+	if dcl.StringCanonicalize(des.Realm, initial.Realm) {
 		cDes.Realm = initial.Realm
 	} else {
 		cDes.Realm = des.Realm
@@ -3885,7 +3813,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerb
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4012,10 +3940,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigSecurityConfigK
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4025,18 +3950,18 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(de
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig{}
 
-	if dcl.StringCanonicalize(des.IdleDeleteTtl, initial.IdleDeleteTtl) || dcl.IsZeroValue(des.IdleDeleteTtl) {
+	if dcl.StringCanonicalize(des.IdleDeleteTtl, initial.IdleDeleteTtl) {
 		cDes.IdleDeleteTtl = initial.IdleDeleteTtl
 	} else {
 		cDes.IdleDeleteTtl = des.IdleDeleteTtl
 	}
-	if dcl.IsZeroValue(des.AutoDeleteTime) || (dcl.IsEmptyValueIndirect(des.AutoDeleteTime) && dcl.IsEmptyValueIndirect(initial.AutoDeleteTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AutoDeleteTime) && dcl.IsEmptyValueIndirect(initial.AutoDeleteTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AutoDeleteTime = initial.AutoDeleteTime
 	} else {
 		cDes.AutoDeleteTime = des.AutoDeleteTime
 	}
-	if dcl.StringCanonicalize(des.AutoDeleteTtl, initial.AutoDeleteTtl) || dcl.IsZeroValue(des.AutoDeleteTtl) {
+	if dcl.StringCanonicalize(des.AutoDeleteTtl, initial.AutoDeleteTtl) {
 		cDes.AutoDeleteTtl = initial.AutoDeleteTtl
 	} else {
 		cDes.AutoDeleteTtl = des.AutoDeleteTtl
@@ -4047,7 +3972,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(de
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4141,10 +4066,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig
 }
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(des, initial *WorkflowTemplatePlacementManagedClusterConfigEndpointConfig, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4154,7 +4076,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(des
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigEndpointConfig{}
 
-	if dcl.BoolCanonicalize(des.EnableHttpPortAccess, initial.EnableHttpPortAccess) || dcl.IsZeroValue(des.EnableHttpPortAccess) {
+	if dcl.BoolCanonicalize(des.EnableHttpPortAccess, initial.EnableHttpPortAccess) {
 		cDes.EnableHttpPortAccess = initial.EnableHttpPortAccess
 	} else {
 		cDes.EnableHttpPortAccess = des.EnableHttpPortAccess
@@ -4165,7 +4087,7 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigEndpointConfig(des
 
 func canonicalizeWorkflowTemplatePlacementManagedClusterConfigEndpointConfigSlice(des, initial []WorkflowTemplatePlacementManagedClusterConfigEndpointConfig, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedClusterConfigEndpointConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4256,10 +4178,7 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigEndpointConfigS
 }
 
 func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *WorkflowTemplatePlacementClusterSelector, opts ...dcl.ApplyOption) *WorkflowTemplatePlacementClusterSelector {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4269,13 +4188,13 @@ func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *Workflow
 
 	cDes := &WorkflowTemplatePlacementClusterSelector{}
 
-	if dcl.StringCanonicalize(des.Zone, initial.Zone) || dcl.IsZeroValue(des.Zone) {
+	if dcl.StringCanonicalize(des.Zone, initial.Zone) {
 		cDes.Zone = initial.Zone
 	} else {
 		cDes.Zone = des.Zone
 	}
-	if dcl.IsZeroValue(des.ClusterLabels) || (dcl.IsEmptyValueIndirect(des.ClusterLabels) && dcl.IsEmptyValueIndirect(initial.ClusterLabels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ClusterLabels) && dcl.IsEmptyValueIndirect(initial.ClusterLabels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ClusterLabels = initial.ClusterLabels
 	} else {
 		cDes.ClusterLabels = des.ClusterLabels
@@ -4286,7 +4205,7 @@ func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *Workflow
 
 func canonicalizeWorkflowTemplatePlacementClusterSelectorSlice(des, initial []WorkflowTemplatePlacementClusterSelector, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementClusterSelector {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4377,10 +4296,7 @@ func canonicalizeNewWorkflowTemplatePlacementClusterSelectorSlice(c *Client, des
 }
 
 func canonicalizeWorkflowTemplateJobs(des, initial *WorkflowTemplateJobs, opts ...dcl.ApplyOption) *WorkflowTemplateJobs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4390,7 +4306,7 @@ func canonicalizeWorkflowTemplateJobs(des, initial *WorkflowTemplateJobs, opts .
 
 	cDes := &WorkflowTemplateJobs{}
 
-	if dcl.StringCanonicalize(des.StepId, initial.StepId) || dcl.IsZeroValue(des.StepId) {
+	if dcl.StringCanonicalize(des.StepId, initial.StepId) {
 		cDes.StepId = initial.StepId
 	} else {
 		cDes.StepId = des.StepId
@@ -4403,8 +4319,8 @@ func canonicalizeWorkflowTemplateJobs(des, initial *WorkflowTemplateJobs, opts .
 	cDes.SparkRJob = canonicalizeWorkflowTemplateJobsSparkRJob(des.SparkRJob, initial.SparkRJob, opts...)
 	cDes.SparkSqlJob = canonicalizeWorkflowTemplateJobsSparkSqlJob(des.SparkSqlJob, initial.SparkSqlJob, opts...)
 	cDes.PrestoJob = canonicalizeWorkflowTemplateJobsPrestoJob(des.PrestoJob, initial.PrestoJob, opts...)
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -4421,7 +4337,7 @@ func canonicalizeWorkflowTemplateJobs(des, initial *WorkflowTemplateJobs, opts .
 
 func canonicalizeWorkflowTemplateJobsSlice(des, initial []WorkflowTemplateJobs, opts ...dcl.ApplyOption) []WorkflowTemplateJobs {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4524,10 +4440,7 @@ func canonicalizeNewWorkflowTemplateJobsSlice(c *Client, des, nw []WorkflowTempl
 }
 
 func canonicalizeWorkflowTemplateJobsHadoopJob(des, initial *WorkflowTemplateJobsHadoopJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHadoopJob {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4537,12 +4450,12 @@ func canonicalizeWorkflowTemplateJobsHadoopJob(des, initial *WorkflowTemplateJob
 
 	cDes := &WorkflowTemplateJobsHadoopJob{}
 
-	if dcl.StringCanonicalize(des.MainJarFileUri, initial.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
+	if dcl.StringCanonicalize(des.MainJarFileUri, initial.MainJarFileUri) {
 		cDes.MainJarFileUri = initial.MainJarFileUri
 	} else {
 		cDes.MainJarFileUri = des.MainJarFileUri
 	}
-	if dcl.StringCanonicalize(des.MainClass, initial.MainClass) || dcl.IsZeroValue(des.MainClass) {
+	if dcl.StringCanonicalize(des.MainClass, initial.MainClass) {
 		cDes.MainClass = initial.MainClass
 	} else {
 		cDes.MainClass = des.MainClass
@@ -4567,8 +4480,8 @@ func canonicalizeWorkflowTemplateJobsHadoopJob(des, initial *WorkflowTemplateJob
 	} else {
 		cDes.ArchiveUris = des.ArchiveUris
 	}
-	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -4580,7 +4493,7 @@ func canonicalizeWorkflowTemplateJobsHadoopJob(des, initial *WorkflowTemplateJob
 
 func canonicalizeWorkflowTemplateJobsHadoopJobSlice(des, initial []WorkflowTemplateJobsHadoopJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsHadoopJob {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4687,10 +4600,7 @@ func canonicalizeNewWorkflowTemplateJobsHadoopJobSlice(c *Client, des, nw []Work
 }
 
 func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des, initial *WorkflowTemplateJobsHadoopJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHadoopJobLoggingConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4700,8 +4610,8 @@ func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des, initial *Workfl
 
 	cDes := &WorkflowTemplateJobsHadoopJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -4712,7 +4622,7 @@ func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des, initial *Workfl
 
 func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsHadoopJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsHadoopJobLoggingConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4799,10 +4709,7 @@ func canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfigSlice(c *Client, d
 }
 
 func canonicalizeWorkflowTemplateJobsSparkJob(des, initial *WorkflowTemplateJobsSparkJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkJob {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4812,12 +4719,12 @@ func canonicalizeWorkflowTemplateJobsSparkJob(des, initial *WorkflowTemplateJobs
 
 	cDes := &WorkflowTemplateJobsSparkJob{}
 
-	if dcl.StringCanonicalize(des.MainJarFileUri, initial.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
+	if dcl.StringCanonicalize(des.MainJarFileUri, initial.MainJarFileUri) {
 		cDes.MainJarFileUri = initial.MainJarFileUri
 	} else {
 		cDes.MainJarFileUri = des.MainJarFileUri
 	}
-	if dcl.StringCanonicalize(des.MainClass, initial.MainClass) || dcl.IsZeroValue(des.MainClass) {
+	if dcl.StringCanonicalize(des.MainClass, initial.MainClass) {
 		cDes.MainClass = initial.MainClass
 	} else {
 		cDes.MainClass = des.MainClass
@@ -4842,8 +4749,8 @@ func canonicalizeWorkflowTemplateJobsSparkJob(des, initial *WorkflowTemplateJobs
 	} else {
 		cDes.ArchiveUris = des.ArchiveUris
 	}
-	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -4855,7 +4762,7 @@ func canonicalizeWorkflowTemplateJobsSparkJob(des, initial *WorkflowTemplateJobs
 
 func canonicalizeWorkflowTemplateJobsSparkJobSlice(des, initial []WorkflowTemplateJobsSparkJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkJob {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4962,10 +4869,7 @@ func canonicalizeNewWorkflowTemplateJobsSparkJobSlice(c *Client, des, nw []Workf
 }
 
 func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des, initial *WorkflowTemplateJobsSparkJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkJobLoggingConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4975,8 +4879,8 @@ func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des, initial *Workflo
 
 	cDes := &WorkflowTemplateJobsSparkJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -4987,7 +4891,7 @@ func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des, initial *Workflo
 
 func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsSparkJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkJobLoggingConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5074,10 +4978,7 @@ func canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfigSlice(c *Client, de
 }
 
 func canonicalizeWorkflowTemplateJobsPysparkJob(des, initial *WorkflowTemplateJobsPysparkJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPysparkJob {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5087,7 +4988,7 @@ func canonicalizeWorkflowTemplateJobsPysparkJob(des, initial *WorkflowTemplateJo
 
 	cDes := &WorkflowTemplateJobsPysparkJob{}
 
-	if dcl.StringCanonicalize(des.MainPythonFileUri, initial.MainPythonFileUri) || dcl.IsZeroValue(des.MainPythonFileUri) {
+	if dcl.StringCanonicalize(des.MainPythonFileUri, initial.MainPythonFileUri) {
 		cDes.MainPythonFileUri = initial.MainPythonFileUri
 	} else {
 		cDes.MainPythonFileUri = des.MainPythonFileUri
@@ -5117,8 +5018,8 @@ func canonicalizeWorkflowTemplateJobsPysparkJob(des, initial *WorkflowTemplateJo
 	} else {
 		cDes.ArchiveUris = des.ArchiveUris
 	}
-	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -5130,7 +5031,7 @@ func canonicalizeWorkflowTemplateJobsPysparkJob(des, initial *WorkflowTemplateJo
 
 func canonicalizeWorkflowTemplateJobsPysparkJobSlice(des, initial []WorkflowTemplateJobsPysparkJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPysparkJob {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5237,10 +5138,7 @@ func canonicalizeNewWorkflowTemplateJobsPysparkJobSlice(c *Client, des, nw []Wor
 }
 
 func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des, initial *WorkflowTemplateJobsPysparkJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPysparkJobLoggingConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5250,8 +5148,8 @@ func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des, initial *Workf
 
 	cDes := &WorkflowTemplateJobsPysparkJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -5262,7 +5160,7 @@ func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des, initial *Workf
 
 func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsPysparkJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPysparkJobLoggingConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5349,10 +5247,7 @@ func canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfigSlice(c *Client, 
 }
 
 func canonicalizeWorkflowTemplateJobsHiveJob(des, initial *WorkflowTemplateJobsHiveJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHiveJob {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5362,25 +5257,25 @@ func canonicalizeWorkflowTemplateJobsHiveJob(des, initial *WorkflowTemplateJobsH
 
 	cDes := &WorkflowTemplateJobsHiveJob{}
 
-	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) {
 		cDes.QueryFileUri = initial.QueryFileUri
 	} else {
 		cDes.QueryFileUri = des.QueryFileUri
 	}
 	cDes.QueryList = canonicalizeWorkflowTemplateJobsHiveJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) {
 		cDes.ContinueOnFailure = initial.ContinueOnFailure
 	} else {
 		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
-	if dcl.IsZeroValue(des.ScriptVariables) || (dcl.IsEmptyValueIndirect(des.ScriptVariables) && dcl.IsEmptyValueIndirect(initial.ScriptVariables)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ScriptVariables) && dcl.IsEmptyValueIndirect(initial.ScriptVariables) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ScriptVariables = initial.ScriptVariables
 	} else {
 		cDes.ScriptVariables = des.ScriptVariables
 	}
-	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -5396,7 +5291,7 @@ func canonicalizeWorkflowTemplateJobsHiveJob(des, initial *WorkflowTemplateJobsH
 
 func canonicalizeWorkflowTemplateJobsHiveJobSlice(des, initial []WorkflowTemplateJobsHiveJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsHiveJob {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5494,10 +5389,7 @@ func canonicalizeNewWorkflowTemplateJobsHiveJobSlice(c *Client, des, nw []Workfl
 }
 
 func canonicalizeWorkflowTemplateJobsHiveJobQueryList(des, initial *WorkflowTemplateJobsHiveJobQueryList, opts ...dcl.ApplyOption) *WorkflowTemplateJobsHiveJobQueryList {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5518,7 +5410,7 @@ func canonicalizeWorkflowTemplateJobsHiveJobQueryList(des, initial *WorkflowTemp
 
 func canonicalizeWorkflowTemplateJobsHiveJobQueryListSlice(des, initial []WorkflowTemplateJobsHiveJobQueryList, opts ...dcl.ApplyOption) []WorkflowTemplateJobsHiveJobQueryList {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5609,10 +5501,7 @@ func canonicalizeNewWorkflowTemplateJobsHiveJobQueryListSlice(c *Client, des, nw
 }
 
 func canonicalizeWorkflowTemplateJobsPigJob(des, initial *WorkflowTemplateJobsPigJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPigJob {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5622,25 +5511,25 @@ func canonicalizeWorkflowTemplateJobsPigJob(des, initial *WorkflowTemplateJobsPi
 
 	cDes := &WorkflowTemplateJobsPigJob{}
 
-	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) {
 		cDes.QueryFileUri = initial.QueryFileUri
 	} else {
 		cDes.QueryFileUri = des.QueryFileUri
 	}
 	cDes.QueryList = canonicalizeWorkflowTemplateJobsPigJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) {
 		cDes.ContinueOnFailure = initial.ContinueOnFailure
 	} else {
 		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
-	if dcl.IsZeroValue(des.ScriptVariables) || (dcl.IsEmptyValueIndirect(des.ScriptVariables) && dcl.IsEmptyValueIndirect(initial.ScriptVariables)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ScriptVariables) && dcl.IsEmptyValueIndirect(initial.ScriptVariables) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ScriptVariables = initial.ScriptVariables
 	} else {
 		cDes.ScriptVariables = des.ScriptVariables
 	}
-	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -5657,7 +5546,7 @@ func canonicalizeWorkflowTemplateJobsPigJob(des, initial *WorkflowTemplateJobsPi
 
 func canonicalizeWorkflowTemplateJobsPigJobSlice(des, initial []WorkflowTemplateJobsPigJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPigJob {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5756,10 +5645,7 @@ func canonicalizeNewWorkflowTemplateJobsPigJobSlice(c *Client, des, nw []Workflo
 }
 
 func canonicalizeWorkflowTemplateJobsPigJobQueryList(des, initial *WorkflowTemplateJobsPigJobQueryList, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPigJobQueryList {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5780,7 +5666,7 @@ func canonicalizeWorkflowTemplateJobsPigJobQueryList(des, initial *WorkflowTempl
 
 func canonicalizeWorkflowTemplateJobsPigJobQueryListSlice(des, initial []WorkflowTemplateJobsPigJobQueryList, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPigJobQueryList {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5871,10 +5757,7 @@ func canonicalizeNewWorkflowTemplateJobsPigJobQueryListSlice(c *Client, des, nw 
 }
 
 func canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des, initial *WorkflowTemplateJobsPigJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPigJobLoggingConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5884,8 +5767,8 @@ func canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des, initial *WorkflowT
 
 	cDes := &WorkflowTemplateJobsPigJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -5896,7 +5779,7 @@ func canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des, initial *WorkflowT
 
 func canonicalizeWorkflowTemplateJobsPigJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsPigJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPigJobLoggingConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5983,10 +5866,7 @@ func canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfigSlice(c *Client, des,
 }
 
 func canonicalizeWorkflowTemplateJobsSparkRJob(des, initial *WorkflowTemplateJobsSparkRJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkRJob {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5996,7 +5876,7 @@ func canonicalizeWorkflowTemplateJobsSparkRJob(des, initial *WorkflowTemplateJob
 
 	cDes := &WorkflowTemplateJobsSparkRJob{}
 
-	if dcl.StringCanonicalize(des.MainRFileUri, initial.MainRFileUri) || dcl.IsZeroValue(des.MainRFileUri) {
+	if dcl.StringCanonicalize(des.MainRFileUri, initial.MainRFileUri) {
 		cDes.MainRFileUri = initial.MainRFileUri
 	} else {
 		cDes.MainRFileUri = des.MainRFileUri
@@ -6016,8 +5896,8 @@ func canonicalizeWorkflowTemplateJobsSparkRJob(des, initial *WorkflowTemplateJob
 	} else {
 		cDes.ArchiveUris = des.ArchiveUris
 	}
-	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -6029,7 +5909,7 @@ func canonicalizeWorkflowTemplateJobsSparkRJob(des, initial *WorkflowTemplateJob
 
 func canonicalizeWorkflowTemplateJobsSparkRJobSlice(des, initial []WorkflowTemplateJobsSparkRJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkRJob {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6130,10 +6010,7 @@ func canonicalizeNewWorkflowTemplateJobsSparkRJobSlice(c *Client, des, nw []Work
 }
 
 func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des, initial *WorkflowTemplateJobsSparkRJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkRJobLoggingConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6143,8 +6020,8 @@ func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des, initial *Workfl
 
 	cDes := &WorkflowTemplateJobsSparkRJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -6155,7 +6032,7 @@ func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des, initial *Workfl
 
 func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsSparkRJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkRJobLoggingConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6242,10 +6119,7 @@ func canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfigSlice(c *Client, d
 }
 
 func canonicalizeWorkflowTemplateJobsSparkSqlJob(des, initial *WorkflowTemplateJobsSparkSqlJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkSqlJob {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6255,20 +6129,20 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJob(des, initial *WorkflowTemplateJ
 
 	cDes := &WorkflowTemplateJobsSparkSqlJob{}
 
-	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) {
 		cDes.QueryFileUri = initial.QueryFileUri
 	} else {
 		cDes.QueryFileUri = des.QueryFileUri
 	}
 	cDes.QueryList = canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.IsZeroValue(des.ScriptVariables) || (dcl.IsEmptyValueIndirect(des.ScriptVariables) && dcl.IsEmptyValueIndirect(initial.ScriptVariables)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ScriptVariables) && dcl.IsEmptyValueIndirect(initial.ScriptVariables) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ScriptVariables = initial.ScriptVariables
 	} else {
 		cDes.ScriptVariables = des.ScriptVariables
 	}
-	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -6285,7 +6159,7 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJob(des, initial *WorkflowTemplateJ
 
 func canonicalizeWorkflowTemplateJobsSparkSqlJobSlice(des, initial []WorkflowTemplateJobsSparkSqlJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkSqlJob {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6381,10 +6255,7 @@ func canonicalizeNewWorkflowTemplateJobsSparkSqlJobSlice(c *Client, des, nw []Wo
 }
 
 func canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des, initial *WorkflowTemplateJobsSparkSqlJobQueryList, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkSqlJobQueryList {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6405,7 +6276,7 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des, initial *Workflow
 
 func canonicalizeWorkflowTemplateJobsSparkSqlJobQueryListSlice(des, initial []WorkflowTemplateJobsSparkSqlJobQueryList, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkSqlJobQueryList {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6496,10 +6367,7 @@ func canonicalizeNewWorkflowTemplateJobsSparkSqlJobQueryListSlice(c *Client, des
 }
 
 func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des, initial *WorkflowTemplateJobsSparkSqlJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsSparkSqlJobLoggingConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6509,8 +6377,8 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des, initial *Work
 
 	cDes := &WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -6521,7 +6389,7 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des, initial *Work
 
 func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsSparkSqlJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkSqlJobLoggingConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6608,10 +6476,7 @@ func canonicalizeNewWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(c *Client,
 }
 
 func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJobsPrestoJob, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPrestoJob {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6621,18 +6486,18 @@ func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJob
 
 	cDes := &WorkflowTemplateJobsPrestoJob{}
 
-	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
+	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) {
 		cDes.QueryFileUri = initial.QueryFileUri
 	} else {
 		cDes.QueryFileUri = des.QueryFileUri
 	}
 	cDes.QueryList = canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des.QueryList, initial.QueryList, opts...)
-	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
+	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) {
 		cDes.ContinueOnFailure = initial.ContinueOnFailure
 	} else {
 		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
-	if dcl.StringCanonicalize(des.OutputFormat, initial.OutputFormat) || dcl.IsZeroValue(des.OutputFormat) {
+	if dcl.StringCanonicalize(des.OutputFormat, initial.OutputFormat) {
 		cDes.OutputFormat = initial.OutputFormat
 	} else {
 		cDes.OutputFormat = des.OutputFormat
@@ -6642,8 +6507,8 @@ func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJob
 	} else {
 		cDes.ClientTags = des.ClientTags
 	}
-	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
@@ -6655,7 +6520,7 @@ func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJob
 
 func canonicalizeWorkflowTemplateJobsPrestoJobSlice(des, initial []WorkflowTemplateJobsPrestoJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPrestoJob {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6757,10 +6622,7 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJobSlice(c *Client, des, nw []Work
 }
 
 func canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des, initial *WorkflowTemplateJobsPrestoJobQueryList, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPrestoJobQueryList {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6781,7 +6643,7 @@ func canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des, initial *WorkflowTe
 
 func canonicalizeWorkflowTemplateJobsPrestoJobQueryListSlice(des, initial []WorkflowTemplateJobsPrestoJobQueryList, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPrestoJobQueryList {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6872,10 +6734,7 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJobQueryListSlice(c *Client, des, 
 }
 
 func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des, initial *WorkflowTemplateJobsPrestoJobLoggingConfig, opts ...dcl.ApplyOption) *WorkflowTemplateJobsPrestoJobLoggingConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6885,8 +6744,8 @@ func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des, initial *Workfl
 
 	cDes := &WorkflowTemplateJobsPrestoJobLoggingConfig{}
 
-	if dcl.IsZeroValue(des.DriverLogLevels) || (dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DriverLogLevels) && dcl.IsEmptyValueIndirect(initial.DriverLogLevels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DriverLogLevels = initial.DriverLogLevels
 	} else {
 		cDes.DriverLogLevels = des.DriverLogLevels
@@ -6897,7 +6756,7 @@ func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des, initial *Workfl
 
 func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsPrestoJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPrestoJobLoggingConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6984,10 +6843,7 @@ func canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfigSlice(c *Client, d
 }
 
 func canonicalizeWorkflowTemplateJobsScheduling(des, initial *WorkflowTemplateJobsScheduling, opts ...dcl.ApplyOption) *WorkflowTemplateJobsScheduling {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6997,14 +6853,14 @@ func canonicalizeWorkflowTemplateJobsScheduling(des, initial *WorkflowTemplateJo
 
 	cDes := &WorkflowTemplateJobsScheduling{}
 
-	if dcl.IsZeroValue(des.MaxFailuresPerHour) || (dcl.IsEmptyValueIndirect(des.MaxFailuresPerHour) && dcl.IsEmptyValueIndirect(initial.MaxFailuresPerHour)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxFailuresPerHour) && dcl.IsEmptyValueIndirect(initial.MaxFailuresPerHour) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxFailuresPerHour = initial.MaxFailuresPerHour
 	} else {
 		cDes.MaxFailuresPerHour = des.MaxFailuresPerHour
 	}
-	if dcl.IsZeroValue(des.MaxFailuresTotal) || (dcl.IsEmptyValueIndirect(des.MaxFailuresTotal) && dcl.IsEmptyValueIndirect(initial.MaxFailuresTotal)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxFailuresTotal) && dcl.IsEmptyValueIndirect(initial.MaxFailuresTotal) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxFailuresTotal = initial.MaxFailuresTotal
 	} else {
 		cDes.MaxFailuresTotal = des.MaxFailuresTotal
@@ -7015,7 +6871,7 @@ func canonicalizeWorkflowTemplateJobsScheduling(des, initial *WorkflowTemplateJo
 
 func canonicalizeWorkflowTemplateJobsSchedulingSlice(des, initial []WorkflowTemplateJobsScheduling, opts ...dcl.ApplyOption) []WorkflowTemplateJobsScheduling {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7102,10 +6958,7 @@ func canonicalizeNewWorkflowTemplateJobsSchedulingSlice(c *Client, des, nw []Wor
 }
 
 func canonicalizeWorkflowTemplateParameters(des, initial *WorkflowTemplateParameters, opts ...dcl.ApplyOption) *WorkflowTemplateParameters {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7115,7 +6968,7 @@ func canonicalizeWorkflowTemplateParameters(des, initial *WorkflowTemplateParame
 
 	cDes := &WorkflowTemplateParameters{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -7125,7 +6978,7 @@ func canonicalizeWorkflowTemplateParameters(des, initial *WorkflowTemplateParame
 	} else {
 		cDes.Fields = des.Fields
 	}
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
@@ -7137,7 +6990,7 @@ func canonicalizeWorkflowTemplateParameters(des, initial *WorkflowTemplateParame
 
 func canonicalizeWorkflowTemplateParametersSlice(des, initial []WorkflowTemplateParameters, opts ...dcl.ApplyOption) []WorkflowTemplateParameters {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7235,10 +7088,7 @@ func canonicalizeNewWorkflowTemplateParametersSlice(c *Client, des, nw []Workflo
 }
 
 func canonicalizeWorkflowTemplateParametersValidation(des, initial *WorkflowTemplateParametersValidation, opts ...dcl.ApplyOption) *WorkflowTemplateParametersValidation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7256,7 +7106,7 @@ func canonicalizeWorkflowTemplateParametersValidation(des, initial *WorkflowTemp
 
 func canonicalizeWorkflowTemplateParametersValidationSlice(des, initial []WorkflowTemplateParametersValidation, opts ...dcl.ApplyOption) []WorkflowTemplateParametersValidation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7346,10 +7196,7 @@ func canonicalizeNewWorkflowTemplateParametersValidationSlice(c *Client, des, nw
 }
 
 func canonicalizeWorkflowTemplateParametersValidationRegex(des, initial *WorkflowTemplateParametersValidationRegex, opts ...dcl.ApplyOption) *WorkflowTemplateParametersValidationRegex {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7370,7 +7217,7 @@ func canonicalizeWorkflowTemplateParametersValidationRegex(des, initial *Workflo
 
 func canonicalizeWorkflowTemplateParametersValidationRegexSlice(des, initial []WorkflowTemplateParametersValidationRegex, opts ...dcl.ApplyOption) []WorkflowTemplateParametersValidationRegex {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7461,10 +7308,7 @@ func canonicalizeNewWorkflowTemplateParametersValidationRegexSlice(c *Client, de
 }
 
 func canonicalizeWorkflowTemplateParametersValidationValues(des, initial *WorkflowTemplateParametersValidationValues, opts ...dcl.ApplyOption) *WorkflowTemplateParametersValidationValues {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7485,7 +7329,7 @@ func canonicalizeWorkflowTemplateParametersValidationValues(des, initial *Workfl
 
 func canonicalizeWorkflowTemplateParametersValidationValuesSlice(des, initial []WorkflowTemplateParametersValidationValues, opts ...dcl.ApplyOption) []WorkflowTemplateParametersValidationValues {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

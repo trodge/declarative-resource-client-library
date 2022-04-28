@@ -422,8 +422,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -505,10 +505,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 }
 
 func canonicalizeInstanceBundlesConfig(des, initial *InstanceBundlesConfig, opts ...dcl.ApplyOption) *InstanceBundlesConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -525,7 +522,7 @@ func canonicalizeInstanceBundlesConfig(des, initial *InstanceBundlesConfig, opts
 
 func canonicalizeInstanceBundlesConfigSlice(des, initial []InstanceBundlesConfig, opts ...dcl.ApplyOption) []InstanceBundlesConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -614,10 +611,7 @@ func canonicalizeNewInstanceBundlesConfigSlice(c *Client, des, nw []InstanceBund
 }
 
 func canonicalizeInstanceBundlesConfigConfigControllerConfig(des, initial *InstanceBundlesConfigConfigControllerConfig, opts ...dcl.ApplyOption) *InstanceBundlesConfigConfigControllerConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -627,7 +621,7 @@ func canonicalizeInstanceBundlesConfigConfigControllerConfig(des, initial *Insta
 
 	cDes := &InstanceBundlesConfigConfigControllerConfig{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
@@ -638,7 +632,7 @@ func canonicalizeInstanceBundlesConfigConfigControllerConfig(des, initial *Insta
 
 func canonicalizeInstanceBundlesConfigConfigControllerConfigSlice(des, initial []InstanceBundlesConfigConfigControllerConfig, opts ...dcl.ApplyOption) []InstanceBundlesConfigConfigControllerConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -729,10 +723,7 @@ func canonicalizeNewInstanceBundlesConfigConfigControllerConfigSlice(c *Client, 
 }
 
 func canonicalizeInstanceManagementConfig(des, initial *InstanceManagementConfig, opts ...dcl.ApplyOption) *InstanceManagementConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -749,7 +740,7 @@ func canonicalizeInstanceManagementConfig(des, initial *InstanceManagementConfig
 
 func canonicalizeInstanceManagementConfigSlice(des, initial []InstanceManagementConfig, opts ...dcl.ApplyOption) []InstanceManagementConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -838,10 +829,7 @@ func canonicalizeNewInstanceManagementConfigSlice(c *Client, des, nw []InstanceM
 }
 
 func canonicalizeInstanceManagementConfigStandardManagementConfig(des, initial *InstanceManagementConfigStandardManagementConfig, opts ...dcl.ApplyOption) *InstanceManagementConfigStandardManagementConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -851,38 +839,38 @@ func canonicalizeInstanceManagementConfigStandardManagementConfig(des, initial *
 
 	cDes := &InstanceManagementConfigStandardManagementConfig{}
 
-	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
 	}
-	if dcl.StringCanonicalize(des.MasterIPv4CidrBlock, initial.MasterIPv4CidrBlock) || dcl.IsZeroValue(des.MasterIPv4CidrBlock) {
+	if dcl.StringCanonicalize(des.MasterIPv4CidrBlock, initial.MasterIPv4CidrBlock) {
 		cDes.MasterIPv4CidrBlock = initial.MasterIPv4CidrBlock
 	} else {
 		cDes.MasterIPv4CidrBlock = des.MasterIPv4CidrBlock
 	}
-	if dcl.StringCanonicalize(des.ManBlock, initial.ManBlock) || dcl.IsZeroValue(des.ManBlock) {
+	if dcl.StringCanonicalize(des.ManBlock, initial.ManBlock) {
 		cDes.ManBlock = initial.ManBlock
 	} else {
 		cDes.ManBlock = des.ManBlock
 	}
-	if dcl.StringCanonicalize(des.ClusterCidrBlock, initial.ClusterCidrBlock) || dcl.IsZeroValue(des.ClusterCidrBlock) {
+	if dcl.StringCanonicalize(des.ClusterCidrBlock, initial.ClusterCidrBlock) {
 		cDes.ClusterCidrBlock = initial.ClusterCidrBlock
 	} else {
 		cDes.ClusterCidrBlock = des.ClusterCidrBlock
 	}
-	if dcl.StringCanonicalize(des.ServicesCidrBlock, initial.ServicesCidrBlock) || dcl.IsZeroValue(des.ServicesCidrBlock) {
+	if dcl.StringCanonicalize(des.ServicesCidrBlock, initial.ServicesCidrBlock) {
 		cDes.ServicesCidrBlock = initial.ServicesCidrBlock
 	} else {
 		cDes.ServicesCidrBlock = des.ServicesCidrBlock
 	}
-	if dcl.StringCanonicalize(des.ClusterNamedRange, initial.ClusterNamedRange) || dcl.IsZeroValue(des.ClusterNamedRange) {
+	if dcl.StringCanonicalize(des.ClusterNamedRange, initial.ClusterNamedRange) {
 		cDes.ClusterNamedRange = initial.ClusterNamedRange
 	} else {
 		cDes.ClusterNamedRange = des.ClusterNamedRange
 	}
-	if dcl.StringCanonicalize(des.ServicesNamedRange, initial.ServicesNamedRange) || dcl.IsZeroValue(des.ServicesNamedRange) {
+	if dcl.StringCanonicalize(des.ServicesNamedRange, initial.ServicesNamedRange) {
 		cDes.ServicesNamedRange = initial.ServicesNamedRange
 	} else {
 		cDes.ServicesNamedRange = des.ServicesNamedRange
@@ -893,7 +881,7 @@ func canonicalizeInstanceManagementConfigStandardManagementConfig(des, initial *
 
 func canonicalizeInstanceManagementConfigStandardManagementConfigSlice(des, initial []InstanceManagementConfigStandardManagementConfig, opts ...dcl.ApplyOption) []InstanceManagementConfigStandardManagementConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

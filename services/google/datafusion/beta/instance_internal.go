@@ -471,8 +471,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Type) || (dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Type = rawInitial.Type
 	} else {
 		canonicalDesired.Type = rawDesired.Type
@@ -493,14 +493,14 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 		canonicalDesired.PrivateInstance = rawDesired.PrivateInstance
 	}
 	canonicalDesired.NetworkConfig = canonicalizeInstanceNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Options) || (dcl.IsEmptyValueIndirect(rawDesired.Options) && dcl.IsEmptyValueIndirect(rawInitial.Options)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Options) && dcl.IsEmptyValueIndirect(rawInitial.Options) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Options = rawInitial.Options
 	} else {
 		canonicalDesired.Options = rawDesired.Options
@@ -520,8 +520,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.DataprocServiceAccount) || (dcl.IsEmptyValueIndirect(rawDesired.DataprocServiceAccount) && dcl.IsEmptyValueIndirect(rawInitial.DataprocServiceAccount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.DataprocServiceAccount) && dcl.IsEmptyValueIndirect(rawInitial.DataprocServiceAccount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.DataprocServiceAccount = rawInitial.DataprocServiceAccount
 	} else {
 		canonicalDesired.DataprocServiceAccount = rawDesired.DataprocServiceAccount
@@ -700,10 +700,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 }
 
 func canonicalizeInstanceNetworkConfig(des, initial *InstanceNetworkConfig, opts ...dcl.ApplyOption) *InstanceNetworkConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -713,13 +710,13 @@ func canonicalizeInstanceNetworkConfig(des, initial *InstanceNetworkConfig, opts
 
 	cDes := &InstanceNetworkConfig{}
 
-	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
 	}
-	if dcl.StringCanonicalize(des.IPAllocation, initial.IPAllocation) || dcl.IsZeroValue(des.IPAllocation) {
+	if dcl.StringCanonicalize(des.IPAllocation, initial.IPAllocation) {
 		cDes.IPAllocation = initial.IPAllocation
 	} else {
 		cDes.IPAllocation = des.IPAllocation
@@ -730,7 +727,7 @@ func canonicalizeInstanceNetworkConfig(des, initial *InstanceNetworkConfig, opts
 
 func canonicalizeInstanceNetworkConfigSlice(des, initial []InstanceNetworkConfig, opts ...dcl.ApplyOption) []InstanceNetworkConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -821,10 +818,7 @@ func canonicalizeNewInstanceNetworkConfigSlice(c *Client, des, nw []InstanceNetw
 }
 
 func canonicalizeInstanceAvailableVersion(des, initial *InstanceAvailableVersion, opts ...dcl.ApplyOption) *InstanceAvailableVersion {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -839,7 +833,7 @@ func canonicalizeInstanceAvailableVersion(des, initial *InstanceAvailableVersion
 
 func canonicalizeInstanceAvailableVersionSlice(des, initial []InstanceAvailableVersion, opts ...dcl.ApplyOption) []InstanceAvailableVersion {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -665,8 +665,8 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
@@ -681,8 +681,8 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 	} else {
 		canonicalDesired.ClientVersion = rawDesired.ClientVersion
 	}
-	if dcl.IsZeroValue(rawDesired.LaunchStage) || (dcl.IsEmptyValueIndirect(rawDesired.LaunchStage) && dcl.IsEmptyValueIndirect(rawInitial.LaunchStage)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.LaunchStage) && dcl.IsEmptyValueIndirect(rawInitial.LaunchStage) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.LaunchStage = rawInitial.LaunchStage
 	} else {
 		canonicalDesired.LaunchStage = rawDesired.LaunchStage
@@ -869,10 +869,7 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 }
 
 func canonicalizeJobBinaryAuthorization(des, initial *JobBinaryAuthorization, opts ...dcl.ApplyOption) *JobBinaryAuthorization {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -882,12 +879,12 @@ func canonicalizeJobBinaryAuthorization(des, initial *JobBinaryAuthorization, op
 
 	cDes := &JobBinaryAuthorization{}
 
-	if dcl.BoolCanonicalize(des.UseDefault, initial.UseDefault) || dcl.IsZeroValue(des.UseDefault) {
+	if dcl.BoolCanonicalize(des.UseDefault, initial.UseDefault) {
 		cDes.UseDefault = initial.UseDefault
 	} else {
 		cDes.UseDefault = des.UseDefault
 	}
-	if dcl.StringCanonicalize(des.BreakglassJustification, initial.BreakglassJustification) || dcl.IsZeroValue(des.BreakglassJustification) {
+	if dcl.StringCanonicalize(des.BreakglassJustification, initial.BreakglassJustification) {
 		cDes.BreakglassJustification = initial.BreakglassJustification
 	} else {
 		cDes.BreakglassJustification = des.BreakglassJustification
@@ -898,7 +895,7 @@ func canonicalizeJobBinaryAuthorization(des, initial *JobBinaryAuthorization, op
 
 func canonicalizeJobBinaryAuthorizationSlice(des, initial []JobBinaryAuthorization, opts ...dcl.ApplyOption) []JobBinaryAuthorization {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -992,10 +989,7 @@ func canonicalizeNewJobBinaryAuthorizationSlice(c *Client, des, nw []JobBinaryAu
 }
 
 func canonicalizeJobTemplate(des, initial *JobTemplate, opts ...dcl.ApplyOption) *JobTemplate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1005,26 +999,26 @@ func canonicalizeJobTemplate(des, initial *JobTemplate, opts ...dcl.ApplyOption)
 
 	cDes := &JobTemplate{}
 
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
-	if dcl.IsZeroValue(des.Annotations) || (dcl.IsEmptyValueIndirect(des.Annotations) && dcl.IsEmptyValueIndirect(initial.Annotations)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Annotations) && dcl.IsEmptyValueIndirect(initial.Annotations) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Annotations = initial.Annotations
 	} else {
 		cDes.Annotations = des.Annotations
 	}
-	if dcl.IsZeroValue(des.Parallelism) || (dcl.IsEmptyValueIndirect(des.Parallelism) && dcl.IsEmptyValueIndirect(initial.Parallelism)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Parallelism) && dcl.IsEmptyValueIndirect(initial.Parallelism) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Parallelism = initial.Parallelism
 	} else {
 		cDes.Parallelism = des.Parallelism
 	}
-	if dcl.IsZeroValue(des.TaskCount) || (dcl.IsEmptyValueIndirect(des.TaskCount) && dcl.IsEmptyValueIndirect(initial.TaskCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TaskCount) && dcl.IsEmptyValueIndirect(initial.TaskCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TaskCount = initial.TaskCount
 	} else {
 		cDes.TaskCount = des.TaskCount
@@ -1036,7 +1030,7 @@ func canonicalizeJobTemplate(des, initial *JobTemplate, opts ...dcl.ApplyOption)
 
 func canonicalizeJobTemplateSlice(des, initial []JobTemplate, opts ...dcl.ApplyOption) []JobTemplate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1125,10 +1119,7 @@ func canonicalizeNewJobTemplateSlice(c *Client, des, nw []JobTemplate) []JobTemp
 }
 
 func canonicalizeJobTemplateTemplate(des, initial *JobTemplateTemplate, opts ...dcl.ApplyOption) *JobTemplateTemplate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1140,30 +1131,30 @@ func canonicalizeJobTemplateTemplate(des, initial *JobTemplateTemplate, opts ...
 
 	cDes.Containers = canonicalizeJobTemplateTemplateContainersSlice(des.Containers, initial.Containers, opts...)
 	cDes.Volumes = canonicalizeJobTemplateTemplateVolumesSlice(des.Volumes, initial.Volumes, opts...)
-	if dcl.IsZeroValue(des.MaxRetries) || (dcl.IsEmptyValueIndirect(des.MaxRetries) && dcl.IsEmptyValueIndirect(initial.MaxRetries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxRetries) && dcl.IsEmptyValueIndirect(initial.MaxRetries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxRetries = initial.MaxRetries
 	} else {
 		cDes.MaxRetries = des.MaxRetries
 	}
-	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) {
 		cDes.Timeout = initial.Timeout
 	} else {
 		cDes.Timeout = des.Timeout
 	}
-	if dcl.StringCanonicalize(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
+	if dcl.StringCanonicalize(des.ServiceAccount, initial.ServiceAccount) {
 		cDes.ServiceAccount = initial.ServiceAccount
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
 	}
-	if dcl.IsZeroValue(des.ExecutionEnvironment) || (dcl.IsEmptyValueIndirect(des.ExecutionEnvironment) && dcl.IsEmptyValueIndirect(initial.ExecutionEnvironment)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ExecutionEnvironment) && dcl.IsEmptyValueIndirect(initial.ExecutionEnvironment) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ExecutionEnvironment = initial.ExecutionEnvironment
 	} else {
 		cDes.ExecutionEnvironment = des.ExecutionEnvironment
 	}
-	if dcl.IsZeroValue(des.EncryptionKey) || (dcl.IsEmptyValueIndirect(des.EncryptionKey) && dcl.IsEmptyValueIndirect(initial.EncryptionKey)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.EncryptionKey) && dcl.IsEmptyValueIndirect(initial.EncryptionKey) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.EncryptionKey = initial.EncryptionKey
 	} else {
 		cDes.EncryptionKey = des.EncryptionKey
@@ -1175,7 +1166,7 @@ func canonicalizeJobTemplateTemplate(des, initial *JobTemplateTemplate, opts ...
 
 func canonicalizeJobTemplateTemplateSlice(des, initial []JobTemplateTemplate, opts ...dcl.ApplyOption) []JobTemplateTemplate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1272,10 +1263,7 @@ func canonicalizeNewJobTemplateTemplateSlice(c *Client, des, nw []JobTemplateTem
 }
 
 func canonicalizeJobTemplateTemplateContainers(des, initial *JobTemplateTemplateContainers, opts ...dcl.ApplyOption) *JobTemplateTemplateContainers {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1285,12 +1273,12 @@ func canonicalizeJobTemplateTemplateContainers(des, initial *JobTemplateTemplate
 
 	cDes := &JobTemplateTemplateContainers{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Image, initial.Image) || dcl.IsZeroValue(des.Image) {
+	if dcl.StringCanonicalize(des.Image, initial.Image) {
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
@@ -1315,7 +1303,7 @@ func canonicalizeJobTemplateTemplateContainers(des, initial *JobTemplateTemplate
 
 func canonicalizeJobTemplateTemplateContainersSlice(des, initial []JobTemplateTemplateContainers, opts ...dcl.ApplyOption) []JobTemplateTemplateContainers {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1419,31 +1407,8 @@ func canonicalizeNewJobTemplateTemplateContainersSlice(c *Client, des, nw []JobT
 }
 
 func canonicalizeJobTemplateTemplateContainersEnv(des, initial *JobTemplateTemplateContainersEnv, opts ...dcl.ApplyOption) *JobTemplateTemplateContainersEnv {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Value != nil || (initial != nil && initial.Value != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ValueSource) {
-			des.Value = nil
-			if initial != nil {
-				initial.Value = nil
-			}
-		}
-	}
-
-	if des.ValueSource != nil || (initial != nil && initial.ValueSource != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Value) {
-			des.ValueSource = nil
-			if initial != nil {
-				initial.ValueSource = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1452,24 +1417,37 @@ func canonicalizeJobTemplateTemplateContainersEnv(des, initial *JobTemplateTempl
 
 	cDes := &JobTemplateTemplateContainersEnv{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) {
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
 	cDes.ValueSource = canonicalizeJobTemplateTemplateContainersEnvValueSource(des.ValueSource, initial.ValueSource, opts...)
 
+	if cDes.Value != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ValueSource) {
+			cDes.Value = nil
+		}
+	}
+
+	if cDes.ValueSource != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Value) {
+			cDes.ValueSource = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTemplateTemplateContainersEnvSlice(des, initial []JobTemplateTemplateContainersEnv, opts ...dcl.ApplyOption) []JobTemplateTemplateContainersEnv {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1564,10 +1542,7 @@ func canonicalizeNewJobTemplateTemplateContainersEnvSlice(c *Client, des, nw []J
 }
 
 func canonicalizeJobTemplateTemplateContainersEnvValueSource(des, initial *JobTemplateTemplateContainersEnvValueSource, opts ...dcl.ApplyOption) *JobTemplateTemplateContainersEnvValueSource {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1584,7 +1559,7 @@ func canonicalizeJobTemplateTemplateContainersEnvValueSource(des, initial *JobTe
 
 func canonicalizeJobTemplateTemplateContainersEnvValueSourceSlice(des, initial []JobTemplateTemplateContainersEnvValueSource, opts ...dcl.ApplyOption) []JobTemplateTemplateContainersEnvValueSource {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1673,10 +1648,7 @@ func canonicalizeNewJobTemplateTemplateContainersEnvValueSourceSlice(c *Client, 
 }
 
 func canonicalizeJobTemplateTemplateContainersEnvValueSourceSecretKeyRef(des, initial *JobTemplateTemplateContainersEnvValueSourceSecretKeyRef, opts ...dcl.ApplyOption) *JobTemplateTemplateContainersEnvValueSourceSecretKeyRef {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1686,14 +1658,14 @@ func canonicalizeJobTemplateTemplateContainersEnvValueSourceSecretKeyRef(des, in
 
 	cDes := &JobTemplateTemplateContainersEnvValueSourceSecretKeyRef{}
 
-	if dcl.IsZeroValue(des.Secret) || (dcl.IsEmptyValueIndirect(des.Secret) && dcl.IsEmptyValueIndirect(initial.Secret)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Secret) && dcl.IsEmptyValueIndirect(initial.Secret) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Secret = initial.Secret
 	} else {
 		cDes.Secret = des.Secret
 	}
-	if dcl.IsZeroValue(des.Version) || (dcl.IsEmptyValueIndirect(des.Version) && dcl.IsEmptyValueIndirect(initial.Version)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Version) && dcl.IsEmptyValueIndirect(initial.Version) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -1704,7 +1676,7 @@ func canonicalizeJobTemplateTemplateContainersEnvValueSourceSecretKeyRef(des, in
 
 func canonicalizeJobTemplateTemplateContainersEnvValueSourceSecretKeyRefSlice(des, initial []JobTemplateTemplateContainersEnvValueSourceSecretKeyRef, opts ...dcl.ApplyOption) []JobTemplateTemplateContainersEnvValueSourceSecretKeyRef {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1791,10 +1763,7 @@ func canonicalizeNewJobTemplateTemplateContainersEnvValueSourceSecretKeyRefSlice
 }
 
 func canonicalizeJobTemplateTemplateContainersResources(des, initial *JobTemplateTemplateContainersResources, opts ...dcl.ApplyOption) *JobTemplateTemplateContainersResources {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1804,13 +1773,13 @@ func canonicalizeJobTemplateTemplateContainersResources(des, initial *JobTemplat
 
 	cDes := &JobTemplateTemplateContainersResources{}
 
-	if dcl.IsZeroValue(des.Limits) || (dcl.IsEmptyValueIndirect(des.Limits) && dcl.IsEmptyValueIndirect(initial.Limits)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Limits) && dcl.IsEmptyValueIndirect(initial.Limits) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Limits = initial.Limits
 	} else {
 		cDes.Limits = des.Limits
 	}
-	if dcl.BoolCanonicalize(des.CpuIdle, initial.CpuIdle) || dcl.IsZeroValue(des.CpuIdle) {
+	if dcl.BoolCanonicalize(des.CpuIdle, initial.CpuIdle) {
 		cDes.CpuIdle = initial.CpuIdle
 	} else {
 		cDes.CpuIdle = des.CpuIdle
@@ -1821,7 +1790,7 @@ func canonicalizeJobTemplateTemplateContainersResources(des, initial *JobTemplat
 
 func canonicalizeJobTemplateTemplateContainersResourcesSlice(des, initial []JobTemplateTemplateContainersResources, opts ...dcl.ApplyOption) []JobTemplateTemplateContainersResources {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1912,10 +1881,7 @@ func canonicalizeNewJobTemplateTemplateContainersResourcesSlice(c *Client, des, 
 }
 
 func canonicalizeJobTemplateTemplateContainersPorts(des, initial *JobTemplateTemplateContainersPorts, opts ...dcl.ApplyOption) *JobTemplateTemplateContainersPorts {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1925,13 +1891,13 @@ func canonicalizeJobTemplateTemplateContainersPorts(des, initial *JobTemplateTem
 
 	cDes := &JobTemplateTemplateContainersPorts{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.ContainerPort) || (dcl.IsEmptyValueIndirect(des.ContainerPort) && dcl.IsEmptyValueIndirect(initial.ContainerPort)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ContainerPort) && dcl.IsEmptyValueIndirect(initial.ContainerPort) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ContainerPort = initial.ContainerPort
 	} else {
 		cDes.ContainerPort = des.ContainerPort
@@ -1942,7 +1908,7 @@ func canonicalizeJobTemplateTemplateContainersPorts(des, initial *JobTemplateTem
 
 func canonicalizeJobTemplateTemplateContainersPortsSlice(des, initial []JobTemplateTemplateContainersPorts, opts ...dcl.ApplyOption) []JobTemplateTemplateContainersPorts {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2033,10 +1999,7 @@ func canonicalizeNewJobTemplateTemplateContainersPortsSlice(c *Client, des, nw [
 }
 
 func canonicalizeJobTemplateTemplateContainersVolumeMounts(des, initial *JobTemplateTemplateContainersVolumeMounts, opts ...dcl.ApplyOption) *JobTemplateTemplateContainersVolumeMounts {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2046,12 +2009,12 @@ func canonicalizeJobTemplateTemplateContainersVolumeMounts(des, initial *JobTemp
 
 	cDes := &JobTemplateTemplateContainersVolumeMounts{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.MountPath, initial.MountPath) || dcl.IsZeroValue(des.MountPath) {
+	if dcl.StringCanonicalize(des.MountPath, initial.MountPath) {
 		cDes.MountPath = initial.MountPath
 	} else {
 		cDes.MountPath = des.MountPath
@@ -2062,7 +2025,7 @@ func canonicalizeJobTemplateTemplateContainersVolumeMounts(des, initial *JobTemp
 
 func canonicalizeJobTemplateTemplateContainersVolumeMountsSlice(des, initial []JobTemplateTemplateContainersVolumeMounts, opts ...dcl.ApplyOption) []JobTemplateTemplateContainersVolumeMounts {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2156,31 +2119,8 @@ func canonicalizeNewJobTemplateTemplateContainersVolumeMountsSlice(c *Client, de
 }
 
 func canonicalizeJobTemplateTemplateVolumes(des, initial *JobTemplateTemplateVolumes, opts ...dcl.ApplyOption) *JobTemplateTemplateVolumes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Secret != nil || (initial != nil && initial.Secret != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudSqlInstance) {
-			des.Secret = nil
-			if initial != nil {
-				initial.Secret = nil
-			}
-		}
-	}
-
-	if des.CloudSqlInstance != nil || (initial != nil && initial.CloudSqlInstance != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Secret) {
-			des.CloudSqlInstance = nil
-			if initial != nil {
-				initial.CloudSqlInstance = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2189,7 +2129,7 @@ func canonicalizeJobTemplateTemplateVolumes(des, initial *JobTemplateTemplateVol
 
 	cDes := &JobTemplateTemplateVolumes{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -2197,12 +2137,25 @@ func canonicalizeJobTemplateTemplateVolumes(des, initial *JobTemplateTemplateVol
 	cDes.Secret = canonicalizeJobTemplateTemplateVolumesSecret(des.Secret, initial.Secret, opts...)
 	cDes.CloudSqlInstance = canonicalizeJobTemplateTemplateVolumesCloudSqlInstance(des.CloudSqlInstance, initial.CloudSqlInstance, opts...)
 
+	if cDes.Secret != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudSqlInstance) {
+			cDes.Secret = nil
+		}
+	}
+
+	if cDes.CloudSqlInstance != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Secret) {
+			cDes.CloudSqlInstance = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTemplateTemplateVolumesSlice(des, initial []JobTemplateTemplateVolumes, opts ...dcl.ApplyOption) []JobTemplateTemplateVolumes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2295,10 +2248,7 @@ func canonicalizeNewJobTemplateTemplateVolumesSlice(c *Client, des, nw []JobTemp
 }
 
 func canonicalizeJobTemplateTemplateVolumesSecret(des, initial *JobTemplateTemplateVolumesSecret, opts ...dcl.ApplyOption) *JobTemplateTemplateVolumesSecret {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2308,14 +2258,14 @@ func canonicalizeJobTemplateTemplateVolumesSecret(des, initial *JobTemplateTempl
 
 	cDes := &JobTemplateTemplateVolumesSecret{}
 
-	if dcl.StringCanonicalize(des.Secret, initial.Secret) || dcl.IsZeroValue(des.Secret) {
+	if dcl.StringCanonicalize(des.Secret, initial.Secret) {
 		cDes.Secret = initial.Secret
 	} else {
 		cDes.Secret = des.Secret
 	}
 	cDes.Items = canonicalizeJobTemplateTemplateVolumesSecretItemsSlice(des.Items, initial.Items, opts...)
-	if dcl.IsZeroValue(des.DefaultMode) || (dcl.IsEmptyValueIndirect(des.DefaultMode) && dcl.IsEmptyValueIndirect(initial.DefaultMode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DefaultMode) && dcl.IsEmptyValueIndirect(initial.DefaultMode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DefaultMode = initial.DefaultMode
 	} else {
 		cDes.DefaultMode = des.DefaultMode
@@ -2326,7 +2276,7 @@ func canonicalizeJobTemplateTemplateVolumesSecret(des, initial *JobTemplateTempl
 
 func canonicalizeJobTemplateTemplateVolumesSecretSlice(des, initial []JobTemplateTemplateVolumesSecret, opts ...dcl.ApplyOption) []JobTemplateTemplateVolumesSecret {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2418,10 +2368,7 @@ func canonicalizeNewJobTemplateTemplateVolumesSecretSlice(c *Client, des, nw []J
 }
 
 func canonicalizeJobTemplateTemplateVolumesSecretItems(des, initial *JobTemplateTemplateVolumesSecretItems, opts ...dcl.ApplyOption) *JobTemplateTemplateVolumesSecretItems {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2431,18 +2378,18 @@ func canonicalizeJobTemplateTemplateVolumesSecretItems(des, initial *JobTemplate
 
 	cDes := &JobTemplateTemplateVolumesSecretItems{}
 
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
 	}
-	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -2453,7 +2400,7 @@ func canonicalizeJobTemplateTemplateVolumesSecretItems(des, initial *JobTemplate
 
 func canonicalizeJobTemplateTemplateVolumesSecretItemsSlice(des, initial []JobTemplateTemplateVolumesSecretItems, opts ...dcl.ApplyOption) []JobTemplateTemplateVolumesSecretItems {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2547,10 +2494,7 @@ func canonicalizeNewJobTemplateTemplateVolumesSecretItemsSlice(c *Client, des, n
 }
 
 func canonicalizeJobTemplateTemplateVolumesCloudSqlInstance(des, initial *JobTemplateTemplateVolumesCloudSqlInstance, opts ...dcl.ApplyOption) *JobTemplateTemplateVolumesCloudSqlInstance {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2571,7 +2515,7 @@ func canonicalizeJobTemplateTemplateVolumesCloudSqlInstance(des, initial *JobTem
 
 func canonicalizeJobTemplateTemplateVolumesCloudSqlInstanceSlice(des, initial []JobTemplateTemplateVolumesCloudSqlInstance, opts ...dcl.ApplyOption) []JobTemplateTemplateVolumesCloudSqlInstance {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2662,10 +2606,7 @@ func canonicalizeNewJobTemplateTemplateVolumesCloudSqlInstanceSlice(c *Client, d
 }
 
 func canonicalizeJobTemplateTemplateVPCAccess(des, initial *JobTemplateTemplateVPCAccess, opts ...dcl.ApplyOption) *JobTemplateTemplateVPCAccess {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2675,14 +2616,14 @@ func canonicalizeJobTemplateTemplateVPCAccess(des, initial *JobTemplateTemplateV
 
 	cDes := &JobTemplateTemplateVPCAccess{}
 
-	if dcl.IsZeroValue(des.Connector) || (dcl.IsEmptyValueIndirect(des.Connector) && dcl.IsEmptyValueIndirect(initial.Connector)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Connector) && dcl.IsEmptyValueIndirect(initial.Connector) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Connector = initial.Connector
 	} else {
 		cDes.Connector = des.Connector
 	}
-	if dcl.IsZeroValue(des.Egress) || (dcl.IsEmptyValueIndirect(des.Egress) && dcl.IsEmptyValueIndirect(initial.Egress)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Egress) && dcl.IsEmptyValueIndirect(initial.Egress) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Egress = initial.Egress
 	} else {
 		cDes.Egress = des.Egress
@@ -2693,7 +2634,7 @@ func canonicalizeJobTemplateTemplateVPCAccess(des, initial *JobTemplateTemplateV
 
 func canonicalizeJobTemplateTemplateVPCAccessSlice(des, initial []JobTemplateTemplateVPCAccess, opts ...dcl.ApplyOption) []JobTemplateTemplateVPCAccess {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2780,61 +2721,8 @@ func canonicalizeNewJobTemplateTemplateVPCAccessSlice(c *Client, des, nw []JobTe
 }
 
 func canonicalizeJobTerminalCondition(des, initial *JobTerminalCondition, opts ...dcl.ApplyOption) *JobTerminalCondition {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Reason != nil || (initial != nil && initial.Reason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.InternalReason, des.DomainMappingReason, des.RevisionReason, des.ExecutionReason) {
-			des.Reason = nil
-			if initial != nil {
-				initial.Reason = nil
-			}
-		}
-	}
-
-	if des.InternalReason != nil || (initial != nil && initial.InternalReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.DomainMappingReason, des.RevisionReason, des.ExecutionReason) {
-			des.InternalReason = nil
-			if initial != nil {
-				initial.InternalReason = nil
-			}
-		}
-	}
-
-	if des.DomainMappingReason != nil || (initial != nil && initial.DomainMappingReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.RevisionReason, des.ExecutionReason) {
-			des.DomainMappingReason = nil
-			if initial != nil {
-				initial.DomainMappingReason = nil
-			}
-		}
-	}
-
-	if des.RevisionReason != nil || (initial != nil && initial.RevisionReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.DomainMappingReason, des.ExecutionReason) {
-			des.RevisionReason = nil
-			if initial != nil {
-				initial.RevisionReason = nil
-			}
-		}
-	}
-
-	if des.ExecutionReason != nil || (initial != nil && initial.ExecutionReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.DomainMappingReason, des.RevisionReason) {
-			des.ExecutionReason = nil
-			if initial != nil {
-				initial.ExecutionReason = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2843,71 +2731,105 @@ func canonicalizeJobTerminalCondition(des, initial *JobTerminalCondition, opts .
 
 	cDes := &JobTerminalCondition{}
 
-	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, initial.Type) {
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
-	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, initial.Message) {
 		cDes.Message = initial.Message
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.LastTransitionTime) || (dcl.IsEmptyValueIndirect(des.LastTransitionTime) && dcl.IsEmptyValueIndirect(initial.LastTransitionTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.LastTransitionTime) && dcl.IsEmptyValueIndirect(initial.LastTransitionTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.LastTransitionTime = initial.LastTransitionTime
 	} else {
 		cDes.LastTransitionTime = des.LastTransitionTime
 	}
-	if dcl.IsZeroValue(des.Severity) || (dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Severity = initial.Severity
 	} else {
 		cDes.Severity = des.Severity
 	}
-	if dcl.IsZeroValue(des.Reason) || (dcl.IsEmptyValueIndirect(des.Reason) && dcl.IsEmptyValueIndirect(initial.Reason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Reason) && dcl.IsEmptyValueIndirect(initial.Reason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Reason = initial.Reason
 	} else {
 		cDes.Reason = des.Reason
 	}
-	if dcl.IsZeroValue(des.InternalReason) || (dcl.IsEmptyValueIndirect(des.InternalReason) && dcl.IsEmptyValueIndirect(initial.InternalReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.InternalReason) && dcl.IsEmptyValueIndirect(initial.InternalReason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.InternalReason = initial.InternalReason
 	} else {
 		cDes.InternalReason = des.InternalReason
 	}
-	if dcl.IsZeroValue(des.DomainMappingReason) || (dcl.IsEmptyValueIndirect(des.DomainMappingReason) && dcl.IsEmptyValueIndirect(initial.DomainMappingReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DomainMappingReason) && dcl.IsEmptyValueIndirect(initial.DomainMappingReason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DomainMappingReason = initial.DomainMappingReason
 	} else {
 		cDes.DomainMappingReason = des.DomainMappingReason
 	}
-	if dcl.IsZeroValue(des.RevisionReason) || (dcl.IsEmptyValueIndirect(des.RevisionReason) && dcl.IsEmptyValueIndirect(initial.RevisionReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RevisionReason) && dcl.IsEmptyValueIndirect(initial.RevisionReason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RevisionReason = initial.RevisionReason
 	} else {
 		cDes.RevisionReason = des.RevisionReason
 	}
-	if dcl.IsZeroValue(des.ExecutionReason) || (dcl.IsEmptyValueIndirect(des.ExecutionReason) && dcl.IsEmptyValueIndirect(initial.ExecutionReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ExecutionReason) && dcl.IsEmptyValueIndirect(initial.ExecutionReason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ExecutionReason = initial.ExecutionReason
 	} else {
 		cDes.ExecutionReason = des.ExecutionReason
 	}
 
+	if cDes.Reason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.InternalReason, cDes.DomainMappingReason, cDes.RevisionReason, cDes.ExecutionReason) {
+			cDes.Reason = nil
+		}
+	}
+
+	if cDes.InternalReason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Reason, cDes.DomainMappingReason, cDes.RevisionReason, cDes.ExecutionReason) {
+			cDes.InternalReason = nil
+		}
+	}
+
+	if cDes.DomainMappingReason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Reason, cDes.InternalReason, cDes.RevisionReason, cDes.ExecutionReason) {
+			cDes.DomainMappingReason = nil
+		}
+	}
+
+	if cDes.RevisionReason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Reason, cDes.InternalReason, cDes.DomainMappingReason, cDes.ExecutionReason) {
+			cDes.RevisionReason = nil
+		}
+	}
+
+	if cDes.ExecutionReason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Reason, cDes.InternalReason, cDes.DomainMappingReason, cDes.RevisionReason) {
+			cDes.ExecutionReason = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTerminalConditionSlice(des, initial []JobTerminalCondition, opts ...dcl.ApplyOption) []JobTerminalCondition {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3001,61 +2923,8 @@ func canonicalizeNewJobTerminalConditionSlice(c *Client, des, nw []JobTerminalCo
 }
 
 func canonicalizeJobConditions(des, initial *JobConditions, opts ...dcl.ApplyOption) *JobConditions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Reason != nil || (initial != nil && initial.Reason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.InternalReason, des.DomainMappingReason, des.RevisionReason, des.ExecutionReason) {
-			des.Reason = nil
-			if initial != nil {
-				initial.Reason = nil
-			}
-		}
-	}
-
-	if des.InternalReason != nil || (initial != nil && initial.InternalReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.DomainMappingReason, des.RevisionReason, des.ExecutionReason) {
-			des.InternalReason = nil
-			if initial != nil {
-				initial.InternalReason = nil
-			}
-		}
-	}
-
-	if des.DomainMappingReason != nil || (initial != nil && initial.DomainMappingReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.RevisionReason, des.ExecutionReason) {
-			des.DomainMappingReason = nil
-			if initial != nil {
-				initial.DomainMappingReason = nil
-			}
-		}
-	}
-
-	if des.RevisionReason != nil || (initial != nil && initial.RevisionReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.DomainMappingReason, des.ExecutionReason) {
-			des.RevisionReason = nil
-			if initial != nil {
-				initial.RevisionReason = nil
-			}
-		}
-	}
-
-	if des.ExecutionReason != nil || (initial != nil && initial.ExecutionReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.DomainMappingReason, des.RevisionReason) {
-			des.ExecutionReason = nil
-			if initial != nil {
-				initial.ExecutionReason = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -3064,71 +2933,105 @@ func canonicalizeJobConditions(des, initial *JobConditions, opts ...dcl.ApplyOpt
 
 	cDes := &JobConditions{}
 
-	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, initial.Type) {
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
-	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, initial.Message) {
 		cDes.Message = initial.Message
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.LastTransitionTime) || (dcl.IsEmptyValueIndirect(des.LastTransitionTime) && dcl.IsEmptyValueIndirect(initial.LastTransitionTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.LastTransitionTime) && dcl.IsEmptyValueIndirect(initial.LastTransitionTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.LastTransitionTime = initial.LastTransitionTime
 	} else {
 		cDes.LastTransitionTime = des.LastTransitionTime
 	}
-	if dcl.IsZeroValue(des.Severity) || (dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Severity = initial.Severity
 	} else {
 		cDes.Severity = des.Severity
 	}
-	if dcl.IsZeroValue(des.Reason) || (dcl.IsEmptyValueIndirect(des.Reason) && dcl.IsEmptyValueIndirect(initial.Reason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Reason) && dcl.IsEmptyValueIndirect(initial.Reason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Reason = initial.Reason
 	} else {
 		cDes.Reason = des.Reason
 	}
-	if dcl.IsZeroValue(des.InternalReason) || (dcl.IsEmptyValueIndirect(des.InternalReason) && dcl.IsEmptyValueIndirect(initial.InternalReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.InternalReason) && dcl.IsEmptyValueIndirect(initial.InternalReason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.InternalReason = initial.InternalReason
 	} else {
 		cDes.InternalReason = des.InternalReason
 	}
-	if dcl.IsZeroValue(des.DomainMappingReason) || (dcl.IsEmptyValueIndirect(des.DomainMappingReason) && dcl.IsEmptyValueIndirect(initial.DomainMappingReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DomainMappingReason) && dcl.IsEmptyValueIndirect(initial.DomainMappingReason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DomainMappingReason = initial.DomainMappingReason
 	} else {
 		cDes.DomainMappingReason = des.DomainMappingReason
 	}
-	if dcl.IsZeroValue(des.RevisionReason) || (dcl.IsEmptyValueIndirect(des.RevisionReason) && dcl.IsEmptyValueIndirect(initial.RevisionReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RevisionReason) && dcl.IsEmptyValueIndirect(initial.RevisionReason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RevisionReason = initial.RevisionReason
 	} else {
 		cDes.RevisionReason = des.RevisionReason
 	}
-	if dcl.IsZeroValue(des.ExecutionReason) || (dcl.IsEmptyValueIndirect(des.ExecutionReason) && dcl.IsEmptyValueIndirect(initial.ExecutionReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ExecutionReason) && dcl.IsEmptyValueIndirect(initial.ExecutionReason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ExecutionReason = initial.ExecutionReason
 	} else {
 		cDes.ExecutionReason = des.ExecutionReason
 	}
 
+	if cDes.Reason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.InternalReason, cDes.DomainMappingReason, cDes.RevisionReason, cDes.ExecutionReason) {
+			cDes.Reason = nil
+		}
+	}
+
+	if cDes.InternalReason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Reason, cDes.DomainMappingReason, cDes.RevisionReason, cDes.ExecutionReason) {
+			cDes.InternalReason = nil
+		}
+	}
+
+	if cDes.DomainMappingReason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Reason, cDes.InternalReason, cDes.RevisionReason, cDes.ExecutionReason) {
+			cDes.DomainMappingReason = nil
+		}
+	}
+
+	if cDes.RevisionReason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Reason, cDes.InternalReason, cDes.DomainMappingReason, cDes.ExecutionReason) {
+			cDes.RevisionReason = nil
+		}
+	}
+
+	if cDes.ExecutionReason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Reason, cDes.InternalReason, cDes.DomainMappingReason, cDes.RevisionReason) {
+			cDes.ExecutionReason = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobConditionsSlice(des, initial []JobConditions, opts ...dcl.ApplyOption) []JobConditions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3222,10 +3125,7 @@ func canonicalizeNewJobConditionsSlice(c *Client, des, nw []JobConditions) []Job
 }
 
 func canonicalizeJobLatestSucceededExecution(des, initial *JobLatestSucceededExecution, opts ...dcl.ApplyOption) *JobLatestSucceededExecution {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3235,14 +3135,14 @@ func canonicalizeJobLatestSucceededExecution(des, initial *JobLatestSucceededExe
 
 	cDes := &JobLatestSucceededExecution{}
 
-	if dcl.IsZeroValue(des.Name) || (dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.CreateTime) || (dcl.IsEmptyValueIndirect(des.CreateTime) && dcl.IsEmptyValueIndirect(initial.CreateTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CreateTime) && dcl.IsEmptyValueIndirect(initial.CreateTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CreateTime = initial.CreateTime
 	} else {
 		cDes.CreateTime = des.CreateTime
@@ -3253,7 +3153,7 @@ func canonicalizeJobLatestSucceededExecution(des, initial *JobLatestSucceededExe
 
 func canonicalizeJobLatestSucceededExecutionSlice(des, initial []JobLatestSucceededExecution, opts ...dcl.ApplyOption) []JobLatestSucceededExecution {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3340,10 +3240,7 @@ func canonicalizeNewJobLatestSucceededExecutionSlice(c *Client, des, nw []JobLat
 }
 
 func canonicalizeJobLatestCreatedExecution(des, initial *JobLatestCreatedExecution, opts ...dcl.ApplyOption) *JobLatestCreatedExecution {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3353,14 +3250,14 @@ func canonicalizeJobLatestCreatedExecution(des, initial *JobLatestCreatedExecuti
 
 	cDes := &JobLatestCreatedExecution{}
 
-	if dcl.IsZeroValue(des.Name) || (dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.CreateTime) || (dcl.IsEmptyValueIndirect(des.CreateTime) && dcl.IsEmptyValueIndirect(initial.CreateTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CreateTime) && dcl.IsEmptyValueIndirect(initial.CreateTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CreateTime = initial.CreateTime
 	} else {
 		cDes.CreateTime = des.CreateTime
@@ -3371,7 +3268,7 @@ func canonicalizeJobLatestCreatedExecution(des, initial *JobLatestCreatedExecuti
 
 func canonicalizeJobLatestCreatedExecutionSlice(des, initial []JobLatestCreatedExecution, opts ...dcl.ApplyOption) []JobLatestCreatedExecution {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3458,10 +3355,7 @@ func canonicalizeNewJobLatestCreatedExecutionSlice(c *Client, des, nw []JobLates
 }
 
 func canonicalizeJobContainerStatuses(des, initial *JobContainerStatuses, opts ...dcl.ApplyOption) *JobContainerStatuses {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3471,12 +3365,12 @@ func canonicalizeJobContainerStatuses(des, initial *JobContainerStatuses, opts .
 
 	cDes := &JobContainerStatuses{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.ImageDigest, initial.ImageDigest) || dcl.IsZeroValue(des.ImageDigest) {
+	if dcl.StringCanonicalize(des.ImageDigest, initial.ImageDigest) {
 		cDes.ImageDigest = initial.ImageDigest
 	} else {
 		cDes.ImageDigest = des.ImageDigest
@@ -3487,7 +3381,7 @@ func canonicalizeJobContainerStatuses(des, initial *JobContainerStatuses, opts .
 
 func canonicalizeJobContainerStatusesSlice(des, initial []JobContainerStatuses, opts ...dcl.ApplyOption) []JobContainerStatuses {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

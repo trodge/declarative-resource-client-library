@@ -451,8 +451,8 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 		return rawDesired, nil
 	}
 	canonicalDesired := &Organization{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -467,8 +467,8 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Properties) || (dcl.IsEmptyValueIndirect(rawDesired.Properties) && dcl.IsEmptyValueIndirect(rawInitial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Properties) && dcl.IsEmptyValueIndirect(rawInitial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Properties = rawInitial.Properties
 	} else {
 		canonicalDesired.Properties = rawDesired.Properties
@@ -478,21 +478,21 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 	} else {
 		canonicalDesired.AnalyticsRegion = rawDesired.AnalyticsRegion
 	}
-	if dcl.IsZeroValue(rawDesired.AuthorizedNetwork) || (dcl.IsEmptyValueIndirect(rawDesired.AuthorizedNetwork) && dcl.IsEmptyValueIndirect(rawInitial.AuthorizedNetwork)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.AuthorizedNetwork) && dcl.IsEmptyValueIndirect(rawInitial.AuthorizedNetwork) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.AuthorizedNetwork = rawInitial.AuthorizedNetwork
 	} else {
 		canonicalDesired.AuthorizedNetwork = rawDesired.AuthorizedNetwork
 	}
-	if dcl.IsZeroValue(rawDesired.RuntimeType) || (dcl.IsEmptyValueIndirect(rawDesired.RuntimeType) && dcl.IsEmptyValueIndirect(rawInitial.RuntimeType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.RuntimeType) && dcl.IsEmptyValueIndirect(rawInitial.RuntimeType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.RuntimeType = rawInitial.RuntimeType
 	} else {
 		canonicalDesired.RuntimeType = rawDesired.RuntimeType
 	}
 	canonicalDesired.AddonsConfig = canonicalizeOrganizationAddonsConfig(rawDesired.AddonsConfig, rawInitial.AddonsConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.RuntimeDatabaseEncryptionKeyName) || (dcl.IsEmptyValueIndirect(rawDesired.RuntimeDatabaseEncryptionKeyName) && dcl.IsEmptyValueIndirect(rawInitial.RuntimeDatabaseEncryptionKeyName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.RuntimeDatabaseEncryptionKeyName) && dcl.IsEmptyValueIndirect(rawInitial.RuntimeDatabaseEncryptionKeyName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.RuntimeDatabaseEncryptionKeyName = rawInitial.RuntimeDatabaseEncryptionKeyName
 	} else {
 		canonicalDesired.RuntimeDatabaseEncryptionKeyName = rawDesired.RuntimeDatabaseEncryptionKeyName
@@ -623,10 +623,7 @@ func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organizatio
 }
 
 func canonicalizeOrganizationAddonsConfig(des, initial *OrganizationAddonsConfig, opts ...dcl.ApplyOption) *OrganizationAddonsConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -644,7 +641,7 @@ func canonicalizeOrganizationAddonsConfig(des, initial *OrganizationAddonsConfig
 
 func canonicalizeOrganizationAddonsConfigSlice(des, initial []OrganizationAddonsConfig, opts ...dcl.ApplyOption) []OrganizationAddonsConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -734,10 +731,7 @@ func canonicalizeNewOrganizationAddonsConfigSlice(c *Client, des, nw []Organizat
 }
 
 func canonicalizeOrganizationAddonsConfigAdvancedApiOpsConfig(des, initial *OrganizationAddonsConfigAdvancedApiOpsConfig, opts ...dcl.ApplyOption) *OrganizationAddonsConfigAdvancedApiOpsConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -747,7 +741,7 @@ func canonicalizeOrganizationAddonsConfigAdvancedApiOpsConfig(des, initial *Orga
 
 	cDes := &OrganizationAddonsConfigAdvancedApiOpsConfig{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
@@ -758,7 +752,7 @@ func canonicalizeOrganizationAddonsConfigAdvancedApiOpsConfig(des, initial *Orga
 
 func canonicalizeOrganizationAddonsConfigAdvancedApiOpsConfigSlice(des, initial []OrganizationAddonsConfigAdvancedApiOpsConfig, opts ...dcl.ApplyOption) []OrganizationAddonsConfigAdvancedApiOpsConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -849,10 +843,7 @@ func canonicalizeNewOrganizationAddonsConfigAdvancedApiOpsConfigSlice(c *Client,
 }
 
 func canonicalizeOrganizationAddonsConfigMonetizationConfig(des, initial *OrganizationAddonsConfigMonetizationConfig, opts ...dcl.ApplyOption) *OrganizationAddonsConfigMonetizationConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -862,7 +853,7 @@ func canonicalizeOrganizationAddonsConfigMonetizationConfig(des, initial *Organi
 
 	cDes := &OrganizationAddonsConfigMonetizationConfig{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
@@ -873,7 +864,7 @@ func canonicalizeOrganizationAddonsConfigMonetizationConfig(des, initial *Organi
 
 func canonicalizeOrganizationAddonsConfigMonetizationConfigSlice(des, initial []OrganizationAddonsConfigMonetizationConfig, opts ...dcl.ApplyOption) []OrganizationAddonsConfigMonetizationConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

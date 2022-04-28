@@ -371,8 +371,8 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Network) || (dcl.IsEmptyValueIndirect(rawDesired.Network) && dcl.IsEmptyValueIndirect(rawInitial.Network)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Network) && dcl.IsEmptyValueIndirect(rawInitial.Network) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Network = rawInitial.Network
 	} else {
 		canonicalDesired.Network = rawDesired.Network
@@ -382,14 +382,14 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 	} else {
 		canonicalDesired.IPCidrRange = rawDesired.IPCidrRange
 	}
-	if dcl.IsZeroValue(rawDesired.MinThroughput) || (dcl.IsEmptyValueIndirect(rawDesired.MinThroughput) && dcl.IsEmptyValueIndirect(rawInitial.MinThroughput)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.MinThroughput) && dcl.IsEmptyValueIndirect(rawInitial.MinThroughput) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.MinThroughput = rawInitial.MinThroughput
 	} else {
 		canonicalDesired.MinThroughput = rawDesired.MinThroughput
 	}
-	if dcl.IsZeroValue(rawDesired.MaxThroughput) || (dcl.IsEmptyValueIndirect(rawDesired.MaxThroughput) && dcl.IsEmptyValueIndirect(rawInitial.MaxThroughput)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.MaxThroughput) && dcl.IsEmptyValueIndirect(rawInitial.MaxThroughput) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.MaxThroughput = rawInitial.MaxThroughput
 	} else {
 		canonicalDesired.MaxThroughput = rawDesired.MaxThroughput
@@ -400,14 +400,14 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 	} else {
 		canonicalDesired.MachineType = rawDesired.MachineType
 	}
-	if dcl.IsZeroValue(rawDesired.MinInstances) || (dcl.IsEmptyValueIndirect(rawDesired.MinInstances) && dcl.IsEmptyValueIndirect(rawInitial.MinInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.MinInstances) && dcl.IsEmptyValueIndirect(rawInitial.MinInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.MinInstances = rawInitial.MinInstances
 	} else {
 		canonicalDesired.MinInstances = rawDesired.MinInstances
 	}
-	if dcl.IsZeroValue(rawDesired.MaxInstances) || (dcl.IsEmptyValueIndirect(rawDesired.MaxInstances) && dcl.IsEmptyValueIndirect(rawInitial.MaxInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.MaxInstances) && dcl.IsEmptyValueIndirect(rawInitial.MaxInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.MaxInstances = rawInitial.MaxInstances
 	} else {
 		canonicalDesired.MaxInstances = rawDesired.MaxInstances
@@ -498,10 +498,7 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 }
 
 func canonicalizeConnectorSubnet(des, initial *ConnectorSubnet, opts ...dcl.ApplyOption) *ConnectorSubnet {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -511,14 +508,14 @@ func canonicalizeConnectorSubnet(des, initial *ConnectorSubnet, opts ...dcl.Appl
 
 	cDes := &ConnectorSubnet{}
 
-	if dcl.IsZeroValue(des.Name) || (dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
@@ -529,7 +526,7 @@ func canonicalizeConnectorSubnet(des, initial *ConnectorSubnet, opts ...dcl.Appl
 
 func canonicalizeConnectorSubnetSlice(des, initial []ConnectorSubnet, opts ...dcl.ApplyOption) []ConnectorSubnet {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

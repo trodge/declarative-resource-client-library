@@ -575,47 +575,6 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.Image != nil || rawInitial.Image != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
-			rawDesired.Image = nil
-			rawInitial.Image = nil
-		}
-	}
-
-	if rawDesired.Package != nil || rawInitial.Package != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Image, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
-			rawDesired.Package = nil
-			rawInitial.Package = nil
-		}
-	}
-
-	if rawDesired.Deployment != nil || rawInitial.Deployment != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Image, rawDesired.Package, rawDesired.Discovery, rawDesired.Attestation) {
-			rawDesired.Deployment = nil
-			rawInitial.Deployment = nil
-		}
-	}
-
-	if rawDesired.Discovery != nil || rawInitial.Discovery != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Attestation) {
-			rawDesired.Discovery = nil
-			rawInitial.Discovery = nil
-		}
-	}
-
-	if rawDesired.Attestation != nil || rawInitial.Attestation != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery) {
-			rawDesired.Attestation = nil
-			rawInitial.Attestation = nil
-		}
-	}
-
 	canonicalDesired := &Note{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -633,8 +592,8 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 		canonicalDesired.LongDescription = rawDesired.LongDescription
 	}
 	canonicalDesired.RelatedUrl = canonicalizeNoteRelatedUrlSlice(rawDesired.RelatedUrl, rawInitial.RelatedUrl, opts...)
-	if dcl.IsZeroValue(rawDesired.ExpirationTime) || (dcl.IsEmptyValueIndirect(rawDesired.ExpirationTime) && dcl.IsEmptyValueIndirect(rawInitial.ExpirationTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.ExpirationTime) && dcl.IsEmptyValueIndirect(rawInitial.ExpirationTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.ExpirationTime = rawInitial.ExpirationTime
 	} else {
 		canonicalDesired.ExpirationTime = rawDesired.ExpirationTime
@@ -648,6 +607,41 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.Image != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Package, canonicalDesired.Deployment, canonicalDesired.Discovery, canonicalDesired.Attestation) {
+			canonicalDesired.Image = nil
+		}
+	}
+
+	if canonicalDesired.Package != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Image, canonicalDesired.Deployment, canonicalDesired.Discovery, canonicalDesired.Attestation) {
+			canonicalDesired.Package = nil
+		}
+	}
+
+	if canonicalDesired.Deployment != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Image, canonicalDesired.Package, canonicalDesired.Discovery, canonicalDesired.Attestation) {
+			canonicalDesired.Deployment = nil
+		}
+	}
+
+	if canonicalDesired.Discovery != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Image, canonicalDesired.Package, canonicalDesired.Deployment, canonicalDesired.Attestation) {
+			canonicalDesired.Discovery = nil
+		}
+	}
+
+	if canonicalDesired.Attestation != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Image, canonicalDesired.Package, canonicalDesired.Deployment, canonicalDesired.Discovery) {
+			canonicalDesired.Attestation = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -732,14 +726,41 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 
 	rawNew.Project = rawDesired.Project
 
+	if rawNew.Image != nil {
+		if dcl.AnySet(rawNew.Package, rawNew.Deployment, rawNew.Discovery, rawNew.Attestation) && rawDesired.Image == nil {
+			rawNew.Image = nil
+		}
+	}
+
+	if rawNew.Package != nil {
+		if dcl.AnySet(rawNew.Image, rawNew.Deployment, rawNew.Discovery, rawNew.Attestation) && rawDesired.Package == nil {
+			rawNew.Package = nil
+		}
+	}
+
+	if rawNew.Deployment != nil {
+		if dcl.AnySet(rawNew.Image, rawNew.Package, rawNew.Discovery, rawNew.Attestation) && rawDesired.Deployment == nil {
+			rawNew.Deployment = nil
+		}
+	}
+
+	if rawNew.Discovery != nil {
+		if dcl.AnySet(rawNew.Image, rawNew.Package, rawNew.Deployment, rawNew.Attestation) && rawDesired.Discovery == nil {
+			rawNew.Discovery = nil
+		}
+	}
+
+	if rawNew.Attestation != nil {
+		if dcl.AnySet(rawNew.Image, rawNew.Package, rawNew.Deployment, rawNew.Discovery) && rawDesired.Attestation == nil {
+			rawNew.Attestation = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyOption) *NoteRelatedUrl {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -749,12 +770,12 @@ func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyO
 
 	cDes := &NoteRelatedUrl{}
 
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) {
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
 	}
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
@@ -765,7 +786,7 @@ func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyO
 
 func canonicalizeNoteRelatedUrlSlice(des, initial []NoteRelatedUrl, opts ...dcl.ApplyOption) []NoteRelatedUrl {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -859,10 +880,7 @@ func canonicalizeNewNoteRelatedUrlSlice(c *Client, des, nw []NoteRelatedUrl) []N
 }
 
 func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *NoteImage {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -872,7 +890,7 @@ func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *No
 
 	cDes := &NoteImage{}
 
-	if dcl.StringCanonicalize(des.ResourceUrl, initial.ResourceUrl) || dcl.IsZeroValue(des.ResourceUrl) {
+	if dcl.StringCanonicalize(des.ResourceUrl, initial.ResourceUrl) {
 		cDes.ResourceUrl = initial.ResourceUrl
 	} else {
 		cDes.ResourceUrl = des.ResourceUrl
@@ -884,7 +902,7 @@ func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *No
 
 func canonicalizeNoteImageSlice(des, initial []NoteImage, opts ...dcl.ApplyOption) []NoteImage {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -976,10 +994,7 @@ func canonicalizeNewNoteImageSlice(c *Client, des, nw []NoteImage) []NoteImage {
 }
 
 func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts ...dcl.ApplyOption) *NoteImageFingerprint {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -989,7 +1004,7 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 
 	cDes := &NoteImageFingerprint{}
 
-	if dcl.StringCanonicalize(des.V1Name, initial.V1Name) || dcl.IsZeroValue(des.V1Name) {
+	if dcl.StringCanonicalize(des.V1Name, initial.V1Name) {
 		cDes.V1Name = initial.V1Name
 	} else {
 		cDes.V1Name = des.V1Name
@@ -1005,7 +1020,7 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 
 func canonicalizeNoteImageFingerprintSlice(des, initial []NoteImageFingerprint, opts ...dcl.ApplyOption) []NoteImageFingerprint {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1102,10 +1117,7 @@ func canonicalizeNewNoteImageFingerprintSlice(c *Client, des, nw []NoteImageFing
 }
 
 func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption) *NotePackage {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1115,7 +1127,7 @@ func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption)
 
 	cDes := &NotePackage{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -1127,7 +1139,7 @@ func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption)
 
 func canonicalizeNotePackageSlice(des, initial []NotePackage, opts ...dcl.ApplyOption) []NotePackage {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1219,10 +1231,7 @@ func canonicalizeNewNotePackageSlice(c *Client, des, nw []NotePackage) []NotePac
 }
 
 func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, opts ...dcl.ApplyOption) *NotePackageDistribution {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1232,29 +1241,29 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 
 	cDes := &NotePackageDistribution{}
 
-	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
+	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) {
 		cDes.CpeUri = initial.CpeUri
 	} else {
 		cDes.CpeUri = des.CpeUri
 	}
-	if dcl.IsZeroValue(des.Architecture) || (dcl.IsEmptyValueIndirect(des.Architecture) && dcl.IsEmptyValueIndirect(initial.Architecture)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Architecture) && dcl.IsEmptyValueIndirect(initial.Architecture) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Architecture = initial.Architecture
 	} else {
 		cDes.Architecture = des.Architecture
 	}
 	cDes.LatestVersion = canonicalizeNotePackageDistributionLatestVersion(des.LatestVersion, initial.LatestVersion, opts...)
-	if dcl.StringCanonicalize(des.Maintainer, initial.Maintainer) || dcl.IsZeroValue(des.Maintainer) {
+	if dcl.StringCanonicalize(des.Maintainer, initial.Maintainer) {
 		cDes.Maintainer = initial.Maintainer
 	} else {
 		cDes.Maintainer = des.Maintainer
 	}
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) {
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
 	}
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
@@ -1265,7 +1274,7 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 
 func canonicalizeNotePackageDistributionSlice(des, initial []NotePackageDistribution, opts ...dcl.ApplyOption) []NotePackageDistribution {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1366,10 +1375,7 @@ func canonicalizeNewNotePackageDistributionSlice(c *Client, des, nw []NotePackag
 }
 
 func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageDistributionLatestVersion, opts ...dcl.ApplyOption) *NotePackageDistributionLatestVersion {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1379,29 +1385,29 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 
 	cDes := &NotePackageDistributionLatestVersion{}
 
-	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Epoch = initial.Epoch
 	} else {
 		cDes.Epoch = des.Epoch
 	}
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Kind = initial.Kind
 	} else {
 		cDes.Kind = des.Kind
 	}
-	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) {
 		cDes.FullName = initial.FullName
 	} else {
 		cDes.FullName = des.FullName
@@ -1412,7 +1418,7 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 
 func canonicalizeNotePackageDistributionLatestVersionSlice(des, initial []NotePackageDistributionLatestVersion, opts ...dcl.ApplyOption) []NotePackageDistributionLatestVersion {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1509,10 +1515,7 @@ func canonicalizeNewNotePackageDistributionLatestVersionSlice(c *Client, des, nw
 }
 
 func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOption) *NoteDiscovery {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1522,8 +1525,8 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 
 	cDes := &NoteDiscovery{}
 
-	if dcl.IsZeroValue(des.AnalysisKind) || (dcl.IsEmptyValueIndirect(des.AnalysisKind) && dcl.IsEmptyValueIndirect(initial.AnalysisKind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AnalysisKind) && dcl.IsEmptyValueIndirect(initial.AnalysisKind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AnalysisKind = initial.AnalysisKind
 	} else {
 		cDes.AnalysisKind = des.AnalysisKind
@@ -1534,7 +1537,7 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 
 func canonicalizeNoteDiscoverySlice(des, initial []NoteDiscovery, opts ...dcl.ApplyOption) []NoteDiscovery {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1621,10 +1624,7 @@ func canonicalizeNewNoteDiscoverySlice(c *Client, des, nw []NoteDiscovery) []Not
 }
 
 func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyOption) *NoteDeployment {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1645,7 +1645,7 @@ func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyO
 
 func canonicalizeNoteDeploymentSlice(des, initial []NoteDeployment, opts ...dcl.ApplyOption) []NoteDeployment {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1736,10 +1736,7 @@ func canonicalizeNewNoteDeploymentSlice(c *Client, des, nw []NoteDeployment) []N
 }
 
 func canonicalizeNoteAttestation(des, initial *NoteAttestation, opts ...dcl.ApplyOption) *NoteAttestation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1756,7 +1753,7 @@ func canonicalizeNoteAttestation(des, initial *NoteAttestation, opts ...dcl.Appl
 
 func canonicalizeNoteAttestationSlice(des, initial []NoteAttestation, opts ...dcl.ApplyOption) []NoteAttestation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1845,10 +1842,7 @@ func canonicalizeNewNoteAttestationSlice(c *Client, des, nw []NoteAttestation) [
 }
 
 func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...dcl.ApplyOption) *NoteAttestationHint {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1858,7 +1852,7 @@ func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...
 
 	cDes := &NoteAttestationHint{}
 
-	if dcl.StringCanonicalize(des.HumanReadableName, initial.HumanReadableName) || dcl.IsZeroValue(des.HumanReadableName) {
+	if dcl.StringCanonicalize(des.HumanReadableName, initial.HumanReadableName) {
 		cDes.HumanReadableName = initial.HumanReadableName
 	} else {
 		cDes.HumanReadableName = des.HumanReadableName
@@ -1869,7 +1863,7 @@ func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...
 
 func canonicalizeNoteAttestationHintSlice(des, initial []NoteAttestationHint, opts ...dcl.ApplyOption) []NoteAttestationHint {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

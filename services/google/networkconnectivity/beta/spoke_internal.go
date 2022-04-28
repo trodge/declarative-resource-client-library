@@ -512,39 +512,14 @@ func canonicalizeSpokeDesiredState(rawDesired, rawInitial *Spoke, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.LinkedVpnTunnels != nil || rawInitial.LinkedVpnTunnels != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.LinkedInterconnectAttachments, rawDesired.LinkedRouterApplianceInstances) {
-			rawDesired.LinkedVpnTunnels = nil
-			rawInitial.LinkedVpnTunnels = nil
-		}
-	}
-
-	if rawDesired.LinkedInterconnectAttachments != nil || rawInitial.LinkedInterconnectAttachments != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.LinkedVpnTunnels, rawDesired.LinkedRouterApplianceInstances) {
-			rawDesired.LinkedInterconnectAttachments = nil
-			rawInitial.LinkedInterconnectAttachments = nil
-		}
-	}
-
-	if rawDesired.LinkedRouterApplianceInstances != nil || rawInitial.LinkedRouterApplianceInstances != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.LinkedVpnTunnels, rawDesired.LinkedInterconnectAttachments) {
-			rawDesired.LinkedRouterApplianceInstances = nil
-			rawInitial.LinkedRouterApplianceInstances = nil
-		}
-	}
-
 	canonicalDesired := &Spoke{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -554,8 +529,8 @@ func canonicalizeSpokeDesiredState(rawDesired, rawInitial *Spoke, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Hub) || (dcl.IsEmptyValueIndirect(rawDesired.Hub) && dcl.IsEmptyValueIndirect(rawInitial.Hub)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Hub) && dcl.IsEmptyValueIndirect(rawInitial.Hub) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Hub = rawInitial.Hub
 	} else {
 		canonicalDesired.Hub = rawDesired.Hub
@@ -572,6 +547,27 @@ func canonicalizeSpokeDesiredState(rawDesired, rawInitial *Spoke, opts ...dcl.Ap
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.LinkedVpnTunnels != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.LinkedInterconnectAttachments, canonicalDesired.LinkedRouterApplianceInstances) {
+			canonicalDesired.LinkedVpnTunnels = nil
+		}
+	}
+
+	if canonicalDesired.LinkedInterconnectAttachments != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.LinkedVpnTunnels, canonicalDesired.LinkedRouterApplianceInstances) {
+			canonicalDesired.LinkedInterconnectAttachments = nil
+		}
+	}
+
+	if canonicalDesired.LinkedRouterApplianceInstances != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.LinkedVpnTunnels, canonicalDesired.LinkedInterconnectAttachments) {
+			canonicalDesired.LinkedRouterApplianceInstances = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -650,14 +646,29 @@ func canonicalizeSpokeNewState(c *Client, rawNew, rawDesired *Spoke) (*Spoke, er
 
 	rawNew.Location = rawDesired.Location
 
+	if rawNew.LinkedVpnTunnels != nil {
+		if dcl.AnySet(rawNew.LinkedInterconnectAttachments, rawNew.LinkedRouterApplianceInstances) && rawDesired.LinkedVpnTunnels == nil {
+			rawNew.LinkedVpnTunnels = nil
+		}
+	}
+
+	if rawNew.LinkedInterconnectAttachments != nil {
+		if dcl.AnySet(rawNew.LinkedVpnTunnels, rawNew.LinkedRouterApplianceInstances) && rawDesired.LinkedInterconnectAttachments == nil {
+			rawNew.LinkedInterconnectAttachments = nil
+		}
+	}
+
+	if rawNew.LinkedRouterApplianceInstances != nil {
+		if dcl.AnySet(rawNew.LinkedVpnTunnels, rawNew.LinkedInterconnectAttachments) && rawDesired.LinkedRouterApplianceInstances == nil {
+			rawNew.LinkedRouterApplianceInstances = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeSpokeLinkedVpnTunnels(des, initial *SpokeLinkedVpnTunnels, opts ...dcl.ApplyOption) *SpokeLinkedVpnTunnels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -672,7 +683,7 @@ func canonicalizeSpokeLinkedVpnTunnels(des, initial *SpokeLinkedVpnTunnels, opts
 	} else {
 		cDes.Uris = des.Uris
 	}
-	if dcl.BoolCanonicalize(des.SiteToSiteDataTransfer, initial.SiteToSiteDataTransfer) || dcl.IsZeroValue(des.SiteToSiteDataTransfer) {
+	if dcl.BoolCanonicalize(des.SiteToSiteDataTransfer, initial.SiteToSiteDataTransfer) {
 		cDes.SiteToSiteDataTransfer = initial.SiteToSiteDataTransfer
 	} else {
 		cDes.SiteToSiteDataTransfer = des.SiteToSiteDataTransfer
@@ -683,7 +694,7 @@ func canonicalizeSpokeLinkedVpnTunnels(des, initial *SpokeLinkedVpnTunnels, opts
 
 func canonicalizeSpokeLinkedVpnTunnelsSlice(des, initial []SpokeLinkedVpnTunnels, opts ...dcl.ApplyOption) []SpokeLinkedVpnTunnels {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -777,10 +788,7 @@ func canonicalizeNewSpokeLinkedVpnTunnelsSlice(c *Client, des, nw []SpokeLinkedV
 }
 
 func canonicalizeSpokeLinkedInterconnectAttachments(des, initial *SpokeLinkedInterconnectAttachments, opts ...dcl.ApplyOption) *SpokeLinkedInterconnectAttachments {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -795,7 +803,7 @@ func canonicalizeSpokeLinkedInterconnectAttachments(des, initial *SpokeLinkedInt
 	} else {
 		cDes.Uris = des.Uris
 	}
-	if dcl.BoolCanonicalize(des.SiteToSiteDataTransfer, initial.SiteToSiteDataTransfer) || dcl.IsZeroValue(des.SiteToSiteDataTransfer) {
+	if dcl.BoolCanonicalize(des.SiteToSiteDataTransfer, initial.SiteToSiteDataTransfer) {
 		cDes.SiteToSiteDataTransfer = initial.SiteToSiteDataTransfer
 	} else {
 		cDes.SiteToSiteDataTransfer = des.SiteToSiteDataTransfer
@@ -806,7 +814,7 @@ func canonicalizeSpokeLinkedInterconnectAttachments(des, initial *SpokeLinkedInt
 
 func canonicalizeSpokeLinkedInterconnectAttachmentsSlice(des, initial []SpokeLinkedInterconnectAttachments, opts ...dcl.ApplyOption) []SpokeLinkedInterconnectAttachments {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -900,10 +908,7 @@ func canonicalizeNewSpokeLinkedInterconnectAttachmentsSlice(c *Client, des, nw [
 }
 
 func canonicalizeSpokeLinkedRouterApplianceInstances(des, initial *SpokeLinkedRouterApplianceInstances, opts ...dcl.ApplyOption) *SpokeLinkedRouterApplianceInstances {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -914,7 +919,7 @@ func canonicalizeSpokeLinkedRouterApplianceInstances(des, initial *SpokeLinkedRo
 	cDes := &SpokeLinkedRouterApplianceInstances{}
 
 	cDes.Instances = canonicalizeSpokeLinkedRouterApplianceInstancesInstancesSlice(des.Instances, initial.Instances, opts...)
-	if dcl.BoolCanonicalize(des.SiteToSiteDataTransfer, initial.SiteToSiteDataTransfer) || dcl.IsZeroValue(des.SiteToSiteDataTransfer) {
+	if dcl.BoolCanonicalize(des.SiteToSiteDataTransfer, initial.SiteToSiteDataTransfer) {
 		cDes.SiteToSiteDataTransfer = initial.SiteToSiteDataTransfer
 	} else {
 		cDes.SiteToSiteDataTransfer = des.SiteToSiteDataTransfer
@@ -925,7 +930,7 @@ func canonicalizeSpokeLinkedRouterApplianceInstances(des, initial *SpokeLinkedRo
 
 func canonicalizeSpokeLinkedRouterApplianceInstancesSlice(des, initial []SpokeLinkedRouterApplianceInstances, opts ...dcl.ApplyOption) []SpokeLinkedRouterApplianceInstances {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1017,10 +1022,7 @@ func canonicalizeNewSpokeLinkedRouterApplianceInstancesSlice(c *Client, des, nw 
 }
 
 func canonicalizeSpokeLinkedRouterApplianceInstancesInstances(des, initial *SpokeLinkedRouterApplianceInstancesInstances, opts ...dcl.ApplyOption) *SpokeLinkedRouterApplianceInstancesInstances {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1030,13 +1032,13 @@ func canonicalizeSpokeLinkedRouterApplianceInstancesInstances(des, initial *Spok
 
 	cDes := &SpokeLinkedRouterApplianceInstancesInstances{}
 
-	if dcl.IsZeroValue(des.VirtualMachine) || (dcl.IsEmptyValueIndirect(des.VirtualMachine) && dcl.IsEmptyValueIndirect(initial.VirtualMachine)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.VirtualMachine) && dcl.IsEmptyValueIndirect(initial.VirtualMachine) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.VirtualMachine = initial.VirtualMachine
 	} else {
 		cDes.VirtualMachine = des.VirtualMachine
 	}
-	if dcl.StringCanonicalize(des.IPAddress, initial.IPAddress) || dcl.IsZeroValue(des.IPAddress) {
+	if dcl.StringCanonicalize(des.IPAddress, initial.IPAddress) {
 		cDes.IPAddress = initial.IPAddress
 	} else {
 		cDes.IPAddress = des.IPAddress
@@ -1047,7 +1049,7 @@ func canonicalizeSpokeLinkedRouterApplianceInstancesInstances(des, initial *Spok
 
 func canonicalizeSpokeLinkedRouterApplianceInstancesInstancesSlice(des, initial []SpokeLinkedRouterApplianceInstancesInstances, opts ...dcl.ApplyOption) []SpokeLinkedRouterApplianceInstancesInstances {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

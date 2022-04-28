@@ -548,16 +548,16 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 		canonicalDesired.Name = rawDesired.Name
 	}
 	canonicalDesired.MatchingCriteria = canonicalizeTriggerMatchingCriteriaSlice(rawDesired.MatchingCriteria, rawInitial.MatchingCriteria, opts...)
-	if dcl.IsZeroValue(rawDesired.ServiceAccount) || (dcl.IsEmptyValueIndirect(rawDesired.ServiceAccount) && dcl.IsEmptyValueIndirect(rawInitial.ServiceAccount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.ServiceAccount) && dcl.IsEmptyValueIndirect(rawInitial.ServiceAccount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.ServiceAccount = rawInitial.ServiceAccount
 	} else {
 		canonicalDesired.ServiceAccount = rawDesired.ServiceAccount
 	}
 	canonicalDesired.Destination = canonicalizeTriggerDestination(rawDesired.Destination, rawInitial.Destination, opts...)
 	canonicalDesired.Transport = canonicalizeTriggerTransport(rawDesired.Transport, rawInitial.Transport, opts...)
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -648,10 +648,7 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 }
 
 func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, opts ...dcl.ApplyOption) *TriggerMatchingCriteria {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -661,17 +658,17 @@ func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, 
 
 	cDes := &TriggerMatchingCriteria{}
 
-	if dcl.StringCanonicalize(des.Attribute, initial.Attribute) || dcl.IsZeroValue(des.Attribute) {
+	if dcl.StringCanonicalize(des.Attribute, initial.Attribute) {
 		cDes.Attribute = initial.Attribute
 	} else {
 		cDes.Attribute = des.Attribute
 	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) {
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.StringCanonicalize(des.Operator, initial.Operator) || dcl.IsZeroValue(des.Operator) {
+	if dcl.StringCanonicalize(des.Operator, initial.Operator) {
 		cDes.Operator = initial.Operator
 	} else {
 		cDes.Operator = des.Operator
@@ -682,7 +679,7 @@ func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, 
 
 func canonicalizeTriggerMatchingCriteriaSlice(des, initial []TriggerMatchingCriteria, opts ...dcl.ApplyOption) []TriggerMatchingCriteria {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -779,51 +776,8 @@ func canonicalizeNewTriggerMatchingCriteriaSlice(c *Client, des, nw []TriggerMat
 }
 
 func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dcl.ApplyOption) *TriggerDestination {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.CloudRunService != nil || (initial != nil && initial.CloudRunService != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudFunction, des.Gke, des.Workflow) {
-			des.CloudRunService = nil
-			if initial != nil {
-				initial.CloudRunService = nil
-			}
-		}
-	}
-
-	if des.CloudFunction != nil || (initial != nil && initial.CloudFunction != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudRunService, des.Gke, des.Workflow) {
-			des.CloudFunction = nil
-			if initial != nil {
-				initial.CloudFunction = nil
-			}
-		}
-	}
-
-	if des.Gke != nil || (initial != nil && initial.Gke != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudRunService, des.CloudFunction, des.Workflow) {
-			des.Gke = nil
-			if initial != nil {
-				initial.Gke = nil
-			}
-		}
-	}
-
-	if des.Workflow != nil || (initial != nil && initial.Workflow != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudRunService, des.CloudFunction, des.Gke) {
-			des.Workflow = nil
-			if initial != nil {
-				initial.Workflow = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -833,24 +787,51 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 	cDes := &TriggerDestination{}
 
 	cDes.CloudRunService = canonicalizeTriggerDestinationCloudRunService(des.CloudRunService, initial.CloudRunService, opts...)
-	if dcl.PartialSelfLinkToSelfLink(des.CloudFunction, initial.CloudFunction) || dcl.IsZeroValue(des.CloudFunction) {
+	if dcl.PartialSelfLinkToSelfLink(des.CloudFunction, initial.CloudFunction) {
 		cDes.CloudFunction = initial.CloudFunction
 	} else {
 		cDes.CloudFunction = des.CloudFunction
 	}
 	cDes.Gke = canonicalizeTriggerDestinationGke(des.Gke, initial.Gke, opts...)
-	if dcl.PartialSelfLinkToSelfLink(des.Workflow, initial.Workflow) || dcl.IsZeroValue(des.Workflow) {
+	if dcl.PartialSelfLinkToSelfLink(des.Workflow, initial.Workflow) {
 		cDes.Workflow = initial.Workflow
 	} else {
 		cDes.Workflow = des.Workflow
 	}
 
+	if cDes.CloudRunService != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudFunction, cDes.Gke, cDes.Workflow) {
+			cDes.CloudRunService = nil
+		}
+	}
+
+	if cDes.CloudFunction != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudRunService, cDes.Gke, cDes.Workflow) {
+			cDes.CloudFunction = nil
+		}
+	}
+
+	if cDes.Gke != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudRunService, cDes.CloudFunction, cDes.Workflow) {
+			cDes.Gke = nil
+		}
+	}
+
+	if cDes.Workflow != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudRunService, cDes.CloudFunction, cDes.Gke) {
+			cDes.Workflow = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeTriggerDestinationSlice(des, initial []TriggerDestination, opts ...dcl.ApplyOption) []TriggerDestination {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -946,10 +927,7 @@ func canonicalizeNewTriggerDestinationSlice(c *Client, des, nw []TriggerDestinat
 }
 
 func canonicalizeTriggerDestinationCloudRunService(des, initial *TriggerDestinationCloudRunService, opts ...dcl.ApplyOption) *TriggerDestinationCloudRunService {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -959,18 +937,18 @@ func canonicalizeTriggerDestinationCloudRunService(des, initial *TriggerDestinat
 
 	cDes := &TriggerDestinationCloudRunService{}
 
-	if dcl.IsZeroValue(des.Service) || (dcl.IsEmptyValueIndirect(des.Service) && dcl.IsEmptyValueIndirect(initial.Service)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Service) && dcl.IsEmptyValueIndirect(initial.Service) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Service = initial.Service
 	} else {
 		cDes.Service = des.Service
 	}
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
 	}
-	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
+	if dcl.StringCanonicalize(des.Region, initial.Region) {
 		cDes.Region = initial.Region
 	} else {
 		cDes.Region = des.Region
@@ -981,7 +959,7 @@ func canonicalizeTriggerDestinationCloudRunService(des, initial *TriggerDestinat
 
 func canonicalizeTriggerDestinationCloudRunServiceSlice(des, initial []TriggerDestinationCloudRunService, opts ...dcl.ApplyOption) []TriggerDestinationCloudRunService {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1075,10 +1053,7 @@ func canonicalizeNewTriggerDestinationCloudRunServiceSlice(c *Client, des, nw []
 }
 
 func canonicalizeTriggerDestinationGke(des, initial *TriggerDestinationGke, opts ...dcl.ApplyOption) *TriggerDestinationGke {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1088,28 +1063,28 @@ func canonicalizeTriggerDestinationGke(des, initial *TriggerDestinationGke, opts
 
 	cDes := &TriggerDestinationGke{}
 
-	if dcl.IsZeroValue(des.Cluster) || (dcl.IsEmptyValueIndirect(des.Cluster) && dcl.IsEmptyValueIndirect(initial.Cluster)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Cluster) && dcl.IsEmptyValueIndirect(initial.Cluster) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Cluster = initial.Cluster
 	} else {
 		cDes.Cluster = des.Cluster
 	}
-	if dcl.StringCanonicalize(des.Location, initial.Location) || dcl.IsZeroValue(des.Location) {
+	if dcl.StringCanonicalize(des.Location, initial.Location) {
 		cDes.Location = initial.Location
 	} else {
 		cDes.Location = des.Location
 	}
-	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) {
 		cDes.Namespace = initial.Namespace
 	} else {
 		cDes.Namespace = des.Namespace
 	}
-	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, initial.Service) {
 		cDes.Service = initial.Service
 	} else {
 		cDes.Service = des.Service
 	}
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -1120,7 +1095,7 @@ func canonicalizeTriggerDestinationGke(des, initial *TriggerDestinationGke, opts
 
 func canonicalizeTriggerDestinationGkeSlice(des, initial []TriggerDestinationGke, opts ...dcl.ApplyOption) []TriggerDestinationGke {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1220,10 +1195,7 @@ func canonicalizeNewTriggerDestinationGkeSlice(c *Client, des, nw []TriggerDesti
 }
 
 func canonicalizeTriggerTransport(des, initial *TriggerTransport, opts ...dcl.ApplyOption) *TriggerTransport {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1240,7 +1212,7 @@ func canonicalizeTriggerTransport(des, initial *TriggerTransport, opts ...dcl.Ap
 
 func canonicalizeTriggerTransportSlice(des, initial []TriggerTransport, opts ...dcl.ApplyOption) []TriggerTransport {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1329,10 +1301,7 @@ func canonicalizeNewTriggerTransportSlice(c *Client, des, nw []TriggerTransport)
 }
 
 func canonicalizeTriggerTransportPubsub(des, initial *TriggerTransportPubsub, opts ...dcl.ApplyOption) *TriggerTransportPubsub {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1342,7 +1311,7 @@ func canonicalizeTriggerTransportPubsub(des, initial *TriggerTransportPubsub, op
 
 	cDes := &TriggerTransportPubsub{}
 
-	if dcl.PartialSelfLinkToSelfLink(des.Topic, initial.Topic) || dcl.IsZeroValue(des.Topic) {
+	if dcl.PartialSelfLinkToSelfLink(des.Topic, initial.Topic) {
 		cDes.Topic = initial.Topic
 	} else {
 		cDes.Topic = des.Topic
@@ -1353,7 +1322,7 @@ func canonicalizeTriggerTransportPubsub(des, initial *TriggerTransportPubsub, op
 
 func canonicalizeTriggerTransportPubsubSlice(des, initial []TriggerTransportPubsub, opts ...dcl.ApplyOption) []TriggerTransportPubsub {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

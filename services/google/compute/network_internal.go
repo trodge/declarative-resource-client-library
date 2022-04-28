@@ -418,8 +418,8 @@ func canonicalizeNetworkDesiredState(rawDesired, rawInitial *Network, opts ...dc
 		canonicalDesired.AutoCreateSubnetworks = rawDesired.AutoCreateSubnetworks
 	}
 	canonicalDesired.RoutingConfig = canonicalizeNetworkRoutingConfig(rawDesired.RoutingConfig, rawInitial.RoutingConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.Mtu) || (dcl.IsEmptyValueIndirect(rawDesired.Mtu) && dcl.IsEmptyValueIndirect(rawInitial.Mtu)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Mtu) && dcl.IsEmptyValueIndirect(rawInitial.Mtu) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Mtu = rawInitial.Mtu
 	} else {
 		canonicalDesired.Mtu = rawDesired.Mtu
@@ -500,10 +500,7 @@ func canonicalizeNetworkNewState(c *Client, rawNew, rawDesired *Network) (*Netwo
 }
 
 func canonicalizeNetworkRoutingConfig(des, initial *NetworkRoutingConfig, opts ...dcl.ApplyOption) *NetworkRoutingConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -513,8 +510,8 @@ func canonicalizeNetworkRoutingConfig(des, initial *NetworkRoutingConfig, opts .
 
 	cDes := &NetworkRoutingConfig{}
 
-	if dcl.IsZeroValue(des.RoutingMode) || (dcl.IsEmptyValueIndirect(des.RoutingMode) && dcl.IsEmptyValueIndirect(initial.RoutingMode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RoutingMode) && dcl.IsEmptyValueIndirect(initial.RoutingMode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RoutingMode = initial.RoutingMode
 	} else {
 		cDes.RoutingMode = des.RoutingMode
@@ -525,7 +522,7 @@ func canonicalizeNetworkRoutingConfig(des, initial *NetworkRoutingConfig, opts .
 
 func canonicalizeNetworkRoutingConfigSlice(des, initial []NetworkRoutingConfig, opts ...dcl.ApplyOption) []NetworkRoutingConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

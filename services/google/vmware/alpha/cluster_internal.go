@@ -463,8 +463,8 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	} else {
 		canonicalDesired.NodeTypeId = rawDesired.NodeTypeId
 	}
-	if dcl.IsZeroValue(rawDesired.NodeCount) || (dcl.IsEmptyValueIndirect(rawDesired.NodeCount) && dcl.IsEmptyValueIndirect(rawInitial.NodeCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.NodeCount) && dcl.IsEmptyValueIndirect(rawInitial.NodeCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.NodeCount = rawInitial.NodeCount
 	} else {
 		canonicalDesired.NodeCount = rawDesired.NodeCount

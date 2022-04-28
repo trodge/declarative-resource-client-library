@@ -658,10 +658,7 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 }
 
 func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.ApplyOption) *JobPubsubTarget {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -671,19 +668,19 @@ func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.Appl
 
 	cDes := &JobPubsubTarget{}
 
-	if dcl.IsZeroValue(des.TopicName) || (dcl.IsEmptyValueIndirect(des.TopicName) && dcl.IsEmptyValueIndirect(initial.TopicName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TopicName) && dcl.IsEmptyValueIndirect(initial.TopicName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TopicName = initial.TopicName
 	} else {
 		cDes.TopicName = des.TopicName
 	}
-	if dcl.StringCanonicalize(des.Data, initial.Data) || dcl.IsZeroValue(des.Data) {
+	if dcl.StringCanonicalize(des.Data, initial.Data) {
 		cDes.Data = initial.Data
 	} else {
 		cDes.Data = des.Data
 	}
-	if dcl.IsZeroValue(des.Attributes) || (dcl.IsEmptyValueIndirect(des.Attributes) && dcl.IsEmptyValueIndirect(initial.Attributes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Attributes) && dcl.IsEmptyValueIndirect(initial.Attributes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Attributes = initial.Attributes
 	} else {
 		cDes.Attributes = des.Attributes
@@ -694,7 +691,7 @@ func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.Appl
 
 func canonicalizeJobPubsubTargetSlice(des, initial []JobPubsubTarget, opts ...dcl.ApplyOption) []JobPubsubTarget {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -785,10 +782,7 @@ func canonicalizeNewJobPubsubTargetSlice(c *Client, des, nw []JobPubsubTarget) [
 }
 
 func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, opts ...dcl.ApplyOption) *JobAppEngineHttpTarget {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -798,25 +792,25 @@ func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, op
 
 	cDes := &JobAppEngineHttpTarget{}
 
-	if dcl.IsZeroValue(des.HttpMethod) || (dcl.IsEmptyValueIndirect(des.HttpMethod) && dcl.IsEmptyValueIndirect(initial.HttpMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.HttpMethod) && dcl.IsEmptyValueIndirect(initial.HttpMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.HttpMethod = initial.HttpMethod
 	} else {
 		cDes.HttpMethod = des.HttpMethod
 	}
 	cDes.AppEngineRouting = canonicalizeJobAppEngineHttpTargetAppEngineRouting(des.AppEngineRouting, initial.AppEngineRouting, opts...)
-	if dcl.StringCanonicalize(des.RelativeUri, initial.RelativeUri) || dcl.IsZeroValue(des.RelativeUri) {
+	if dcl.StringCanonicalize(des.RelativeUri, initial.RelativeUri) {
 		cDes.RelativeUri = initial.RelativeUri
 	} else {
 		cDes.RelativeUri = des.RelativeUri
 	}
-	if dcl.IsZeroValue(des.Headers) || (dcl.IsEmptyValueIndirect(des.Headers) && dcl.IsEmptyValueIndirect(initial.Headers)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Headers) && dcl.IsEmptyValueIndirect(initial.Headers) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Headers = initial.Headers
 	} else {
 		cDes.Headers = des.Headers
 	}
-	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, initial.Body) {
 		cDes.Body = initial.Body
 	} else {
 		cDes.Body = des.Body
@@ -827,7 +821,7 @@ func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, op
 
 func canonicalizeJobAppEngineHttpTargetSlice(des, initial []JobAppEngineHttpTarget, opts ...dcl.ApplyOption) []JobAppEngineHttpTarget {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -922,10 +916,7 @@ func canonicalizeNewJobAppEngineHttpTargetSlice(c *Client, des, nw []JobAppEngin
 }
 
 func canonicalizeJobAppEngineHttpTargetAppEngineRouting(des, initial *JobAppEngineHttpTargetAppEngineRouting, opts ...dcl.ApplyOption) *JobAppEngineHttpTargetAppEngineRouting {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -935,17 +926,17 @@ func canonicalizeJobAppEngineHttpTargetAppEngineRouting(des, initial *JobAppEngi
 
 	cDes := &JobAppEngineHttpTargetAppEngineRouting{}
 
-	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, initial.Service) {
 		cDes.Service = initial.Service
 	} else {
 		cDes.Service = des.Service
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
 	}
-	if dcl.StringCanonicalize(des.Instance, initial.Instance) || dcl.IsZeroValue(des.Instance) {
+	if dcl.StringCanonicalize(des.Instance, initial.Instance) {
 		cDes.Instance = initial.Instance
 	} else {
 		cDes.Instance = des.Instance
@@ -956,7 +947,7 @@ func canonicalizeJobAppEngineHttpTargetAppEngineRouting(des, initial *JobAppEngi
 
 func canonicalizeJobAppEngineHttpTargetAppEngineRoutingSlice(des, initial []JobAppEngineHttpTargetAppEngineRouting, opts ...dcl.ApplyOption) []JobAppEngineHttpTargetAppEngineRouting {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1056,10 +1047,7 @@ func canonicalizeNewJobAppEngineHttpTargetAppEngineRoutingSlice(c *Client, des, 
 }
 
 func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOption) *JobHttpTarget {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1069,24 +1057,24 @@ func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOpt
 
 	cDes := &JobHttpTarget{}
 
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.IsZeroValue(des.HttpMethod) || (dcl.IsEmptyValueIndirect(des.HttpMethod) && dcl.IsEmptyValueIndirect(initial.HttpMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.HttpMethod) && dcl.IsEmptyValueIndirect(initial.HttpMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.HttpMethod = initial.HttpMethod
 	} else {
 		cDes.HttpMethod = des.HttpMethod
 	}
-	if dcl.IsZeroValue(des.Headers) || (dcl.IsEmptyValueIndirect(des.Headers) && dcl.IsEmptyValueIndirect(initial.Headers)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Headers) && dcl.IsEmptyValueIndirect(initial.Headers) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Headers = initial.Headers
 	} else {
 		cDes.Headers = des.Headers
 	}
-	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, initial.Body) {
 		cDes.Body = initial.Body
 	} else {
 		cDes.Body = des.Body
@@ -1099,7 +1087,7 @@ func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOpt
 
 func canonicalizeJobHttpTargetSlice(des, initial []JobHttpTarget, opts ...dcl.ApplyOption) []JobHttpTarget {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1195,10 +1183,7 @@ func canonicalizeNewJobHttpTargetSlice(c *Client, des, nw []JobHttpTarget) []Job
 }
 
 func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, opts ...dcl.ApplyOption) *JobHttpTargetOAuthToken {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1208,13 +1193,13 @@ func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, 
 
 	cDes := &JobHttpTargetOAuthToken{}
 
-	if dcl.IsZeroValue(des.ServiceAccountEmail) || (dcl.IsEmptyValueIndirect(des.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(initial.ServiceAccountEmail)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(initial.ServiceAccountEmail) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ServiceAccountEmail = initial.ServiceAccountEmail
 	} else {
 		cDes.ServiceAccountEmail = des.ServiceAccountEmail
 	}
-	if dcl.StringCanonicalize(des.Scope, initial.Scope) || dcl.IsZeroValue(des.Scope) {
+	if dcl.StringCanonicalize(des.Scope, initial.Scope) {
 		cDes.Scope = initial.Scope
 	} else {
 		cDes.Scope = des.Scope
@@ -1225,7 +1210,7 @@ func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, 
 
 func canonicalizeJobHttpTargetOAuthTokenSlice(des, initial []JobHttpTargetOAuthToken, opts ...dcl.ApplyOption) []JobHttpTargetOAuthToken {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1316,10 +1301,7 @@ func canonicalizeNewJobHttpTargetOAuthTokenSlice(c *Client, des, nw []JobHttpTar
 }
 
 func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, opts ...dcl.ApplyOption) *JobHttpTargetOidcToken {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1329,13 +1311,13 @@ func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, op
 
 	cDes := &JobHttpTargetOidcToken{}
 
-	if dcl.IsZeroValue(des.ServiceAccountEmail) || (dcl.IsEmptyValueIndirect(des.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(initial.ServiceAccountEmail)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(initial.ServiceAccountEmail) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ServiceAccountEmail = initial.ServiceAccountEmail
 	} else {
 		cDes.ServiceAccountEmail = des.ServiceAccountEmail
 	}
-	if dcl.StringCanonicalize(des.Audience, initial.Audience) || dcl.IsZeroValue(des.Audience) {
+	if dcl.StringCanonicalize(des.Audience, initial.Audience) {
 		cDes.Audience = initial.Audience
 	} else {
 		cDes.Audience = des.Audience
@@ -1346,7 +1328,7 @@ func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, op
 
 func canonicalizeJobHttpTargetOidcTokenSlice(des, initial []JobHttpTargetOidcToken, opts ...dcl.ApplyOption) []JobHttpTargetOidcToken {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1437,10 +1419,7 @@ func canonicalizeNewJobHttpTargetOidcTokenSlice(c *Client, des, nw []JobHttpTarg
 }
 
 func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *JobStatus {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1450,13 +1429,13 @@ func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *Jo
 
 	cDes := &JobStatus{}
 
-	if dcl.IsZeroValue(des.Code) || (dcl.IsEmptyValueIndirect(des.Code) && dcl.IsEmptyValueIndirect(initial.Code)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Code) && dcl.IsEmptyValueIndirect(initial.Code) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Code = initial.Code
 	} else {
 		cDes.Code = des.Code
 	}
-	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, initial.Message) {
 		cDes.Message = initial.Message
 	} else {
 		cDes.Message = des.Message
@@ -1468,7 +1447,7 @@ func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *Jo
 
 func canonicalizeJobStatusSlice(des, initial []JobStatus, opts ...dcl.ApplyOption) []JobStatus {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1560,10 +1539,7 @@ func canonicalizeNewJobStatusSlice(c *Client, des, nw []JobStatus) []JobStatus {
 }
 
 func canonicalizeJobStatusDetails(des, initial *JobStatusDetails, opts ...dcl.ApplyOption) *JobStatusDetails {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1573,12 +1549,12 @@ func canonicalizeJobStatusDetails(des, initial *JobStatusDetails, opts ...dcl.Ap
 
 	cDes := &JobStatusDetails{}
 
-	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
+	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) {
 		cDes.TypeUrl = initial.TypeUrl
 	} else {
 		cDes.TypeUrl = des.TypeUrl
 	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) {
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
@@ -1589,7 +1565,7 @@ func canonicalizeJobStatusDetails(des, initial *JobStatusDetails, opts ...dcl.Ap
 
 func canonicalizeJobStatusDetailsSlice(des, initial []JobStatusDetails, opts ...dcl.ApplyOption) []JobStatusDetails {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1683,10 +1659,7 @@ func canonicalizeNewJobStatusDetailsSlice(c *Client, des, nw []JobStatusDetails)
 }
 
 func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyOption) *JobRetryConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1696,29 +1669,29 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 
 	cDes := &JobRetryConfig{}
 
-	if dcl.IsZeroValue(des.RetryCount) || (dcl.IsEmptyValueIndirect(des.RetryCount) && dcl.IsEmptyValueIndirect(initial.RetryCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RetryCount) && dcl.IsEmptyValueIndirect(initial.RetryCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RetryCount = initial.RetryCount
 	} else {
 		cDes.RetryCount = des.RetryCount
 	}
-	if dcl.StringCanonicalize(des.MaxRetryDuration, initial.MaxRetryDuration) || dcl.IsZeroValue(des.MaxRetryDuration) {
+	if dcl.StringCanonicalize(des.MaxRetryDuration, initial.MaxRetryDuration) {
 		cDes.MaxRetryDuration = initial.MaxRetryDuration
 	} else {
 		cDes.MaxRetryDuration = des.MaxRetryDuration
 	}
-	if dcl.StringCanonicalize(des.MinBackoffDuration, initial.MinBackoffDuration) || dcl.IsZeroValue(des.MinBackoffDuration) {
+	if dcl.StringCanonicalize(des.MinBackoffDuration, initial.MinBackoffDuration) {
 		cDes.MinBackoffDuration = initial.MinBackoffDuration
 	} else {
 		cDes.MinBackoffDuration = des.MinBackoffDuration
 	}
-	if dcl.StringCanonicalize(des.MaxBackoffDuration, initial.MaxBackoffDuration) || dcl.IsZeroValue(des.MaxBackoffDuration) {
+	if dcl.StringCanonicalize(des.MaxBackoffDuration, initial.MaxBackoffDuration) {
 		cDes.MaxBackoffDuration = initial.MaxBackoffDuration
 	} else {
 		cDes.MaxBackoffDuration = des.MaxBackoffDuration
 	}
-	if dcl.IsZeroValue(des.MaxDoublings) || (dcl.IsEmptyValueIndirect(des.MaxDoublings) && dcl.IsEmptyValueIndirect(initial.MaxDoublings)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxDoublings) && dcl.IsEmptyValueIndirect(initial.MaxDoublings) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxDoublings = initial.MaxDoublings
 	} else {
 		cDes.MaxDoublings = des.MaxDoublings
@@ -1729,7 +1702,7 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 
 func canonicalizeJobRetryConfigSlice(des, initial []JobRetryConfig, opts ...dcl.ApplyOption) []JobRetryConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -645,8 +645,8 @@ func canonicalizeHttpRouteDesiredState(rawDesired, rawInitial *HttpRoute, opts .
 	} else {
 		canonicalDesired.Gateways = rawDesired.Gateways
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -753,10 +753,7 @@ func canonicalizeHttpRouteNewState(c *Client, rawNew, rawDesired *HttpRoute) (*H
 }
 
 func canonicalizeHttpRouteRules(des, initial *HttpRouteRules, opts ...dcl.ApplyOption) *HttpRouteRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -774,7 +771,7 @@ func canonicalizeHttpRouteRules(des, initial *HttpRouteRules, opts ...dcl.ApplyO
 
 func canonicalizeHttpRouteRulesSlice(des, initial []HttpRouteRules, opts ...dcl.ApplyOption) []HttpRouteRules {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -864,41 +861,8 @@ func canonicalizeNewHttpRouteRulesSlice(c *Client, des, nw []HttpRouteRules) []H
 }
 
 func canonicalizeHttpRouteRulesMatches(des, initial *HttpRouteRulesMatches, opts ...dcl.ApplyOption) *HttpRouteRulesMatches {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.FullPathMatch != nil || (initial != nil && initial.FullPathMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.PrefixMatch, des.RegexMatch) {
-			des.FullPathMatch = nil
-			if initial != nil {
-				initial.FullPathMatch = nil
-			}
-		}
-	}
-
-	if des.PrefixMatch != nil || (initial != nil && initial.PrefixMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.FullPathMatch, des.RegexMatch) {
-			des.PrefixMatch = nil
-			if initial != nil {
-				initial.PrefixMatch = nil
-			}
-		}
-	}
-
-	if des.RegexMatch != nil || (initial != nil && initial.RegexMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.FullPathMatch, des.PrefixMatch) {
-			des.RegexMatch = nil
-			if initial != nil {
-				initial.RegexMatch = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -907,22 +871,22 @@ func canonicalizeHttpRouteRulesMatches(des, initial *HttpRouteRulesMatches, opts
 
 	cDes := &HttpRouteRulesMatches{}
 
-	if dcl.StringCanonicalize(des.FullPathMatch, initial.FullPathMatch) || dcl.IsZeroValue(des.FullPathMatch) {
+	if dcl.StringCanonicalize(des.FullPathMatch, initial.FullPathMatch) {
 		cDes.FullPathMatch = initial.FullPathMatch
 	} else {
 		cDes.FullPathMatch = des.FullPathMatch
 	}
-	if dcl.StringCanonicalize(des.PrefixMatch, initial.PrefixMatch) || dcl.IsZeroValue(des.PrefixMatch) {
+	if dcl.StringCanonicalize(des.PrefixMatch, initial.PrefixMatch) {
 		cDes.PrefixMatch = initial.PrefixMatch
 	} else {
 		cDes.PrefixMatch = des.PrefixMatch
 	}
-	if dcl.StringCanonicalize(des.RegexMatch, initial.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
+	if dcl.StringCanonicalize(des.RegexMatch, initial.RegexMatch) {
 		cDes.RegexMatch = initial.RegexMatch
 	} else {
 		cDes.RegexMatch = des.RegexMatch
 	}
-	if dcl.BoolCanonicalize(des.IgnoreCase, initial.IgnoreCase) || dcl.IsZeroValue(des.IgnoreCase) {
+	if dcl.BoolCanonicalize(des.IgnoreCase, initial.IgnoreCase) {
 		cDes.IgnoreCase = initial.IgnoreCase
 	} else {
 		cDes.IgnoreCase = des.IgnoreCase
@@ -930,12 +894,32 @@ func canonicalizeHttpRouteRulesMatches(des, initial *HttpRouteRulesMatches, opts
 	cDes.Headers = canonicalizeHttpRouteRulesMatchesHeadersSlice(des.Headers, initial.Headers, opts...)
 	cDes.QueryParameters = canonicalizeHttpRouteRulesMatchesQueryParametersSlice(des.QueryParameters, initial.QueryParameters, opts...)
 
+	if cDes.FullPathMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.PrefixMatch, cDes.RegexMatch) {
+			cDes.FullPathMatch = nil
+		}
+	}
+
+	if cDes.PrefixMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.FullPathMatch, cDes.RegexMatch) {
+			cDes.PrefixMatch = nil
+		}
+	}
+
+	if cDes.RegexMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.FullPathMatch, cDes.PrefixMatch) {
+			cDes.RegexMatch = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeHttpRouteRulesMatchesSlice(des, initial []HttpRouteRulesMatches, opts ...dcl.ApplyOption) []HttpRouteRulesMatches {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1037,71 +1021,8 @@ func canonicalizeNewHttpRouteRulesMatchesSlice(c *Client, des, nw []HttpRouteRul
 }
 
 func canonicalizeHttpRouteRulesMatchesHeaders(des, initial *HttpRouteRulesMatchesHeaders, opts ...dcl.ApplyOption) *HttpRouteRulesMatchesHeaders {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.ExactMatch != nil || (initial != nil && initial.ExactMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RegexMatch, des.PrefixMatch, des.PresentMatch, des.SuffixMatch, des.RangeMatch) {
-			des.ExactMatch = nil
-			if initial != nil {
-				initial.ExactMatch = nil
-			}
-		}
-	}
-
-	if des.RegexMatch != nil || (initial != nil && initial.RegexMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExactMatch, des.PrefixMatch, des.PresentMatch, des.SuffixMatch, des.RangeMatch) {
-			des.RegexMatch = nil
-			if initial != nil {
-				initial.RegexMatch = nil
-			}
-		}
-	}
-
-	if des.PrefixMatch != nil || (initial != nil && initial.PrefixMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExactMatch, des.RegexMatch, des.PresentMatch, des.SuffixMatch, des.RangeMatch) {
-			des.PrefixMatch = nil
-			if initial != nil {
-				initial.PrefixMatch = nil
-			}
-		}
-	}
-
-	if des.PresentMatch != nil || (initial != nil && initial.PresentMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExactMatch, des.RegexMatch, des.PrefixMatch, des.SuffixMatch, des.RangeMatch) {
-			des.PresentMatch = nil
-			if initial != nil {
-				initial.PresentMatch = nil
-			}
-		}
-	}
-
-	if des.SuffixMatch != nil || (initial != nil && initial.SuffixMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExactMatch, des.RegexMatch, des.PrefixMatch, des.PresentMatch, des.RangeMatch) {
-			des.SuffixMatch = nil
-			if initial != nil {
-				initial.SuffixMatch = nil
-			}
-		}
-	}
-
-	if des.RangeMatch != nil || (initial != nil && initial.RangeMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExactMatch, des.RegexMatch, des.PrefixMatch, des.PresentMatch, des.SuffixMatch) {
-			des.RangeMatch = nil
-			if initial != nil {
-				initial.RangeMatch = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1110,49 +1031,90 @@ func canonicalizeHttpRouteRulesMatchesHeaders(des, initial *HttpRouteRulesMatche
 
 	cDes := &HttpRouteRulesMatchesHeaders{}
 
-	if dcl.StringCanonicalize(des.Header, initial.Header) || dcl.IsZeroValue(des.Header) {
+	if dcl.StringCanonicalize(des.Header, initial.Header) {
 		cDes.Header = initial.Header
 	} else {
 		cDes.Header = des.Header
 	}
-	if dcl.StringCanonicalize(des.ExactMatch, initial.ExactMatch) || dcl.IsZeroValue(des.ExactMatch) {
+	if dcl.StringCanonicalize(des.ExactMatch, initial.ExactMatch) {
 		cDes.ExactMatch = initial.ExactMatch
 	} else {
 		cDes.ExactMatch = des.ExactMatch
 	}
-	if dcl.StringCanonicalize(des.RegexMatch, initial.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
+	if dcl.StringCanonicalize(des.RegexMatch, initial.RegexMatch) {
 		cDes.RegexMatch = initial.RegexMatch
 	} else {
 		cDes.RegexMatch = des.RegexMatch
 	}
-	if dcl.StringCanonicalize(des.PrefixMatch, initial.PrefixMatch) || dcl.IsZeroValue(des.PrefixMatch) {
+	if dcl.StringCanonicalize(des.PrefixMatch, initial.PrefixMatch) {
 		cDes.PrefixMatch = initial.PrefixMatch
 	} else {
 		cDes.PrefixMatch = des.PrefixMatch
 	}
-	if dcl.BoolCanonicalize(des.PresentMatch, initial.PresentMatch) || dcl.IsZeroValue(des.PresentMatch) {
+	if dcl.BoolCanonicalize(des.PresentMatch, initial.PresentMatch) {
 		cDes.PresentMatch = initial.PresentMatch
 	} else {
 		cDes.PresentMatch = des.PresentMatch
 	}
-	if dcl.StringCanonicalize(des.SuffixMatch, initial.SuffixMatch) || dcl.IsZeroValue(des.SuffixMatch) {
+	if dcl.StringCanonicalize(des.SuffixMatch, initial.SuffixMatch) {
 		cDes.SuffixMatch = initial.SuffixMatch
 	} else {
 		cDes.SuffixMatch = des.SuffixMatch
 	}
 	cDes.RangeMatch = canonicalizeHttpRouteRulesMatchesHeadersRangeMatch(des.RangeMatch, initial.RangeMatch, opts...)
-	if dcl.BoolCanonicalize(des.InvertMatch, initial.InvertMatch) || dcl.IsZeroValue(des.InvertMatch) {
+	if dcl.BoolCanonicalize(des.InvertMatch, initial.InvertMatch) {
 		cDes.InvertMatch = initial.InvertMatch
 	} else {
 		cDes.InvertMatch = des.InvertMatch
 	}
 
+	if cDes.ExactMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.RegexMatch, cDes.PrefixMatch, cDes.PresentMatch, cDes.SuffixMatch, cDes.RangeMatch) {
+			cDes.ExactMatch = nil
+		}
+	}
+
+	if cDes.RegexMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExactMatch, cDes.PrefixMatch, cDes.PresentMatch, cDes.SuffixMatch, cDes.RangeMatch) {
+			cDes.RegexMatch = nil
+		}
+	}
+
+	if cDes.PrefixMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExactMatch, cDes.RegexMatch, cDes.PresentMatch, cDes.SuffixMatch, cDes.RangeMatch) {
+			cDes.PrefixMatch = nil
+		}
+	}
+
+	if cDes.PresentMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExactMatch, cDes.RegexMatch, cDes.PrefixMatch, cDes.SuffixMatch, cDes.RangeMatch) {
+			cDes.PresentMatch = nil
+		}
+	}
+
+	if cDes.SuffixMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExactMatch, cDes.RegexMatch, cDes.PrefixMatch, cDes.PresentMatch, cDes.RangeMatch) {
+			cDes.SuffixMatch = nil
+		}
+	}
+
+	if cDes.RangeMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExactMatch, cDes.RegexMatch, cDes.PrefixMatch, cDes.PresentMatch, cDes.SuffixMatch) {
+			cDes.RangeMatch = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeHttpRouteRulesMatchesHeadersSlice(des, initial []HttpRouteRulesMatchesHeaders, opts ...dcl.ApplyOption) []HttpRouteRulesMatchesHeaders {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1262,10 +1224,7 @@ func canonicalizeNewHttpRouteRulesMatchesHeadersSlice(c *Client, des, nw []HttpR
 }
 
 func canonicalizeHttpRouteRulesMatchesHeadersRangeMatch(des, initial *HttpRouteRulesMatchesHeadersRangeMatch, opts ...dcl.ApplyOption) *HttpRouteRulesMatchesHeadersRangeMatch {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1275,14 +1234,14 @@ func canonicalizeHttpRouteRulesMatchesHeadersRangeMatch(des, initial *HttpRouteR
 
 	cDes := &HttpRouteRulesMatchesHeadersRangeMatch{}
 
-	if dcl.IsZeroValue(des.Start) || (dcl.IsEmptyValueIndirect(des.Start) && dcl.IsEmptyValueIndirect(initial.Start)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Start) && dcl.IsEmptyValueIndirect(initial.Start) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Start = initial.Start
 	} else {
 		cDes.Start = des.Start
 	}
-	if dcl.IsZeroValue(des.End) || (dcl.IsEmptyValueIndirect(des.End) && dcl.IsEmptyValueIndirect(initial.End)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.End) && dcl.IsEmptyValueIndirect(initial.End) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.End = initial.End
 	} else {
 		cDes.End = des.End
@@ -1293,7 +1252,7 @@ func canonicalizeHttpRouteRulesMatchesHeadersRangeMatch(des, initial *HttpRouteR
 
 func canonicalizeHttpRouteRulesMatchesHeadersRangeMatchSlice(des, initial []HttpRouteRulesMatchesHeadersRangeMatch, opts ...dcl.ApplyOption) []HttpRouteRulesMatchesHeadersRangeMatch {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1380,41 +1339,8 @@ func canonicalizeNewHttpRouteRulesMatchesHeadersRangeMatchSlice(c *Client, des, 
 }
 
 func canonicalizeHttpRouteRulesMatchesQueryParameters(des, initial *HttpRouteRulesMatchesQueryParameters, opts ...dcl.ApplyOption) *HttpRouteRulesMatchesQueryParameters {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.ExactMatch != nil || (initial != nil && initial.ExactMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RegexMatch, des.PresentMatch) {
-			des.ExactMatch = nil
-			if initial != nil {
-				initial.ExactMatch = nil
-			}
-		}
-	}
-
-	if des.RegexMatch != nil || (initial != nil && initial.RegexMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExactMatch, des.PresentMatch) {
-			des.RegexMatch = nil
-			if initial != nil {
-				initial.RegexMatch = nil
-			}
-		}
-	}
-
-	if des.PresentMatch != nil || (initial != nil && initial.PresentMatch != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExactMatch, des.RegexMatch) {
-			des.PresentMatch = nil
-			if initial != nil {
-				initial.PresentMatch = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1423,33 +1349,53 @@ func canonicalizeHttpRouteRulesMatchesQueryParameters(des, initial *HttpRouteRul
 
 	cDes := &HttpRouteRulesMatchesQueryParameters{}
 
-	if dcl.StringCanonicalize(des.QueryParameter, initial.QueryParameter) || dcl.IsZeroValue(des.QueryParameter) {
+	if dcl.StringCanonicalize(des.QueryParameter, initial.QueryParameter) {
 		cDes.QueryParameter = initial.QueryParameter
 	} else {
 		cDes.QueryParameter = des.QueryParameter
 	}
-	if dcl.StringCanonicalize(des.ExactMatch, initial.ExactMatch) || dcl.IsZeroValue(des.ExactMatch) {
+	if dcl.StringCanonicalize(des.ExactMatch, initial.ExactMatch) {
 		cDes.ExactMatch = initial.ExactMatch
 	} else {
 		cDes.ExactMatch = des.ExactMatch
 	}
-	if dcl.StringCanonicalize(des.RegexMatch, initial.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
+	if dcl.StringCanonicalize(des.RegexMatch, initial.RegexMatch) {
 		cDes.RegexMatch = initial.RegexMatch
 	} else {
 		cDes.RegexMatch = des.RegexMatch
 	}
-	if dcl.BoolCanonicalize(des.PresentMatch, initial.PresentMatch) || dcl.IsZeroValue(des.PresentMatch) {
+	if dcl.BoolCanonicalize(des.PresentMatch, initial.PresentMatch) {
 		cDes.PresentMatch = initial.PresentMatch
 	} else {
 		cDes.PresentMatch = des.PresentMatch
 	}
 
+	if cDes.ExactMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.RegexMatch, cDes.PresentMatch) {
+			cDes.ExactMatch = nil
+		}
+	}
+
+	if cDes.RegexMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExactMatch, cDes.PresentMatch) {
+			cDes.RegexMatch = nil
+		}
+	}
+
+	if cDes.PresentMatch != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExactMatch, cDes.RegexMatch) {
+			cDes.PresentMatch = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeHttpRouteRulesMatchesQueryParametersSlice(des, initial []HttpRouteRulesMatchesQueryParameters, opts ...dcl.ApplyOption) []HttpRouteRulesMatchesQueryParameters {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1549,10 +1495,7 @@ func canonicalizeNewHttpRouteRulesMatchesQueryParametersSlice(c *Client, des, nw
 }
 
 func canonicalizeHttpRouteRulesAction(des, initial *HttpRouteRulesAction, opts ...dcl.ApplyOption) *HttpRouteRulesAction {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1564,7 +1507,7 @@ func canonicalizeHttpRouteRulesAction(des, initial *HttpRouteRulesAction, opts .
 
 	cDes.Destinations = canonicalizeHttpRouteRulesActionDestinationsSlice(des.Destinations, initial.Destinations, opts...)
 	cDes.Redirect = canonicalizeHttpRouteRulesActionRedirect(des.Redirect, initial.Redirect, opts...)
-	if dcl.BoolCanonicalize(des.OriginalDestination, initial.OriginalDestination) || dcl.IsZeroValue(des.OriginalDestination) {
+	if dcl.BoolCanonicalize(des.OriginalDestination, initial.OriginalDestination) {
 		cDes.OriginalDestination = initial.OriginalDestination
 	} else {
 		cDes.OriginalDestination = des.OriginalDestination
@@ -1573,7 +1516,7 @@ func canonicalizeHttpRouteRulesAction(des, initial *HttpRouteRulesAction, opts .
 	cDes.RequestHeaderModifier = canonicalizeHttpRouteRulesActionRequestHeaderModifier(des.RequestHeaderModifier, initial.RequestHeaderModifier, opts...)
 	cDes.ResponseHeaderModifier = canonicalizeHttpRouteRulesActionResponseHeaderModifier(des.ResponseHeaderModifier, initial.ResponseHeaderModifier, opts...)
 	cDes.UrlRewrite = canonicalizeHttpRouteRulesActionUrlRewrite(des.UrlRewrite, initial.UrlRewrite, opts...)
-	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) {
 		cDes.Timeout = initial.Timeout
 	} else {
 		cDes.Timeout = des.Timeout
@@ -1587,7 +1530,7 @@ func canonicalizeHttpRouteRulesAction(des, initial *HttpRouteRulesAction, opts .
 
 func canonicalizeHttpRouteRulesActionSlice(des, initial []HttpRouteRulesAction, opts ...dcl.ApplyOption) []HttpRouteRulesAction {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1690,10 +1633,7 @@ func canonicalizeNewHttpRouteRulesActionSlice(c *Client, des, nw []HttpRouteRule
 }
 
 func canonicalizeHttpRouteRulesActionDestinations(des, initial *HttpRouteRulesActionDestinations, opts ...dcl.ApplyOption) *HttpRouteRulesActionDestinations {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1703,14 +1643,14 @@ func canonicalizeHttpRouteRulesActionDestinations(des, initial *HttpRouteRulesAc
 
 	cDes := &HttpRouteRulesActionDestinations{}
 
-	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}
-	if dcl.IsZeroValue(des.ServiceName) || (dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ServiceName = initial.ServiceName
 	} else {
 		cDes.ServiceName = des.ServiceName
@@ -1721,7 +1661,7 @@ func canonicalizeHttpRouteRulesActionDestinations(des, initial *HttpRouteRulesAc
 
 func canonicalizeHttpRouteRulesActionDestinationsSlice(des, initial []HttpRouteRulesActionDestinations, opts ...dcl.ApplyOption) []HttpRouteRulesActionDestinations {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1808,10 +1748,7 @@ func canonicalizeNewHttpRouteRulesActionDestinationsSlice(c *Client, des, nw []H
 }
 
 func canonicalizeHttpRouteRulesActionRedirect(des, initial *HttpRouteRulesActionRedirect, opts ...dcl.ApplyOption) *HttpRouteRulesActionRedirect {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1821,39 +1758,39 @@ func canonicalizeHttpRouteRulesActionRedirect(des, initial *HttpRouteRulesAction
 
 	cDes := &HttpRouteRulesActionRedirect{}
 
-	if dcl.StringCanonicalize(des.HostRedirect, initial.HostRedirect) || dcl.IsZeroValue(des.HostRedirect) {
+	if dcl.StringCanonicalize(des.HostRedirect, initial.HostRedirect) {
 		cDes.HostRedirect = initial.HostRedirect
 	} else {
 		cDes.HostRedirect = des.HostRedirect
 	}
-	if dcl.StringCanonicalize(des.PathRedirect, initial.PathRedirect) || dcl.IsZeroValue(des.PathRedirect) {
+	if dcl.StringCanonicalize(des.PathRedirect, initial.PathRedirect) {
 		cDes.PathRedirect = initial.PathRedirect
 	} else {
 		cDes.PathRedirect = des.PathRedirect
 	}
-	if dcl.StringCanonicalize(des.PrefixRewrite, initial.PrefixRewrite) || dcl.IsZeroValue(des.PrefixRewrite) {
+	if dcl.StringCanonicalize(des.PrefixRewrite, initial.PrefixRewrite) {
 		cDes.PrefixRewrite = initial.PrefixRewrite
 	} else {
 		cDes.PrefixRewrite = des.PrefixRewrite
 	}
-	if dcl.IsZeroValue(des.ResponseCode) || (dcl.IsEmptyValueIndirect(des.ResponseCode) && dcl.IsEmptyValueIndirect(initial.ResponseCode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ResponseCode) && dcl.IsEmptyValueIndirect(initial.ResponseCode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ResponseCode = initial.ResponseCode
 	} else {
 		cDes.ResponseCode = des.ResponseCode
 	}
-	if dcl.BoolCanonicalize(des.HttpsRedirect, initial.HttpsRedirect) || dcl.IsZeroValue(des.HttpsRedirect) {
+	if dcl.BoolCanonicalize(des.HttpsRedirect, initial.HttpsRedirect) {
 		cDes.HttpsRedirect = initial.HttpsRedirect
 	} else {
 		cDes.HttpsRedirect = des.HttpsRedirect
 	}
-	if dcl.BoolCanonicalize(des.StripQuery, initial.StripQuery) || dcl.IsZeroValue(des.StripQuery) {
+	if dcl.BoolCanonicalize(des.StripQuery, initial.StripQuery) {
 		cDes.StripQuery = initial.StripQuery
 	} else {
 		cDes.StripQuery = des.StripQuery
 	}
-	if dcl.IsZeroValue(des.PortRedirect) || (dcl.IsEmptyValueIndirect(des.PortRedirect) && dcl.IsEmptyValueIndirect(initial.PortRedirect)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PortRedirect) && dcl.IsEmptyValueIndirect(initial.PortRedirect) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PortRedirect = initial.PortRedirect
 	} else {
 		cDes.PortRedirect = des.PortRedirect
@@ -1864,7 +1801,7 @@ func canonicalizeHttpRouteRulesActionRedirect(des, initial *HttpRouteRulesAction
 
 func canonicalizeHttpRouteRulesActionRedirectSlice(des, initial []HttpRouteRulesActionRedirect, opts ...dcl.ApplyOption) []HttpRouteRulesActionRedirect {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1967,10 +1904,7 @@ func canonicalizeNewHttpRouteRulesActionRedirectSlice(c *Client, des, nw []HttpR
 }
 
 func canonicalizeHttpRouteRulesActionFaultInjectionPolicy(des, initial *HttpRouteRulesActionFaultInjectionPolicy, opts ...dcl.ApplyOption) *HttpRouteRulesActionFaultInjectionPolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1988,7 +1922,7 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicy(des, initial *HttpRout
 
 func canonicalizeHttpRouteRulesActionFaultInjectionPolicySlice(des, initial []HttpRouteRulesActionFaultInjectionPolicy, opts ...dcl.ApplyOption) []HttpRouteRulesActionFaultInjectionPolicy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2078,10 +2012,7 @@ func canonicalizeNewHttpRouteRulesActionFaultInjectionPolicySlice(c *Client, des
 }
 
 func canonicalizeHttpRouteRulesActionFaultInjectionPolicyDelay(des, initial *HttpRouteRulesActionFaultInjectionPolicyDelay, opts ...dcl.ApplyOption) *HttpRouteRulesActionFaultInjectionPolicyDelay {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2091,13 +2022,13 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicyDelay(des, initial *Htt
 
 	cDes := &HttpRouteRulesActionFaultInjectionPolicyDelay{}
 
-	if dcl.StringCanonicalize(des.FixedDelay, initial.FixedDelay) || dcl.IsZeroValue(des.FixedDelay) {
+	if dcl.StringCanonicalize(des.FixedDelay, initial.FixedDelay) {
 		cDes.FixedDelay = initial.FixedDelay
 	} else {
 		cDes.FixedDelay = des.FixedDelay
 	}
-	if dcl.IsZeroValue(des.Percentage) || (dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
@@ -2108,7 +2039,7 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicyDelay(des, initial *Htt
 
 func canonicalizeHttpRouteRulesActionFaultInjectionPolicyDelaySlice(des, initial []HttpRouteRulesActionFaultInjectionPolicyDelay, opts ...dcl.ApplyOption) []HttpRouteRulesActionFaultInjectionPolicyDelay {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2199,10 +2130,7 @@ func canonicalizeNewHttpRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client
 }
 
 func canonicalizeHttpRouteRulesActionFaultInjectionPolicyAbort(des, initial *HttpRouteRulesActionFaultInjectionPolicyAbort, opts ...dcl.ApplyOption) *HttpRouteRulesActionFaultInjectionPolicyAbort {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2212,14 +2140,14 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicyAbort(des, initial *Htt
 
 	cDes := &HttpRouteRulesActionFaultInjectionPolicyAbort{}
 
-	if dcl.IsZeroValue(des.HttpStatus) || (dcl.IsEmptyValueIndirect(des.HttpStatus) && dcl.IsEmptyValueIndirect(initial.HttpStatus)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.HttpStatus) && dcl.IsEmptyValueIndirect(initial.HttpStatus) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.HttpStatus = initial.HttpStatus
 	} else {
 		cDes.HttpStatus = des.HttpStatus
 	}
-	if dcl.IsZeroValue(des.Percentage) || (dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
@@ -2230,7 +2158,7 @@ func canonicalizeHttpRouteRulesActionFaultInjectionPolicyAbort(des, initial *Htt
 
 func canonicalizeHttpRouteRulesActionFaultInjectionPolicyAbortSlice(des, initial []HttpRouteRulesActionFaultInjectionPolicyAbort, opts ...dcl.ApplyOption) []HttpRouteRulesActionFaultInjectionPolicyAbort {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2317,10 +2245,7 @@ func canonicalizeNewHttpRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client
 }
 
 func canonicalizeHttpRouteRulesActionRequestHeaderModifier(des, initial *HttpRouteRulesActionRequestHeaderModifier, opts ...dcl.ApplyOption) *HttpRouteRulesActionRequestHeaderModifier {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2330,14 +2255,14 @@ func canonicalizeHttpRouteRulesActionRequestHeaderModifier(des, initial *HttpRou
 
 	cDes := &HttpRouteRulesActionRequestHeaderModifier{}
 
-	if dcl.IsZeroValue(des.Set) || (dcl.IsEmptyValueIndirect(des.Set) && dcl.IsEmptyValueIndirect(initial.Set)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Set) && dcl.IsEmptyValueIndirect(initial.Set) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Set = initial.Set
 	} else {
 		cDes.Set = des.Set
 	}
-	if dcl.IsZeroValue(des.Add) || (dcl.IsEmptyValueIndirect(des.Add) && dcl.IsEmptyValueIndirect(initial.Add)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Add) && dcl.IsEmptyValueIndirect(initial.Add) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Add = initial.Add
 	} else {
 		cDes.Add = des.Add
@@ -2353,7 +2278,7 @@ func canonicalizeHttpRouteRulesActionRequestHeaderModifier(des, initial *HttpRou
 
 func canonicalizeHttpRouteRulesActionRequestHeaderModifierSlice(des, initial []HttpRouteRulesActionRequestHeaderModifier, opts ...dcl.ApplyOption) []HttpRouteRulesActionRequestHeaderModifier {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2444,10 +2369,7 @@ func canonicalizeNewHttpRouteRulesActionRequestHeaderModifierSlice(c *Client, de
 }
 
 func canonicalizeHttpRouteRulesActionResponseHeaderModifier(des, initial *HttpRouteRulesActionResponseHeaderModifier, opts ...dcl.ApplyOption) *HttpRouteRulesActionResponseHeaderModifier {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2457,14 +2379,14 @@ func canonicalizeHttpRouteRulesActionResponseHeaderModifier(des, initial *HttpRo
 
 	cDes := &HttpRouteRulesActionResponseHeaderModifier{}
 
-	if dcl.IsZeroValue(des.Set) || (dcl.IsEmptyValueIndirect(des.Set) && dcl.IsEmptyValueIndirect(initial.Set)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Set) && dcl.IsEmptyValueIndirect(initial.Set) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Set = initial.Set
 	} else {
 		cDes.Set = des.Set
 	}
-	if dcl.IsZeroValue(des.Add) || (dcl.IsEmptyValueIndirect(des.Add) && dcl.IsEmptyValueIndirect(initial.Add)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Add) && dcl.IsEmptyValueIndirect(initial.Add) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Add = initial.Add
 	} else {
 		cDes.Add = des.Add
@@ -2480,7 +2402,7 @@ func canonicalizeHttpRouteRulesActionResponseHeaderModifier(des, initial *HttpRo
 
 func canonicalizeHttpRouteRulesActionResponseHeaderModifierSlice(des, initial []HttpRouteRulesActionResponseHeaderModifier, opts ...dcl.ApplyOption) []HttpRouteRulesActionResponseHeaderModifier {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2571,10 +2493,7 @@ func canonicalizeNewHttpRouteRulesActionResponseHeaderModifierSlice(c *Client, d
 }
 
 func canonicalizeHttpRouteRulesActionUrlRewrite(des, initial *HttpRouteRulesActionUrlRewrite, opts ...dcl.ApplyOption) *HttpRouteRulesActionUrlRewrite {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2584,12 +2503,12 @@ func canonicalizeHttpRouteRulesActionUrlRewrite(des, initial *HttpRouteRulesActi
 
 	cDes := &HttpRouteRulesActionUrlRewrite{}
 
-	if dcl.StringCanonicalize(des.PathPrefixRewrite, initial.PathPrefixRewrite) || dcl.IsZeroValue(des.PathPrefixRewrite) {
+	if dcl.StringCanonicalize(des.PathPrefixRewrite, initial.PathPrefixRewrite) {
 		cDes.PathPrefixRewrite = initial.PathPrefixRewrite
 	} else {
 		cDes.PathPrefixRewrite = des.PathPrefixRewrite
 	}
-	if dcl.StringCanonicalize(des.HostRewrite, initial.HostRewrite) || dcl.IsZeroValue(des.HostRewrite) {
+	if dcl.StringCanonicalize(des.HostRewrite, initial.HostRewrite) {
 		cDes.HostRewrite = initial.HostRewrite
 	} else {
 		cDes.HostRewrite = des.HostRewrite
@@ -2600,7 +2519,7 @@ func canonicalizeHttpRouteRulesActionUrlRewrite(des, initial *HttpRouteRulesActi
 
 func canonicalizeHttpRouteRulesActionUrlRewriteSlice(des, initial []HttpRouteRulesActionUrlRewrite, opts ...dcl.ApplyOption) []HttpRouteRulesActionUrlRewrite {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2694,10 +2613,7 @@ func canonicalizeNewHttpRouteRulesActionUrlRewriteSlice(c *Client, des, nw []Htt
 }
 
 func canonicalizeHttpRouteRulesActionRetryPolicy(des, initial *HttpRouteRulesActionRetryPolicy, opts ...dcl.ApplyOption) *HttpRouteRulesActionRetryPolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2712,13 +2628,13 @@ func canonicalizeHttpRouteRulesActionRetryPolicy(des, initial *HttpRouteRulesAct
 	} else {
 		cDes.RetryConditions = des.RetryConditions
 	}
-	if dcl.IsZeroValue(des.NumRetries) || (dcl.IsEmptyValueIndirect(des.NumRetries) && dcl.IsEmptyValueIndirect(initial.NumRetries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumRetries) && dcl.IsEmptyValueIndirect(initial.NumRetries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumRetries = initial.NumRetries
 	} else {
 		cDes.NumRetries = des.NumRetries
 	}
-	if dcl.StringCanonicalize(des.PerTryTimeout, initial.PerTryTimeout) || dcl.IsZeroValue(des.PerTryTimeout) {
+	if dcl.StringCanonicalize(des.PerTryTimeout, initial.PerTryTimeout) {
 		cDes.PerTryTimeout = initial.PerTryTimeout
 	} else {
 		cDes.PerTryTimeout = des.PerTryTimeout
@@ -2729,7 +2645,7 @@ func canonicalizeHttpRouteRulesActionRetryPolicy(des, initial *HttpRouteRulesAct
 
 func canonicalizeHttpRouteRulesActionRetryPolicySlice(des, initial []HttpRouteRulesActionRetryPolicy, opts ...dcl.ApplyOption) []HttpRouteRulesActionRetryPolicy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2823,10 +2739,7 @@ func canonicalizeNewHttpRouteRulesActionRetryPolicySlice(c *Client, des, nw []Ht
 }
 
 func canonicalizeHttpRouteRulesActionRequestMirrorPolicy(des, initial *HttpRouteRulesActionRequestMirrorPolicy, opts ...dcl.ApplyOption) *HttpRouteRulesActionRequestMirrorPolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2843,7 +2756,7 @@ func canonicalizeHttpRouteRulesActionRequestMirrorPolicy(des, initial *HttpRoute
 
 func canonicalizeHttpRouteRulesActionRequestMirrorPolicySlice(des, initial []HttpRouteRulesActionRequestMirrorPolicy, opts ...dcl.ApplyOption) []HttpRouteRulesActionRequestMirrorPolicy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2932,10 +2845,7 @@ func canonicalizeNewHttpRouteRulesActionRequestMirrorPolicySlice(c *Client, des,
 }
 
 func canonicalizeHttpRouteRulesActionRequestMirrorPolicyDestination(des, initial *HttpRouteRulesActionRequestMirrorPolicyDestination, opts ...dcl.ApplyOption) *HttpRouteRulesActionRequestMirrorPolicyDestination {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2945,14 +2855,14 @@ func canonicalizeHttpRouteRulesActionRequestMirrorPolicyDestination(des, initial
 
 	cDes := &HttpRouteRulesActionRequestMirrorPolicyDestination{}
 
-	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}
-	if dcl.IsZeroValue(des.ServiceName) || (dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ServiceName = initial.ServiceName
 	} else {
 		cDes.ServiceName = des.ServiceName
@@ -2963,7 +2873,7 @@ func canonicalizeHttpRouteRulesActionRequestMirrorPolicyDestination(des, initial
 
 func canonicalizeHttpRouteRulesActionRequestMirrorPolicyDestinationSlice(des, initial []HttpRouteRulesActionRequestMirrorPolicyDestination, opts ...dcl.ApplyOption) []HttpRouteRulesActionRequestMirrorPolicyDestination {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3050,10 +2960,7 @@ func canonicalizeNewHttpRouteRulesActionRequestMirrorPolicyDestinationSlice(c *C
 }
 
 func canonicalizeHttpRouteRulesActionCorsPolicy(des, initial *HttpRouteRulesActionCorsPolicy, opts ...dcl.ApplyOption) *HttpRouteRulesActionCorsPolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3088,17 +2995,17 @@ func canonicalizeHttpRouteRulesActionCorsPolicy(des, initial *HttpRouteRulesActi
 	} else {
 		cDes.ExposeHeaders = des.ExposeHeaders
 	}
-	if dcl.StringCanonicalize(des.MaxAge, initial.MaxAge) || dcl.IsZeroValue(des.MaxAge) {
+	if dcl.StringCanonicalize(des.MaxAge, initial.MaxAge) {
 		cDes.MaxAge = initial.MaxAge
 	} else {
 		cDes.MaxAge = des.MaxAge
 	}
-	if dcl.BoolCanonicalize(des.AllowCredentials, initial.AllowCredentials) || dcl.IsZeroValue(des.AllowCredentials) {
+	if dcl.BoolCanonicalize(des.AllowCredentials, initial.AllowCredentials) {
 		cDes.AllowCredentials = initial.AllowCredentials
 	} else {
 		cDes.AllowCredentials = des.AllowCredentials
 	}
-	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
+	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) {
 		cDes.Disabled = initial.Disabled
 	} else {
 		cDes.Disabled = des.Disabled
@@ -3109,7 +3016,7 @@ func canonicalizeHttpRouteRulesActionCorsPolicy(des, initial *HttpRouteRulesActi
 
 func canonicalizeHttpRouteRulesActionCorsPolicySlice(des, initial []HttpRouteRulesActionCorsPolicy, opts ...dcl.ApplyOption) []HttpRouteRulesActionCorsPolicy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -549,42 +549,9 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.MonitoredResource != nil || rawInitial.MonitoredResource != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.ResourceGroup) {
-			rawDesired.MonitoredResource = nil
-			rawInitial.MonitoredResource = nil
-		}
-	}
-
-	if rawDesired.ResourceGroup != nil || rawInitial.ResourceGroup != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.MonitoredResource) {
-			rawDesired.ResourceGroup = nil
-			rawInitial.ResourceGroup = nil
-		}
-	}
-
-	if rawDesired.HttpCheck != nil || rawInitial.HttpCheck != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.TcpCheck) {
-			rawDesired.HttpCheck = nil
-			rawInitial.HttpCheck = nil
-		}
-	}
-
-	if rawDesired.TcpCheck != nil || rawInitial.TcpCheck != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.HttpCheck) {
-			rawDesired.TcpCheck = nil
-			rawInitial.TcpCheck = nil
-		}
-	}
-
 	canonicalDesired := &UptimeCheckConfig{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -618,6 +585,34 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.MonitoredResource != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.ResourceGroup) {
+			canonicalDesired.MonitoredResource = nil
+		}
+	}
+
+	if canonicalDesired.ResourceGroup != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.MonitoredResource) {
+			canonicalDesired.ResourceGroup = nil
+		}
+	}
+
+	if canonicalDesired.HttpCheck != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.TcpCheck) {
+			canonicalDesired.HttpCheck = nil
+		}
+	}
+
+	if canonicalDesired.TcpCheck != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.HttpCheck) {
+			canonicalDesired.TcpCheck = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -694,14 +689,35 @@ func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *Uptime
 
 	rawNew.Project = rawDesired.Project
 
+	if rawNew.MonitoredResource != nil {
+		if dcl.AnySet(rawNew.ResourceGroup) && rawDesired.MonitoredResource == nil {
+			rawNew.MonitoredResource = nil
+		}
+	}
+
+	if rawNew.ResourceGroup != nil {
+		if dcl.AnySet(rawNew.MonitoredResource) && rawDesired.ResourceGroup == nil {
+			rawNew.ResourceGroup = nil
+		}
+	}
+
+	if rawNew.HttpCheck != nil {
+		if dcl.AnySet(rawNew.TcpCheck) && rawDesired.HttpCheck == nil {
+			rawNew.HttpCheck = nil
+		}
+	}
+
+	if rawNew.TcpCheck != nil {
+		if dcl.AnySet(rawNew.HttpCheck) && rawDesired.TcpCheck == nil {
+			rawNew.TcpCheck = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeUptimeCheckConfigMonitoredResource(des, initial *UptimeCheckConfigMonitoredResource, opts ...dcl.ApplyOption) *UptimeCheckConfigMonitoredResource {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -711,13 +727,13 @@ func canonicalizeUptimeCheckConfigMonitoredResource(des, initial *UptimeCheckCon
 
 	cDes := &UptimeCheckConfigMonitoredResource{}
 
-	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, initial.Type) {
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.IsZeroValue(des.FilterLabels) || (dcl.IsEmptyValueIndirect(des.FilterLabels) && dcl.IsEmptyValueIndirect(initial.FilterLabels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.FilterLabels) && dcl.IsEmptyValueIndirect(initial.FilterLabels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.FilterLabels = initial.FilterLabels
 	} else {
 		cDes.FilterLabels = des.FilterLabels
@@ -728,7 +744,7 @@ func canonicalizeUptimeCheckConfigMonitoredResource(des, initial *UptimeCheckCon
 
 func canonicalizeUptimeCheckConfigMonitoredResourceSlice(des, initial []UptimeCheckConfigMonitoredResource, opts ...dcl.ApplyOption) []UptimeCheckConfigMonitoredResource {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -819,10 +835,7 @@ func canonicalizeNewUptimeCheckConfigMonitoredResourceSlice(c *Client, des, nw [
 }
 
 func canonicalizeUptimeCheckConfigResourceGroup(des, initial *UptimeCheckConfigResourceGroup, opts ...dcl.ApplyOption) *UptimeCheckConfigResourceGroup {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -832,14 +845,14 @@ func canonicalizeUptimeCheckConfigResourceGroup(des, initial *UptimeCheckConfigR
 
 	cDes := &UptimeCheckConfigResourceGroup{}
 
-	if dcl.IsZeroValue(des.GroupId) || (dcl.IsEmptyValueIndirect(des.GroupId) && dcl.IsEmptyValueIndirect(initial.GroupId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GroupId) && dcl.IsEmptyValueIndirect(initial.GroupId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GroupId = initial.GroupId
 	} else {
 		cDes.GroupId = des.GroupId
 	}
-	if dcl.IsZeroValue(des.ResourceType) || (dcl.IsEmptyValueIndirect(des.ResourceType) && dcl.IsEmptyValueIndirect(initial.ResourceType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ResourceType) && dcl.IsEmptyValueIndirect(initial.ResourceType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ResourceType = initial.ResourceType
 	} else {
 		cDes.ResourceType = des.ResourceType
@@ -850,7 +863,7 @@ func canonicalizeUptimeCheckConfigResourceGroup(des, initial *UptimeCheckConfigR
 
 func canonicalizeUptimeCheckConfigResourceGroupSlice(des, initial []UptimeCheckConfigResourceGroup, opts ...dcl.ApplyOption) []UptimeCheckConfigResourceGroup {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -937,10 +950,7 @@ func canonicalizeNewUptimeCheckConfigResourceGroupSlice(c *Client, des, nw []Upt
 }
 
 func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpCheck, opts ...dcl.ApplyOption) *UptimeCheckConfigHttpCheck {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -958,52 +968,52 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 
 	cDes := &UptimeCheckConfigHttpCheck{}
 
-	if dcl.IsZeroValue(des.RequestMethod) || (dcl.IsEmptyValueIndirect(des.RequestMethod) && dcl.IsEmptyValueIndirect(initial.RequestMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RequestMethod) && dcl.IsEmptyValueIndirect(initial.RequestMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RequestMethod = initial.RequestMethod
 	} else {
 		cDes.RequestMethod = des.RequestMethod
 	}
-	if dcl.BoolCanonicalize(des.UseSsl, initial.UseSsl) || dcl.IsZeroValue(des.UseSsl) {
+	if dcl.BoolCanonicalize(des.UseSsl, initial.UseSsl) {
 		cDes.UseSsl = initial.UseSsl
 	} else {
 		cDes.UseSsl = des.UseSsl
 	}
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
 	}
-	if dcl.IsZeroValue(des.Port) || (dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
 	}
 	cDes.AuthInfo = canonicalizeUptimeCheckConfigHttpCheckAuthInfo(des.AuthInfo, initial.AuthInfo, opts...)
-	if dcl.BoolCanonicalize(des.MaskHeaders, initial.MaskHeaders) || dcl.IsZeroValue(des.MaskHeaders) {
+	if dcl.BoolCanonicalize(des.MaskHeaders, initial.MaskHeaders) {
 		cDes.MaskHeaders = initial.MaskHeaders
 	} else {
 		cDes.MaskHeaders = des.MaskHeaders
 	}
-	if dcl.IsZeroValue(des.Headers) || (dcl.IsEmptyValueIndirect(des.Headers) && dcl.IsEmptyValueIndirect(initial.Headers)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Headers) && dcl.IsEmptyValueIndirect(initial.Headers) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Headers = initial.Headers
 	} else {
 		cDes.Headers = des.Headers
 	}
-	if dcl.IsZeroValue(des.ContentType) || (dcl.IsEmptyValueIndirect(des.ContentType) && dcl.IsEmptyValueIndirect(initial.ContentType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ContentType) && dcl.IsEmptyValueIndirect(initial.ContentType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ContentType = initial.ContentType
 	} else {
 		cDes.ContentType = des.ContentType
 	}
-	if dcl.BoolCanonicalize(des.ValidateSsl, initial.ValidateSsl) || dcl.IsZeroValue(des.ValidateSsl) {
+	if dcl.BoolCanonicalize(des.ValidateSsl, initial.ValidateSsl) {
 		cDes.ValidateSsl = initial.ValidateSsl
 	} else {
 		cDes.ValidateSsl = des.ValidateSsl
 	}
-	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, initial.Body) {
 		cDes.Body = initial.Body
 	} else {
 		cDes.Body = des.Body
@@ -1014,7 +1024,7 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 
 func canonicalizeUptimeCheckConfigHttpCheckSlice(des, initial []UptimeCheckConfigHttpCheck, opts ...dcl.ApplyOption) []UptimeCheckConfigHttpCheck {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1127,10 +1137,7 @@ func canonicalizeNewUptimeCheckConfigHttpCheckSlice(c *Client, des, nw []UptimeC
 }
 
 func canonicalizeUptimeCheckConfigHttpCheckAuthInfo(des, initial *UptimeCheckConfigHttpCheckAuthInfo, opts ...dcl.ApplyOption) *UptimeCheckConfigHttpCheckAuthInfo {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1140,12 +1147,12 @@ func canonicalizeUptimeCheckConfigHttpCheckAuthInfo(des, initial *UptimeCheckCon
 
 	cDes := &UptimeCheckConfigHttpCheckAuthInfo{}
 
-	if dcl.StringCanonicalize(des.Username, initial.Username) || dcl.IsZeroValue(des.Username) {
+	if dcl.StringCanonicalize(des.Username, initial.Username) {
 		cDes.Username = initial.Username
 	} else {
 		cDes.Username = des.Username
 	}
-	if dcl.StringCanonicalize(des.Password, initial.Password) || dcl.IsZeroValue(des.Password) {
+	if dcl.StringCanonicalize(des.Password, initial.Password) {
 		cDes.Password = initial.Password
 	} else {
 		cDes.Password = des.Password
@@ -1156,7 +1163,7 @@ func canonicalizeUptimeCheckConfigHttpCheckAuthInfo(des, initial *UptimeCheckCon
 
 func canonicalizeUptimeCheckConfigHttpCheckAuthInfoSlice(des, initial []UptimeCheckConfigHttpCheckAuthInfo, opts ...dcl.ApplyOption) []UptimeCheckConfigHttpCheckAuthInfo {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1248,10 +1255,7 @@ func canonicalizeNewUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, des, nw [
 }
 
 func canonicalizeUptimeCheckConfigTcpCheck(des, initial *UptimeCheckConfigTcpCheck, opts ...dcl.ApplyOption) *UptimeCheckConfigTcpCheck {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1261,8 +1265,8 @@ func canonicalizeUptimeCheckConfigTcpCheck(des, initial *UptimeCheckConfigTcpChe
 
 	cDes := &UptimeCheckConfigTcpCheck{}
 
-	if dcl.IsZeroValue(des.Port) || (dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
@@ -1273,7 +1277,7 @@ func canonicalizeUptimeCheckConfigTcpCheck(des, initial *UptimeCheckConfigTcpChe
 
 func canonicalizeUptimeCheckConfigTcpCheckSlice(des, initial []UptimeCheckConfigTcpCheck, opts ...dcl.ApplyOption) []UptimeCheckConfigTcpCheck {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1360,10 +1364,7 @@ func canonicalizeNewUptimeCheckConfigTcpCheckSlice(c *Client, des, nw []UptimeCh
 }
 
 func canonicalizeUptimeCheckConfigContentMatchers(des, initial *UptimeCheckConfigContentMatchers, opts ...dcl.ApplyOption) *UptimeCheckConfigContentMatchers {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1377,13 +1378,13 @@ func canonicalizeUptimeCheckConfigContentMatchers(des, initial *UptimeCheckConfi
 
 	cDes := &UptimeCheckConfigContentMatchers{}
 
-	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, initial.Content) {
 		cDes.Content = initial.Content
 	} else {
 		cDes.Content = des.Content
 	}
-	if dcl.IsZeroValue(des.Matcher) || (dcl.IsEmptyValueIndirect(des.Matcher) && dcl.IsEmptyValueIndirect(initial.Matcher)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Matcher) && dcl.IsEmptyValueIndirect(initial.Matcher) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Matcher = initial.Matcher
 	} else {
 		cDes.Matcher = des.Matcher
@@ -1394,7 +1395,7 @@ func canonicalizeUptimeCheckConfigContentMatchers(des, initial *UptimeCheckConfi
 
 func canonicalizeUptimeCheckConfigContentMatchersSlice(des, initial []UptimeCheckConfigContentMatchers, opts ...dcl.ApplyOption) []UptimeCheckConfigContentMatchers {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

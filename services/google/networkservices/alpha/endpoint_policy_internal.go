@@ -500,20 +500,20 @@ func canonicalizeEndpointPolicyDesiredState(rawDesired, rawInitial *EndpointPoli
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Type) || (dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Type = rawInitial.Type
 	} else {
 		canonicalDesired.Type = rawDesired.Type
 	}
-	if dcl.IsZeroValue(rawDesired.AuthorizationPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.AuthorizationPolicy) && dcl.IsEmptyValueIndirect(rawInitial.AuthorizationPolicy)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.AuthorizationPolicy) && dcl.IsEmptyValueIndirect(rawInitial.AuthorizationPolicy) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.AuthorizationPolicy = rawInitial.AuthorizationPolicy
 	} else {
 		canonicalDesired.AuthorizationPolicy = rawDesired.AuthorizationPolicy
@@ -525,14 +525,14 @@ func canonicalizeEndpointPolicyDesiredState(rawDesired, rawInitial *EndpointPoli
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.ServerTlsPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.ServerTlsPolicy) && dcl.IsEmptyValueIndirect(rawInitial.ServerTlsPolicy)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.ServerTlsPolicy) && dcl.IsEmptyValueIndirect(rawInitial.ServerTlsPolicy) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.ServerTlsPolicy = rawInitial.ServerTlsPolicy
 	} else {
 		canonicalDesired.ServerTlsPolicy = rawDesired.ServerTlsPolicy
 	}
-	if dcl.IsZeroValue(rawDesired.ClientTlsPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.ClientTlsPolicy) && dcl.IsEmptyValueIndirect(rawInitial.ClientTlsPolicy)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.ClientTlsPolicy) && dcl.IsEmptyValueIndirect(rawInitial.ClientTlsPolicy) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.ClientTlsPolicy = rawInitial.ClientTlsPolicy
 	} else {
 		canonicalDesired.ClientTlsPolicy = rawDesired.ClientTlsPolicy
@@ -624,10 +624,7 @@ func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointP
 }
 
 func canonicalizeEndpointPolicyEndpointMatcher(des, initial *EndpointPolicyEndpointMatcher, opts ...dcl.ApplyOption) *EndpointPolicyEndpointMatcher {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -644,7 +641,7 @@ func canonicalizeEndpointPolicyEndpointMatcher(des, initial *EndpointPolicyEndpo
 
 func canonicalizeEndpointPolicyEndpointMatcherSlice(des, initial []EndpointPolicyEndpointMatcher, opts ...dcl.ApplyOption) []EndpointPolicyEndpointMatcher {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -733,10 +730,7 @@ func canonicalizeNewEndpointPolicyEndpointMatcherSlice(c *Client, des, nw []Endp
 }
 
 func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(des, initial *EndpointPolicyEndpointMatcherMetadataLabelMatcher, opts ...dcl.ApplyOption) *EndpointPolicyEndpointMatcherMetadataLabelMatcher {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -746,8 +740,8 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(des, initial 
 
 	cDes := &EndpointPolicyEndpointMatcherMetadataLabelMatcher{}
 
-	if dcl.IsZeroValue(des.MetadataLabelMatchCriteria) || (dcl.IsEmptyValueIndirect(des.MetadataLabelMatchCriteria) && dcl.IsEmptyValueIndirect(initial.MetadataLabelMatchCriteria)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MetadataLabelMatchCriteria) && dcl.IsEmptyValueIndirect(initial.MetadataLabelMatchCriteria) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MetadataLabelMatchCriteria = initial.MetadataLabelMatchCriteria
 	} else {
 		cDes.MetadataLabelMatchCriteria = des.MetadataLabelMatchCriteria
@@ -759,7 +753,7 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(des, initial 
 
 func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(des, initial []EndpointPolicyEndpointMatcherMetadataLabelMatcher, opts ...dcl.ApplyOption) []EndpointPolicyEndpointMatcherMetadataLabelMatcher {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -848,10 +842,7 @@ func canonicalizeNewEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(c *Cl
 }
 
 func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(des, initial *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels, opts ...dcl.ApplyOption) *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -861,12 +852,12 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels
 
 	cDes := &EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels{}
 
-	if dcl.StringCanonicalize(des.LabelName, initial.LabelName) || dcl.IsZeroValue(des.LabelName) {
+	if dcl.StringCanonicalize(des.LabelName, initial.LabelName) {
 		cDes.LabelName = initial.LabelName
 	} else {
 		cDes.LabelName = des.LabelName
 	}
-	if dcl.StringCanonicalize(des.LabelValue, initial.LabelValue) || dcl.IsZeroValue(des.LabelValue) {
+	if dcl.StringCanonicalize(des.LabelValue, initial.LabelValue) {
 		cDes.LabelValue = initial.LabelValue
 	} else {
 		cDes.LabelValue = des.LabelValue
@@ -877,7 +868,7 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels
 
 func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(des, initial []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels, opts ...dcl.ApplyOption) []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -971,10 +962,7 @@ func canonicalizeNewEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLab
 }
 
 func canonicalizeEndpointPolicyTrafficPortSelector(des, initial *EndpointPolicyTrafficPortSelector, opts ...dcl.ApplyOption) *EndpointPolicyTrafficPortSelector {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -995,7 +983,7 @@ func canonicalizeEndpointPolicyTrafficPortSelector(des, initial *EndpointPolicyT
 
 func canonicalizeEndpointPolicyTrafficPortSelectorSlice(des, initial []EndpointPolicyTrafficPortSelector, opts ...dcl.ApplyOption) []EndpointPolicyTrafficPortSelector {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

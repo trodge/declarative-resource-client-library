@@ -661,8 +661,8 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		return rawDesired, nil
 	}
 	canonicalDesired := &Cluster{}
-	if dcl.IsZeroValue(rawDesired.Project) || (dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
@@ -673,8 +673,8 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		canonicalDesired.Name = rawDesired.Name
 	}
 	canonicalDesired.Config = canonicalizeClusterConfig(rawDesired.Config, rawInitial.Config, opts...)
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -746,10 +746,7 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 }
 
 func canonicalizeClusterConfig(des, initial *ClusterConfig, opts ...dcl.ApplyOption) *ClusterConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -759,14 +756,14 @@ func canonicalizeClusterConfig(des, initial *ClusterConfig, opts ...dcl.ApplyOpt
 
 	cDes := &ClusterConfig{}
 
-	if dcl.IsZeroValue(des.StagingBucket) || (dcl.IsEmptyValueIndirect(des.StagingBucket) && dcl.IsEmptyValueIndirect(initial.StagingBucket)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.StagingBucket) && dcl.IsEmptyValueIndirect(initial.StagingBucket) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.StagingBucket = initial.StagingBucket
 	} else {
 		cDes.StagingBucket = des.StagingBucket
 	}
-	if dcl.IsZeroValue(des.TempBucket) || (dcl.IsEmptyValueIndirect(des.TempBucket) && dcl.IsEmptyValueIndirect(initial.TempBucket)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TempBucket) && dcl.IsEmptyValueIndirect(initial.TempBucket) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TempBucket = initial.TempBucket
 	} else {
 		cDes.TempBucket = des.TempBucket
@@ -788,7 +785,7 @@ func canonicalizeClusterConfig(des, initial *ClusterConfig, opts ...dcl.ApplyOpt
 
 func canonicalizeClusterConfigSlice(des, initial []ClusterConfig, opts ...dcl.ApplyOption) []ClusterConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -887,10 +884,7 @@ func canonicalizeNewClusterConfigSlice(c *Client, des, nw []ClusterConfig) []Clu
 }
 
 func canonicalizeClusterConfigGceClusterConfig(des, initial *ClusterConfigGceClusterConfig, opts ...dcl.ApplyOption) *ClusterConfigGceClusterConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -900,36 +894,36 @@ func canonicalizeClusterConfigGceClusterConfig(des, initial *ClusterConfigGceClu
 
 	cDes := &ClusterConfigGceClusterConfig{}
 
-	if dcl.StringCanonicalize(des.Zone, initial.Zone) || dcl.IsZeroValue(des.Zone) {
+	if dcl.StringCanonicalize(des.Zone, initial.Zone) {
 		cDes.Zone = initial.Zone
 	} else {
 		cDes.Zone = des.Zone
 	}
-	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
 	}
-	if dcl.IsZeroValue(des.Subnetwork) || (dcl.IsEmptyValueIndirect(des.Subnetwork) && dcl.IsEmptyValueIndirect(initial.Subnetwork)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Subnetwork) && dcl.IsEmptyValueIndirect(initial.Subnetwork) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Subnetwork = initial.Subnetwork
 	} else {
 		cDes.Subnetwork = des.Subnetwork
 	}
-	if dcl.BoolCanonicalize(des.InternalIPOnly, initial.InternalIPOnly) || dcl.IsZeroValue(des.InternalIPOnly) {
+	if dcl.BoolCanonicalize(des.InternalIPOnly, initial.InternalIPOnly) {
 		cDes.InternalIPOnly = initial.InternalIPOnly
 	} else {
 		cDes.InternalIPOnly = des.InternalIPOnly
 	}
-	if dcl.IsZeroValue(des.PrivateIPv6GoogleAccess) || (dcl.IsEmptyValueIndirect(des.PrivateIPv6GoogleAccess) && dcl.IsEmptyValueIndirect(initial.PrivateIPv6GoogleAccess)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PrivateIPv6GoogleAccess) && dcl.IsEmptyValueIndirect(initial.PrivateIPv6GoogleAccess) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PrivateIPv6GoogleAccess = initial.PrivateIPv6GoogleAccess
 	} else {
 		cDes.PrivateIPv6GoogleAccess = des.PrivateIPv6GoogleAccess
 	}
-	if dcl.IsZeroValue(des.ServiceAccount) || (dcl.IsEmptyValueIndirect(des.ServiceAccount) && dcl.IsEmptyValueIndirect(initial.ServiceAccount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ServiceAccount) && dcl.IsEmptyValueIndirect(initial.ServiceAccount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ServiceAccount = initial.ServiceAccount
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
@@ -944,8 +938,8 @@ func canonicalizeClusterConfigGceClusterConfig(des, initial *ClusterConfigGceClu
 	} else {
 		cDes.Tags = des.Tags
 	}
-	if dcl.IsZeroValue(des.Metadata) || (dcl.IsEmptyValueIndirect(des.Metadata) && dcl.IsEmptyValueIndirect(initial.Metadata)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Metadata) && dcl.IsEmptyValueIndirect(initial.Metadata) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Metadata = initial.Metadata
 	} else {
 		cDes.Metadata = des.Metadata
@@ -958,7 +952,7 @@ func canonicalizeClusterConfigGceClusterConfig(des, initial *ClusterConfigGceClu
 
 func canonicalizeClusterConfigGceClusterConfigSlice(des, initial []ClusterConfigGceClusterConfig, opts ...dcl.ApplyOption) []ClusterConfigGceClusterConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1060,10 +1054,7 @@ func canonicalizeNewClusterConfigGceClusterConfigSlice(c *Client, des, nw []Clus
 }
 
 func canonicalizeClusterConfigGceClusterConfigReservationAffinity(des, initial *ClusterConfigGceClusterConfigReservationAffinity, opts ...dcl.ApplyOption) *ClusterConfigGceClusterConfigReservationAffinity {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1073,13 +1064,13 @@ func canonicalizeClusterConfigGceClusterConfigReservationAffinity(des, initial *
 
 	cDes := &ClusterConfigGceClusterConfigReservationAffinity{}
 
-	if dcl.IsZeroValue(des.ConsumeReservationType) || (dcl.IsEmptyValueIndirect(des.ConsumeReservationType) && dcl.IsEmptyValueIndirect(initial.ConsumeReservationType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ConsumeReservationType) && dcl.IsEmptyValueIndirect(initial.ConsumeReservationType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ConsumeReservationType = initial.ConsumeReservationType
 	} else {
 		cDes.ConsumeReservationType = des.ConsumeReservationType
 	}
-	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) {
 		cDes.Key = initial.Key
 	} else {
 		cDes.Key = des.Key
@@ -1095,7 +1086,7 @@ func canonicalizeClusterConfigGceClusterConfigReservationAffinity(des, initial *
 
 func canonicalizeClusterConfigGceClusterConfigReservationAffinitySlice(des, initial []ClusterConfigGceClusterConfigReservationAffinity, opts ...dcl.ApplyOption) []ClusterConfigGceClusterConfigReservationAffinity {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1189,10 +1180,7 @@ func canonicalizeNewClusterConfigGceClusterConfigReservationAffinitySlice(c *Cli
 }
 
 func canonicalizeClusterConfigGceClusterConfigNodeGroupAffinity(des, initial *ClusterConfigGceClusterConfigNodeGroupAffinity, opts ...dcl.ApplyOption) *ClusterConfigGceClusterConfigNodeGroupAffinity {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1202,8 +1190,8 @@ func canonicalizeClusterConfigGceClusterConfigNodeGroupAffinity(des, initial *Cl
 
 	cDes := &ClusterConfigGceClusterConfigNodeGroupAffinity{}
 
-	if dcl.IsZeroValue(des.NodeGroup) || (dcl.IsEmptyValueIndirect(des.NodeGroup) && dcl.IsEmptyValueIndirect(initial.NodeGroup)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NodeGroup) && dcl.IsEmptyValueIndirect(initial.NodeGroup) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NodeGroup = initial.NodeGroup
 	} else {
 		cDes.NodeGroup = des.NodeGroup
@@ -1214,7 +1202,7 @@ func canonicalizeClusterConfigGceClusterConfigNodeGroupAffinity(des, initial *Cl
 
 func canonicalizeClusterConfigGceClusterConfigNodeGroupAffinitySlice(des, initial []ClusterConfigGceClusterConfigNodeGroupAffinity, opts ...dcl.ApplyOption) []ClusterConfigGceClusterConfigNodeGroupAffinity {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1301,10 +1289,7 @@ func canonicalizeNewClusterConfigGceClusterConfigNodeGroupAffinitySlice(c *Clien
 }
 
 func canonicalizeClusterConfigMasterConfig(des, initial *ClusterConfigMasterConfig, opts ...dcl.ApplyOption) *ClusterConfigMasterConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1314,32 +1299,32 @@ func canonicalizeClusterConfigMasterConfig(des, initial *ClusterConfigMasterConf
 
 	cDes := &ClusterConfigMasterConfig{}
 
-	if dcl.IsZeroValue(des.NumInstances) || (dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumInstances = initial.NumInstances
 	} else {
 		cDes.NumInstances = des.NumInstances
 	}
-	if dcl.IsZeroValue(des.Image) || (dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
 	}
-	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) {
 		cDes.MachineType = initial.MachineType
 	} else {
 		cDes.MachineType = des.MachineType
 	}
 	cDes.DiskConfig = canonicalizeClusterConfigMasterConfigDiskConfig(des.DiskConfig, initial.DiskConfig, opts...)
-	if dcl.IsZeroValue(des.Preemptibility) || (dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Preemptibility = initial.Preemptibility
 	} else {
 		cDes.Preemptibility = des.Preemptibility
 	}
 	cDes.Accelerators = canonicalizeClusterConfigMasterConfigAcceleratorsSlice(des.Accelerators, initial.Accelerators, opts...)
-	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) {
 		cDes.MinCpuPlatform = initial.MinCpuPlatform
 	} else {
 		cDes.MinCpuPlatform = des.MinCpuPlatform
@@ -1350,7 +1335,7 @@ func canonicalizeClusterConfigMasterConfig(des, initial *ClusterConfigMasterConf
 
 func canonicalizeClusterConfigMasterConfigSlice(des, initial []ClusterConfigMasterConfig, opts ...dcl.ApplyOption) []ClusterConfigMasterConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1453,10 +1438,7 @@ func canonicalizeNewClusterConfigMasterConfigSlice(c *Client, des, nw []ClusterC
 }
 
 func canonicalizeClusterConfigMasterConfigDiskConfig(des, initial *ClusterConfigMasterConfigDiskConfig, opts ...dcl.ApplyOption) *ClusterConfigMasterConfigDiskConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1466,19 +1448,19 @@ func canonicalizeClusterConfigMasterConfigDiskConfig(des, initial *ClusterConfig
 
 	cDes := &ClusterConfigMasterConfigDiskConfig{}
 
-	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) || dcl.IsZeroValue(des.BootDiskType) {
+	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) {
 		cDes.BootDiskType = initial.BootDiskType
 	} else {
 		cDes.BootDiskType = des.BootDiskType
 	}
-	if dcl.IsZeroValue(des.BootDiskSizeGb) || (dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BootDiskSizeGb = initial.BootDiskSizeGb
 	} else {
 		cDes.BootDiskSizeGb = des.BootDiskSizeGb
 	}
-	if dcl.IsZeroValue(des.NumLocalSsds) || (dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumLocalSsds = initial.NumLocalSsds
 	} else {
 		cDes.NumLocalSsds = des.NumLocalSsds
@@ -1489,7 +1471,7 @@ func canonicalizeClusterConfigMasterConfigDiskConfig(des, initial *ClusterConfig
 
 func canonicalizeClusterConfigMasterConfigDiskConfigSlice(des, initial []ClusterConfigMasterConfigDiskConfig, opts ...dcl.ApplyOption) []ClusterConfigMasterConfigDiskConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1580,10 +1562,7 @@ func canonicalizeNewClusterConfigMasterConfigDiskConfigSlice(c *Client, des, nw 
 }
 
 func canonicalizeClusterConfigMasterConfigManagedGroupConfig(des, initial *ClusterConfigMasterConfigManagedGroupConfig, opts ...dcl.ApplyOption) *ClusterConfigMasterConfigManagedGroupConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1598,7 +1577,7 @@ func canonicalizeClusterConfigMasterConfigManagedGroupConfig(des, initial *Clust
 
 func canonicalizeClusterConfigMasterConfigManagedGroupConfigSlice(des, initial []ClusterConfigMasterConfigManagedGroupConfig, opts ...dcl.ApplyOption) []ClusterConfigMasterConfigManagedGroupConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1692,10 +1671,7 @@ func canonicalizeNewClusterConfigMasterConfigManagedGroupConfigSlice(c *Client, 
 }
 
 func canonicalizeClusterConfigMasterConfigAccelerators(des, initial *ClusterConfigMasterConfigAccelerators, opts ...dcl.ApplyOption) *ClusterConfigMasterConfigAccelerators {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1705,13 +1681,13 @@ func canonicalizeClusterConfigMasterConfigAccelerators(des, initial *ClusterConf
 
 	cDes := &ClusterConfigMasterConfigAccelerators{}
 
-	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) {
 		cDes.AcceleratorType = initial.AcceleratorType
 	} else {
 		cDes.AcceleratorType = des.AcceleratorType
 	}
-	if dcl.IsZeroValue(des.AcceleratorCount) || (dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
@@ -1722,7 +1698,7 @@ func canonicalizeClusterConfigMasterConfigAccelerators(des, initial *ClusterConf
 
 func canonicalizeClusterConfigMasterConfigAcceleratorsSlice(des, initial []ClusterConfigMasterConfigAccelerators, opts ...dcl.ApplyOption) []ClusterConfigMasterConfigAccelerators {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1813,10 +1789,7 @@ func canonicalizeNewClusterConfigMasterConfigAcceleratorsSlice(c *Client, des, n
 }
 
 func canonicalizeClusterConfigWorkerConfig(des, initial *ClusterConfigWorkerConfig, opts ...dcl.ApplyOption) *ClusterConfigWorkerConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1826,32 +1799,32 @@ func canonicalizeClusterConfigWorkerConfig(des, initial *ClusterConfigWorkerConf
 
 	cDes := &ClusterConfigWorkerConfig{}
 
-	if dcl.IsZeroValue(des.NumInstances) || (dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumInstances = initial.NumInstances
 	} else {
 		cDes.NumInstances = des.NumInstances
 	}
-	if dcl.IsZeroValue(des.Image) || (dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
 	}
-	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) {
 		cDes.MachineType = initial.MachineType
 	} else {
 		cDes.MachineType = des.MachineType
 	}
 	cDes.DiskConfig = canonicalizeClusterConfigWorkerConfigDiskConfig(des.DiskConfig, initial.DiskConfig, opts...)
-	if dcl.IsZeroValue(des.Preemptibility) || (dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Preemptibility = initial.Preemptibility
 	} else {
 		cDes.Preemptibility = des.Preemptibility
 	}
 	cDes.Accelerators = canonicalizeClusterConfigWorkerConfigAcceleratorsSlice(des.Accelerators, initial.Accelerators, opts...)
-	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) {
 		cDes.MinCpuPlatform = initial.MinCpuPlatform
 	} else {
 		cDes.MinCpuPlatform = des.MinCpuPlatform
@@ -1862,7 +1835,7 @@ func canonicalizeClusterConfigWorkerConfig(des, initial *ClusterConfigWorkerConf
 
 func canonicalizeClusterConfigWorkerConfigSlice(des, initial []ClusterConfigWorkerConfig, opts ...dcl.ApplyOption) []ClusterConfigWorkerConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1965,10 +1938,7 @@ func canonicalizeNewClusterConfigWorkerConfigSlice(c *Client, des, nw []ClusterC
 }
 
 func canonicalizeClusterConfigWorkerConfigDiskConfig(des, initial *ClusterConfigWorkerConfigDiskConfig, opts ...dcl.ApplyOption) *ClusterConfigWorkerConfigDiskConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1978,19 +1948,19 @@ func canonicalizeClusterConfigWorkerConfigDiskConfig(des, initial *ClusterConfig
 
 	cDes := &ClusterConfigWorkerConfigDiskConfig{}
 
-	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) || dcl.IsZeroValue(des.BootDiskType) {
+	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) {
 		cDes.BootDiskType = initial.BootDiskType
 	} else {
 		cDes.BootDiskType = des.BootDiskType
 	}
-	if dcl.IsZeroValue(des.BootDiskSizeGb) || (dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BootDiskSizeGb = initial.BootDiskSizeGb
 	} else {
 		cDes.BootDiskSizeGb = des.BootDiskSizeGb
 	}
-	if dcl.IsZeroValue(des.NumLocalSsds) || (dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumLocalSsds = initial.NumLocalSsds
 	} else {
 		cDes.NumLocalSsds = des.NumLocalSsds
@@ -2001,7 +1971,7 @@ func canonicalizeClusterConfigWorkerConfigDiskConfig(des, initial *ClusterConfig
 
 func canonicalizeClusterConfigWorkerConfigDiskConfigSlice(des, initial []ClusterConfigWorkerConfigDiskConfig, opts ...dcl.ApplyOption) []ClusterConfigWorkerConfigDiskConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2092,10 +2062,7 @@ func canonicalizeNewClusterConfigWorkerConfigDiskConfigSlice(c *Client, des, nw 
 }
 
 func canonicalizeClusterConfigWorkerConfigManagedGroupConfig(des, initial *ClusterConfigWorkerConfigManagedGroupConfig, opts ...dcl.ApplyOption) *ClusterConfigWorkerConfigManagedGroupConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2110,7 +2077,7 @@ func canonicalizeClusterConfigWorkerConfigManagedGroupConfig(des, initial *Clust
 
 func canonicalizeClusterConfigWorkerConfigManagedGroupConfigSlice(des, initial []ClusterConfigWorkerConfigManagedGroupConfig, opts ...dcl.ApplyOption) []ClusterConfigWorkerConfigManagedGroupConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2204,10 +2171,7 @@ func canonicalizeNewClusterConfigWorkerConfigManagedGroupConfigSlice(c *Client, 
 }
 
 func canonicalizeClusterConfigWorkerConfigAccelerators(des, initial *ClusterConfigWorkerConfigAccelerators, opts ...dcl.ApplyOption) *ClusterConfigWorkerConfigAccelerators {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2217,13 +2181,13 @@ func canonicalizeClusterConfigWorkerConfigAccelerators(des, initial *ClusterConf
 
 	cDes := &ClusterConfigWorkerConfigAccelerators{}
 
-	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) {
 		cDes.AcceleratorType = initial.AcceleratorType
 	} else {
 		cDes.AcceleratorType = des.AcceleratorType
 	}
-	if dcl.IsZeroValue(des.AcceleratorCount) || (dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
@@ -2234,7 +2198,7 @@ func canonicalizeClusterConfigWorkerConfigAccelerators(des, initial *ClusterConf
 
 func canonicalizeClusterConfigWorkerConfigAcceleratorsSlice(des, initial []ClusterConfigWorkerConfigAccelerators, opts ...dcl.ApplyOption) []ClusterConfigWorkerConfigAccelerators {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2325,10 +2289,7 @@ func canonicalizeNewClusterConfigWorkerConfigAcceleratorsSlice(c *Client, des, n
 }
 
 func canonicalizeClusterConfigSecondaryWorkerConfig(des, initial *ClusterConfigSecondaryWorkerConfig, opts ...dcl.ApplyOption) *ClusterConfigSecondaryWorkerConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2338,32 +2299,32 @@ func canonicalizeClusterConfigSecondaryWorkerConfig(des, initial *ClusterConfigS
 
 	cDes := &ClusterConfigSecondaryWorkerConfig{}
 
-	if dcl.IsZeroValue(des.NumInstances) || (dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumInstances) && dcl.IsEmptyValueIndirect(initial.NumInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumInstances = initial.NumInstances
 	} else {
 		cDes.NumInstances = des.NumInstances
 	}
-	if dcl.IsZeroValue(des.Image) || (dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
 	}
-	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) {
 		cDes.MachineType = initial.MachineType
 	} else {
 		cDes.MachineType = des.MachineType
 	}
 	cDes.DiskConfig = canonicalizeClusterConfigSecondaryWorkerConfigDiskConfig(des.DiskConfig, initial.DiskConfig, opts...)
-	if dcl.IsZeroValue(des.Preemptibility) || (dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Preemptibility) && dcl.IsEmptyValueIndirect(initial.Preemptibility) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Preemptibility = initial.Preemptibility
 	} else {
 		cDes.Preemptibility = des.Preemptibility
 	}
 	cDes.Accelerators = canonicalizeClusterConfigSecondaryWorkerConfigAcceleratorsSlice(des.Accelerators, initial.Accelerators, opts...)
-	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
+	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) {
 		cDes.MinCpuPlatform = initial.MinCpuPlatform
 	} else {
 		cDes.MinCpuPlatform = des.MinCpuPlatform
@@ -2374,7 +2335,7 @@ func canonicalizeClusterConfigSecondaryWorkerConfig(des, initial *ClusterConfigS
 
 func canonicalizeClusterConfigSecondaryWorkerConfigSlice(des, initial []ClusterConfigSecondaryWorkerConfig, opts ...dcl.ApplyOption) []ClusterConfigSecondaryWorkerConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2477,10 +2438,7 @@ func canonicalizeNewClusterConfigSecondaryWorkerConfigSlice(c *Client, des, nw [
 }
 
 func canonicalizeClusterConfigSecondaryWorkerConfigDiskConfig(des, initial *ClusterConfigSecondaryWorkerConfigDiskConfig, opts ...dcl.ApplyOption) *ClusterConfigSecondaryWorkerConfigDiskConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2490,19 +2448,19 @@ func canonicalizeClusterConfigSecondaryWorkerConfigDiskConfig(des, initial *Clus
 
 	cDes := &ClusterConfigSecondaryWorkerConfigDiskConfig{}
 
-	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) || dcl.IsZeroValue(des.BootDiskType) {
+	if dcl.StringCanonicalize(des.BootDiskType, initial.BootDiskType) {
 		cDes.BootDiskType = initial.BootDiskType
 	} else {
 		cDes.BootDiskType = des.BootDiskType
 	}
-	if dcl.IsZeroValue(des.BootDiskSizeGb) || (dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BootDiskSizeGb) && dcl.IsEmptyValueIndirect(initial.BootDiskSizeGb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BootDiskSizeGb = initial.BootDiskSizeGb
 	} else {
 		cDes.BootDiskSizeGb = des.BootDiskSizeGb
 	}
-	if dcl.IsZeroValue(des.NumLocalSsds) || (dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumLocalSsds) && dcl.IsEmptyValueIndirect(initial.NumLocalSsds) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumLocalSsds = initial.NumLocalSsds
 	} else {
 		cDes.NumLocalSsds = des.NumLocalSsds
@@ -2513,7 +2471,7 @@ func canonicalizeClusterConfigSecondaryWorkerConfigDiskConfig(des, initial *Clus
 
 func canonicalizeClusterConfigSecondaryWorkerConfigDiskConfigSlice(des, initial []ClusterConfigSecondaryWorkerConfigDiskConfig, opts ...dcl.ApplyOption) []ClusterConfigSecondaryWorkerConfigDiskConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2604,10 +2562,7 @@ func canonicalizeNewClusterConfigSecondaryWorkerConfigDiskConfigSlice(c *Client,
 }
 
 func canonicalizeClusterConfigSecondaryWorkerConfigManagedGroupConfig(des, initial *ClusterConfigSecondaryWorkerConfigManagedGroupConfig, opts ...dcl.ApplyOption) *ClusterConfigSecondaryWorkerConfigManagedGroupConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2622,7 +2577,7 @@ func canonicalizeClusterConfigSecondaryWorkerConfigManagedGroupConfig(des, initi
 
 func canonicalizeClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice(des, initial []ClusterConfigSecondaryWorkerConfigManagedGroupConfig, opts ...dcl.ApplyOption) []ClusterConfigSecondaryWorkerConfigManagedGroupConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2716,10 +2671,7 @@ func canonicalizeNewClusterConfigSecondaryWorkerConfigManagedGroupConfigSlice(c 
 }
 
 func canonicalizeClusterConfigSecondaryWorkerConfigAccelerators(des, initial *ClusterConfigSecondaryWorkerConfigAccelerators, opts ...dcl.ApplyOption) *ClusterConfigSecondaryWorkerConfigAccelerators {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2729,13 +2681,13 @@ func canonicalizeClusterConfigSecondaryWorkerConfigAccelerators(des, initial *Cl
 
 	cDes := &ClusterConfigSecondaryWorkerConfigAccelerators{}
 
-	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) {
 		cDes.AcceleratorType = initial.AcceleratorType
 	} else {
 		cDes.AcceleratorType = des.AcceleratorType
 	}
-	if dcl.IsZeroValue(des.AcceleratorCount) || (dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
@@ -2746,7 +2698,7 @@ func canonicalizeClusterConfigSecondaryWorkerConfigAccelerators(des, initial *Cl
 
 func canonicalizeClusterConfigSecondaryWorkerConfigAcceleratorsSlice(des, initial []ClusterConfigSecondaryWorkerConfigAccelerators, opts ...dcl.ApplyOption) []ClusterConfigSecondaryWorkerConfigAccelerators {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2837,10 +2789,7 @@ func canonicalizeNewClusterConfigSecondaryWorkerConfigAcceleratorsSlice(c *Clien
 }
 
 func canonicalizeClusterConfigSoftwareConfig(des, initial *ClusterConfigSoftwareConfig, opts ...dcl.ApplyOption) *ClusterConfigSoftwareConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2850,19 +2799,19 @@ func canonicalizeClusterConfigSoftwareConfig(des, initial *ClusterConfigSoftware
 
 	cDes := &ClusterConfigSoftwareConfig{}
 
-	if dcl.StringCanonicalize(des.ImageVersion, initial.ImageVersion) || dcl.IsZeroValue(des.ImageVersion) {
+	if dcl.StringCanonicalize(des.ImageVersion, initial.ImageVersion) {
 		cDes.ImageVersion = initial.ImageVersion
 	} else {
 		cDes.ImageVersion = des.ImageVersion
 	}
-	if dcl.IsZeroValue(des.Properties) || (dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Properties) && dcl.IsEmptyValueIndirect(initial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
-	if dcl.IsZeroValue(des.OptionalComponents) || (dcl.IsEmptyValueIndirect(des.OptionalComponents) && dcl.IsEmptyValueIndirect(initial.OptionalComponents)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.OptionalComponents) && dcl.IsEmptyValueIndirect(initial.OptionalComponents) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.OptionalComponents = initial.OptionalComponents
 	} else {
 		cDes.OptionalComponents = des.OptionalComponents
@@ -2873,7 +2822,7 @@ func canonicalizeClusterConfigSoftwareConfig(des, initial *ClusterConfigSoftware
 
 func canonicalizeClusterConfigSoftwareConfigSlice(des, initial []ClusterConfigSoftwareConfig, opts ...dcl.ApplyOption) []ClusterConfigSoftwareConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2964,10 +2913,7 @@ func canonicalizeNewClusterConfigSoftwareConfigSlice(c *Client, des, nw []Cluste
 }
 
 func canonicalizeClusterConfigInitializationActions(des, initial *ClusterConfigInitializationActions, opts ...dcl.ApplyOption) *ClusterConfigInitializationActions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2977,12 +2923,12 @@ func canonicalizeClusterConfigInitializationActions(des, initial *ClusterConfigI
 
 	cDes := &ClusterConfigInitializationActions{}
 
-	if dcl.StringCanonicalize(des.ExecutableFile, initial.ExecutableFile) || dcl.IsZeroValue(des.ExecutableFile) {
+	if dcl.StringCanonicalize(des.ExecutableFile, initial.ExecutableFile) {
 		cDes.ExecutableFile = initial.ExecutableFile
 	} else {
 		cDes.ExecutableFile = des.ExecutableFile
 	}
-	if dcl.StringCanonicalize(des.ExecutionTimeout, initial.ExecutionTimeout) || dcl.IsZeroValue(des.ExecutionTimeout) {
+	if dcl.StringCanonicalize(des.ExecutionTimeout, initial.ExecutionTimeout) {
 		cDes.ExecutionTimeout = initial.ExecutionTimeout
 	} else {
 		cDes.ExecutionTimeout = des.ExecutionTimeout
@@ -2993,7 +2939,7 @@ func canonicalizeClusterConfigInitializationActions(des, initial *ClusterConfigI
 
 func canonicalizeClusterConfigInitializationActionsSlice(des, initial []ClusterConfigInitializationActions, opts ...dcl.ApplyOption) []ClusterConfigInitializationActions {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3087,10 +3033,7 @@ func canonicalizeNewClusterConfigInitializationActionsSlice(c *Client, des, nw [
 }
 
 func canonicalizeClusterConfigEncryptionConfig(des, initial *ClusterConfigEncryptionConfig, opts ...dcl.ApplyOption) *ClusterConfigEncryptionConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3100,8 +3043,8 @@ func canonicalizeClusterConfigEncryptionConfig(des, initial *ClusterConfigEncryp
 
 	cDes := &ClusterConfigEncryptionConfig{}
 
-	if dcl.IsZeroValue(des.GcePdKmsKeyName) || (dcl.IsEmptyValueIndirect(des.GcePdKmsKeyName) && dcl.IsEmptyValueIndirect(initial.GcePdKmsKeyName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GcePdKmsKeyName) && dcl.IsEmptyValueIndirect(initial.GcePdKmsKeyName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GcePdKmsKeyName = initial.GcePdKmsKeyName
 	} else {
 		cDes.GcePdKmsKeyName = des.GcePdKmsKeyName
@@ -3112,7 +3055,7 @@ func canonicalizeClusterConfigEncryptionConfig(des, initial *ClusterConfigEncryp
 
 func canonicalizeClusterConfigEncryptionConfigSlice(des, initial []ClusterConfigEncryptionConfig, opts ...dcl.ApplyOption) []ClusterConfigEncryptionConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3199,10 +3142,7 @@ func canonicalizeNewClusterConfigEncryptionConfigSlice(c *Client, des, nw []Clus
 }
 
 func canonicalizeClusterConfigAutoscalingConfig(des, initial *ClusterConfigAutoscalingConfig, opts ...dcl.ApplyOption) *ClusterConfigAutoscalingConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3212,8 +3152,8 @@ func canonicalizeClusterConfigAutoscalingConfig(des, initial *ClusterConfigAutos
 
 	cDes := &ClusterConfigAutoscalingConfig{}
 
-	if dcl.IsZeroValue(des.Policy) || (dcl.IsEmptyValueIndirect(des.Policy) && dcl.IsEmptyValueIndirect(initial.Policy)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Policy) && dcl.IsEmptyValueIndirect(initial.Policy) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Policy = initial.Policy
 	} else {
 		cDes.Policy = des.Policy
@@ -3224,7 +3164,7 @@ func canonicalizeClusterConfigAutoscalingConfig(des, initial *ClusterConfigAutos
 
 func canonicalizeClusterConfigAutoscalingConfigSlice(des, initial []ClusterConfigAutoscalingConfig, opts ...dcl.ApplyOption) []ClusterConfigAutoscalingConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3311,10 +3251,7 @@ func canonicalizeNewClusterConfigAutoscalingConfigSlice(c *Client, des, nw []Clu
 }
 
 func canonicalizeClusterConfigSecurityConfig(des, initial *ClusterConfigSecurityConfig, opts ...dcl.ApplyOption) *ClusterConfigSecurityConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3331,7 +3268,7 @@ func canonicalizeClusterConfigSecurityConfig(des, initial *ClusterConfigSecurity
 
 func canonicalizeClusterConfigSecurityConfigSlice(des, initial []ClusterConfigSecurityConfig, opts ...dcl.ApplyOption) []ClusterConfigSecurityConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3420,10 +3357,7 @@ func canonicalizeNewClusterConfigSecurityConfigSlice(c *Client, des, nw []Cluste
 }
 
 func canonicalizeClusterConfigSecurityConfigKerberosConfig(des, initial *ClusterConfigSecurityConfigKerberosConfig, opts ...dcl.ApplyOption) *ClusterConfigSecurityConfigKerberosConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3433,79 +3367,79 @@ func canonicalizeClusterConfigSecurityConfigKerberosConfig(des, initial *Cluster
 
 	cDes := &ClusterConfigSecurityConfigKerberosConfig{}
 
-	if dcl.BoolCanonicalize(des.EnableKerberos, initial.EnableKerberos) || dcl.IsZeroValue(des.EnableKerberos) {
+	if dcl.BoolCanonicalize(des.EnableKerberos, initial.EnableKerberos) {
 		cDes.EnableKerberos = initial.EnableKerberos
 	} else {
 		cDes.EnableKerberos = des.EnableKerberos
 	}
-	if dcl.StringCanonicalize(des.RootPrincipalPassword, initial.RootPrincipalPassword) || dcl.IsZeroValue(des.RootPrincipalPassword) {
+	if dcl.StringCanonicalize(des.RootPrincipalPassword, initial.RootPrincipalPassword) {
 		cDes.RootPrincipalPassword = initial.RootPrincipalPassword
 	} else {
 		cDes.RootPrincipalPassword = des.RootPrincipalPassword
 	}
-	if dcl.IsZeroValue(des.KmsKey) || (dcl.IsEmptyValueIndirect(des.KmsKey) && dcl.IsEmptyValueIndirect(initial.KmsKey)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.KmsKey) && dcl.IsEmptyValueIndirect(initial.KmsKey) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.KmsKey = initial.KmsKey
 	} else {
 		cDes.KmsKey = des.KmsKey
 	}
-	if dcl.StringCanonicalize(des.Keystore, initial.Keystore) || dcl.IsZeroValue(des.Keystore) {
+	if dcl.StringCanonicalize(des.Keystore, initial.Keystore) {
 		cDes.Keystore = initial.Keystore
 	} else {
 		cDes.Keystore = des.Keystore
 	}
-	if dcl.StringCanonicalize(des.Truststore, initial.Truststore) || dcl.IsZeroValue(des.Truststore) {
+	if dcl.StringCanonicalize(des.Truststore, initial.Truststore) {
 		cDes.Truststore = initial.Truststore
 	} else {
 		cDes.Truststore = des.Truststore
 	}
-	if dcl.StringCanonicalize(des.KeystorePassword, initial.KeystorePassword) || dcl.IsZeroValue(des.KeystorePassword) {
+	if dcl.StringCanonicalize(des.KeystorePassword, initial.KeystorePassword) {
 		cDes.KeystorePassword = initial.KeystorePassword
 	} else {
 		cDes.KeystorePassword = des.KeystorePassword
 	}
-	if dcl.StringCanonicalize(des.KeyPassword, initial.KeyPassword) || dcl.IsZeroValue(des.KeyPassword) {
+	if dcl.StringCanonicalize(des.KeyPassword, initial.KeyPassword) {
 		cDes.KeyPassword = initial.KeyPassword
 	} else {
 		cDes.KeyPassword = des.KeyPassword
 	}
-	if dcl.StringCanonicalize(des.TruststorePassword, initial.TruststorePassword) || dcl.IsZeroValue(des.TruststorePassword) {
+	if dcl.StringCanonicalize(des.TruststorePassword, initial.TruststorePassword) {
 		cDes.TruststorePassword = initial.TruststorePassword
 	} else {
 		cDes.TruststorePassword = des.TruststorePassword
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustRealm, initial.CrossRealmTrustRealm) || dcl.IsZeroValue(des.CrossRealmTrustRealm) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustRealm, initial.CrossRealmTrustRealm) {
 		cDes.CrossRealmTrustRealm = initial.CrossRealmTrustRealm
 	} else {
 		cDes.CrossRealmTrustRealm = des.CrossRealmTrustRealm
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustKdc, initial.CrossRealmTrustKdc) || dcl.IsZeroValue(des.CrossRealmTrustKdc) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustKdc, initial.CrossRealmTrustKdc) {
 		cDes.CrossRealmTrustKdc = initial.CrossRealmTrustKdc
 	} else {
 		cDes.CrossRealmTrustKdc = des.CrossRealmTrustKdc
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustAdminServer, initial.CrossRealmTrustAdminServer) || dcl.IsZeroValue(des.CrossRealmTrustAdminServer) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustAdminServer, initial.CrossRealmTrustAdminServer) {
 		cDes.CrossRealmTrustAdminServer = initial.CrossRealmTrustAdminServer
 	} else {
 		cDes.CrossRealmTrustAdminServer = des.CrossRealmTrustAdminServer
 	}
-	if dcl.StringCanonicalize(des.CrossRealmTrustSharedPassword, initial.CrossRealmTrustSharedPassword) || dcl.IsZeroValue(des.CrossRealmTrustSharedPassword) {
+	if dcl.StringCanonicalize(des.CrossRealmTrustSharedPassword, initial.CrossRealmTrustSharedPassword) {
 		cDes.CrossRealmTrustSharedPassword = initial.CrossRealmTrustSharedPassword
 	} else {
 		cDes.CrossRealmTrustSharedPassword = des.CrossRealmTrustSharedPassword
 	}
-	if dcl.StringCanonicalize(des.KdcDbKey, initial.KdcDbKey) || dcl.IsZeroValue(des.KdcDbKey) {
+	if dcl.StringCanonicalize(des.KdcDbKey, initial.KdcDbKey) {
 		cDes.KdcDbKey = initial.KdcDbKey
 	} else {
 		cDes.KdcDbKey = des.KdcDbKey
 	}
-	if dcl.IsZeroValue(des.TgtLifetimeHours) || (dcl.IsEmptyValueIndirect(des.TgtLifetimeHours) && dcl.IsEmptyValueIndirect(initial.TgtLifetimeHours)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TgtLifetimeHours) && dcl.IsEmptyValueIndirect(initial.TgtLifetimeHours) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TgtLifetimeHours = initial.TgtLifetimeHours
 	} else {
 		cDes.TgtLifetimeHours = des.TgtLifetimeHours
 	}
-	if dcl.StringCanonicalize(des.Realm, initial.Realm) || dcl.IsZeroValue(des.Realm) {
+	if dcl.StringCanonicalize(des.Realm, initial.Realm) {
 		cDes.Realm = initial.Realm
 	} else {
 		cDes.Realm = des.Realm
@@ -3516,7 +3450,7 @@ func canonicalizeClusterConfigSecurityConfigKerberosConfig(des, initial *Cluster
 
 func canonicalizeClusterConfigSecurityConfigKerberosConfigSlice(des, initial []ClusterConfigSecurityConfigKerberosConfig, opts ...dcl.ApplyOption) []ClusterConfigSecurityConfigKerberosConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3643,10 +3577,7 @@ func canonicalizeNewClusterConfigSecurityConfigKerberosConfigSlice(c *Client, de
 }
 
 func canonicalizeClusterConfigLifecycleConfig(des, initial *ClusterConfigLifecycleConfig, opts ...dcl.ApplyOption) *ClusterConfigLifecycleConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3656,18 +3587,18 @@ func canonicalizeClusterConfigLifecycleConfig(des, initial *ClusterConfigLifecyc
 
 	cDes := &ClusterConfigLifecycleConfig{}
 
-	if dcl.StringCanonicalize(des.IdleDeleteTtl, initial.IdleDeleteTtl) || dcl.IsZeroValue(des.IdleDeleteTtl) {
+	if dcl.StringCanonicalize(des.IdleDeleteTtl, initial.IdleDeleteTtl) {
 		cDes.IdleDeleteTtl = initial.IdleDeleteTtl
 	} else {
 		cDes.IdleDeleteTtl = des.IdleDeleteTtl
 	}
-	if dcl.IsZeroValue(des.AutoDeleteTime) || (dcl.IsEmptyValueIndirect(des.AutoDeleteTime) && dcl.IsEmptyValueIndirect(initial.AutoDeleteTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AutoDeleteTime) && dcl.IsEmptyValueIndirect(initial.AutoDeleteTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AutoDeleteTime = initial.AutoDeleteTime
 	} else {
 		cDes.AutoDeleteTime = des.AutoDeleteTime
 	}
-	if dcl.StringCanonicalize(des.AutoDeleteTtl, initial.AutoDeleteTtl) || dcl.IsZeroValue(des.AutoDeleteTtl) {
+	if dcl.StringCanonicalize(des.AutoDeleteTtl, initial.AutoDeleteTtl) {
 		cDes.AutoDeleteTtl = initial.AutoDeleteTtl
 	} else {
 		cDes.AutoDeleteTtl = des.AutoDeleteTtl
@@ -3678,7 +3609,7 @@ func canonicalizeClusterConfigLifecycleConfig(des, initial *ClusterConfigLifecyc
 
 func canonicalizeClusterConfigLifecycleConfigSlice(des, initial []ClusterConfigLifecycleConfig, opts ...dcl.ApplyOption) []ClusterConfigLifecycleConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3772,10 +3703,7 @@ func canonicalizeNewClusterConfigLifecycleConfigSlice(c *Client, des, nw []Clust
 }
 
 func canonicalizeClusterConfigEndpointConfig(des, initial *ClusterConfigEndpointConfig, opts ...dcl.ApplyOption) *ClusterConfigEndpointConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3785,7 +3713,7 @@ func canonicalizeClusterConfigEndpointConfig(des, initial *ClusterConfigEndpoint
 
 	cDes := &ClusterConfigEndpointConfig{}
 
-	if dcl.BoolCanonicalize(des.EnableHttpPortAccess, initial.EnableHttpPortAccess) || dcl.IsZeroValue(des.EnableHttpPortAccess) {
+	if dcl.BoolCanonicalize(des.EnableHttpPortAccess, initial.EnableHttpPortAccess) {
 		cDes.EnableHttpPortAccess = initial.EnableHttpPortAccess
 	} else {
 		cDes.EnableHttpPortAccess = des.EnableHttpPortAccess
@@ -3796,7 +3724,7 @@ func canonicalizeClusterConfigEndpointConfig(des, initial *ClusterConfigEndpoint
 
 func canonicalizeClusterConfigEndpointConfigSlice(des, initial []ClusterConfigEndpointConfig, opts ...dcl.ApplyOption) []ClusterConfigEndpointConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3887,10 +3815,7 @@ func canonicalizeNewClusterConfigEndpointConfigSlice(c *Client, des, nw []Cluste
 }
 
 func canonicalizeClusterStatus(des, initial *ClusterStatus, opts ...dcl.ApplyOption) *ClusterStatus {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3905,7 +3830,7 @@ func canonicalizeClusterStatus(des, initial *ClusterStatus, opts ...dcl.ApplyOpt
 
 func canonicalizeClusterStatusSlice(des, initial []ClusterStatus, opts ...dcl.ApplyOption) []ClusterStatus {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3996,10 +3921,7 @@ func canonicalizeNewClusterStatusSlice(c *Client, des, nw []ClusterStatus) []Clu
 }
 
 func canonicalizeClusterStatusHistory(des, initial *ClusterStatusHistory, opts ...dcl.ApplyOption) *ClusterStatusHistory {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4014,7 +3936,7 @@ func canonicalizeClusterStatusHistory(des, initial *ClusterStatusHistory, opts .
 
 func canonicalizeClusterStatusHistorySlice(des, initial []ClusterStatusHistory, opts ...dcl.ApplyOption) []ClusterStatusHistory {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4105,10 +4027,7 @@ func canonicalizeNewClusterStatusHistorySlice(c *Client, des, nw []ClusterStatus
 }
 
 func canonicalizeClusterMetrics(des, initial *ClusterMetrics, opts ...dcl.ApplyOption) *ClusterMetrics {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4118,14 +4037,14 @@ func canonicalizeClusterMetrics(des, initial *ClusterMetrics, opts ...dcl.ApplyO
 
 	cDes := &ClusterMetrics{}
 
-	if dcl.IsZeroValue(des.HdfsMetrics) || (dcl.IsEmptyValueIndirect(des.HdfsMetrics) && dcl.IsEmptyValueIndirect(initial.HdfsMetrics)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.HdfsMetrics) && dcl.IsEmptyValueIndirect(initial.HdfsMetrics) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.HdfsMetrics = initial.HdfsMetrics
 	} else {
 		cDes.HdfsMetrics = des.HdfsMetrics
 	}
-	if dcl.IsZeroValue(des.YarnMetrics) || (dcl.IsEmptyValueIndirect(des.YarnMetrics) && dcl.IsEmptyValueIndirect(initial.YarnMetrics)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.YarnMetrics) && dcl.IsEmptyValueIndirect(initial.YarnMetrics) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.YarnMetrics = initial.YarnMetrics
 	} else {
 		cDes.YarnMetrics = des.YarnMetrics
@@ -4136,7 +4055,7 @@ func canonicalizeClusterMetrics(des, initial *ClusterMetrics, opts ...dcl.ApplyO
 
 func canonicalizeClusterMetricsSlice(des, initial []ClusterMetrics, opts ...dcl.ApplyOption) []ClusterMetrics {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

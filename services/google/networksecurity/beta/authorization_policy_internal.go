@@ -510,14 +510,14 @@ func canonicalizeAuthorizationPolicyDesiredState(rawDesired, rawInitial *Authori
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Action) || (dcl.IsEmptyValueIndirect(rawDesired.Action) && dcl.IsEmptyValueIndirect(rawInitial.Action)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Action) && dcl.IsEmptyValueIndirect(rawInitial.Action) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Action = rawInitial.Action
 	} else {
 		canonicalDesired.Action = rawDesired.Action
@@ -589,10 +589,7 @@ func canonicalizeAuthorizationPolicyNewState(c *Client, rawNew, rawDesired *Auth
 }
 
 func canonicalizeAuthorizationPolicyRules(des, initial *AuthorizationPolicyRules, opts ...dcl.ApplyOption) *AuthorizationPolicyRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -610,7 +607,7 @@ func canonicalizeAuthorizationPolicyRules(des, initial *AuthorizationPolicyRules
 
 func canonicalizeAuthorizationPolicyRulesSlice(des, initial []AuthorizationPolicyRules, opts ...dcl.ApplyOption) []AuthorizationPolicyRules {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -700,10 +697,7 @@ func canonicalizeNewAuthorizationPolicyRulesSlice(c *Client, des, nw []Authoriza
 }
 
 func canonicalizeAuthorizationPolicyRulesSources(des, initial *AuthorizationPolicyRulesSources, opts ...dcl.ApplyOption) *AuthorizationPolicyRulesSources {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -729,7 +723,7 @@ func canonicalizeAuthorizationPolicyRulesSources(des, initial *AuthorizationPoli
 
 func canonicalizeAuthorizationPolicyRulesSourcesSlice(des, initial []AuthorizationPolicyRulesSources, opts ...dcl.ApplyOption) []AuthorizationPolicyRulesSources {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -823,10 +817,7 @@ func canonicalizeNewAuthorizationPolicyRulesSourcesSlice(c *Client, des, nw []Au
 }
 
 func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *AuthorizationPolicyRulesDestinations, opts ...dcl.ApplyOption) *AuthorizationPolicyRulesDestinations {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -841,8 +832,8 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 	} else {
 		cDes.Hosts = des.Hosts
 	}
-	if dcl.IsZeroValue(des.Ports) || (dcl.IsEmptyValueIndirect(des.Ports) && dcl.IsEmptyValueIndirect(initial.Ports)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Ports) && dcl.IsEmptyValueIndirect(initial.Ports) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Ports = initial.Ports
 	} else {
 		cDes.Ports = des.Ports
@@ -859,7 +850,7 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 
 func canonicalizeAuthorizationPolicyRulesDestinationsSlice(des, initial []AuthorizationPolicyRulesDestinations, opts ...dcl.ApplyOption) []AuthorizationPolicyRulesDestinations {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -954,10 +945,7 @@ func canonicalizeNewAuthorizationPolicyRulesDestinationsSlice(c *Client, des, nw
 }
 
 func canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatch(des, initial *AuthorizationPolicyRulesDestinationsHttpHeaderMatch, opts ...dcl.ApplyOption) *AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -967,12 +955,12 @@ func canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatch(des, initia
 
 	cDes := &AuthorizationPolicyRulesDestinationsHttpHeaderMatch{}
 
-	if dcl.StringCanonicalize(des.HeaderName, initial.HeaderName) || dcl.IsZeroValue(des.HeaderName) {
+	if dcl.StringCanonicalize(des.HeaderName, initial.HeaderName) {
 		cDes.HeaderName = initial.HeaderName
 	} else {
 		cDes.HeaderName = des.HeaderName
 	}
-	if dcl.StringCanonicalize(des.RegexMatch, initial.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
+	if dcl.StringCanonicalize(des.RegexMatch, initial.RegexMatch) {
 		cDes.RegexMatch = initial.RegexMatch
 	} else {
 		cDes.RegexMatch = des.RegexMatch
@@ -983,7 +971,7 @@ func canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatch(des, initia
 
 func canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(des, initial []AuthorizationPolicyRulesDestinationsHttpHeaderMatch, opts ...dcl.ApplyOption) []AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

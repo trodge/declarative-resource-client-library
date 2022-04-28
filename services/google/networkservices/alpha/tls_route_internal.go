@@ -605,10 +605,7 @@ func canonicalizeTlsRouteNewState(c *Client, rawNew, rawDesired *TlsRoute) (*Tls
 }
 
 func canonicalizeTlsRouteRules(des, initial *TlsRouteRules, opts ...dcl.ApplyOption) *TlsRouteRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -626,7 +623,7 @@ func canonicalizeTlsRouteRules(des, initial *TlsRouteRules, opts ...dcl.ApplyOpt
 
 func canonicalizeTlsRouteRulesSlice(des, initial []TlsRouteRules, opts ...dcl.ApplyOption) []TlsRouteRules {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -716,10 +713,7 @@ func canonicalizeNewTlsRouteRulesSlice(c *Client, des, nw []TlsRouteRules) []Tls
 }
 
 func canonicalizeTlsRouteRulesMatches(des, initial *TlsRouteRulesMatches, opts ...dcl.ApplyOption) *TlsRouteRulesMatches {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -745,7 +739,7 @@ func canonicalizeTlsRouteRulesMatches(des, initial *TlsRouteRulesMatches, opts .
 
 func canonicalizeTlsRouteRulesMatchesSlice(des, initial []TlsRouteRulesMatches, opts ...dcl.ApplyOption) []TlsRouteRulesMatches {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -839,10 +833,7 @@ func canonicalizeNewTlsRouteRulesMatchesSlice(c *Client, des, nw []TlsRouteRules
 }
 
 func canonicalizeTlsRouteRulesAction(des, initial *TlsRouteRulesAction, opts ...dcl.ApplyOption) *TlsRouteRulesAction {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -859,7 +850,7 @@ func canonicalizeTlsRouteRulesAction(des, initial *TlsRouteRulesAction, opts ...
 
 func canonicalizeTlsRouteRulesActionSlice(des, initial []TlsRouteRulesAction, opts ...dcl.ApplyOption) []TlsRouteRulesAction {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -948,10 +939,7 @@ func canonicalizeNewTlsRouteRulesActionSlice(c *Client, des, nw []TlsRouteRulesA
 }
 
 func canonicalizeTlsRouteRulesActionDestinations(des, initial *TlsRouteRulesActionDestinations, opts ...dcl.ApplyOption) *TlsRouteRulesActionDestinations {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -961,14 +949,14 @@ func canonicalizeTlsRouteRulesActionDestinations(des, initial *TlsRouteRulesActi
 
 	cDes := &TlsRouteRulesActionDestinations{}
 
-	if dcl.IsZeroValue(des.ServiceName) || (dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ServiceName = initial.ServiceName
 	} else {
 		cDes.ServiceName = des.ServiceName
 	}
-	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
@@ -979,7 +967,7 @@ func canonicalizeTlsRouteRulesActionDestinations(des, initial *TlsRouteRulesActi
 
 func canonicalizeTlsRouteRulesActionDestinationsSlice(des, initial []TlsRouteRulesActionDestinations, opts ...dcl.ApplyOption) []TlsRouteRulesActionDestinations {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -519,51 +519,8 @@ func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
 }
 
 func canonicalizeKeyRestrictions(des, initial *KeyRestrictions, opts ...dcl.ApplyOption) *KeyRestrictions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.BrowserKeyRestrictions != nil || (initial != nil && initial.BrowserKeyRestrictions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ServerKeyRestrictions, des.AndroidKeyRestrictions, des.IosKeyRestrictions) {
-			des.BrowserKeyRestrictions = nil
-			if initial != nil {
-				initial.BrowserKeyRestrictions = nil
-			}
-		}
-	}
-
-	if des.ServerKeyRestrictions != nil || (initial != nil && initial.ServerKeyRestrictions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.BrowserKeyRestrictions, des.AndroidKeyRestrictions, des.IosKeyRestrictions) {
-			des.ServerKeyRestrictions = nil
-			if initial != nil {
-				initial.ServerKeyRestrictions = nil
-			}
-		}
-	}
-
-	if des.AndroidKeyRestrictions != nil || (initial != nil && initial.AndroidKeyRestrictions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.BrowserKeyRestrictions, des.ServerKeyRestrictions, des.IosKeyRestrictions) {
-			des.AndroidKeyRestrictions = nil
-			if initial != nil {
-				initial.AndroidKeyRestrictions = nil
-			}
-		}
-	}
-
-	if des.IosKeyRestrictions != nil || (initial != nil && initial.IosKeyRestrictions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.BrowserKeyRestrictions, des.ServerKeyRestrictions, des.AndroidKeyRestrictions) {
-			des.IosKeyRestrictions = nil
-			if initial != nil {
-				initial.IosKeyRestrictions = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -578,12 +535,39 @@ func canonicalizeKeyRestrictions(des, initial *KeyRestrictions, opts ...dcl.Appl
 	cDes.IosKeyRestrictions = canonicalizeKeyRestrictionsIosKeyRestrictions(des.IosKeyRestrictions, initial.IosKeyRestrictions, opts...)
 	cDes.ApiTargets = canonicalizeKeyRestrictionsApiTargetsSlice(des.ApiTargets, initial.ApiTargets, opts...)
 
+	if cDes.BrowserKeyRestrictions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ServerKeyRestrictions, cDes.AndroidKeyRestrictions, cDes.IosKeyRestrictions) {
+			cDes.BrowserKeyRestrictions = nil
+		}
+	}
+
+	if cDes.ServerKeyRestrictions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.BrowserKeyRestrictions, cDes.AndroidKeyRestrictions, cDes.IosKeyRestrictions) {
+			cDes.ServerKeyRestrictions = nil
+		}
+	}
+
+	if cDes.AndroidKeyRestrictions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.BrowserKeyRestrictions, cDes.ServerKeyRestrictions, cDes.IosKeyRestrictions) {
+			cDes.AndroidKeyRestrictions = nil
+		}
+	}
+
+	if cDes.IosKeyRestrictions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.BrowserKeyRestrictions, cDes.ServerKeyRestrictions, cDes.AndroidKeyRestrictions) {
+			cDes.IosKeyRestrictions = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeKeyRestrictionsSlice(des, initial []KeyRestrictions, opts ...dcl.ApplyOption) []KeyRestrictions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -676,10 +660,7 @@ func canonicalizeNewKeyRestrictionsSlice(c *Client, des, nw []KeyRestrictions) [
 }
 
 func canonicalizeKeyRestrictionsBrowserKeyRestrictions(des, initial *KeyRestrictionsBrowserKeyRestrictions, opts ...dcl.ApplyOption) *KeyRestrictionsBrowserKeyRestrictions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -700,7 +681,7 @@ func canonicalizeKeyRestrictionsBrowserKeyRestrictions(des, initial *KeyRestrict
 
 func canonicalizeKeyRestrictionsBrowserKeyRestrictionsSlice(des, initial []KeyRestrictionsBrowserKeyRestrictions, opts ...dcl.ApplyOption) []KeyRestrictionsBrowserKeyRestrictions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -791,10 +772,7 @@ func canonicalizeNewKeyRestrictionsBrowserKeyRestrictionsSlice(c *Client, des, n
 }
 
 func canonicalizeKeyRestrictionsServerKeyRestrictions(des, initial *KeyRestrictionsServerKeyRestrictions, opts ...dcl.ApplyOption) *KeyRestrictionsServerKeyRestrictions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -815,7 +793,7 @@ func canonicalizeKeyRestrictionsServerKeyRestrictions(des, initial *KeyRestricti
 
 func canonicalizeKeyRestrictionsServerKeyRestrictionsSlice(des, initial []KeyRestrictionsServerKeyRestrictions, opts ...dcl.ApplyOption) []KeyRestrictionsServerKeyRestrictions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -906,10 +884,7 @@ func canonicalizeNewKeyRestrictionsServerKeyRestrictionsSlice(c *Client, des, nw
 }
 
 func canonicalizeKeyRestrictionsAndroidKeyRestrictions(des, initial *KeyRestrictionsAndroidKeyRestrictions, opts ...dcl.ApplyOption) *KeyRestrictionsAndroidKeyRestrictions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -926,7 +901,7 @@ func canonicalizeKeyRestrictionsAndroidKeyRestrictions(des, initial *KeyRestrict
 
 func canonicalizeKeyRestrictionsAndroidKeyRestrictionsSlice(des, initial []KeyRestrictionsAndroidKeyRestrictions, opts ...dcl.ApplyOption) []KeyRestrictionsAndroidKeyRestrictions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1015,10 +990,7 @@ func canonicalizeNewKeyRestrictionsAndroidKeyRestrictionsSlice(c *Client, des, n
 }
 
 func canonicalizeKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(des, initial *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications, opts ...dcl.ApplyOption) *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1028,12 +1000,12 @@ func canonicalizeKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(des, i
 
 	cDes := &KeyRestrictionsAndroidKeyRestrictionsAllowedApplications{}
 
-	if dcl.StringCanonicalize(des.Sha1Fingerprint, initial.Sha1Fingerprint) || dcl.IsZeroValue(des.Sha1Fingerprint) {
+	if dcl.StringCanonicalize(des.Sha1Fingerprint, initial.Sha1Fingerprint) {
 		cDes.Sha1Fingerprint = initial.Sha1Fingerprint
 	} else {
 		cDes.Sha1Fingerprint = des.Sha1Fingerprint
 	}
-	if dcl.StringCanonicalize(des.PackageName, initial.PackageName) || dcl.IsZeroValue(des.PackageName) {
+	if dcl.StringCanonicalize(des.PackageName, initial.PackageName) {
 		cDes.PackageName = initial.PackageName
 	} else {
 		cDes.PackageName = des.PackageName
@@ -1044,7 +1016,7 @@ func canonicalizeKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(des, i
 
 func canonicalizeKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlice(des, initial []KeyRestrictionsAndroidKeyRestrictionsAllowedApplications, opts ...dcl.ApplyOption) []KeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1138,10 +1110,7 @@ func canonicalizeNewKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlic
 }
 
 func canonicalizeKeyRestrictionsIosKeyRestrictions(des, initial *KeyRestrictionsIosKeyRestrictions, opts ...dcl.ApplyOption) *KeyRestrictionsIosKeyRestrictions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1162,7 +1131,7 @@ func canonicalizeKeyRestrictionsIosKeyRestrictions(des, initial *KeyRestrictions
 
 func canonicalizeKeyRestrictionsIosKeyRestrictionsSlice(des, initial []KeyRestrictionsIosKeyRestrictions, opts ...dcl.ApplyOption) []KeyRestrictionsIosKeyRestrictions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1253,10 +1222,7 @@ func canonicalizeNewKeyRestrictionsIosKeyRestrictionsSlice(c *Client, des, nw []
 }
 
 func canonicalizeKeyRestrictionsApiTargets(des, initial *KeyRestrictionsApiTargets, opts ...dcl.ApplyOption) *KeyRestrictionsApiTargets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1266,7 +1232,7 @@ func canonicalizeKeyRestrictionsApiTargets(des, initial *KeyRestrictionsApiTarge
 
 	cDes := &KeyRestrictionsApiTargets{}
 
-	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, initial.Service) {
 		cDes.Service = initial.Service
 	} else {
 		cDes.Service = des.Service
@@ -1282,7 +1248,7 @@ func canonicalizeKeyRestrictionsApiTargets(des, initial *KeyRestrictionsApiTarge
 
 func canonicalizeKeyRestrictionsApiTargetsSlice(des, initial []KeyRestrictionsApiTargets, opts ...dcl.ApplyOption) []KeyRestrictionsApiTargets {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

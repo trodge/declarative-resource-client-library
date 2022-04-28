@@ -329,10 +329,7 @@ func canonicalizeFeatureMembershipNewState(c *Client, rawNew, rawDesired *Featur
 }
 
 func canonicalizeFeatureMembershipConfigmanagement(des, initial *FeatureMembershipConfigmanagement, opts ...dcl.ApplyOption) *FeatureMembershipConfigmanagement {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -346,7 +343,7 @@ func canonicalizeFeatureMembershipConfigmanagement(des, initial *FeatureMembersh
 	cDes.PolicyController = canonicalizeFeatureMembershipConfigmanagementPolicyController(des.PolicyController, initial.PolicyController, opts...)
 	cDes.Binauthz = canonicalizeFeatureMembershipConfigmanagementBinauthz(des.Binauthz, initial.Binauthz, opts...)
 	cDes.HierarchyController = canonicalizeFeatureMembershipConfigmanagementHierarchyController(des.HierarchyController, initial.HierarchyController, opts...)
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -357,7 +354,7 @@ func canonicalizeFeatureMembershipConfigmanagement(des, initial *FeatureMembersh
 
 func canonicalizeFeatureMembershipConfigmanagementSlice(des, initial []FeatureMembershipConfigmanagement, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagement {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -452,10 +449,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementSlice(c *Client, des, nw []
 }
 
 func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *FeatureMembershipConfigmanagementConfigSync, opts ...dcl.ApplyOption) *FeatureMembershipConfigmanagementConfigSync {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -466,7 +460,7 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *Featu
 	cDes := &FeatureMembershipConfigmanagementConfigSync{}
 
 	cDes.Git = canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des.Git, initial.Git, opts...)
-	if dcl.StringCanonicalize(des.SourceFormat, initial.SourceFormat) || dcl.IsZeroValue(des.SourceFormat) {
+	if dcl.StringCanonicalize(des.SourceFormat, initial.SourceFormat) {
 		cDes.SourceFormat = initial.SourceFormat
 	} else {
 		cDes.SourceFormat = des.SourceFormat
@@ -477,7 +471,7 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *Featu
 
 func canonicalizeFeatureMembershipConfigmanagementConfigSyncSlice(des, initial []FeatureMembershipConfigmanagementConfigSync, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementConfigSync {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -569,10 +563,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, 
 }
 
 func canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des, initial *FeatureMembershipConfigmanagementConfigSyncGit, opts ...dcl.ApplyOption) *FeatureMembershipConfigmanagementConfigSyncGit {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -582,43 +573,43 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des, initial *Fe
 
 	cDes := &FeatureMembershipConfigmanagementConfigSyncGit{}
 
-	if dcl.StringCanonicalize(des.SyncRepo, initial.SyncRepo) || dcl.IsZeroValue(des.SyncRepo) {
+	if dcl.StringCanonicalize(des.SyncRepo, initial.SyncRepo) {
 		cDes.SyncRepo = initial.SyncRepo
 	} else {
 		cDes.SyncRepo = des.SyncRepo
 	}
-	if dcl.StringCanonicalize(des.SyncBranch, initial.SyncBranch) || dcl.IsZeroValue(des.SyncBranch) {
+	if dcl.StringCanonicalize(des.SyncBranch, initial.SyncBranch) {
 		cDes.SyncBranch = initial.SyncBranch
 	} else {
 		cDes.SyncBranch = des.SyncBranch
 	}
-	if dcl.StringCanonicalize(des.PolicyDir, initial.PolicyDir) || dcl.IsZeroValue(des.PolicyDir) {
+	if dcl.StringCanonicalize(des.PolicyDir, initial.PolicyDir) {
 		cDes.PolicyDir = initial.PolicyDir
 	} else {
 		cDes.PolicyDir = des.PolicyDir
 	}
-	if dcl.StringCanonicalize(des.SyncWaitSecs, initial.SyncWaitSecs) || dcl.IsZeroValue(des.SyncWaitSecs) {
+	if dcl.StringCanonicalize(des.SyncWaitSecs, initial.SyncWaitSecs) {
 		cDes.SyncWaitSecs = initial.SyncWaitSecs
 	} else {
 		cDes.SyncWaitSecs = des.SyncWaitSecs
 	}
-	if dcl.StringCanonicalize(des.SyncRev, initial.SyncRev) || dcl.IsZeroValue(des.SyncRev) {
+	if dcl.StringCanonicalize(des.SyncRev, initial.SyncRev) {
 		cDes.SyncRev = initial.SyncRev
 	} else {
 		cDes.SyncRev = des.SyncRev
 	}
-	if dcl.StringCanonicalize(des.SecretType, initial.SecretType) || dcl.IsZeroValue(des.SecretType) {
+	if dcl.StringCanonicalize(des.SecretType, initial.SecretType) {
 		cDes.SecretType = initial.SecretType
 	} else {
 		cDes.SecretType = des.SecretType
 	}
-	if dcl.StringCanonicalize(des.HttpsProxy, initial.HttpsProxy) || dcl.IsZeroValue(des.HttpsProxy) {
+	if dcl.StringCanonicalize(des.HttpsProxy, initial.HttpsProxy) {
 		cDes.HttpsProxy = initial.HttpsProxy
 	} else {
 		cDes.HttpsProxy = des.HttpsProxy
 	}
-	if dcl.IsZeroValue(des.GcpServiceAccountEmail) || (dcl.IsEmptyValueIndirect(des.GcpServiceAccountEmail) && dcl.IsEmptyValueIndirect(initial.GcpServiceAccountEmail)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GcpServiceAccountEmail) && dcl.IsEmptyValueIndirect(initial.GcpServiceAccountEmail) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GcpServiceAccountEmail = initial.GcpServiceAccountEmail
 	} else {
 		cDes.GcpServiceAccountEmail = des.GcpServiceAccountEmail
@@ -629,7 +620,7 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des, initial *Fe
 
 func canonicalizeFeatureMembershipConfigmanagementConfigSyncGitSlice(des, initial []FeatureMembershipConfigmanagementConfigSyncGit, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementConfigSyncGit {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -738,10 +729,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Clien
 }
 
 func canonicalizeFeatureMembershipConfigmanagementPolicyController(des, initial *FeatureMembershipConfigmanagementPolicyController, opts ...dcl.ApplyOption) *FeatureMembershipConfigmanagementPolicyController {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -751,7 +739,7 @@ func canonicalizeFeatureMembershipConfigmanagementPolicyController(des, initial 
 
 	cDes := &FeatureMembershipConfigmanagementPolicyController{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
@@ -761,22 +749,22 @@ func canonicalizeFeatureMembershipConfigmanagementPolicyController(des, initial 
 	} else {
 		cDes.ExemptableNamespaces = des.ExemptableNamespaces
 	}
-	if dcl.BoolCanonicalize(des.ReferentialRulesEnabled, initial.ReferentialRulesEnabled) || dcl.IsZeroValue(des.ReferentialRulesEnabled) {
+	if dcl.BoolCanonicalize(des.ReferentialRulesEnabled, initial.ReferentialRulesEnabled) {
 		cDes.ReferentialRulesEnabled = initial.ReferentialRulesEnabled
 	} else {
 		cDes.ReferentialRulesEnabled = des.ReferentialRulesEnabled
 	}
-	if dcl.BoolCanonicalize(des.LogDeniesEnabled, initial.LogDeniesEnabled) || dcl.IsZeroValue(des.LogDeniesEnabled) {
+	if dcl.BoolCanonicalize(des.LogDeniesEnabled, initial.LogDeniesEnabled) {
 		cDes.LogDeniesEnabled = initial.LogDeniesEnabled
 	} else {
 		cDes.LogDeniesEnabled = des.LogDeniesEnabled
 	}
-	if dcl.BoolCanonicalize(des.TemplateLibraryInstalled, initial.TemplateLibraryInstalled) || dcl.IsZeroValue(des.TemplateLibraryInstalled) {
+	if dcl.BoolCanonicalize(des.TemplateLibraryInstalled, initial.TemplateLibraryInstalled) {
 		cDes.TemplateLibraryInstalled = initial.TemplateLibraryInstalled
 	} else {
 		cDes.TemplateLibraryInstalled = des.TemplateLibraryInstalled
 	}
-	if dcl.StringCanonicalize(des.AuditIntervalSeconds, initial.AuditIntervalSeconds) || dcl.IsZeroValue(des.AuditIntervalSeconds) {
+	if dcl.StringCanonicalize(des.AuditIntervalSeconds, initial.AuditIntervalSeconds) {
 		cDes.AuditIntervalSeconds = initial.AuditIntervalSeconds
 	} else {
 		cDes.AuditIntervalSeconds = des.AuditIntervalSeconds
@@ -787,7 +775,7 @@ func canonicalizeFeatureMembershipConfigmanagementPolicyController(des, initial 
 
 func canonicalizeFeatureMembershipConfigmanagementPolicyControllerSlice(des, initial []FeatureMembershipConfigmanagementPolicyController, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementPolicyController {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -893,10 +881,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementPolicyControllerSlice(c *Cl
 }
 
 func canonicalizeFeatureMembershipConfigmanagementBinauthz(des, initial *FeatureMembershipConfigmanagementBinauthz, opts ...dcl.ApplyOption) *FeatureMembershipConfigmanagementBinauthz {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -906,7 +891,7 @@ func canonicalizeFeatureMembershipConfigmanagementBinauthz(des, initial *Feature
 
 	cDes := &FeatureMembershipConfigmanagementBinauthz{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
@@ -917,7 +902,7 @@ func canonicalizeFeatureMembershipConfigmanagementBinauthz(des, initial *Feature
 
 func canonicalizeFeatureMembershipConfigmanagementBinauthzSlice(des, initial []FeatureMembershipConfigmanagementBinauthz, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementBinauthz {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1008,10 +993,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementBinauthzSlice(c *Client, de
 }
 
 func canonicalizeFeatureMembershipConfigmanagementHierarchyController(des, initial *FeatureMembershipConfigmanagementHierarchyController, opts ...dcl.ApplyOption) *FeatureMembershipConfigmanagementHierarchyController {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1021,17 +1003,17 @@ func canonicalizeFeatureMembershipConfigmanagementHierarchyController(des, initi
 
 	cDes := &FeatureMembershipConfigmanagementHierarchyController{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
 	}
-	if dcl.BoolCanonicalize(des.EnablePodTreeLabels, initial.EnablePodTreeLabels) || dcl.IsZeroValue(des.EnablePodTreeLabels) {
+	if dcl.BoolCanonicalize(des.EnablePodTreeLabels, initial.EnablePodTreeLabels) {
 		cDes.EnablePodTreeLabels = initial.EnablePodTreeLabels
 	} else {
 		cDes.EnablePodTreeLabels = des.EnablePodTreeLabels
 	}
-	if dcl.BoolCanonicalize(des.EnableHierarchicalResourceQuota, initial.EnableHierarchicalResourceQuota) || dcl.IsZeroValue(des.EnableHierarchicalResourceQuota) {
+	if dcl.BoolCanonicalize(des.EnableHierarchicalResourceQuota, initial.EnableHierarchicalResourceQuota) {
 		cDes.EnableHierarchicalResourceQuota = initial.EnableHierarchicalResourceQuota
 	} else {
 		cDes.EnableHierarchicalResourceQuota = des.EnableHierarchicalResourceQuota
@@ -1042,7 +1024,7 @@ func canonicalizeFeatureMembershipConfigmanagementHierarchyController(des, initi
 
 func canonicalizeFeatureMembershipConfigmanagementHierarchyControllerSlice(des, initial []FeatureMembershipConfigmanagementHierarchyController, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementHierarchyController {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

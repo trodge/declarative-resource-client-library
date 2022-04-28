@@ -451,14 +451,14 @@ func canonicalizeCryptoKeyDesiredState(rawDesired, rawInitial *CryptoKey, opts .
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Purpose) || (dcl.IsEmptyValueIndirect(rawDesired.Purpose) && dcl.IsEmptyValueIndirect(rawInitial.Purpose)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Purpose) && dcl.IsEmptyValueIndirect(rawInitial.Purpose) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Purpose = rawInitial.Purpose
 	} else {
 		canonicalDesired.Purpose = rawDesired.Purpose
 	}
-	if dcl.IsZeroValue(rawDesired.NextRotationTime) || (dcl.IsEmptyValueIndirect(rawDesired.NextRotationTime) && dcl.IsEmptyValueIndirect(rawInitial.NextRotationTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.NextRotationTime) && dcl.IsEmptyValueIndirect(rawInitial.NextRotationTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.NextRotationTime = rawInitial.NextRotationTime
 	} else {
 		canonicalDesired.NextRotationTime = rawDesired.NextRotationTime
@@ -469,8 +469,8 @@ func canonicalizeCryptoKeyDesiredState(rawDesired, rawInitial *CryptoKey, opts .
 		canonicalDesired.RotationPeriod = rawDesired.RotationPeriod
 	}
 	canonicalDesired.VersionTemplate = canonicalizeCryptoKeyVersionTemplate(rawDesired.VersionTemplate, rawInitial.VersionTemplate, opts...)
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -580,10 +580,7 @@ func canonicalizeCryptoKeyNewState(c *Client, rawNew, rawDesired *CryptoKey) (*C
 }
 
 func canonicalizeCryptoKeyPrimary(des, initial *CryptoKeyPrimary, opts ...dcl.ApplyOption) *CryptoKeyPrimary {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -593,14 +590,14 @@ func canonicalizeCryptoKeyPrimary(des, initial *CryptoKeyPrimary, opts ...dcl.Ap
 
 	cDes := &CryptoKeyPrimary{}
 
-	if dcl.IsZeroValue(des.Name) || (dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
@@ -612,7 +609,7 @@ func canonicalizeCryptoKeyPrimary(des, initial *CryptoKeyPrimary, opts ...dcl.Ap
 
 func canonicalizeCryptoKeyPrimarySlice(des, initial []CryptoKeyPrimary, opts ...dcl.ApplyOption) []CryptoKeyPrimary {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -711,10 +708,7 @@ func canonicalizeNewCryptoKeyPrimarySlice(c *Client, des, nw []CryptoKeyPrimary)
 }
 
 func canonicalizeCryptoKeyPrimaryAttestation(des, initial *CryptoKeyPrimaryAttestation, opts ...dcl.ApplyOption) *CryptoKeyPrimaryAttestation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -729,7 +723,7 @@ func canonicalizeCryptoKeyPrimaryAttestation(des, initial *CryptoKeyPrimaryAttes
 
 func canonicalizeCryptoKeyPrimaryAttestationSlice(des, initial []CryptoKeyPrimaryAttestation, opts ...dcl.ApplyOption) []CryptoKeyPrimaryAttestation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -821,10 +815,7 @@ func canonicalizeNewCryptoKeyPrimaryAttestationSlice(c *Client, des, nw []Crypto
 }
 
 func canonicalizeCryptoKeyPrimaryAttestationCertChains(des, initial *CryptoKeyPrimaryAttestationCertChains, opts ...dcl.ApplyOption) *CryptoKeyPrimaryAttestationCertChains {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -855,7 +846,7 @@ func canonicalizeCryptoKeyPrimaryAttestationCertChains(des, initial *CryptoKeyPr
 
 func canonicalizeCryptoKeyPrimaryAttestationCertChainsSlice(des, initial []CryptoKeyPrimaryAttestationCertChains, opts ...dcl.ApplyOption) []CryptoKeyPrimaryAttestationCertChains {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -952,10 +943,7 @@ func canonicalizeNewCryptoKeyPrimaryAttestationCertChainsSlice(c *Client, des, n
 }
 
 func canonicalizeCryptoKeyPrimaryExternalProtectionLevelOptions(des, initial *CryptoKeyPrimaryExternalProtectionLevelOptions, opts ...dcl.ApplyOption) *CryptoKeyPrimaryExternalProtectionLevelOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -965,7 +953,7 @@ func canonicalizeCryptoKeyPrimaryExternalProtectionLevelOptions(des, initial *Cr
 
 	cDes := &CryptoKeyPrimaryExternalProtectionLevelOptions{}
 
-	if dcl.StringCanonicalize(des.ExternalKeyUri, initial.ExternalKeyUri) || dcl.IsZeroValue(des.ExternalKeyUri) {
+	if dcl.StringCanonicalize(des.ExternalKeyUri, initial.ExternalKeyUri) {
 		cDes.ExternalKeyUri = initial.ExternalKeyUri
 	} else {
 		cDes.ExternalKeyUri = des.ExternalKeyUri
@@ -976,7 +964,7 @@ func canonicalizeCryptoKeyPrimaryExternalProtectionLevelOptions(des, initial *Cr
 
 func canonicalizeCryptoKeyPrimaryExternalProtectionLevelOptionsSlice(des, initial []CryptoKeyPrimaryExternalProtectionLevelOptions, opts ...dcl.ApplyOption) []CryptoKeyPrimaryExternalProtectionLevelOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1067,10 +1055,7 @@ func canonicalizeNewCryptoKeyPrimaryExternalProtectionLevelOptionsSlice(c *Clien
 }
 
 func canonicalizeCryptoKeyVersionTemplate(des, initial *CryptoKeyVersionTemplate, opts ...dcl.ApplyOption) *CryptoKeyVersionTemplate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1080,14 +1065,14 @@ func canonicalizeCryptoKeyVersionTemplate(des, initial *CryptoKeyVersionTemplate
 
 	cDes := &CryptoKeyVersionTemplate{}
 
-	if dcl.IsZeroValue(des.ProtectionLevel) || (dcl.IsEmptyValueIndirect(des.ProtectionLevel) && dcl.IsEmptyValueIndirect(initial.ProtectionLevel)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ProtectionLevel) && dcl.IsEmptyValueIndirect(initial.ProtectionLevel) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ProtectionLevel = initial.ProtectionLevel
 	} else {
 		cDes.ProtectionLevel = des.ProtectionLevel
 	}
-	if dcl.IsZeroValue(des.Algorithm) || (dcl.IsEmptyValueIndirect(des.Algorithm) && dcl.IsEmptyValueIndirect(initial.Algorithm)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Algorithm) && dcl.IsEmptyValueIndirect(initial.Algorithm) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Algorithm = initial.Algorithm
 	} else {
 		cDes.Algorithm = des.Algorithm
@@ -1098,7 +1083,7 @@ func canonicalizeCryptoKeyVersionTemplate(des, initial *CryptoKeyVersionTemplate
 
 func canonicalizeCryptoKeyVersionTemplateSlice(des, initial []CryptoKeyVersionTemplate, opts ...dcl.ApplyOption) []CryptoKeyVersionTemplate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

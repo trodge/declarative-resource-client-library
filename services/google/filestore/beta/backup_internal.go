@@ -453,14 +453,14 @@ func canonicalizeBackupDesiredState(rawDesired, rawInitial *Backup, opts ...dcl.
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.SourceInstance) || (dcl.IsEmptyValueIndirect(rawDesired.SourceInstance) && dcl.IsEmptyValueIndirect(rawInitial.SourceInstance)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.SourceInstance) && dcl.IsEmptyValueIndirect(rawInitial.SourceInstance) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.SourceInstance = rawInitial.SourceInstance
 	} else {
 		canonicalDesired.SourceInstance = rawDesired.SourceInstance

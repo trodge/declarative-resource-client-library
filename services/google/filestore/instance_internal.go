@@ -443,14 +443,14 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Tier) || (dcl.IsEmptyValueIndirect(rawDesired.Tier) && dcl.IsEmptyValueIndirect(rawInitial.Tier)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Tier) && dcl.IsEmptyValueIndirect(rawInitial.Tier) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Tier = rawInitial.Tier
 	} else {
 		canonicalDesired.Tier = rawDesired.Tier
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -539,10 +539,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 }
 
 func canonicalizeInstanceFileShares(des, initial *InstanceFileShares, opts ...dcl.ApplyOption) *InstanceFileShares {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -552,19 +549,19 @@ func canonicalizeInstanceFileShares(des, initial *InstanceFileShares, opts ...dc
 
 	cDes := &InstanceFileShares{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.CapacityGb) || (dcl.IsEmptyValueIndirect(des.CapacityGb) && dcl.IsEmptyValueIndirect(initial.CapacityGb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CapacityGb) && dcl.IsEmptyValueIndirect(initial.CapacityGb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CapacityGb = initial.CapacityGb
 	} else {
 		cDes.CapacityGb = des.CapacityGb
 	}
-	if dcl.IsZeroValue(des.SourceBackup) || (dcl.IsEmptyValueIndirect(des.SourceBackup) && dcl.IsEmptyValueIndirect(initial.SourceBackup)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SourceBackup) && dcl.IsEmptyValueIndirect(initial.SourceBackup) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SourceBackup = initial.SourceBackup
 	} else {
 		cDes.SourceBackup = des.SourceBackup
@@ -576,7 +573,7 @@ func canonicalizeInstanceFileShares(des, initial *InstanceFileShares, opts ...dc
 
 func canonicalizeInstanceFileSharesSlice(des, initial []InstanceFileShares, opts ...dcl.ApplyOption) []InstanceFileShares {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -668,10 +665,7 @@ func canonicalizeNewInstanceFileSharesSlice(c *Client, des, nw []InstanceFileSha
 }
 
 func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSharesNfsExportOptions, opts ...dcl.ApplyOption) *InstanceFileSharesNfsExportOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -686,26 +680,26 @@ func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSh
 	} else {
 		cDes.IPRanges = des.IPRanges
 	}
-	if dcl.IsZeroValue(des.AccessMode) || (dcl.IsEmptyValueIndirect(des.AccessMode) && dcl.IsEmptyValueIndirect(initial.AccessMode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AccessMode) && dcl.IsEmptyValueIndirect(initial.AccessMode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AccessMode = initial.AccessMode
 	} else {
 		cDes.AccessMode = des.AccessMode
 	}
-	if dcl.IsZeroValue(des.SquashMode) || (dcl.IsEmptyValueIndirect(des.SquashMode) && dcl.IsEmptyValueIndirect(initial.SquashMode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SquashMode) && dcl.IsEmptyValueIndirect(initial.SquashMode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SquashMode = initial.SquashMode
 	} else {
 		cDes.SquashMode = des.SquashMode
 	}
-	if dcl.IsZeroValue(des.AnonUid) || (dcl.IsEmptyValueIndirect(des.AnonUid) && dcl.IsEmptyValueIndirect(initial.AnonUid)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AnonUid) && dcl.IsEmptyValueIndirect(initial.AnonUid) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AnonUid = initial.AnonUid
 	} else {
 		cDes.AnonUid = des.AnonUid
 	}
-	if dcl.IsZeroValue(des.AnonGid) || (dcl.IsEmptyValueIndirect(des.AnonGid) && dcl.IsEmptyValueIndirect(initial.AnonGid)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AnonGid) && dcl.IsEmptyValueIndirect(initial.AnonGid) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AnonGid = initial.AnonGid
 	} else {
 		cDes.AnonGid = des.AnonGid
@@ -716,7 +710,7 @@ func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSh
 
 func canonicalizeInstanceFileSharesNfsExportOptionsSlice(des, initial []InstanceFileSharesNfsExportOptions, opts ...dcl.ApplyOption) []InstanceFileSharesNfsExportOptions {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -807,10 +801,7 @@ func canonicalizeNewInstanceFileSharesNfsExportOptionsSlice(c *Client, des, nw [
 }
 
 func canonicalizeInstanceNetworks(des, initial *InstanceNetworks, opts ...dcl.ApplyOption) *InstanceNetworks {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -820,19 +811,19 @@ func canonicalizeInstanceNetworks(des, initial *InstanceNetworks, opts ...dcl.Ap
 
 	cDes := &InstanceNetworks{}
 
-	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
 	}
-	if dcl.IsZeroValue(des.Modes) || (dcl.IsEmptyValueIndirect(des.Modes) && dcl.IsEmptyValueIndirect(initial.Modes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Modes) && dcl.IsEmptyValueIndirect(initial.Modes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Modes = initial.Modes
 	} else {
 		cDes.Modes = des.Modes
 	}
-	if dcl.StringCanonicalize(des.ReservedIPRange, initial.ReservedIPRange) || dcl.IsZeroValue(des.ReservedIPRange) {
+	if dcl.StringCanonicalize(des.ReservedIPRange, initial.ReservedIPRange) {
 		cDes.ReservedIPRange = initial.ReservedIPRange
 	} else {
 		cDes.ReservedIPRange = des.ReservedIPRange
@@ -843,7 +834,7 @@ func canonicalizeInstanceNetworks(des, initial *InstanceNetworks, opts ...dcl.Ap
 
 func canonicalizeInstanceNetworksSlice(des, initial []InstanceNetworks, opts ...dcl.ApplyOption) []InstanceNetworks {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

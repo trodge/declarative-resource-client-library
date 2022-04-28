@@ -643,8 +643,8 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	} else {
 		canonicalDesired.ResourceGroupId = rawDesired.ResourceGroupId
 	}
-	if dcl.IsZeroValue(rawDesired.Client) || (dcl.IsEmptyValueIndirect(rawDesired.Client) && dcl.IsEmptyValueIndirect(rawInitial.Client)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Client) && dcl.IsEmptyValueIndirect(rawInitial.Client) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Client = rawInitial.Client
 	} else {
 		canonicalDesired.Client = rawDesired.Client
@@ -652,8 +652,8 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	canonicalDesired.Networking = canonicalizeClusterNetworking(rawDesired.Networking, rawInitial.Networking, opts...)
 	canonicalDesired.ControlPlane = canonicalizeClusterControlPlane(rawDesired.ControlPlane, rawInitial.ControlPlane, opts...)
 	canonicalDesired.Authorization = canonicalizeClusterAuthorization(rawDesired.Authorization, rawInitial.Authorization, opts...)
-	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
@@ -802,10 +802,7 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 }
 
 func canonicalizeClusterNetworking(des, initial *ClusterNetworking, opts ...dcl.ApplyOption) *ClusterNetworking {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -815,7 +812,7 @@ func canonicalizeClusterNetworking(des, initial *ClusterNetworking, opts ...dcl.
 
 	cDes := &ClusterNetworking{}
 
-	if dcl.StringCanonicalize(des.VirtualNetworkId, initial.VirtualNetworkId) || dcl.IsZeroValue(des.VirtualNetworkId) {
+	if dcl.StringCanonicalize(des.VirtualNetworkId, initial.VirtualNetworkId) {
 		cDes.VirtualNetworkId = initial.VirtualNetworkId
 	} else {
 		cDes.VirtualNetworkId = des.VirtualNetworkId
@@ -836,7 +833,7 @@ func canonicalizeClusterNetworking(des, initial *ClusterNetworking, opts ...dcl.
 
 func canonicalizeClusterNetworkingSlice(des, initial []ClusterNetworking, opts ...dcl.ApplyOption) []ClusterNetworking {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -933,10 +930,7 @@ func canonicalizeNewClusterNetworkingSlice(c *Client, des, nw []ClusterNetworkin
 }
 
 func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...dcl.ApplyOption) *ClusterControlPlane {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -946,17 +940,17 @@ func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...
 
 	cDes := &ClusterControlPlane{}
 
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
 	}
-	if dcl.StringCanonicalize(des.SubnetId, initial.SubnetId) || dcl.IsZeroValue(des.SubnetId) {
+	if dcl.StringCanonicalize(des.SubnetId, initial.SubnetId) {
 		cDes.SubnetId = initial.SubnetId
 	} else {
 		cDes.SubnetId = des.SubnetId
 	}
-	if dcl.StringCanonicalize(des.VmSize, initial.VmSize) || dcl.IsZeroValue(des.VmSize) {
+	if dcl.StringCanonicalize(des.VmSize, initial.VmSize) {
 		cDes.VmSize = initial.VmSize
 	} else {
 		cDes.VmSize = des.VmSize
@@ -965,8 +959,8 @@ func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...
 	cDes.RootVolume = canonicalizeClusterControlPlaneRootVolume(des.RootVolume, initial.RootVolume, opts...)
 	cDes.MainVolume = canonicalizeClusterControlPlaneMainVolume(des.MainVolume, initial.MainVolume, opts...)
 	cDes.DatabaseEncryption = canonicalizeClusterControlPlaneDatabaseEncryption(des.DatabaseEncryption, initial.DatabaseEncryption, opts...)
-	if dcl.IsZeroValue(des.Tags) || (dcl.IsEmptyValueIndirect(des.Tags) && dcl.IsEmptyValueIndirect(initial.Tags)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Tags) && dcl.IsEmptyValueIndirect(initial.Tags) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Tags = initial.Tags
 	} else {
 		cDes.Tags = des.Tags
@@ -979,7 +973,7 @@ func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...
 
 func canonicalizeClusterControlPlaneSlice(des, initial []ClusterControlPlane, opts ...dcl.ApplyOption) []ClusterControlPlane {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1082,10 +1076,7 @@ func canonicalizeNewClusterControlPlaneSlice(c *Client, des, nw []ClusterControl
 }
 
 func canonicalizeClusterControlPlaneSshConfig(des, initial *ClusterControlPlaneSshConfig, opts ...dcl.ApplyOption) *ClusterControlPlaneSshConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1095,7 +1086,7 @@ func canonicalizeClusterControlPlaneSshConfig(des, initial *ClusterControlPlaneS
 
 	cDes := &ClusterControlPlaneSshConfig{}
 
-	if dcl.StringCanonicalize(des.AuthorizedKey, initial.AuthorizedKey) || dcl.IsZeroValue(des.AuthorizedKey) {
+	if dcl.StringCanonicalize(des.AuthorizedKey, initial.AuthorizedKey) {
 		cDes.AuthorizedKey = initial.AuthorizedKey
 	} else {
 		cDes.AuthorizedKey = des.AuthorizedKey
@@ -1106,7 +1097,7 @@ func canonicalizeClusterControlPlaneSshConfig(des, initial *ClusterControlPlaneS
 
 func canonicalizeClusterControlPlaneSshConfigSlice(des, initial []ClusterControlPlaneSshConfig, opts ...dcl.ApplyOption) []ClusterControlPlaneSshConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1197,10 +1188,7 @@ func canonicalizeNewClusterControlPlaneSshConfigSlice(c *Client, des, nw []Clust
 }
 
 func canonicalizeClusterControlPlaneRootVolume(des, initial *ClusterControlPlaneRootVolume, opts ...dcl.ApplyOption) *ClusterControlPlaneRootVolume {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1210,8 +1198,8 @@ func canonicalizeClusterControlPlaneRootVolume(des, initial *ClusterControlPlane
 
 	cDes := &ClusterControlPlaneRootVolume{}
 
-	if dcl.IsZeroValue(des.SizeGib) || (dcl.IsEmptyValueIndirect(des.SizeGib) && dcl.IsEmptyValueIndirect(initial.SizeGib)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SizeGib) && dcl.IsEmptyValueIndirect(initial.SizeGib) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SizeGib = initial.SizeGib
 	} else {
 		cDes.SizeGib = des.SizeGib
@@ -1222,7 +1210,7 @@ func canonicalizeClusterControlPlaneRootVolume(des, initial *ClusterControlPlane
 
 func canonicalizeClusterControlPlaneRootVolumeSlice(des, initial []ClusterControlPlaneRootVolume, opts ...dcl.ApplyOption) []ClusterControlPlaneRootVolume {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1309,10 +1297,7 @@ func canonicalizeNewClusterControlPlaneRootVolumeSlice(c *Client, des, nw []Clus
 }
 
 func canonicalizeClusterControlPlaneMainVolume(des, initial *ClusterControlPlaneMainVolume, opts ...dcl.ApplyOption) *ClusterControlPlaneMainVolume {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1322,8 +1307,8 @@ func canonicalizeClusterControlPlaneMainVolume(des, initial *ClusterControlPlane
 
 	cDes := &ClusterControlPlaneMainVolume{}
 
-	if dcl.IsZeroValue(des.SizeGib) || (dcl.IsEmptyValueIndirect(des.SizeGib) && dcl.IsEmptyValueIndirect(initial.SizeGib)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SizeGib) && dcl.IsEmptyValueIndirect(initial.SizeGib) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SizeGib = initial.SizeGib
 	} else {
 		cDes.SizeGib = des.SizeGib
@@ -1334,7 +1319,7 @@ func canonicalizeClusterControlPlaneMainVolume(des, initial *ClusterControlPlane
 
 func canonicalizeClusterControlPlaneMainVolumeSlice(des, initial []ClusterControlPlaneMainVolume, opts ...dcl.ApplyOption) []ClusterControlPlaneMainVolume {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1421,10 +1406,7 @@ func canonicalizeNewClusterControlPlaneMainVolumeSlice(c *Client, des, nw []Clus
 }
 
 func canonicalizeClusterControlPlaneDatabaseEncryption(des, initial *ClusterControlPlaneDatabaseEncryption, opts ...dcl.ApplyOption) *ClusterControlPlaneDatabaseEncryption {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1434,7 +1416,7 @@ func canonicalizeClusterControlPlaneDatabaseEncryption(des, initial *ClusterCont
 
 	cDes := &ClusterControlPlaneDatabaseEncryption{}
 
-	if dcl.StringCanonicalize(des.KeyId, initial.KeyId) || dcl.IsZeroValue(des.KeyId) {
+	if dcl.StringCanonicalize(des.KeyId, initial.KeyId) {
 		cDes.KeyId = initial.KeyId
 	} else {
 		cDes.KeyId = des.KeyId
@@ -1445,7 +1427,7 @@ func canonicalizeClusterControlPlaneDatabaseEncryption(des, initial *ClusterCont
 
 func canonicalizeClusterControlPlaneDatabaseEncryptionSlice(des, initial []ClusterControlPlaneDatabaseEncryption, opts ...dcl.ApplyOption) []ClusterControlPlaneDatabaseEncryption {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1536,10 +1518,7 @@ func canonicalizeNewClusterControlPlaneDatabaseEncryptionSlice(c *Client, des, n
 }
 
 func canonicalizeClusterControlPlaneProxyConfig(des, initial *ClusterControlPlaneProxyConfig, opts ...dcl.ApplyOption) *ClusterControlPlaneProxyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1549,12 +1528,12 @@ func canonicalizeClusterControlPlaneProxyConfig(des, initial *ClusterControlPlan
 
 	cDes := &ClusterControlPlaneProxyConfig{}
 
-	if dcl.StringCanonicalize(des.ResourceGroupId, initial.ResourceGroupId) || dcl.IsZeroValue(des.ResourceGroupId) {
+	if dcl.StringCanonicalize(des.ResourceGroupId, initial.ResourceGroupId) {
 		cDes.ResourceGroupId = initial.ResourceGroupId
 	} else {
 		cDes.ResourceGroupId = des.ResourceGroupId
 	}
-	if dcl.StringCanonicalize(des.SecretId, initial.SecretId) || dcl.IsZeroValue(des.SecretId) {
+	if dcl.StringCanonicalize(des.SecretId, initial.SecretId) {
 		cDes.SecretId = initial.SecretId
 	} else {
 		cDes.SecretId = des.SecretId
@@ -1565,7 +1544,7 @@ func canonicalizeClusterControlPlaneProxyConfig(des, initial *ClusterControlPlan
 
 func canonicalizeClusterControlPlaneProxyConfigSlice(des, initial []ClusterControlPlaneProxyConfig, opts ...dcl.ApplyOption) []ClusterControlPlaneProxyConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1659,10 +1638,7 @@ func canonicalizeNewClusterControlPlaneProxyConfigSlice(c *Client, des, nw []Clu
 }
 
 func canonicalizeClusterControlPlaneReplicaPlacements(des, initial *ClusterControlPlaneReplicaPlacements, opts ...dcl.ApplyOption) *ClusterControlPlaneReplicaPlacements {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1672,12 +1648,12 @@ func canonicalizeClusterControlPlaneReplicaPlacements(des, initial *ClusterContr
 
 	cDes := &ClusterControlPlaneReplicaPlacements{}
 
-	if dcl.StringCanonicalize(des.SubnetId, initial.SubnetId) || dcl.IsZeroValue(des.SubnetId) {
+	if dcl.StringCanonicalize(des.SubnetId, initial.SubnetId) {
 		cDes.SubnetId = initial.SubnetId
 	} else {
 		cDes.SubnetId = des.SubnetId
 	}
-	if dcl.StringCanonicalize(des.AzureAvailabilityZone, initial.AzureAvailabilityZone) || dcl.IsZeroValue(des.AzureAvailabilityZone) {
+	if dcl.StringCanonicalize(des.AzureAvailabilityZone, initial.AzureAvailabilityZone) {
 		cDes.AzureAvailabilityZone = initial.AzureAvailabilityZone
 	} else {
 		cDes.AzureAvailabilityZone = des.AzureAvailabilityZone
@@ -1688,7 +1664,7 @@ func canonicalizeClusterControlPlaneReplicaPlacements(des, initial *ClusterContr
 
 func canonicalizeClusterControlPlaneReplicaPlacementsSlice(des, initial []ClusterControlPlaneReplicaPlacements, opts ...dcl.ApplyOption) []ClusterControlPlaneReplicaPlacements {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1782,10 +1758,7 @@ func canonicalizeNewClusterControlPlaneReplicaPlacementsSlice(c *Client, des, nw
 }
 
 func canonicalizeClusterAuthorization(des, initial *ClusterAuthorization, opts ...dcl.ApplyOption) *ClusterAuthorization {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1802,7 +1775,7 @@ func canonicalizeClusterAuthorization(des, initial *ClusterAuthorization, opts .
 
 func canonicalizeClusterAuthorizationSlice(des, initial []ClusterAuthorization, opts ...dcl.ApplyOption) []ClusterAuthorization {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1891,10 +1864,7 @@ func canonicalizeNewClusterAuthorizationSlice(c *Client, des, nw []ClusterAuthor
 }
 
 func canonicalizeClusterAuthorizationAdminUsers(des, initial *ClusterAuthorizationAdminUsers, opts ...dcl.ApplyOption) *ClusterAuthorizationAdminUsers {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1904,7 +1874,7 @@ func canonicalizeClusterAuthorizationAdminUsers(des, initial *ClusterAuthorizati
 
 	cDes := &ClusterAuthorizationAdminUsers{}
 
-	if dcl.StringCanonicalize(des.Username, initial.Username) || dcl.IsZeroValue(des.Username) {
+	if dcl.StringCanonicalize(des.Username, initial.Username) {
 		cDes.Username = initial.Username
 	} else {
 		cDes.Username = des.Username
@@ -1915,7 +1885,7 @@ func canonicalizeClusterAuthorizationAdminUsers(des, initial *ClusterAuthorizati
 
 func canonicalizeClusterAuthorizationAdminUsersSlice(des, initial []ClusterAuthorizationAdminUsers, opts ...dcl.ApplyOption) []ClusterAuthorizationAdminUsers {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2006,10 +1976,7 @@ func canonicalizeNewClusterAuthorizationAdminUsersSlice(c *Client, des, nw []Clu
 }
 
 func canonicalizeClusterWorkloadIdentityConfig(des, initial *ClusterWorkloadIdentityConfig, opts ...dcl.ApplyOption) *ClusterWorkloadIdentityConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2019,17 +1986,17 @@ func canonicalizeClusterWorkloadIdentityConfig(des, initial *ClusterWorkloadIden
 
 	cDes := &ClusterWorkloadIdentityConfig{}
 
-	if dcl.StringCanonicalize(des.IssuerUri, initial.IssuerUri) || dcl.IsZeroValue(des.IssuerUri) {
+	if dcl.StringCanonicalize(des.IssuerUri, initial.IssuerUri) {
 		cDes.IssuerUri = initial.IssuerUri
 	} else {
 		cDes.IssuerUri = des.IssuerUri
 	}
-	if dcl.StringCanonicalize(des.WorkloadPool, initial.WorkloadPool) || dcl.IsZeroValue(des.WorkloadPool) {
+	if dcl.StringCanonicalize(des.WorkloadPool, initial.WorkloadPool) {
 		cDes.WorkloadPool = initial.WorkloadPool
 	} else {
 		cDes.WorkloadPool = des.WorkloadPool
 	}
-	if dcl.StringCanonicalize(des.IdentityProvider, initial.IdentityProvider) || dcl.IsZeroValue(des.IdentityProvider) {
+	if dcl.StringCanonicalize(des.IdentityProvider, initial.IdentityProvider) {
 		cDes.IdentityProvider = initial.IdentityProvider
 	} else {
 		cDes.IdentityProvider = des.IdentityProvider
@@ -2040,7 +2007,7 @@ func canonicalizeClusterWorkloadIdentityConfig(des, initial *ClusterWorkloadIden
 
 func canonicalizeClusterWorkloadIdentityConfigSlice(des, initial []ClusterWorkloadIdentityConfig, opts ...dcl.ApplyOption) []ClusterWorkloadIdentityConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2137,10 +2104,7 @@ func canonicalizeNewClusterWorkloadIdentityConfigSlice(c *Client, des, nw []Clus
 }
 
 func canonicalizeClusterFleet(des, initial *ClusterFleet, opts ...dcl.ApplyOption) *ClusterFleet {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2150,7 +2114,7 @@ func canonicalizeClusterFleet(des, initial *ClusterFleet, opts ...dcl.ApplyOptio
 
 	cDes := &ClusterFleet{}
 
-	if dcl.PartialSelfLinkToSelfLink(des.Project, initial.Project) || dcl.IsZeroValue(des.Project) {
+	if dcl.PartialSelfLinkToSelfLink(des.Project, initial.Project) {
 		cDes.Project = initial.Project
 	} else {
 		cDes.Project = des.Project
@@ -2161,7 +2125,7 @@ func canonicalizeClusterFleet(des, initial *ClusterFleet, opts ...dcl.ApplyOptio
 
 func canonicalizeClusterFleetSlice(des, initial []ClusterFleet, opts ...dcl.ApplyOption) []ClusterFleet {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

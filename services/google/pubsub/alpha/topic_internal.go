@@ -455,8 +455,8 @@ func canonicalizeTopicDesiredState(rawDesired, rawInitial *Topic, opts ...dcl.Ap
 	} else {
 		canonicalDesired.KmsKeyName = rawDesired.KmsKeyName
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -500,10 +500,7 @@ func canonicalizeTopicNewState(c *Client, rawNew, rawDesired *Topic) (*Topic, er
 }
 
 func canonicalizeTopicMessageStoragePolicy(des, initial *TopicMessageStoragePolicy, opts ...dcl.ApplyOption) *TopicMessageStoragePolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -524,7 +521,7 @@ func canonicalizeTopicMessageStoragePolicy(des, initial *TopicMessageStoragePoli
 
 func canonicalizeTopicMessageStoragePolicySlice(des, initial []TopicMessageStoragePolicy, opts ...dcl.ApplyOption) []TopicMessageStoragePolicy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

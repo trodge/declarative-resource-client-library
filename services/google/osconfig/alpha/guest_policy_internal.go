@@ -748,10 +748,7 @@ func canonicalizeGuestPolicyNewState(c *Client, rawNew, rawDesired *GuestPolicy)
 }
 
 func canonicalizeGuestPolicyAssignment(des, initial *GuestPolicyAssignment, opts ...dcl.ApplyOption) *GuestPolicyAssignment {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -784,7 +781,7 @@ func canonicalizeGuestPolicyAssignment(des, initial *GuestPolicyAssignment, opts
 
 func canonicalizeGuestPolicyAssignmentSlice(des, initial []GuestPolicyAssignment, opts ...dcl.ApplyOption) []GuestPolicyAssignment {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -883,10 +880,7 @@ func canonicalizeNewGuestPolicyAssignmentSlice(c *Client, des, nw []GuestPolicyA
 }
 
 func canonicalizeGuestPolicyAssignmentGroupLabels(des, initial *GuestPolicyAssignmentGroupLabels, opts ...dcl.ApplyOption) *GuestPolicyAssignmentGroupLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -896,8 +890,8 @@ func canonicalizeGuestPolicyAssignmentGroupLabels(des, initial *GuestPolicyAssig
 
 	cDes := &GuestPolicyAssignmentGroupLabels{}
 
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -908,7 +902,7 @@ func canonicalizeGuestPolicyAssignmentGroupLabels(des, initial *GuestPolicyAssig
 
 func canonicalizeGuestPolicyAssignmentGroupLabelsSlice(des, initial []GuestPolicyAssignmentGroupLabels, opts ...dcl.ApplyOption) []GuestPolicyAssignmentGroupLabels {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -995,10 +989,7 @@ func canonicalizeNewGuestPolicyAssignmentGroupLabelsSlice(c *Client, des, nw []G
 }
 
 func canonicalizeGuestPolicyAssignmentOSTypes(des, initial *GuestPolicyAssignmentOSTypes, opts ...dcl.ApplyOption) *GuestPolicyAssignmentOSTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1008,17 +999,17 @@ func canonicalizeGuestPolicyAssignmentOSTypes(des, initial *GuestPolicyAssignmen
 
 	cDes := &GuestPolicyAssignmentOSTypes{}
 
-	if dcl.StringCanonicalize(des.OSShortName, initial.OSShortName) || dcl.IsZeroValue(des.OSShortName) {
+	if dcl.StringCanonicalize(des.OSShortName, initial.OSShortName) {
 		cDes.OSShortName = initial.OSShortName
 	} else {
 		cDes.OSShortName = des.OSShortName
 	}
-	if dcl.StringCanonicalize(des.OSVersion, initial.OSVersion) || dcl.IsZeroValue(des.OSVersion) {
+	if dcl.StringCanonicalize(des.OSVersion, initial.OSVersion) {
 		cDes.OSVersion = initial.OSVersion
 	} else {
 		cDes.OSVersion = des.OSVersion
 	}
-	if dcl.StringCanonicalize(des.OSArchitecture, initial.OSArchitecture) || dcl.IsZeroValue(des.OSArchitecture) {
+	if dcl.StringCanonicalize(des.OSArchitecture, initial.OSArchitecture) {
 		cDes.OSArchitecture = initial.OSArchitecture
 	} else {
 		cDes.OSArchitecture = des.OSArchitecture
@@ -1029,7 +1020,7 @@ func canonicalizeGuestPolicyAssignmentOSTypes(des, initial *GuestPolicyAssignmen
 
 func canonicalizeGuestPolicyAssignmentOSTypesSlice(des, initial []GuestPolicyAssignmentOSTypes, opts ...dcl.ApplyOption) []GuestPolicyAssignmentOSTypes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1126,10 +1117,7 @@ func canonicalizeNewGuestPolicyAssignmentOSTypesSlice(c *Client, des, nw []Guest
 }
 
 func canonicalizeGuestPolicyPackages(des, initial *GuestPolicyPackages, opts ...dcl.ApplyOption) *GuestPolicyPackages {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1139,19 +1127,19 @@ func canonicalizeGuestPolicyPackages(des, initial *GuestPolicyPackages, opts ...
 
 	cDes := &GuestPolicyPackages{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.DesiredState) || (dcl.IsEmptyValueIndirect(des.DesiredState) && dcl.IsEmptyValueIndirect(initial.DesiredState)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DesiredState) && dcl.IsEmptyValueIndirect(initial.DesiredState) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DesiredState = initial.DesiredState
 	} else {
 		cDes.DesiredState = des.DesiredState
 	}
-	if dcl.IsZeroValue(des.Manager) || (dcl.IsEmptyValueIndirect(des.Manager) && dcl.IsEmptyValueIndirect(initial.Manager)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Manager) && dcl.IsEmptyValueIndirect(initial.Manager) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Manager = initial.Manager
 	} else {
 		cDes.Manager = des.Manager
@@ -1162,7 +1150,7 @@ func canonicalizeGuestPolicyPackages(des, initial *GuestPolicyPackages, opts ...
 
 func canonicalizeGuestPolicyPackagesSlice(des, initial []GuestPolicyPackages, opts ...dcl.ApplyOption) []GuestPolicyPackages {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1253,51 +1241,8 @@ func canonicalizeNewGuestPolicyPackagesSlice(c *Client, des, nw []GuestPolicyPac
 }
 
 func canonicalizeGuestPolicyPackageRepositories(des, initial *GuestPolicyPackageRepositories, opts ...dcl.ApplyOption) *GuestPolicyPackageRepositories {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Apt != nil || (initial != nil && initial.Apt != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Goo, des.Yum, des.Zypper) {
-			des.Apt = nil
-			if initial != nil {
-				initial.Apt = nil
-			}
-		}
-	}
-
-	if des.Goo != nil || (initial != nil && initial.Goo != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Yum, des.Zypper) {
-			des.Goo = nil
-			if initial != nil {
-				initial.Goo = nil
-			}
-		}
-	}
-
-	if des.Yum != nil || (initial != nil && initial.Yum != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Goo, des.Zypper) {
-			des.Yum = nil
-			if initial != nil {
-				initial.Yum = nil
-			}
-		}
-	}
-
-	if des.Zypper != nil || (initial != nil && initial.Zypper != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Goo, des.Yum) {
-			des.Zypper = nil
-			if initial != nil {
-				initial.Zypper = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1311,12 +1256,39 @@ func canonicalizeGuestPolicyPackageRepositories(des, initial *GuestPolicyPackage
 	cDes.Zypper = canonicalizeGuestPolicyPackageRepositoriesZypper(des.Zypper, initial.Zypper, opts...)
 	cDes.Goo = canonicalizeGuestPolicyPackageRepositoriesGoo(des.Goo, initial.Goo, opts...)
 
+	if cDes.Apt != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Goo, cDes.Yum, cDes.Zypper) {
+			cDes.Apt = nil
+		}
+	}
+
+	if cDes.Goo != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Yum, cDes.Zypper) {
+			cDes.Goo = nil
+		}
+	}
+
+	if cDes.Yum != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Goo, cDes.Zypper) {
+			cDes.Yum = nil
+		}
+	}
+
+	if cDes.Zypper != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Goo, cDes.Yum) {
+			cDes.Zypper = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesSlice(des, initial []GuestPolicyPackageRepositories, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositories {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1408,10 +1380,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesSlice(c *Client, des, nw []Gue
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPackageRepositoriesApt, opts ...dcl.ApplyOption) *GuestPolicyPackageRepositoriesApt {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1421,18 +1390,18 @@ func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPack
 
 	cDes := &GuestPolicyPackageRepositoriesApt{}
 
-	if dcl.IsZeroValue(des.ArchiveType) || (dcl.IsEmptyValueIndirect(des.ArchiveType) && dcl.IsEmptyValueIndirect(initial.ArchiveType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ArchiveType) && dcl.IsEmptyValueIndirect(initial.ArchiveType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ArchiveType = initial.ArchiveType
 	} else {
 		cDes.ArchiveType = des.ArchiveType
 	}
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Distribution, initial.Distribution) || dcl.IsZeroValue(des.Distribution) {
+	if dcl.StringCanonicalize(des.Distribution, initial.Distribution) {
 		cDes.Distribution = initial.Distribution
 	} else {
 		cDes.Distribution = des.Distribution
@@ -1442,7 +1411,7 @@ func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPack
 	} else {
 		cDes.Components = des.Components
 	}
-	if dcl.StringCanonicalize(des.GpgKey, initial.GpgKey) || dcl.IsZeroValue(des.GpgKey) {
+	if dcl.StringCanonicalize(des.GpgKey, initial.GpgKey) {
 		cDes.GpgKey = initial.GpgKey
 	} else {
 		cDes.GpgKey = des.GpgKey
@@ -1453,7 +1422,7 @@ func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPack
 
 func canonicalizeGuestPolicyPackageRepositoriesAptSlice(des, initial []GuestPolicyPackageRepositoriesApt, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesApt {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1553,10 +1522,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesAptSlice(c *Client, des, nw []
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesYum(des, initial *GuestPolicyPackageRepositoriesYum, opts ...dcl.ApplyOption) *GuestPolicyPackageRepositoriesYum {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1566,17 +1532,17 @@ func canonicalizeGuestPolicyPackageRepositoriesYum(des, initial *GuestPolicyPack
 
 	cDes := &GuestPolicyPackageRepositoriesYum{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
+	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) {
 		cDes.DisplayName = initial.DisplayName
 	} else {
 		cDes.DisplayName = des.DisplayName
 	}
-	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) || dcl.IsZeroValue(des.BaseUrl) {
+	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) {
 		cDes.BaseUrl = initial.BaseUrl
 	} else {
 		cDes.BaseUrl = des.BaseUrl
@@ -1592,7 +1558,7 @@ func canonicalizeGuestPolicyPackageRepositoriesYum(des, initial *GuestPolicyPack
 
 func canonicalizeGuestPolicyPackageRepositoriesYumSlice(des, initial []GuestPolicyPackageRepositoriesYum, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesYum {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1692,10 +1658,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesYumSlice(c *Client, des, nw []
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesZypper(des, initial *GuestPolicyPackageRepositoriesZypper, opts ...dcl.ApplyOption) *GuestPolicyPackageRepositoriesZypper {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1705,17 +1668,17 @@ func canonicalizeGuestPolicyPackageRepositoriesZypper(des, initial *GuestPolicyP
 
 	cDes := &GuestPolicyPackageRepositoriesZypper{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
+	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) {
 		cDes.DisplayName = initial.DisplayName
 	} else {
 		cDes.DisplayName = des.DisplayName
 	}
-	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) || dcl.IsZeroValue(des.BaseUrl) {
+	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) {
 		cDes.BaseUrl = initial.BaseUrl
 	} else {
 		cDes.BaseUrl = des.BaseUrl
@@ -1731,7 +1694,7 @@ func canonicalizeGuestPolicyPackageRepositoriesZypper(des, initial *GuestPolicyP
 
 func canonicalizeGuestPolicyPackageRepositoriesZypperSlice(des, initial []GuestPolicyPackageRepositoriesZypper, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesZypper {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1831,10 +1794,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesZypperSlice(c *Client, des, nw
 }
 
 func canonicalizeGuestPolicyPackageRepositoriesGoo(des, initial *GuestPolicyPackageRepositoriesGoo, opts ...dcl.ApplyOption) *GuestPolicyPackageRepositoriesGoo {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1844,12 +1804,12 @@ func canonicalizeGuestPolicyPackageRepositoriesGoo(des, initial *GuestPolicyPack
 
 	cDes := &GuestPolicyPackageRepositoriesGoo{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) {
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -1860,7 +1820,7 @@ func canonicalizeGuestPolicyPackageRepositoriesGoo(des, initial *GuestPolicyPack
 
 func canonicalizeGuestPolicyPackageRepositoriesGooSlice(des, initial []GuestPolicyPackageRepositoriesGoo, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesGoo {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1954,31 +1914,8 @@ func canonicalizeNewGuestPolicyPackageRepositoriesGooSlice(c *Client, des, nw []
 }
 
 func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dcl.ApplyOption) *GuestPolicyRecipes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.InstallSteps != nil || (initial != nil && initial.InstallSteps != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.UpdateSteps) {
-			des.InstallSteps = nil
-			if initial != nil {
-				initial.InstallSteps = nil
-			}
-		}
-	}
-
-	if des.UpdateSteps != nil || (initial != nil && initial.UpdateSteps != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.InstallSteps) {
-			des.UpdateSteps = nil
-			if initial != nil {
-				initial.UpdateSteps = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1987,12 +1924,12 @@ func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dc
 
 	cDes := &GuestPolicyRecipes{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -2000,19 +1937,32 @@ func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dc
 	cDes.Artifacts = canonicalizeGuestPolicyRecipesArtifactsSlice(des.Artifacts, initial.Artifacts, opts...)
 	cDes.InstallSteps = canonicalizeGuestPolicyRecipesInstallStepsSlice(des.InstallSteps, initial.InstallSteps, opts...)
 	cDes.UpdateSteps = canonicalizeGuestPolicyRecipesUpdateStepsSlice(des.UpdateSteps, initial.UpdateSteps, opts...)
-	if dcl.IsZeroValue(des.DesiredState) || (dcl.IsEmptyValueIndirect(des.DesiredState) && dcl.IsEmptyValueIndirect(initial.DesiredState)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DesiredState) && dcl.IsEmptyValueIndirect(initial.DesiredState) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DesiredState = initial.DesiredState
 	} else {
 		cDes.DesiredState = des.DesiredState
 	}
 
+	if cDes.InstallSteps != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.UpdateSteps) {
+			cDes.InstallSteps = nil
+		}
+	}
+
+	if cDes.UpdateSteps != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.InstallSteps) {
+			cDes.UpdateSteps = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeGuestPolicyRecipesSlice(des, initial []GuestPolicyRecipes, opts ...dcl.ApplyOption) []GuestPolicyRecipes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2109,10 +2059,7 @@ func canonicalizeNewGuestPolicyRecipesSlice(c *Client, des, nw []GuestPolicyReci
 }
 
 func canonicalizeGuestPolicyRecipesArtifacts(des, initial *GuestPolicyRecipesArtifacts, opts ...dcl.ApplyOption) *GuestPolicyRecipesArtifacts {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2122,14 +2069,14 @@ func canonicalizeGuestPolicyRecipesArtifacts(des, initial *GuestPolicyRecipesArt
 
 	cDes := &GuestPolicyRecipesArtifacts{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
 	cDes.Remote = canonicalizeGuestPolicyRecipesArtifactsRemote(des.Remote, initial.Remote, opts...)
 	cDes.Gcs = canonicalizeGuestPolicyRecipesArtifactsGcs(des.Gcs, initial.Gcs, opts...)
-	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
+	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) {
 		cDes.AllowInsecure = initial.AllowInsecure
 	} else {
 		cDes.AllowInsecure = des.AllowInsecure
@@ -2140,7 +2087,7 @@ func canonicalizeGuestPolicyRecipesArtifacts(des, initial *GuestPolicyRecipesArt
 
 func canonicalizeGuestPolicyRecipesArtifactsSlice(des, initial []GuestPolicyRecipesArtifacts, opts ...dcl.ApplyOption) []GuestPolicyRecipesArtifacts {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2236,10 +2183,7 @@ func canonicalizeNewGuestPolicyRecipesArtifactsSlice(c *Client, des, nw []GuestP
 }
 
 func canonicalizeGuestPolicyRecipesArtifactsRemote(des, initial *GuestPolicyRecipesArtifactsRemote, opts ...dcl.ApplyOption) *GuestPolicyRecipesArtifactsRemote {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2249,12 +2193,12 @@ func canonicalizeGuestPolicyRecipesArtifactsRemote(des, initial *GuestPolicyReci
 
 	cDes := &GuestPolicyRecipesArtifactsRemote{}
 
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Checksum, initial.Checksum) || dcl.IsZeroValue(des.Checksum) {
+	if dcl.StringCanonicalize(des.Checksum, initial.Checksum) {
 		cDes.Checksum = initial.Checksum
 	} else {
 		cDes.Checksum = des.Checksum
@@ -2265,7 +2209,7 @@ func canonicalizeGuestPolicyRecipesArtifactsRemote(des, initial *GuestPolicyReci
 
 func canonicalizeGuestPolicyRecipesArtifactsRemoteSlice(des, initial []GuestPolicyRecipesArtifactsRemote, opts ...dcl.ApplyOption) []GuestPolicyRecipesArtifactsRemote {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2359,10 +2303,7 @@ func canonicalizeNewGuestPolicyRecipesArtifactsRemoteSlice(c *Client, des, nw []
 }
 
 func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipesArtifactsGcs, opts ...dcl.ApplyOption) *GuestPolicyRecipesArtifactsGcs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2372,19 +2313,19 @@ func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipes
 
 	cDes := &GuestPolicyRecipesArtifactsGcs{}
 
-	if dcl.IsZeroValue(des.Bucket) || (dcl.IsEmptyValueIndirect(des.Bucket) && dcl.IsEmptyValueIndirect(initial.Bucket)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Bucket) && dcl.IsEmptyValueIndirect(initial.Bucket) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -2395,7 +2336,7 @@ func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipes
 
 func canonicalizeGuestPolicyRecipesArtifactsGcsSlice(des, initial []GuestPolicyRecipesArtifactsGcs, opts ...dcl.ApplyOption) []GuestPolicyRecipesArtifactsGcs {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2486,10 +2427,7 @@ func canonicalizeNewGuestPolicyRecipesArtifactsGcsSlice(c *Client, des, nw []Gue
 }
 
 func canonicalizeGuestPolicyRecipesInstallSteps(des, initial *GuestPolicyRecipesInstallSteps, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallSteps {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2512,7 +2450,7 @@ func canonicalizeGuestPolicyRecipesInstallSteps(des, initial *GuestPolicyRecipes
 
 func canonicalizeGuestPolicyRecipesInstallStepsSlice(des, initial []GuestPolicyRecipesInstallSteps, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallSteps {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2607,10 +2545,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsSlice(c *Client, des, nw []Gue
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des, initial *GuestPolicyRecipesInstallStepsFileCopy, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsFileCopy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2620,22 +2555,22 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des, initial *GuestPolic
 
 	cDes := &GuestPolicyRecipesInstallStepsFileCopy{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.Destination, initial.Destination) || dcl.IsZeroValue(des.Destination) {
+	if dcl.StringCanonicalize(des.Destination, initial.Destination) {
 		cDes.Destination = initial.Destination
 	} else {
 		cDes.Destination = des.Destination
 	}
-	if dcl.BoolCanonicalize(des.Overwrite, initial.Overwrite) || dcl.IsZeroValue(des.Overwrite) {
+	if dcl.BoolCanonicalize(des.Overwrite, initial.Overwrite) {
 		cDes.Overwrite = initial.Overwrite
 	} else {
 		cDes.Overwrite = des.Overwrite
 	}
-	if dcl.StringCanonicalize(des.Permissions, initial.Permissions) || dcl.IsZeroValue(des.Permissions) {
+	if dcl.StringCanonicalize(des.Permissions, initial.Permissions) {
 		cDes.Permissions = initial.Permissions
 	} else {
 		cDes.Permissions = des.Permissions
@@ -2646,7 +2581,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des, initial *GuestPolic
 
 func canonicalizeGuestPolicyRecipesInstallStepsFileCopySlice(des, initial []GuestPolicyRecipesInstallStepsFileCopy, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsFileCopy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2746,10 +2681,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, des, 
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des, initial *GuestPolicyRecipesInstallStepsArchiveExtraction, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsArchiveExtraction {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2759,18 +2691,18 @@ func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des, initial *G
 
 	cDes := &GuestPolicyRecipesInstallStepsArchiveExtraction{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.Destination, initial.Destination) || dcl.IsZeroValue(des.Destination) {
+	if dcl.StringCanonicalize(des.Destination, initial.Destination) {
 		cDes.Destination = initial.Destination
 	} else {
 		cDes.Destination = des.Destination
 	}
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -2781,7 +2713,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des, initial *G
 
 func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtractionSlice(des, initial []GuestPolicyRecipesInstallStepsArchiveExtraction, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsArchiveExtraction {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2875,10 +2807,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Clie
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *GuestPolicyRecipesInstallStepsMsiInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsMsiInstallation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2888,7 +2817,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *Gue
 
 	cDes := &GuestPolicyRecipesInstallStepsMsiInstallation{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
@@ -2898,8 +2827,8 @@ func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *Gue
 	} else {
 		cDes.Flags = des.Flags
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
@@ -2910,7 +2839,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *Gue
 
 func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallationSlice(des, initial []GuestPolicyRecipesInstallStepsMsiInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsMsiInstallation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3004,10 +2933,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(des, initial *GuestPolicyRecipesInstallStepsDpkgInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsDpkgInstallation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3017,7 +2943,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(des, initial *Gu
 
 	cDes := &GuestPolicyRecipesInstallStepsDpkgInstallation{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
@@ -3028,7 +2954,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(des, initial *Gu
 
 func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallationSlice(des, initial []GuestPolicyRecipesInstallStepsDpkgInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsDpkgInstallation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3119,10 +3045,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Clien
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(des, initial *GuestPolicyRecipesInstallStepsRpmInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsRpmInstallation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3132,7 +3055,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(des, initial *Gue
 
 	cDes := &GuestPolicyRecipesInstallStepsRpmInstallation{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
@@ -3143,7 +3066,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(des, initial *Gue
 
 func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallationSlice(des, initial []GuestPolicyRecipesInstallStepsRpmInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsRpmInstallation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3234,10 +3157,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolicyRecipesInstallStepsFileExec, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsFileExec {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3247,12 +3167,12 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolic
 
 	cDes := &GuestPolicyRecipesInstallStepsFileExec{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
@@ -3262,8 +3182,8 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolic
 	} else {
 		cDes.Args = des.Args
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
@@ -3274,7 +3194,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolic
 
 func canonicalizeGuestPolicyRecipesInstallStepsFileExecSlice(des, initial []GuestPolicyRecipesInstallStepsFileExec, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsFileExec {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3371,10 +3291,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, des, 
 }
 
 func canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des, initial *GuestPolicyRecipesInstallStepsScriptRun, opts ...dcl.ApplyOption) *GuestPolicyRecipesInstallStepsScriptRun {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3384,19 +3301,19 @@ func canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des, initial *GuestPoli
 
 	cDes := &GuestPolicyRecipesInstallStepsScriptRun{}
 
-	if dcl.StringCanonicalize(des.Script, initial.Script) || dcl.IsZeroValue(des.Script) {
+	if dcl.StringCanonicalize(des.Script, initial.Script) {
 		cDes.Script = initial.Script
 	} else {
 		cDes.Script = des.Script
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
@@ -3407,7 +3324,7 @@ func canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des, initial *GuestPoli
 
 func canonicalizeGuestPolicyRecipesInstallStepsScriptRunSlice(des, initial []GuestPolicyRecipesInstallStepsScriptRun, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsScriptRun {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3498,10 +3415,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, des,
 }
 
 func canonicalizeGuestPolicyRecipesUpdateSteps(des, initial *GuestPolicyRecipesUpdateSteps, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateSteps {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3524,7 +3438,7 @@ func canonicalizeGuestPolicyRecipesUpdateSteps(des, initial *GuestPolicyRecipesU
 
 func canonicalizeGuestPolicyRecipesUpdateStepsSlice(des, initial []GuestPolicyRecipesUpdateSteps, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateSteps {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3619,10 +3533,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsSlice(c *Client, des, nw []Gues
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des, initial *GuestPolicyRecipesUpdateStepsFileCopy, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsFileCopy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3632,22 +3543,22 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des, initial *GuestPolicy
 
 	cDes := &GuestPolicyRecipesUpdateStepsFileCopy{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.Destination, initial.Destination) || dcl.IsZeroValue(des.Destination) {
+	if dcl.StringCanonicalize(des.Destination, initial.Destination) {
 		cDes.Destination = initial.Destination
 	} else {
 		cDes.Destination = des.Destination
 	}
-	if dcl.BoolCanonicalize(des.Overwrite, initial.Overwrite) || dcl.IsZeroValue(des.Overwrite) {
+	if dcl.BoolCanonicalize(des.Overwrite, initial.Overwrite) {
 		cDes.Overwrite = initial.Overwrite
 	} else {
 		cDes.Overwrite = des.Overwrite
 	}
-	if dcl.StringCanonicalize(des.Permissions, initial.Permissions) || dcl.IsZeroValue(des.Permissions) {
+	if dcl.StringCanonicalize(des.Permissions, initial.Permissions) {
 		cDes.Permissions = initial.Permissions
 	} else {
 		cDes.Permissions = des.Permissions
@@ -3658,7 +3569,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des, initial *GuestPolicy
 
 func canonicalizeGuestPolicyRecipesUpdateStepsFileCopySlice(des, initial []GuestPolicyRecipesUpdateStepsFileCopy, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsFileCopy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3758,10 +3669,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, des, n
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des, initial *GuestPolicyRecipesUpdateStepsArchiveExtraction, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsArchiveExtraction {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3771,18 +3679,18 @@ func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des, initial *Gu
 
 	cDes := &GuestPolicyRecipesUpdateStepsArchiveExtraction{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.Destination, initial.Destination) || dcl.IsZeroValue(des.Destination) {
+	if dcl.StringCanonicalize(des.Destination, initial.Destination) {
 		cDes.Destination = initial.Destination
 	} else {
 		cDes.Destination = des.Destination
 	}
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -3793,7 +3701,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des, initial *Gu
 
 func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(des, initial []GuestPolicyRecipesUpdateStepsArchiveExtraction, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsArchiveExtraction {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3887,10 +3795,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Clien
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *GuestPolicyRecipesUpdateStepsMsiInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsMsiInstallation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3900,7 +3805,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *Gues
 
 	cDes := &GuestPolicyRecipesUpdateStepsMsiInstallation{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
@@ -3910,8 +3815,8 @@ func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *Gues
 	} else {
 		cDes.Flags = des.Flags
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
@@ -3922,7 +3827,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *Gues
 
 func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallationSlice(des, initial []GuestPolicyRecipesUpdateStepsMsiInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsMsiInstallation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4016,10 +3921,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client,
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(des, initial *GuestPolicyRecipesUpdateStepsDpkgInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsDpkgInstallation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4029,7 +3931,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(des, initial *Gue
 
 	cDes := &GuestPolicyRecipesUpdateStepsDpkgInstallation{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
@@ -4040,7 +3942,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(des, initial *Gue
 
 func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(des, initial []GuestPolicyRecipesUpdateStepsDpkgInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsDpkgInstallation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4131,10 +4033,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(des, initial *GuestPolicyRecipesUpdateStepsRpmInstallation, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsRpmInstallation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4144,7 +4043,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(des, initial *Gues
 
 	cDes := &GuestPolicyRecipesUpdateStepsRpmInstallation{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
@@ -4155,7 +4054,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(des, initial *Gues
 
 func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallationSlice(des, initial []GuestPolicyRecipesUpdateStepsRpmInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsRpmInstallation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4246,10 +4145,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client,
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicyRecipesUpdateStepsFileExec, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsFileExec {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4259,12 +4155,12 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicy
 
 	cDes := &GuestPolicyRecipesUpdateStepsFileExec{}
 
-	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
+	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) {
 		cDes.ArtifactId = initial.ArtifactId
 	} else {
 		cDes.ArtifactId = des.ArtifactId
 	}
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
@@ -4274,8 +4170,8 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicy
 	} else {
 		cDes.Args = des.Args
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
@@ -4286,7 +4182,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicy
 
 func canonicalizeGuestPolicyRecipesUpdateStepsFileExecSlice(des, initial []GuestPolicyRecipesUpdateStepsFileExec, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsFileExec {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4383,10 +4279,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, des, n
 }
 
 func canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des, initial *GuestPolicyRecipesUpdateStepsScriptRun, opts ...dcl.ApplyOption) *GuestPolicyRecipesUpdateStepsScriptRun {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4396,19 +4289,19 @@ func canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des, initial *GuestPolic
 
 	cDes := &GuestPolicyRecipesUpdateStepsScriptRun{}
 
-	if dcl.StringCanonicalize(des.Script, initial.Script) || dcl.IsZeroValue(des.Script) {
+	if dcl.StringCanonicalize(des.Script, initial.Script) {
 		cDes.Script = initial.Script
 	} else {
 		cDes.Script = des.Script
 	}
-	if dcl.IsZeroValue(des.AllowedExitCodes) || (dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AllowedExitCodes) && dcl.IsEmptyValueIndirect(initial.AllowedExitCodes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AllowedExitCodes = initial.AllowedExitCodes
 	} else {
 		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
@@ -4419,7 +4312,7 @@ func canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des, initial *GuestPolic
 
 func canonicalizeGuestPolicyRecipesUpdateStepsScriptRunSlice(des, initial []GuestPolicyRecipesUpdateStepsScriptRun, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsScriptRun {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

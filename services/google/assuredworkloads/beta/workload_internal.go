@@ -484,8 +484,8 @@ func canonicalizeWorkloadDesiredState(rawDesired, rawInitial *Workload, opts ...
 		return rawDesired, nil
 	}
 	canonicalDesired := &Workload{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -495,8 +495,8 @@ func canonicalizeWorkloadDesiredState(rawDesired, rawInitial *Workload, opts ...
 	} else {
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.ComplianceRegime) || (dcl.IsEmptyValueIndirect(rawDesired.ComplianceRegime) && dcl.IsEmptyValueIndirect(rawInitial.ComplianceRegime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.ComplianceRegime) && dcl.IsEmptyValueIndirect(rawInitial.ComplianceRegime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.ComplianceRegime = rawInitial.ComplianceRegime
 	} else {
 		canonicalDesired.ComplianceRegime = rawDesired.ComplianceRegime
@@ -506,8 +506,8 @@ func canonicalizeWorkloadDesiredState(rawDesired, rawInitial *Workload, opts ...
 	} else {
 		canonicalDesired.BillingAccount = rawDesired.BillingAccount
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -589,10 +589,7 @@ func canonicalizeWorkloadNewState(c *Client, rawNew, rawDesired *Workload) (*Wor
 }
 
 func canonicalizeWorkloadResources(des, initial *WorkloadResources, opts ...dcl.ApplyOption) *WorkloadResources {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -602,14 +599,14 @@ func canonicalizeWorkloadResources(des, initial *WorkloadResources, opts ...dcl.
 
 	cDes := &WorkloadResources{}
 
-	if dcl.IsZeroValue(des.ResourceId) || (dcl.IsEmptyValueIndirect(des.ResourceId) && dcl.IsEmptyValueIndirect(initial.ResourceId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ResourceId) && dcl.IsEmptyValueIndirect(initial.ResourceId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ResourceId = initial.ResourceId
 	} else {
 		cDes.ResourceId = des.ResourceId
 	}
-	if dcl.IsZeroValue(des.ResourceType) || (dcl.IsEmptyValueIndirect(des.ResourceType) && dcl.IsEmptyValueIndirect(initial.ResourceType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ResourceType) && dcl.IsEmptyValueIndirect(initial.ResourceType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ResourceType = initial.ResourceType
 	} else {
 		cDes.ResourceType = des.ResourceType
@@ -620,7 +617,7 @@ func canonicalizeWorkloadResources(des, initial *WorkloadResources, opts ...dcl.
 
 func canonicalizeWorkloadResourcesSlice(des, initial []WorkloadResources, opts ...dcl.ApplyOption) []WorkloadResources {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -707,10 +704,7 @@ func canonicalizeNewWorkloadResourcesSlice(c *Client, des, nw []WorkloadResource
 }
 
 func canonicalizeWorkloadKmsSettings(des, initial *WorkloadKmsSettings, opts ...dcl.ApplyOption) *WorkloadKmsSettings {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -720,13 +714,13 @@ func canonicalizeWorkloadKmsSettings(des, initial *WorkloadKmsSettings, opts ...
 
 	cDes := &WorkloadKmsSettings{}
 
-	if dcl.IsZeroValue(des.NextRotationTime) || (dcl.IsEmptyValueIndirect(des.NextRotationTime) && dcl.IsEmptyValueIndirect(initial.NextRotationTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NextRotationTime) && dcl.IsEmptyValueIndirect(initial.NextRotationTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NextRotationTime = initial.NextRotationTime
 	} else {
 		cDes.NextRotationTime = des.NextRotationTime
 	}
-	if dcl.StringCanonicalize(des.RotationPeriod, initial.RotationPeriod) || dcl.IsZeroValue(des.RotationPeriod) {
+	if dcl.StringCanonicalize(des.RotationPeriod, initial.RotationPeriod) {
 		cDes.RotationPeriod = initial.RotationPeriod
 	} else {
 		cDes.RotationPeriod = des.RotationPeriod
@@ -737,7 +731,7 @@ func canonicalizeWorkloadKmsSettings(des, initial *WorkloadKmsSettings, opts ...
 
 func canonicalizeWorkloadKmsSettingsSlice(des, initial []WorkloadKmsSettings, opts ...dcl.ApplyOption) []WorkloadKmsSettings {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -828,10 +822,7 @@ func canonicalizeNewWorkloadKmsSettingsSlice(c *Client, des, nw []WorkloadKmsSet
 }
 
 func canonicalizeWorkloadResourceSettings(des, initial *WorkloadResourceSettings, opts ...dcl.ApplyOption) *WorkloadResourceSettings {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -841,13 +832,13 @@ func canonicalizeWorkloadResourceSettings(des, initial *WorkloadResourceSettings
 
 	cDes := &WorkloadResourceSettings{}
 
-	if dcl.StringCanonicalize(des.ResourceId, initial.ResourceId) || dcl.IsZeroValue(des.ResourceId) {
+	if dcl.StringCanonicalize(des.ResourceId, initial.ResourceId) {
 		cDes.ResourceId = initial.ResourceId
 	} else {
 		cDes.ResourceId = des.ResourceId
 	}
-	if dcl.IsZeroValue(des.ResourceType) || (dcl.IsEmptyValueIndirect(des.ResourceType) && dcl.IsEmptyValueIndirect(initial.ResourceType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ResourceType) && dcl.IsEmptyValueIndirect(initial.ResourceType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ResourceType = initial.ResourceType
 	} else {
 		cDes.ResourceType = des.ResourceType
@@ -858,7 +849,7 @@ func canonicalizeWorkloadResourceSettings(des, initial *WorkloadResourceSettings
 
 func canonicalizeWorkloadResourceSettingsSlice(des, initial []WorkloadResourceSettings, opts ...dcl.ApplyOption) []WorkloadResourceSettings {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

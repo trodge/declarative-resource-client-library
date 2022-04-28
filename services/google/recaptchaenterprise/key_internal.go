@@ -482,34 +482,9 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.WebSettings != nil || rawInitial.WebSettings != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.AndroidSettings, rawDesired.IosSettings) {
-			rawDesired.WebSettings = nil
-			rawInitial.WebSettings = nil
-		}
-	}
-
-	if rawDesired.AndroidSettings != nil || rawInitial.AndroidSettings != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.WebSettings, rawDesired.IosSettings) {
-			rawDesired.AndroidSettings = nil
-			rawInitial.AndroidSettings = nil
-		}
-	}
-
-	if rawDesired.IosSettings != nil || rawInitial.IosSettings != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.WebSettings, rawDesired.AndroidSettings) {
-			rawDesired.IosSettings = nil
-			rawInitial.IosSettings = nil
-		}
-	}
-
 	canonicalDesired := &Key{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -522,8 +497,8 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 	canonicalDesired.WebSettings = canonicalizeKeyWebSettings(rawDesired.WebSettings, rawInitial.WebSettings, opts...)
 	canonicalDesired.AndroidSettings = canonicalizeKeyAndroidSettings(rawDesired.AndroidSettings, rawInitial.AndroidSettings, opts...)
 	canonicalDesired.IosSettings = canonicalizeKeyIosSettings(rawDesired.IosSettings, rawInitial.IosSettings, opts...)
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -533,6 +508,27 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.WebSettings != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.AndroidSettings, canonicalDesired.IosSettings) {
+			canonicalDesired.WebSettings = nil
+		}
+	}
+
+	if canonicalDesired.AndroidSettings != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.WebSettings, canonicalDesired.IosSettings) {
+			canonicalDesired.AndroidSettings = nil
+		}
+	}
+
+	if canonicalDesired.IosSettings != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.WebSettings, canonicalDesired.AndroidSettings) {
+			canonicalDesired.IosSettings = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -589,14 +585,29 @@ func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
 
 	rawNew.Project = rawDesired.Project
 
+	if rawNew.WebSettings != nil {
+		if dcl.AnySet(rawNew.AndroidSettings, rawNew.IosSettings) && rawDesired.WebSettings == nil {
+			rawNew.WebSettings = nil
+		}
+	}
+
+	if rawNew.AndroidSettings != nil {
+		if dcl.AnySet(rawNew.WebSettings, rawNew.IosSettings) && rawDesired.AndroidSettings == nil {
+			rawNew.AndroidSettings = nil
+		}
+	}
+
+	if rawNew.IosSettings != nil {
+		if dcl.AnySet(rawNew.WebSettings, rawNew.AndroidSettings) && rawDesired.IosSettings == nil {
+			rawNew.IosSettings = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeKeyWebSettings(des, initial *KeyWebSettings, opts ...dcl.ApplyOption) *KeyWebSettings {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -606,7 +617,7 @@ func canonicalizeKeyWebSettings(des, initial *KeyWebSettings, opts ...dcl.ApplyO
 
 	cDes := &KeyWebSettings{}
 
-	if dcl.BoolCanonicalize(des.AllowAllDomains, initial.AllowAllDomains) || dcl.IsZeroValue(des.AllowAllDomains) {
+	if dcl.BoolCanonicalize(des.AllowAllDomains, initial.AllowAllDomains) {
 		cDes.AllowAllDomains = initial.AllowAllDomains
 	} else {
 		cDes.AllowAllDomains = des.AllowAllDomains
@@ -616,19 +627,19 @@ func canonicalizeKeyWebSettings(des, initial *KeyWebSettings, opts ...dcl.ApplyO
 	} else {
 		cDes.AllowedDomains = des.AllowedDomains
 	}
-	if dcl.BoolCanonicalize(des.AllowAmpTraffic, initial.AllowAmpTraffic) || dcl.IsZeroValue(des.AllowAmpTraffic) {
+	if dcl.BoolCanonicalize(des.AllowAmpTraffic, initial.AllowAmpTraffic) {
 		cDes.AllowAmpTraffic = initial.AllowAmpTraffic
 	} else {
 		cDes.AllowAmpTraffic = des.AllowAmpTraffic
 	}
-	if dcl.IsZeroValue(des.IntegrationType) || (dcl.IsEmptyValueIndirect(des.IntegrationType) && dcl.IsEmptyValueIndirect(initial.IntegrationType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.IntegrationType) && dcl.IsEmptyValueIndirect(initial.IntegrationType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.IntegrationType = initial.IntegrationType
 	} else {
 		cDes.IntegrationType = des.IntegrationType
 	}
-	if dcl.IsZeroValue(des.ChallengeSecurityPreference) || (dcl.IsEmptyValueIndirect(des.ChallengeSecurityPreference) && dcl.IsEmptyValueIndirect(initial.ChallengeSecurityPreference)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ChallengeSecurityPreference) && dcl.IsEmptyValueIndirect(initial.ChallengeSecurityPreference) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ChallengeSecurityPreference = initial.ChallengeSecurityPreference
 	} else {
 		cDes.ChallengeSecurityPreference = des.ChallengeSecurityPreference
@@ -639,7 +650,7 @@ func canonicalizeKeyWebSettings(des, initial *KeyWebSettings, opts ...dcl.ApplyO
 
 func canonicalizeKeyWebSettingsSlice(des, initial []KeyWebSettings, opts ...dcl.ApplyOption) []KeyWebSettings {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -736,10 +747,7 @@ func canonicalizeNewKeyWebSettingsSlice(c *Client, des, nw []KeyWebSettings) []K
 }
 
 func canonicalizeKeyAndroidSettings(des, initial *KeyAndroidSettings, opts ...dcl.ApplyOption) *KeyAndroidSettings {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -749,7 +757,7 @@ func canonicalizeKeyAndroidSettings(des, initial *KeyAndroidSettings, opts ...dc
 
 	cDes := &KeyAndroidSettings{}
 
-	if dcl.BoolCanonicalize(des.AllowAllPackageNames, initial.AllowAllPackageNames) || dcl.IsZeroValue(des.AllowAllPackageNames) {
+	if dcl.BoolCanonicalize(des.AllowAllPackageNames, initial.AllowAllPackageNames) {
 		cDes.AllowAllPackageNames = initial.AllowAllPackageNames
 	} else {
 		cDes.AllowAllPackageNames = des.AllowAllPackageNames
@@ -765,7 +773,7 @@ func canonicalizeKeyAndroidSettings(des, initial *KeyAndroidSettings, opts ...dc
 
 func canonicalizeKeyAndroidSettingsSlice(des, initial []KeyAndroidSettings, opts ...dcl.ApplyOption) []KeyAndroidSettings {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -859,10 +867,7 @@ func canonicalizeNewKeyAndroidSettingsSlice(c *Client, des, nw []KeyAndroidSetti
 }
 
 func canonicalizeKeyIosSettings(des, initial *KeyIosSettings, opts ...dcl.ApplyOption) *KeyIosSettings {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -872,7 +877,7 @@ func canonicalizeKeyIosSettings(des, initial *KeyIosSettings, opts ...dcl.ApplyO
 
 	cDes := &KeyIosSettings{}
 
-	if dcl.BoolCanonicalize(des.AllowAllBundleIds, initial.AllowAllBundleIds) || dcl.IsZeroValue(des.AllowAllBundleIds) {
+	if dcl.BoolCanonicalize(des.AllowAllBundleIds, initial.AllowAllBundleIds) {
 		cDes.AllowAllBundleIds = initial.AllowAllBundleIds
 	} else {
 		cDes.AllowAllBundleIds = des.AllowAllBundleIds
@@ -888,7 +893,7 @@ func canonicalizeKeyIosSettings(des, initial *KeyIosSettings, opts ...dcl.ApplyO
 
 func canonicalizeKeyIosSettingsSlice(des, initial []KeyIosSettings, opts ...dcl.ApplyOption) []KeyIosSettings {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -982,10 +987,7 @@ func canonicalizeNewKeyIosSettingsSlice(c *Client, des, nw []KeyIosSettings) []K
 }
 
 func canonicalizeKeyTestingOptions(des, initial *KeyTestingOptions, opts ...dcl.ApplyOption) *KeyTestingOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -995,14 +997,14 @@ func canonicalizeKeyTestingOptions(des, initial *KeyTestingOptions, opts ...dcl.
 
 	cDes := &KeyTestingOptions{}
 
-	if dcl.IsZeroValue(des.TestingScore) || (dcl.IsEmptyValueIndirect(des.TestingScore) && dcl.IsEmptyValueIndirect(initial.TestingScore)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TestingScore) && dcl.IsEmptyValueIndirect(initial.TestingScore) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TestingScore = initial.TestingScore
 	} else {
 		cDes.TestingScore = des.TestingScore
 	}
-	if dcl.IsZeroValue(des.TestingChallenge) || (dcl.IsEmptyValueIndirect(des.TestingChallenge) && dcl.IsEmptyValueIndirect(initial.TestingChallenge)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TestingChallenge) && dcl.IsEmptyValueIndirect(initial.TestingChallenge) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TestingChallenge = initial.TestingChallenge
 	} else {
 		cDes.TestingChallenge = des.TestingChallenge
@@ -1013,7 +1015,7 @@ func canonicalizeKeyTestingOptions(des, initial *KeyTestingOptions, opts ...dcl.
 
 func canonicalizeKeyTestingOptionsSlice(des, initial []KeyTestingOptions, opts ...dcl.ApplyOption) []KeyTestingOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

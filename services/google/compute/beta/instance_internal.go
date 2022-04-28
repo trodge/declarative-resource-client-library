@@ -1217,20 +1217,20 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Hostname = rawDesired.Hostname
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Metadata) || (dcl.IsEmptyValueIndirect(rawDesired.Metadata) && dcl.IsEmptyValueIndirect(rawInitial.Metadata)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Metadata) && dcl.IsEmptyValueIndirect(rawInitial.Metadata) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Metadata = rawInitial.Metadata
 	} else {
 		canonicalDesired.Metadata = rawDesired.Metadata
 	}
-	if dcl.IsZeroValue(rawDesired.MachineType) || (dcl.IsEmptyValueIndirect(rawDesired.MachineType) && dcl.IsEmptyValueIndirect(rawInitial.MachineType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.MachineType) && dcl.IsEmptyValueIndirect(rawInitial.MachineType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.MachineType = rawInitial.MachineType
 	} else {
 		canonicalDesired.MachineType = rawDesired.MachineType
@@ -1249,8 +1249,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	canonicalDesired.Scheduling = canonicalizeInstanceScheduling(rawDesired.Scheduling, rawInitial.Scheduling, opts...)
 	canonicalDesired.ServiceAccounts = canonicalizeInstanceServiceAccountsSlice(rawDesired.ServiceAccounts, rawInitial.ServiceAccounts, opts...)
 	canonicalDesired.ShieldedInstanceConfig = canonicalizeInstanceShieldedInstanceConfig(rawDesired.ShieldedInstanceConfig, rawInitial.ShieldedInstanceConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.Status) || (dcl.IsEmptyValueIndirect(rawDesired.Status) && dcl.IsEmptyValueIndirect(rawInitial.Status)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Status) && dcl.IsEmptyValueIndirect(rawInitial.Status) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Status = rawInitial.Status
 	} else {
 		canonicalDesired.Status = rawDesired.Status
@@ -1260,8 +1260,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Tags = rawDesired.Tags
 	}
-	if dcl.IsZeroValue(rawDesired.Zone) || (dcl.IsEmptyValueIndirect(rawDesired.Zone) && dcl.IsEmptyValueIndirect(rawInitial.Zone)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Zone) && dcl.IsEmptyValueIndirect(rawInitial.Zone) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Zone = rawInitial.Zone
 	} else {
 		canonicalDesired.Zone = rawDesired.Zone
@@ -1436,10 +1436,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 }
 
 func canonicalizeInstanceDisks(des, initial *InstanceDisks, opts ...dcl.ApplyOption) *InstanceDisks {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1449,49 +1446,49 @@ func canonicalizeInstanceDisks(des, initial *InstanceDisks, opts ...dcl.ApplyOpt
 
 	cDes := &InstanceDisks{}
 
-	if dcl.BoolCanonicalize(des.AutoDelete, initial.AutoDelete) || dcl.IsZeroValue(des.AutoDelete) {
+	if dcl.BoolCanonicalize(des.AutoDelete, initial.AutoDelete) {
 		cDes.AutoDelete = initial.AutoDelete
 	} else {
 		cDes.AutoDelete = des.AutoDelete
 	}
-	if dcl.BoolCanonicalize(des.Boot, initial.Boot) || dcl.IsZeroValue(des.Boot) {
+	if dcl.BoolCanonicalize(des.Boot, initial.Boot) {
 		cDes.Boot = initial.Boot
 	} else {
 		cDes.Boot = des.Boot
 	}
-	if dcl.StringCanonicalize(des.DeviceName, initial.DeviceName) || dcl.IsZeroValue(des.DeviceName) {
+	if dcl.StringCanonicalize(des.DeviceName, initial.DeviceName) {
 		cDes.DeviceName = initial.DeviceName
 	} else {
 		cDes.DeviceName = des.DeviceName
 	}
 	cDes.DiskEncryptionKey = canonicalizeInstanceDisksDiskEncryptionKey(des.DiskEncryptionKey, initial.DiskEncryptionKey, opts...)
-	if dcl.IsZeroValue(des.Index) || (dcl.IsEmptyValueIndirect(des.Index) && dcl.IsEmptyValueIndirect(initial.Index)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Index) && dcl.IsEmptyValueIndirect(initial.Index) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Index = initial.Index
 	} else {
 		cDes.Index = des.Index
 	}
 	cDes.InitializeParams = canonicalizeInstanceDisksInitializeParams(des.InitializeParams, initial.InitializeParams, opts...)
-	if dcl.IsZeroValue(des.Interface) || (dcl.IsEmptyValueIndirect(des.Interface) && dcl.IsEmptyValueIndirect(initial.Interface)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Interface) && dcl.IsEmptyValueIndirect(initial.Interface) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Interface = initial.Interface
 	} else {
 		cDes.Interface = des.Interface
 	}
-	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
 	}
-	if dcl.IsZeroValue(des.Source) || (dcl.IsEmptyValueIndirect(des.Source) && dcl.IsEmptyValueIndirect(initial.Source)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Source) && dcl.IsEmptyValueIndirect(initial.Source) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Source = initial.Source
 	} else {
 		cDes.Source = des.Source
 	}
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -1502,7 +1499,7 @@ func canonicalizeInstanceDisks(des, initial *InstanceDisks, opts ...dcl.ApplyOpt
 
 func canonicalizeInstanceDisksSlice(des, initial []InstanceDisks, opts ...dcl.ApplyOption) []InstanceDisks {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1601,10 +1598,7 @@ func canonicalizeNewInstanceDisksSlice(c *Client, des, nw []InstanceDisks) []Ins
 }
 
 func canonicalizeInstanceDisksDiskEncryptionKey(des, initial *InstanceDisksDiskEncryptionKey, opts ...dcl.ApplyOption) *InstanceDisksDiskEncryptionKey {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1614,12 +1608,12 @@ func canonicalizeInstanceDisksDiskEncryptionKey(des, initial *InstanceDisksDiskE
 
 	cDes := &InstanceDisksDiskEncryptionKey{}
 
-	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) {
 		cDes.RawKey = initial.RawKey
 	} else {
 		cDes.RawKey = des.RawKey
 	}
-	if dcl.StringCanonicalize(des.RsaEncryptedKey, initial.RsaEncryptedKey) || dcl.IsZeroValue(des.RsaEncryptedKey) {
+	if dcl.StringCanonicalize(des.RsaEncryptedKey, initial.RsaEncryptedKey) {
 		cDes.RsaEncryptedKey = initial.RsaEncryptedKey
 	} else {
 		cDes.RsaEncryptedKey = des.RsaEncryptedKey
@@ -1630,7 +1624,7 @@ func canonicalizeInstanceDisksDiskEncryptionKey(des, initial *InstanceDisksDiskE
 
 func canonicalizeInstanceDisksDiskEncryptionKeySlice(des, initial []InstanceDisksDiskEncryptionKey, opts ...dcl.ApplyOption) []InstanceDisksDiskEncryptionKey {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1727,10 +1721,7 @@ func canonicalizeNewInstanceDisksDiskEncryptionKeySlice(c *Client, des, nw []Ins
 }
 
 func canonicalizeInstanceDisksInitializeParams(des, initial *InstanceDisksInitializeParams, opts ...dcl.ApplyOption) *InstanceDisksInitializeParams {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1740,24 +1731,24 @@ func canonicalizeInstanceDisksInitializeParams(des, initial *InstanceDisksInitia
 
 	cDes := &InstanceDisksInitializeParams{}
 
-	if dcl.StringCanonicalize(des.DiskName, initial.DiskName) || dcl.IsZeroValue(des.DiskName) {
+	if dcl.StringCanonicalize(des.DiskName, initial.DiskName) {
 		cDes.DiskName = initial.DiskName
 	} else {
 		cDes.DiskName = des.DiskName
 	}
-	if dcl.IsZeroValue(des.DiskSizeGb) || (dcl.IsEmptyValueIndirect(des.DiskSizeGb) && dcl.IsEmptyValueIndirect(initial.DiskSizeGb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DiskSizeGb) && dcl.IsEmptyValueIndirect(initial.DiskSizeGb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DiskSizeGb = initial.DiskSizeGb
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
 	}
-	if dcl.IsZeroValue(des.DiskType) || (dcl.IsEmptyValueIndirect(des.DiskType) && dcl.IsEmptyValueIndirect(initial.DiskType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DiskType) && dcl.IsEmptyValueIndirect(initial.DiskType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DiskType = initial.DiskType
 	} else {
 		cDes.DiskType = des.DiskType
 	}
-	if dcl.StringCanonicalize(des.SourceImage, initial.SourceImage) || dcl.IsZeroValue(des.SourceImage) {
+	if dcl.StringCanonicalize(des.SourceImage, initial.SourceImage) {
 		cDes.SourceImage = initial.SourceImage
 	} else {
 		cDes.SourceImage = des.SourceImage
@@ -1769,7 +1760,7 @@ func canonicalizeInstanceDisksInitializeParams(des, initial *InstanceDisksInitia
 
 func canonicalizeInstanceDisksInitializeParamsSlice(des, initial []InstanceDisksInitializeParams, opts ...dcl.ApplyOption) []InstanceDisksInitializeParams {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1864,10 +1855,7 @@ func canonicalizeNewInstanceDisksInitializeParamsSlice(c *Client, des, nw []Inst
 }
 
 func canonicalizeInstanceDisksInitializeParamsSourceImageEncryptionKey(des, initial *InstanceDisksInitializeParamsSourceImageEncryptionKey, opts ...dcl.ApplyOption) *InstanceDisksInitializeParamsSourceImageEncryptionKey {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1877,7 +1865,7 @@ func canonicalizeInstanceDisksInitializeParamsSourceImageEncryptionKey(des, init
 
 	cDes := &InstanceDisksInitializeParamsSourceImageEncryptionKey{}
 
-	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
+	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) {
 		cDes.RawKey = initial.RawKey
 	} else {
 		cDes.RawKey = des.RawKey
@@ -1888,7 +1876,7 @@ func canonicalizeInstanceDisksInitializeParamsSourceImageEncryptionKey(des, init
 
 func canonicalizeInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(des, initial []InstanceDisksInitializeParamsSourceImageEncryptionKey, opts ...dcl.ApplyOption) []InstanceDisksInitializeParamsSourceImageEncryptionKey {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1982,10 +1970,7 @@ func canonicalizeNewInstanceDisksInitializeParamsSourceImageEncryptionKeySlice(c
 }
 
 func canonicalizeInstanceGuestAccelerators(des, initial *InstanceGuestAccelerators, opts ...dcl.ApplyOption) *InstanceGuestAccelerators {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1995,13 +1980,13 @@ func canonicalizeInstanceGuestAccelerators(des, initial *InstanceGuestAccelerato
 
 	cDes := &InstanceGuestAccelerators{}
 
-	if dcl.IsZeroValue(des.AcceleratorCount) || (dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AcceleratorCount) && dcl.IsEmptyValueIndirect(initial.AcceleratorCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AcceleratorCount = initial.AcceleratorCount
 	} else {
 		cDes.AcceleratorCount = des.AcceleratorCount
 	}
-	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
+	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) {
 		cDes.AcceleratorType = initial.AcceleratorType
 	} else {
 		cDes.AcceleratorType = des.AcceleratorType
@@ -2012,7 +1997,7 @@ func canonicalizeInstanceGuestAccelerators(des, initial *InstanceGuestAccelerato
 
 func canonicalizeInstanceGuestAcceleratorsSlice(des, initial []InstanceGuestAccelerators, opts ...dcl.ApplyOption) []InstanceGuestAccelerators {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2103,10 +2088,7 @@ func canonicalizeNewInstanceGuestAcceleratorsSlice(c *Client, des, nw []Instance
 }
 
 func canonicalizeInstanceNetworkInterfaces(des, initial *InstanceNetworkInterfaces, opts ...dcl.ApplyOption) *InstanceNetworkInterfaces {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2119,19 +2101,19 @@ func canonicalizeInstanceNetworkInterfaces(des, initial *InstanceNetworkInterfac
 	cDes.AccessConfigs = canonicalizeInstanceNetworkInterfacesAccessConfigsSlice(des.AccessConfigs, initial.AccessConfigs, opts...)
 	cDes.IPv6AccessConfigs = canonicalizeInstanceNetworkInterfacesIPv6AccessConfigsSlice(des.IPv6AccessConfigs, initial.IPv6AccessConfigs, opts...)
 	cDes.AliasIPRanges = canonicalizeInstanceNetworkInterfacesAliasIPRangesSlice(des.AliasIPRanges, initial.AliasIPRanges, opts...)
-	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
 	}
-	if dcl.StringCanonicalize(des.NetworkIP, initial.NetworkIP) || dcl.IsZeroValue(des.NetworkIP) {
+	if dcl.StringCanonicalize(des.NetworkIP, initial.NetworkIP) {
 		cDes.NetworkIP = initial.NetworkIP
 	} else {
 		cDes.NetworkIP = des.NetworkIP
 	}
-	if dcl.IsZeroValue(des.Subnetwork) || (dcl.IsEmptyValueIndirect(des.Subnetwork) && dcl.IsEmptyValueIndirect(initial.Subnetwork)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Subnetwork) && dcl.IsEmptyValueIndirect(initial.Subnetwork) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Subnetwork = initial.Subnetwork
 	} else {
 		cDes.Subnetwork = des.Subnetwork
@@ -2142,7 +2124,7 @@ func canonicalizeInstanceNetworkInterfaces(des, initial *InstanceNetworkInterfac
 
 func canonicalizeInstanceNetworkInterfacesSlice(des, initial []InstanceNetworkInterfaces, opts ...dcl.ApplyOption) []InstanceNetworkInterfaces {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2239,10 +2221,7 @@ func canonicalizeNewInstanceNetworkInterfacesSlice(c *Client, des, nw []Instance
 }
 
 func canonicalizeInstanceNetworkInterfacesAccessConfigs(des, initial *InstanceNetworkInterfacesAccessConfigs, opts ...dcl.ApplyOption) *InstanceNetworkInterfacesAccessConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2252,35 +2231,35 @@ func canonicalizeInstanceNetworkInterfacesAccessConfigs(des, initial *InstanceNe
 
 	cDes := &InstanceNetworkInterfacesAccessConfigs{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.NatIP) || (dcl.IsEmptyValueIndirect(des.NatIP) && dcl.IsEmptyValueIndirect(initial.NatIP)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NatIP) && dcl.IsEmptyValueIndirect(initial.NatIP) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NatIP = initial.NatIP
 	} else {
 		cDes.NatIP = des.NatIP
 	}
-	if dcl.BoolCanonicalize(des.SetPublicPtr, initial.SetPublicPtr) || dcl.IsZeroValue(des.SetPublicPtr) {
+	if dcl.BoolCanonicalize(des.SetPublicPtr, initial.SetPublicPtr) {
 		cDes.SetPublicPtr = initial.SetPublicPtr
 	} else {
 		cDes.SetPublicPtr = des.SetPublicPtr
 	}
-	if dcl.StringCanonicalize(des.PublicPtrDomainName, initial.PublicPtrDomainName) || dcl.IsZeroValue(des.PublicPtrDomainName) {
+	if dcl.StringCanonicalize(des.PublicPtrDomainName, initial.PublicPtrDomainName) {
 		cDes.PublicPtrDomainName = initial.PublicPtrDomainName
 	} else {
 		cDes.PublicPtrDomainName = des.PublicPtrDomainName
 	}
-	if dcl.IsZeroValue(des.NetworkTier) || (dcl.IsEmptyValueIndirect(des.NetworkTier) && dcl.IsEmptyValueIndirect(initial.NetworkTier)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NetworkTier) && dcl.IsEmptyValueIndirect(initial.NetworkTier) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NetworkTier = initial.NetworkTier
 	} else {
 		cDes.NetworkTier = des.NetworkTier
 	}
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -2291,7 +2270,7 @@ func canonicalizeInstanceNetworkInterfacesAccessConfigs(des, initial *InstanceNe
 
 func canonicalizeInstanceNetworkInterfacesAccessConfigsSlice(des, initial []InstanceNetworkInterfacesAccessConfigs, opts ...dcl.ApplyOption) []InstanceNetworkInterfacesAccessConfigs {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2394,10 +2373,7 @@ func canonicalizeNewInstanceNetworkInterfacesAccessConfigsSlice(c *Client, des, 
 }
 
 func canonicalizeInstanceNetworkInterfacesIPv6AccessConfigs(des, initial *InstanceNetworkInterfacesIPv6AccessConfigs, opts ...dcl.ApplyOption) *InstanceNetworkInterfacesIPv6AccessConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2407,35 +2383,35 @@ func canonicalizeInstanceNetworkInterfacesIPv6AccessConfigs(des, initial *Instan
 
 	cDes := &InstanceNetworkInterfacesIPv6AccessConfigs{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.NatIP) || (dcl.IsEmptyValueIndirect(des.NatIP) && dcl.IsEmptyValueIndirect(initial.NatIP)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NatIP) && dcl.IsEmptyValueIndirect(initial.NatIP) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NatIP = initial.NatIP
 	} else {
 		cDes.NatIP = des.NatIP
 	}
-	if dcl.BoolCanonicalize(des.SetPublicPtr, initial.SetPublicPtr) || dcl.IsZeroValue(des.SetPublicPtr) {
+	if dcl.BoolCanonicalize(des.SetPublicPtr, initial.SetPublicPtr) {
 		cDes.SetPublicPtr = initial.SetPublicPtr
 	} else {
 		cDes.SetPublicPtr = des.SetPublicPtr
 	}
-	if dcl.StringCanonicalize(des.PublicPtrDomainName, initial.PublicPtrDomainName) || dcl.IsZeroValue(des.PublicPtrDomainName) {
+	if dcl.StringCanonicalize(des.PublicPtrDomainName, initial.PublicPtrDomainName) {
 		cDes.PublicPtrDomainName = initial.PublicPtrDomainName
 	} else {
 		cDes.PublicPtrDomainName = des.PublicPtrDomainName
 	}
-	if dcl.IsZeroValue(des.NetworkTier) || (dcl.IsEmptyValueIndirect(des.NetworkTier) && dcl.IsEmptyValueIndirect(initial.NetworkTier)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NetworkTier) && dcl.IsEmptyValueIndirect(initial.NetworkTier) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NetworkTier = initial.NetworkTier
 	} else {
 		cDes.NetworkTier = des.NetworkTier
 	}
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -2446,7 +2422,7 @@ func canonicalizeInstanceNetworkInterfacesIPv6AccessConfigs(des, initial *Instan
 
 func canonicalizeInstanceNetworkInterfacesIPv6AccessConfigsSlice(des, initial []InstanceNetworkInterfacesIPv6AccessConfigs, opts ...dcl.ApplyOption) []InstanceNetworkInterfacesIPv6AccessConfigs {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2549,10 +2525,7 @@ func canonicalizeNewInstanceNetworkInterfacesIPv6AccessConfigsSlice(c *Client, d
 }
 
 func canonicalizeInstanceNetworkInterfacesAliasIPRanges(des, initial *InstanceNetworkInterfacesAliasIPRanges, opts ...dcl.ApplyOption) *InstanceNetworkInterfacesAliasIPRanges {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2562,12 +2535,12 @@ func canonicalizeInstanceNetworkInterfacesAliasIPRanges(des, initial *InstanceNe
 
 	cDes := &InstanceNetworkInterfacesAliasIPRanges{}
 
-	if dcl.StringCanonicalize(des.IPCidrRange, initial.IPCidrRange) || dcl.IsZeroValue(des.IPCidrRange) {
+	if dcl.StringCanonicalize(des.IPCidrRange, initial.IPCidrRange) {
 		cDes.IPCidrRange = initial.IPCidrRange
 	} else {
 		cDes.IPCidrRange = des.IPCidrRange
 	}
-	if dcl.StringCanonicalize(des.SubnetworkRangeName, initial.SubnetworkRangeName) || dcl.IsZeroValue(des.SubnetworkRangeName) {
+	if dcl.StringCanonicalize(des.SubnetworkRangeName, initial.SubnetworkRangeName) {
 		cDes.SubnetworkRangeName = initial.SubnetworkRangeName
 	} else {
 		cDes.SubnetworkRangeName = des.SubnetworkRangeName
@@ -2578,7 +2551,7 @@ func canonicalizeInstanceNetworkInterfacesAliasIPRanges(des, initial *InstanceNe
 
 func canonicalizeInstanceNetworkInterfacesAliasIPRangesSlice(des, initial []InstanceNetworkInterfacesAliasIPRanges, opts ...dcl.ApplyOption) []InstanceNetworkInterfacesAliasIPRanges {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2672,10 +2645,7 @@ func canonicalizeNewInstanceNetworkInterfacesAliasIPRangesSlice(c *Client, des, 
 }
 
 func canonicalizeInstanceScheduling(des, initial *InstanceScheduling, opts ...dcl.ApplyOption) *InstanceScheduling {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2685,17 +2655,17 @@ func canonicalizeInstanceScheduling(des, initial *InstanceScheduling, opts ...dc
 
 	cDes := &InstanceScheduling{}
 
-	if dcl.BoolCanonicalize(des.AutomaticRestart, initial.AutomaticRestart) || dcl.IsZeroValue(des.AutomaticRestart) {
+	if dcl.BoolCanonicalize(des.AutomaticRestart, initial.AutomaticRestart) {
 		cDes.AutomaticRestart = initial.AutomaticRestart
 	} else {
 		cDes.AutomaticRestart = des.AutomaticRestart
 	}
-	if dcl.StringCanonicalize(des.OnHostMaintenance, initial.OnHostMaintenance) || dcl.IsZeroValue(des.OnHostMaintenance) {
+	if dcl.StringCanonicalize(des.OnHostMaintenance, initial.OnHostMaintenance) {
 		cDes.OnHostMaintenance = initial.OnHostMaintenance
 	} else {
 		cDes.OnHostMaintenance = des.OnHostMaintenance
 	}
-	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
+	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) {
 		cDes.Preemptible = initial.Preemptible
 	} else {
 		cDes.Preemptible = des.Preemptible
@@ -2706,7 +2676,7 @@ func canonicalizeInstanceScheduling(des, initial *InstanceScheduling, opts ...dc
 
 func canonicalizeInstanceSchedulingSlice(des, initial []InstanceScheduling, opts ...dcl.ApplyOption) []InstanceScheduling {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2803,10 +2773,7 @@ func canonicalizeNewInstanceSchedulingSlice(c *Client, des, nw []InstanceSchedul
 }
 
 func canonicalizeInstanceServiceAccounts(des, initial *InstanceServiceAccounts, opts ...dcl.ApplyOption) *InstanceServiceAccounts {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2816,7 +2783,7 @@ func canonicalizeInstanceServiceAccounts(des, initial *InstanceServiceAccounts, 
 
 	cDes := &InstanceServiceAccounts{}
 
-	if dcl.StringCanonicalize(des.Email, initial.Email) || dcl.IsZeroValue(des.Email) {
+	if dcl.StringCanonicalize(des.Email, initial.Email) {
 		cDes.Email = initial.Email
 	} else {
 		cDes.Email = des.Email
@@ -2832,7 +2799,7 @@ func canonicalizeInstanceServiceAccounts(des, initial *InstanceServiceAccounts, 
 
 func canonicalizeInstanceServiceAccountsSlice(des, initial []InstanceServiceAccounts, opts ...dcl.ApplyOption) []InstanceServiceAccounts {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2926,10 +2893,7 @@ func canonicalizeNewInstanceServiceAccountsSlice(c *Client, des, nw []InstanceSe
 }
 
 func canonicalizeInstanceShieldedInstanceConfig(des, initial *InstanceShieldedInstanceConfig, opts ...dcl.ApplyOption) *InstanceShieldedInstanceConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2939,17 +2903,17 @@ func canonicalizeInstanceShieldedInstanceConfig(des, initial *InstanceShieldedIn
 
 	cDes := &InstanceShieldedInstanceConfig{}
 
-	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
+	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) {
 		cDes.EnableSecureBoot = initial.EnableSecureBoot
 	} else {
 		cDes.EnableSecureBoot = des.EnableSecureBoot
 	}
-	if dcl.BoolCanonicalize(des.EnableVtpm, initial.EnableVtpm) || dcl.IsZeroValue(des.EnableVtpm) {
+	if dcl.BoolCanonicalize(des.EnableVtpm, initial.EnableVtpm) {
 		cDes.EnableVtpm = initial.EnableVtpm
 	} else {
 		cDes.EnableVtpm = des.EnableVtpm
 	}
-	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
+	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) {
 		cDes.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
 	} else {
 		cDes.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
@@ -2960,7 +2924,7 @@ func canonicalizeInstanceShieldedInstanceConfig(des, initial *InstanceShieldedIn
 
 func canonicalizeInstanceShieldedInstanceConfigSlice(des, initial []InstanceShieldedInstanceConfig, opts ...dcl.ApplyOption) []InstanceShieldedInstanceConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

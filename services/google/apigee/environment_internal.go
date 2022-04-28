@@ -398,8 +398,8 @@ func canonicalizeEnvironmentDesiredState(rawDesired, rawInitial *Environment, op
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Properties) || (dcl.IsEmptyValueIndirect(rawDesired.Properties) && dcl.IsEmptyValueIndirect(rawInitial.Properties)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Properties) && dcl.IsEmptyValueIndirect(rawInitial.Properties) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Properties = rawInitial.Properties
 	} else {
 		canonicalDesired.Properties = rawDesired.Properties

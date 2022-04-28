@@ -384,8 +384,8 @@ func canonicalizeLogBucketDesiredState(rawDesired, rawInitial *LogBucket, opts .
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.RetentionDays) || (dcl.IsEmptyValueIndirect(rawDesired.RetentionDays) && dcl.IsEmptyValueIndirect(rawInitial.RetentionDays)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.RetentionDays) && dcl.IsEmptyValueIndirect(rawInitial.RetentionDays) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.RetentionDays = rawInitial.RetentionDays
 	} else {
 		canonicalDesired.RetentionDays = rawDesired.RetentionDays

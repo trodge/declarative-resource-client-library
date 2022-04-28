@@ -482,8 +482,8 @@ func canonicalizeServiceAccountDesiredState(rawDesired, rawInitial *ServiceAccou
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Project) || (dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
@@ -576,10 +576,7 @@ func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAc
 }
 
 func canonicalizeServiceAccountActasResources(des, initial *ServiceAccountActasResources, opts ...dcl.ApplyOption) *ServiceAccountActasResources {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -596,7 +593,7 @@ func canonicalizeServiceAccountActasResources(des, initial *ServiceAccountActasR
 
 func canonicalizeServiceAccountActasResourcesSlice(des, initial []ServiceAccountActasResources, opts ...dcl.ApplyOption) []ServiceAccountActasResources {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -685,10 +682,7 @@ func canonicalizeNewServiceAccountActasResourcesSlice(c *Client, des, nw []Servi
 }
 
 func canonicalizeServiceAccountActasResourcesResources(des, initial *ServiceAccountActasResourcesResources, opts ...dcl.ApplyOption) *ServiceAccountActasResourcesResources {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -698,7 +692,7 @@ func canonicalizeServiceAccountActasResourcesResources(des, initial *ServiceAcco
 
 	cDes := &ServiceAccountActasResourcesResources{}
 
-	if dcl.StringCanonicalize(des.FullResourceName, initial.FullResourceName) || dcl.IsZeroValue(des.FullResourceName) {
+	if dcl.StringCanonicalize(des.FullResourceName, initial.FullResourceName) {
 		cDes.FullResourceName = initial.FullResourceName
 	} else {
 		cDes.FullResourceName = des.FullResourceName
@@ -709,7 +703,7 @@ func canonicalizeServiceAccountActasResourcesResources(des, initial *ServiceAcco
 
 func canonicalizeServiceAccountActasResourcesResourcesSlice(des, initial []ServiceAccountActasResourcesResources, opts ...dcl.ApplyOption) []ServiceAccountActasResourcesResources {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

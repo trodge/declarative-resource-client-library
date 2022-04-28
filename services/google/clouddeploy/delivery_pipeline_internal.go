@@ -546,14 +546,14 @@ func canonicalizeDeliveryPipelineDesiredState(rawDesired, rawInitial *DeliveryPi
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -647,10 +647,7 @@ func canonicalizeDeliveryPipelineNewState(c *Client, rawNew, rawDesired *Deliver
 }
 
 func canonicalizeDeliveryPipelineSerialPipeline(des, initial *DeliveryPipelineSerialPipeline, opts ...dcl.ApplyOption) *DeliveryPipelineSerialPipeline {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -667,7 +664,7 @@ func canonicalizeDeliveryPipelineSerialPipeline(des, initial *DeliveryPipelineSe
 
 func canonicalizeDeliveryPipelineSerialPipelineSlice(des, initial []DeliveryPipelineSerialPipeline, opts ...dcl.ApplyOption) []DeliveryPipelineSerialPipeline {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -756,10 +753,7 @@ func canonicalizeNewDeliveryPipelineSerialPipelineSlice(c *Client, des, nw []Del
 }
 
 func canonicalizeDeliveryPipelineSerialPipelineStages(des, initial *DeliveryPipelineSerialPipelineStages, opts ...dcl.ApplyOption) *DeliveryPipelineSerialPipelineStages {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -769,7 +763,7 @@ func canonicalizeDeliveryPipelineSerialPipelineStages(des, initial *DeliveryPipe
 
 	cDes := &DeliveryPipelineSerialPipelineStages{}
 
-	if dcl.StringCanonicalize(des.TargetId, initial.TargetId) || dcl.IsZeroValue(des.TargetId) {
+	if dcl.StringCanonicalize(des.TargetId, initial.TargetId) {
 		cDes.TargetId = initial.TargetId
 	} else {
 		cDes.TargetId = des.TargetId
@@ -785,7 +779,7 @@ func canonicalizeDeliveryPipelineSerialPipelineStages(des, initial *DeliveryPipe
 
 func canonicalizeDeliveryPipelineSerialPipelineStagesSlice(des, initial []DeliveryPipelineSerialPipelineStages, opts ...dcl.ApplyOption) []DeliveryPipelineSerialPipelineStages {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -879,10 +873,7 @@ func canonicalizeNewDeliveryPipelineSerialPipelineStagesSlice(c *Client, des, nw
 }
 
 func canonicalizeDeliveryPipelineCondition(des, initial *DeliveryPipelineCondition, opts ...dcl.ApplyOption) *DeliveryPipelineCondition {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -900,7 +891,7 @@ func canonicalizeDeliveryPipelineCondition(des, initial *DeliveryPipelineConditi
 
 func canonicalizeDeliveryPipelineConditionSlice(des, initial []DeliveryPipelineCondition, opts ...dcl.ApplyOption) []DeliveryPipelineCondition {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -990,10 +981,7 @@ func canonicalizeNewDeliveryPipelineConditionSlice(c *Client, des, nw []Delivery
 }
 
 func canonicalizeDeliveryPipelineConditionPipelineReadyCondition(des, initial *DeliveryPipelineConditionPipelineReadyCondition, opts ...dcl.ApplyOption) *DeliveryPipelineConditionPipelineReadyCondition {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1003,13 +991,13 @@ func canonicalizeDeliveryPipelineConditionPipelineReadyCondition(des, initial *D
 
 	cDes := &DeliveryPipelineConditionPipelineReadyCondition{}
 
-	if dcl.BoolCanonicalize(des.Status, initial.Status) || dcl.IsZeroValue(des.Status) {
+	if dcl.BoolCanonicalize(des.Status, initial.Status) {
 		cDes.Status = initial.Status
 	} else {
 		cDes.Status = des.Status
 	}
-	if dcl.IsZeroValue(des.UpdateTime) || (dcl.IsEmptyValueIndirect(des.UpdateTime) && dcl.IsEmptyValueIndirect(initial.UpdateTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.UpdateTime) && dcl.IsEmptyValueIndirect(initial.UpdateTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.UpdateTime = initial.UpdateTime
 	} else {
 		cDes.UpdateTime = des.UpdateTime
@@ -1020,7 +1008,7 @@ func canonicalizeDeliveryPipelineConditionPipelineReadyCondition(des, initial *D
 
 func canonicalizeDeliveryPipelineConditionPipelineReadyConditionSlice(des, initial []DeliveryPipelineConditionPipelineReadyCondition, opts ...dcl.ApplyOption) []DeliveryPipelineConditionPipelineReadyCondition {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1111,10 +1099,7 @@ func canonicalizeNewDeliveryPipelineConditionPipelineReadyConditionSlice(c *Clie
 }
 
 func canonicalizeDeliveryPipelineConditionTargetsPresentCondition(des, initial *DeliveryPipelineConditionTargetsPresentCondition, opts ...dcl.ApplyOption) *DeliveryPipelineConditionTargetsPresentCondition {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1124,7 +1109,7 @@ func canonicalizeDeliveryPipelineConditionTargetsPresentCondition(des, initial *
 
 	cDes := &DeliveryPipelineConditionTargetsPresentCondition{}
 
-	if dcl.BoolCanonicalize(des.Status, initial.Status) || dcl.IsZeroValue(des.Status) {
+	if dcl.BoolCanonicalize(des.Status, initial.Status) {
 		cDes.Status = initial.Status
 	} else {
 		cDes.Status = des.Status
@@ -1134,8 +1119,8 @@ func canonicalizeDeliveryPipelineConditionTargetsPresentCondition(des, initial *
 	} else {
 		cDes.MissingTargets = des.MissingTargets
 	}
-	if dcl.IsZeroValue(des.UpdateTime) || (dcl.IsEmptyValueIndirect(des.UpdateTime) && dcl.IsEmptyValueIndirect(initial.UpdateTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.UpdateTime) && dcl.IsEmptyValueIndirect(initial.UpdateTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.UpdateTime = initial.UpdateTime
 	} else {
 		cDes.UpdateTime = des.UpdateTime
@@ -1146,7 +1131,7 @@ func canonicalizeDeliveryPipelineConditionTargetsPresentCondition(des, initial *
 
 func canonicalizeDeliveryPipelineConditionTargetsPresentConditionSlice(des, initial []DeliveryPipelineConditionTargetsPresentCondition, opts ...dcl.ApplyOption) []DeliveryPipelineConditionTargetsPresentCondition {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

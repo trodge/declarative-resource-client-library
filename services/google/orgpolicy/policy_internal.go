@@ -449,10 +449,7 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 }
 
 func canonicalizePolicySpec(des, initial *PolicySpec, opts ...dcl.ApplyOption) *PolicySpec {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -463,12 +460,12 @@ func canonicalizePolicySpec(des, initial *PolicySpec, opts ...dcl.ApplyOption) *
 	cDes := &PolicySpec{}
 
 	cDes.Rules = canonicalizePolicySpecRulesSlice(des.Rules, initial.Rules, opts...)
-	if dcl.BoolCanonicalize(des.InheritFromParent, initial.InheritFromParent) || dcl.IsZeroValue(des.InheritFromParent) {
+	if dcl.BoolCanonicalize(des.InheritFromParent, initial.InheritFromParent) {
 		cDes.InheritFromParent = initial.InheritFromParent
 	} else {
 		cDes.InheritFromParent = des.InheritFromParent
 	}
-	if dcl.BoolCanonicalize(des.Reset, initial.Reset) || dcl.IsZeroValue(des.Reset) {
+	if dcl.BoolCanonicalize(des.Reset, initial.Reset) {
 		cDes.Reset = initial.Reset
 	} else {
 		cDes.Reset = des.Reset
@@ -479,7 +476,7 @@ func canonicalizePolicySpec(des, initial *PolicySpec, opts ...dcl.ApplyOption) *
 
 func canonicalizePolicySpecSlice(des, initial []PolicySpec, opts ...dcl.ApplyOption) []PolicySpec {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -577,51 +574,8 @@ func canonicalizeNewPolicySpecSlice(c *Client, des, nw []PolicySpec) []PolicySpe
 }
 
 func canonicalizePolicySpecRules(des, initial *PolicySpecRules, opts ...dcl.ApplyOption) *PolicySpecRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Values != nil || (initial != nil && initial.Values != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.AllowAll, des.DenyAll, des.Enforce) {
-			des.Values = nil
-			if initial != nil {
-				initial.Values = nil
-			}
-		}
-	}
-
-	if des.AllowAll != nil || (initial != nil && initial.AllowAll != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Values, des.DenyAll, des.Enforce) {
-			des.AllowAll = nil
-			if initial != nil {
-				initial.AllowAll = nil
-			}
-		}
-	}
-
-	if des.DenyAll != nil || (initial != nil && initial.DenyAll != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Values, des.AllowAll, des.Enforce) {
-			des.DenyAll = nil
-			if initial != nil {
-				initial.DenyAll = nil
-			}
-		}
-	}
-
-	if des.Enforce != nil || (initial != nil && initial.Enforce != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Values, des.AllowAll, des.DenyAll) {
-			des.Enforce = nil
-			if initial != nil {
-				initial.Enforce = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -631,29 +585,56 @@ func canonicalizePolicySpecRules(des, initial *PolicySpecRules, opts ...dcl.Appl
 	cDes := &PolicySpecRules{}
 
 	cDes.Values = canonicalizePolicySpecRulesValues(des.Values, initial.Values, opts...)
-	if dcl.BoolCanonicalize(des.AllowAll, initial.AllowAll) || dcl.IsZeroValue(des.AllowAll) {
+	if dcl.BoolCanonicalize(des.AllowAll, initial.AllowAll) {
 		cDes.AllowAll = initial.AllowAll
 	} else {
 		cDes.AllowAll = des.AllowAll
 	}
-	if dcl.BoolCanonicalize(des.DenyAll, initial.DenyAll) || dcl.IsZeroValue(des.DenyAll) {
+	if dcl.BoolCanonicalize(des.DenyAll, initial.DenyAll) {
 		cDes.DenyAll = initial.DenyAll
 	} else {
 		cDes.DenyAll = des.DenyAll
 	}
-	if dcl.BoolCanonicalize(des.Enforce, initial.Enforce) || dcl.IsZeroValue(des.Enforce) {
+	if dcl.BoolCanonicalize(des.Enforce, initial.Enforce) {
 		cDes.Enforce = initial.Enforce
 	} else {
 		cDes.Enforce = des.Enforce
 	}
 	cDes.Condition = canonicalizePolicySpecRulesCondition(des.Condition, initial.Condition, opts...)
 
+	if cDes.Values != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.AllowAll, cDes.DenyAll, cDes.Enforce) {
+			cDes.Values = nil
+		}
+	}
+
+	if cDes.AllowAll != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Values, cDes.DenyAll, cDes.Enforce) {
+			cDes.AllowAll = nil
+		}
+	}
+
+	if cDes.DenyAll != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Values, cDes.AllowAll, cDes.Enforce) {
+			cDes.DenyAll = nil
+		}
+	}
+
+	if cDes.Enforce != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Values, cDes.AllowAll, cDes.DenyAll) {
+			cDes.Enforce = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePolicySpecRulesSlice(des, initial []PolicySpecRules, opts ...dcl.ApplyOption) []PolicySpecRules {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -752,10 +733,7 @@ func canonicalizeNewPolicySpecRulesSlice(c *Client, des, nw []PolicySpecRules) [
 }
 
 func canonicalizePolicySpecRulesValues(des, initial *PolicySpecRulesValues, opts ...dcl.ApplyOption) *PolicySpecRulesValues {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -781,7 +759,7 @@ func canonicalizePolicySpecRulesValues(des, initial *PolicySpecRulesValues, opts
 
 func canonicalizePolicySpecRulesValuesSlice(des, initial []PolicySpecRulesValues, opts ...dcl.ApplyOption) []PolicySpecRulesValues {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -875,10 +853,7 @@ func canonicalizeNewPolicySpecRulesValuesSlice(c *Client, des, nw []PolicySpecRu
 }
 
 func canonicalizePolicySpecRulesCondition(des, initial *PolicySpecRulesCondition, opts ...dcl.ApplyOption) *PolicySpecRulesCondition {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -888,22 +863,22 @@ func canonicalizePolicySpecRulesCondition(des, initial *PolicySpecRulesCondition
 
 	cDes := &PolicySpecRulesCondition{}
 
-	if canonicalizePolicyRulesConditionExpression(des.Expression, initial.Expression) || dcl.IsZeroValue(des.Expression) {
+	if canonicalizePolicyRulesConditionExpression(des.Expression, initial.Expression) {
 		cDes.Expression = initial.Expression
 	} else {
 		cDes.Expression = des.Expression
 	}
-	if dcl.StringCanonicalize(des.Title, initial.Title) || dcl.IsZeroValue(des.Title) {
+	if dcl.StringCanonicalize(des.Title, initial.Title) {
 		cDes.Title = initial.Title
 	} else {
 		cDes.Title = des.Title
 	}
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
 	}
-	if dcl.StringCanonicalize(des.Location, initial.Location) || dcl.IsZeroValue(des.Location) {
+	if dcl.StringCanonicalize(des.Location, initial.Location) {
 		cDes.Location = initial.Location
 	} else {
 		cDes.Location = des.Location
@@ -914,7 +889,7 @@ func canonicalizePolicySpecRulesCondition(des, initial *PolicySpecRulesCondition
 
 func canonicalizePolicySpecRulesConditionSlice(des, initial []PolicySpecRulesCondition, opts ...dcl.ApplyOption) []PolicySpecRulesCondition {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

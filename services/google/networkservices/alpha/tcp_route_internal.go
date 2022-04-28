@@ -536,8 +536,8 @@ func canonicalizeTcpRouteDesiredState(rawDesired, rawInitial *TcpRoute, opts ...
 	} else {
 		canonicalDesired.Gateways = rawDesired.Gateways
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -635,10 +635,7 @@ func canonicalizeTcpRouteNewState(c *Client, rawNew, rawDesired *TcpRoute) (*Tcp
 }
 
 func canonicalizeTcpRouteRules(des, initial *TcpRouteRules, opts ...dcl.ApplyOption) *TcpRouteRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -656,7 +653,7 @@ func canonicalizeTcpRouteRules(des, initial *TcpRouteRules, opts ...dcl.ApplyOpt
 
 func canonicalizeTcpRouteRulesSlice(des, initial []TcpRouteRules, opts ...dcl.ApplyOption) []TcpRouteRules {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -746,10 +743,7 @@ func canonicalizeNewTcpRouteRulesSlice(c *Client, des, nw []TcpRouteRules) []Tcp
 }
 
 func canonicalizeTcpRouteRulesMatches(des, initial *TcpRouteRulesMatches, opts ...dcl.ApplyOption) *TcpRouteRulesMatches {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -759,12 +753,12 @@ func canonicalizeTcpRouteRulesMatches(des, initial *TcpRouteRulesMatches, opts .
 
 	cDes := &TcpRouteRulesMatches{}
 
-	if dcl.StringCanonicalize(des.Address, initial.Address) || dcl.IsZeroValue(des.Address) {
+	if dcl.StringCanonicalize(des.Address, initial.Address) {
 		cDes.Address = initial.Address
 	} else {
 		cDes.Address = des.Address
 	}
-	if dcl.StringCanonicalize(des.Port, initial.Port) || dcl.IsZeroValue(des.Port) {
+	if dcl.StringCanonicalize(des.Port, initial.Port) {
 		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
@@ -775,7 +769,7 @@ func canonicalizeTcpRouteRulesMatches(des, initial *TcpRouteRulesMatches, opts .
 
 func canonicalizeTcpRouteRulesMatchesSlice(des, initial []TcpRouteRulesMatches, opts ...dcl.ApplyOption) []TcpRouteRulesMatches {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -869,10 +863,7 @@ func canonicalizeNewTcpRouteRulesMatchesSlice(c *Client, des, nw []TcpRouteRules
 }
 
 func canonicalizeTcpRouteRulesAction(des, initial *TcpRouteRulesAction, opts ...dcl.ApplyOption) *TcpRouteRulesAction {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -883,7 +874,7 @@ func canonicalizeTcpRouteRulesAction(des, initial *TcpRouteRulesAction, opts ...
 	cDes := &TcpRouteRulesAction{}
 
 	cDes.Destinations = canonicalizeTcpRouteRulesActionDestinationsSlice(des.Destinations, initial.Destinations, opts...)
-	if dcl.BoolCanonicalize(des.OriginalDestination, initial.OriginalDestination) || dcl.IsZeroValue(des.OriginalDestination) {
+	if dcl.BoolCanonicalize(des.OriginalDestination, initial.OriginalDestination) {
 		cDes.OriginalDestination = initial.OriginalDestination
 	} else {
 		cDes.OriginalDestination = des.OriginalDestination
@@ -894,7 +885,7 @@ func canonicalizeTcpRouteRulesAction(des, initial *TcpRouteRulesAction, opts ...
 
 func canonicalizeTcpRouteRulesActionSlice(des, initial []TcpRouteRulesAction, opts ...dcl.ApplyOption) []TcpRouteRulesAction {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -986,10 +977,7 @@ func canonicalizeNewTcpRouteRulesActionSlice(c *Client, des, nw []TcpRouteRulesA
 }
 
 func canonicalizeTcpRouteRulesActionDestinations(des, initial *TcpRouteRulesActionDestinations, opts ...dcl.ApplyOption) *TcpRouteRulesActionDestinations {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -999,14 +987,14 @@ func canonicalizeTcpRouteRulesActionDestinations(des, initial *TcpRouteRulesActi
 
 	cDes := &TcpRouteRulesActionDestinations{}
 
-	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}
-	if dcl.IsZeroValue(des.ServiceName) || (dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ServiceName = initial.ServiceName
 	} else {
 		cDes.ServiceName = des.ServiceName
@@ -1017,7 +1005,7 @@ func canonicalizeTcpRouteRulesActionDestinations(des, initial *TcpRouteRulesActi
 
 func canonicalizeTcpRouteRulesActionDestinationsSlice(des, initial []TcpRouteRulesActionDestinations, opts ...dcl.ApplyOption) []TcpRouteRulesActionDestinations {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

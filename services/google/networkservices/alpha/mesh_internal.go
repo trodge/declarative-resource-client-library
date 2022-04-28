@@ -472,8 +472,8 @@ func canonicalizeMeshDesiredState(rawDesired, rawInitial *Mesh, opts ...dcl.Appl
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -483,8 +483,8 @@ func canonicalizeMeshDesiredState(rawDesired, rawInitial *Mesh, opts ...dcl.Appl
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.InterceptionPort) || (dcl.IsEmptyValueIndirect(rawDesired.InterceptionPort) && dcl.IsEmptyValueIndirect(rawInitial.InterceptionPort)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.InterceptionPort) && dcl.IsEmptyValueIndirect(rawInitial.InterceptionPort) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.InterceptionPort = rawInitial.InterceptionPort
 	} else {
 		canonicalDesired.InterceptionPort = rawDesired.InterceptionPort

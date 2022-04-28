@@ -467,10 +467,9 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 
 		return rawDesired, nil
 	}
-
 	canonicalDesired := &Membership{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -533,10 +532,7 @@ func canonicalizeMembershipNewState(c *Client, rawNew, rawDesired *Membership) (
 }
 
 func canonicalizeMembershipPreferredMemberKey(des, initial *MembershipPreferredMemberKey, opts ...dcl.ApplyOption) *MembershipPreferredMemberKey {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -546,12 +542,12 @@ func canonicalizeMembershipPreferredMemberKey(des, initial *MembershipPreferredM
 
 	cDes := &MembershipPreferredMemberKey{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) {
 		cDes.Namespace = initial.Namespace
 	} else {
 		cDes.Namespace = des.Namespace
@@ -562,7 +558,7 @@ func canonicalizeMembershipPreferredMemberKey(des, initial *MembershipPreferredM
 
 func canonicalizeMembershipPreferredMemberKeySlice(des, initial []MembershipPreferredMemberKey, opts ...dcl.ApplyOption) []MembershipPreferredMemberKey {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -656,10 +652,7 @@ func canonicalizeNewMembershipPreferredMemberKeySlice(c *Client, des, nw []Membe
 }
 
 func canonicalizeMembershipRoles(des, initial *MembershipRoles, opts ...dcl.ApplyOption) *MembershipRoles {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -669,7 +662,7 @@ func canonicalizeMembershipRoles(des, initial *MembershipRoles, opts ...dcl.Appl
 
 	cDes := &MembershipRoles{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -682,7 +675,7 @@ func canonicalizeMembershipRoles(des, initial *MembershipRoles, opts ...dcl.Appl
 
 func canonicalizeMembershipRolesSlice(des, initial []MembershipRoles, opts ...dcl.ApplyOption) []MembershipRoles {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -775,10 +768,7 @@ func canonicalizeNewMembershipRolesSlice(c *Client, des, nw []MembershipRoles) [
 }
 
 func canonicalizeMembershipRolesExpiryDetail(des, initial *MembershipRolesExpiryDetail, opts ...dcl.ApplyOption) *MembershipRolesExpiryDetail {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -788,8 +778,8 @@ func canonicalizeMembershipRolesExpiryDetail(des, initial *MembershipRolesExpiry
 
 	cDes := &MembershipRolesExpiryDetail{}
 
-	if dcl.IsZeroValue(des.ExpireTime) || (dcl.IsEmptyValueIndirect(des.ExpireTime) && dcl.IsEmptyValueIndirect(initial.ExpireTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ExpireTime) && dcl.IsEmptyValueIndirect(initial.ExpireTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ExpireTime = initial.ExpireTime
 	} else {
 		cDes.ExpireTime = des.ExpireTime
@@ -800,7 +790,7 @@ func canonicalizeMembershipRolesExpiryDetail(des, initial *MembershipRolesExpiry
 
 func canonicalizeMembershipRolesExpiryDetailSlice(des, initial []MembershipRolesExpiryDetail, opts ...dcl.ApplyOption) []MembershipRolesExpiryDetail {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -887,10 +877,7 @@ func canonicalizeNewMembershipRolesExpiryDetailSlice(c *Client, des, nw []Member
 }
 
 func canonicalizeMembershipRolesRestrictionEvaluations(des, initial *MembershipRolesRestrictionEvaluations, opts ...dcl.ApplyOption) *MembershipRolesRestrictionEvaluations {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -907,7 +894,7 @@ func canonicalizeMembershipRolesRestrictionEvaluations(des, initial *MembershipR
 
 func canonicalizeMembershipRolesRestrictionEvaluationsSlice(des, initial []MembershipRolesRestrictionEvaluations, opts ...dcl.ApplyOption) []MembershipRolesRestrictionEvaluations {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -996,10 +983,7 @@ func canonicalizeNewMembershipRolesRestrictionEvaluationsSlice(c *Client, des, n
 }
 
 func canonicalizeMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(des, initial *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation, opts ...dcl.ApplyOption) *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1014,7 +998,7 @@ func canonicalizeMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluatio
 
 func canonicalizeMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlice(des, initial []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation, opts ...dcl.ApplyOption) []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1101,10 +1085,7 @@ func canonicalizeNewMembershipRolesRestrictionEvaluationsMemberRestrictionEvalua
 }
 
 func canonicalizeMembershipMemberKey(des, initial *MembershipMemberKey, opts ...dcl.ApplyOption) *MembershipMemberKey {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1114,12 +1095,12 @@ func canonicalizeMembershipMemberKey(des, initial *MembershipMemberKey, opts ...
 
 	cDes := &MembershipMemberKey{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) {
 		cDes.Namespace = initial.Namespace
 	} else {
 		cDes.Namespace = des.Namespace
@@ -1130,7 +1111,7 @@ func canonicalizeMembershipMemberKey(des, initial *MembershipMemberKey, opts ...
 
 func canonicalizeMembershipMemberKeySlice(des, initial []MembershipMemberKey, opts ...dcl.ApplyOption) []MembershipMemberKey {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

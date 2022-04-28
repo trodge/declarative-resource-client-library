@@ -487,8 +487,8 @@ func canonicalizeGatewayDesiredState(rawDesired, rawInitial *Gateway, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -498,8 +498,8 @@ func canonicalizeGatewayDesiredState(rawDesired, rawInitial *Gateway, opts ...dc
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Type) || (dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Type = rawInitial.Type
 	} else {
 		canonicalDesired.Type = rawDesired.Type
@@ -509,8 +509,8 @@ func canonicalizeGatewayDesiredState(rawDesired, rawInitial *Gateway, opts ...dc
 	} else {
 		canonicalDesired.Addresses = rawDesired.Addresses
 	}
-	if dcl.IsZeroValue(rawDesired.Ports) || (dcl.IsEmptyValueIndirect(rawDesired.Ports) && dcl.IsEmptyValueIndirect(rawInitial.Ports)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Ports) && dcl.IsEmptyValueIndirect(rawInitial.Ports) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Ports = rawInitial.Ports
 	} else {
 		canonicalDesired.Ports = rawDesired.Ports

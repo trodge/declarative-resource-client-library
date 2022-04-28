@@ -524,34 +524,9 @@ func canonicalizeStoredInfoTypeDesiredState(rawDesired, rawInitial *StoredInfoTy
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.LargeCustomDictionary != nil || rawInitial.LargeCustomDictionary != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Dictionary, rawDesired.Regex) {
-			rawDesired.LargeCustomDictionary = nil
-			rawInitial.LargeCustomDictionary = nil
-		}
-	}
-
-	if rawDesired.Dictionary != nil || rawInitial.Dictionary != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.LargeCustomDictionary, rawDesired.Regex) {
-			rawDesired.Dictionary = nil
-			rawInitial.Dictionary = nil
-		}
-	}
-
-	if rawDesired.Regex != nil || rawInitial.Regex != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.LargeCustomDictionary, rawDesired.Dictionary) {
-			rawDesired.Regex = nil
-			rawInitial.Regex = nil
-		}
-	}
-
 	canonicalDesired := &StoredInfoType{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -578,6 +553,27 @@ func canonicalizeStoredInfoTypeDesiredState(rawDesired, rawInitial *StoredInfoTy
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.LargeCustomDictionary != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Dictionary, canonicalDesired.Regex) {
+			canonicalDesired.LargeCustomDictionary = nil
+		}
+	}
+
+	if canonicalDesired.Dictionary != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.LargeCustomDictionary, canonicalDesired.Regex) {
+			canonicalDesired.Dictionary = nil
+		}
+	}
+
+	if canonicalDesired.Regex != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.LargeCustomDictionary, canonicalDesired.Dictionary) {
+			canonicalDesired.Regex = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -628,35 +624,30 @@ func canonicalizeStoredInfoTypeNewState(c *Client, rawNew, rawDesired *StoredInf
 
 	rawNew.Location = rawDesired.Location
 
+	if rawNew.LargeCustomDictionary != nil {
+		if dcl.AnySet(rawNew.Dictionary, rawNew.Regex) && rawDesired.LargeCustomDictionary == nil {
+			rawNew.LargeCustomDictionary = nil
+		}
+	}
+
+	if rawNew.Dictionary != nil {
+		if dcl.AnySet(rawNew.LargeCustomDictionary, rawNew.Regex) && rawDesired.Dictionary == nil {
+			rawNew.Dictionary = nil
+		}
+	}
+
+	if rawNew.Regex != nil {
+		if dcl.AnySet(rawNew.LargeCustomDictionary, rawNew.Dictionary) && rawDesired.Regex == nil {
+			rawNew.Regex = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeStoredInfoTypeLargeCustomDictionary(des, initial *StoredInfoTypeLargeCustomDictionary, opts ...dcl.ApplyOption) *StoredInfoTypeLargeCustomDictionary {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.CloudStorageFileSet != nil || (initial != nil && initial.CloudStorageFileSet != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.BigQueryField) {
-			des.CloudStorageFileSet = nil
-			if initial != nil {
-				initial.CloudStorageFileSet = nil
-			}
-		}
-	}
-
-	if des.BigQueryField != nil || (initial != nil && initial.BigQueryField != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudStorageFileSet) {
-			des.BigQueryField = nil
-			if initial != nil {
-				initial.BigQueryField = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -669,12 +660,25 @@ func canonicalizeStoredInfoTypeLargeCustomDictionary(des, initial *StoredInfoTyp
 	cDes.CloudStorageFileSet = canonicalizeStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(des.CloudStorageFileSet, initial.CloudStorageFileSet, opts...)
 	cDes.BigQueryField = canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryField(des.BigQueryField, initial.BigQueryField, opts...)
 
+	if cDes.CloudStorageFileSet != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.BigQueryField) {
+			cDes.CloudStorageFileSet = nil
+		}
+	}
+
+	if cDes.BigQueryField != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudStorageFileSet) {
+			cDes.BigQueryField = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeStoredInfoTypeLargeCustomDictionarySlice(des, initial []StoredInfoTypeLargeCustomDictionary, opts ...dcl.ApplyOption) []StoredInfoTypeLargeCustomDictionary {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -765,10 +769,7 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionarySlice(c *Client, des, nw 
 }
 
 func canonicalizeStoredInfoTypeLargeCustomDictionaryOutputPath(des, initial *StoredInfoTypeLargeCustomDictionaryOutputPath, opts ...dcl.ApplyOption) *StoredInfoTypeLargeCustomDictionaryOutputPath {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -778,7 +779,7 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryOutputPath(des, initial *Sto
 
 	cDes := &StoredInfoTypeLargeCustomDictionaryOutputPath{}
 
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -789,7 +790,7 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryOutputPath(des, initial *Sto
 
 func canonicalizeStoredInfoTypeLargeCustomDictionaryOutputPathSlice(des, initial []StoredInfoTypeLargeCustomDictionaryOutputPath, opts ...dcl.ApplyOption) []StoredInfoTypeLargeCustomDictionaryOutputPath {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -880,10 +881,7 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryOutputPathSlice(c *Client
 }
 
 func canonicalizeStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(des, initial *StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet, opts ...dcl.ApplyOption) *StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -893,7 +891,7 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(des, ini
 
 	cDes := &StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet{}
 
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) {
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -904,7 +902,7 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(des, ini
 
 func canonicalizeStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetSlice(des, initial []StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet, opts ...dcl.ApplyOption) []StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -995,10 +993,7 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetSlice(
 }
 
 func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryField(des, initial *StoredInfoTypeLargeCustomDictionaryBigQueryField, opts ...dcl.ApplyOption) *StoredInfoTypeLargeCustomDictionaryBigQueryField {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1016,7 +1011,7 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryField(des, initial *
 
 func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryFieldSlice(des, initial []StoredInfoTypeLargeCustomDictionaryBigQueryField, opts ...dcl.ApplyOption) []StoredInfoTypeLargeCustomDictionaryBigQueryField {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1106,10 +1101,7 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldSlice(c *Cli
 }
 
 func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(des, initial *StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable, opts ...dcl.ApplyOption) *StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1119,20 +1111,20 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(des, init
 
 	cDes := &StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable{}
 
-	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
 	}
-	if dcl.IsZeroValue(des.DatasetId) || (dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DatasetId = initial.DatasetId
 	} else {
 		cDes.DatasetId = des.DatasetId
 	}
-	if dcl.IsZeroValue(des.TableId) || (dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TableId = initial.TableId
 	} else {
 		cDes.TableId = des.TableId
@@ -1143,7 +1135,7 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(des, init
 
 func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableSlice(des, initial []StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable, opts ...dcl.ApplyOption) []StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1230,10 +1222,7 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableSlice(c
 }
 
 func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(des, initial *StoredInfoTypeLargeCustomDictionaryBigQueryFieldField, opts ...dcl.ApplyOption) *StoredInfoTypeLargeCustomDictionaryBigQueryFieldField {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1243,7 +1232,7 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(des, init
 
 	cDes := &StoredInfoTypeLargeCustomDictionaryBigQueryFieldField{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -1254,7 +1243,7 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(des, init
 
 func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldSlice(des, initial []StoredInfoTypeLargeCustomDictionaryBigQueryFieldField, opts ...dcl.ApplyOption) []StoredInfoTypeLargeCustomDictionaryBigQueryFieldField {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1345,31 +1334,8 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldSlice(c
 }
 
 func canonicalizeStoredInfoTypeDictionary(des, initial *StoredInfoTypeDictionary, opts ...dcl.ApplyOption) *StoredInfoTypeDictionary {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.WordList != nil || (initial != nil && initial.WordList != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudStoragePath) {
-			des.WordList = nil
-			if initial != nil {
-				initial.WordList = nil
-			}
-		}
-	}
-
-	if des.CloudStoragePath != nil || (initial != nil && initial.CloudStoragePath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.WordList) {
-			des.CloudStoragePath = nil
-			if initial != nil {
-				initial.CloudStoragePath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1381,12 +1347,25 @@ func canonicalizeStoredInfoTypeDictionary(des, initial *StoredInfoTypeDictionary
 	cDes.WordList = canonicalizeStoredInfoTypeDictionaryWordList(des.WordList, initial.WordList, opts...)
 	cDes.CloudStoragePath = canonicalizeStoredInfoTypeDictionaryCloudStoragePath(des.CloudStoragePath, initial.CloudStoragePath, opts...)
 
+	if cDes.WordList != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudStoragePath) {
+			cDes.WordList = nil
+		}
+	}
+
+	if cDes.CloudStoragePath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.WordList) {
+			cDes.CloudStoragePath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeStoredInfoTypeDictionarySlice(des, initial []StoredInfoTypeDictionary, opts ...dcl.ApplyOption) []StoredInfoTypeDictionary {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1476,10 +1455,7 @@ func canonicalizeNewStoredInfoTypeDictionarySlice(c *Client, des, nw []StoredInf
 }
 
 func canonicalizeStoredInfoTypeDictionaryWordList(des, initial *StoredInfoTypeDictionaryWordList, opts ...dcl.ApplyOption) *StoredInfoTypeDictionaryWordList {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1500,7 +1476,7 @@ func canonicalizeStoredInfoTypeDictionaryWordList(des, initial *StoredInfoTypeDi
 
 func canonicalizeStoredInfoTypeDictionaryWordListSlice(des, initial []StoredInfoTypeDictionaryWordList, opts ...dcl.ApplyOption) []StoredInfoTypeDictionaryWordList {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1591,10 +1567,7 @@ func canonicalizeNewStoredInfoTypeDictionaryWordListSlice(c *Client, des, nw []S
 }
 
 func canonicalizeStoredInfoTypeDictionaryCloudStoragePath(des, initial *StoredInfoTypeDictionaryCloudStoragePath, opts ...dcl.ApplyOption) *StoredInfoTypeDictionaryCloudStoragePath {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1604,7 +1577,7 @@ func canonicalizeStoredInfoTypeDictionaryCloudStoragePath(des, initial *StoredIn
 
 	cDes := &StoredInfoTypeDictionaryCloudStoragePath{}
 
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -1615,7 +1588,7 @@ func canonicalizeStoredInfoTypeDictionaryCloudStoragePath(des, initial *StoredIn
 
 func canonicalizeStoredInfoTypeDictionaryCloudStoragePathSlice(des, initial []StoredInfoTypeDictionaryCloudStoragePath, opts ...dcl.ApplyOption) []StoredInfoTypeDictionaryCloudStoragePath {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1706,10 +1679,7 @@ func canonicalizeNewStoredInfoTypeDictionaryCloudStoragePathSlice(c *Client, des
 }
 
 func canonicalizeStoredInfoTypeRegex(des, initial *StoredInfoTypeRegex, opts ...dcl.ApplyOption) *StoredInfoTypeRegex {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1719,13 +1689,13 @@ func canonicalizeStoredInfoTypeRegex(des, initial *StoredInfoTypeRegex, opts ...
 
 	cDes := &StoredInfoTypeRegex{}
 
-	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) || dcl.IsZeroValue(des.Pattern) {
+	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) {
 		cDes.Pattern = initial.Pattern
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -1736,7 +1706,7 @@ func canonicalizeStoredInfoTypeRegex(des, initial *StoredInfoTypeRegex, opts ...
 
 func canonicalizeStoredInfoTypeRegexSlice(des, initial []StoredInfoTypeRegex, opts ...dcl.ApplyOption) []StoredInfoTypeRegex {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

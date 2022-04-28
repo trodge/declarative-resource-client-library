@@ -435,8 +435,8 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 	}
 	canonicalDesired.Custom = canonicalizeServiceCustom(rawDesired.Custom, rawInitial.Custom, opts...)
 	canonicalDesired.Telemetry = canonicalizeServiceTelemetry(rawDesired.Telemetry, rawInitial.Telemetry, opts...)
-	if dcl.IsZeroValue(rawDesired.UserLabels) || (dcl.IsEmptyValueIndirect(rawDesired.UserLabels) && dcl.IsEmptyValueIndirect(rawInitial.UserLabels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.UserLabels) && dcl.IsEmptyValueIndirect(rawInitial.UserLabels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.UserLabels = rawInitial.UserLabels
 	} else {
 		canonicalDesired.UserLabels = rawDesired.UserLabels
@@ -491,12 +491,10 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 }
 
 func canonicalizeServiceCustom(des, initial *ServiceCustom, opts ...dcl.ApplyOption) *ServiceCustom {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -508,7 +506,7 @@ func canonicalizeServiceCustom(des, initial *ServiceCustom, opts ...dcl.ApplyOpt
 
 func canonicalizeServiceCustomSlice(des, initial []ServiceCustom, opts ...dcl.ApplyOption) []ServiceCustom {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -595,10 +593,7 @@ func canonicalizeNewServiceCustomSlice(c *Client, des, nw []ServiceCustom) []Ser
 }
 
 func canonicalizeServiceTelemetry(des, initial *ServiceTelemetry, opts ...dcl.ApplyOption) *ServiceTelemetry {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -608,7 +603,7 @@ func canonicalizeServiceTelemetry(des, initial *ServiceTelemetry, opts ...dcl.Ap
 
 	cDes := &ServiceTelemetry{}
 
-	if dcl.StringCanonicalize(des.ResourceName, initial.ResourceName) || dcl.IsZeroValue(des.ResourceName) {
+	if dcl.StringCanonicalize(des.ResourceName, initial.ResourceName) {
 		cDes.ResourceName = initial.ResourceName
 	} else {
 		cDes.ResourceName = des.ResourceName
@@ -619,7 +614,7 @@ func canonicalizeServiceTelemetry(des, initial *ServiceTelemetry, opts ...dcl.Ap
 
 func canonicalizeServiceTelemetrySlice(des, initial []ServiceTelemetry, opts ...dcl.ApplyOption) []ServiceTelemetry {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

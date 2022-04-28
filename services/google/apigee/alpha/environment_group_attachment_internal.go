@@ -365,14 +365,14 @@ func canonicalizeEnvironmentGroupAttachmentDesiredState(rawDesired, rawInitial *
 		return rawDesired, nil
 	}
 	canonicalDesired := &EnvironmentGroupAttachment{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Environment) || (dcl.IsEmptyValueIndirect(rawDesired.Environment) && dcl.IsEmptyValueIndirect(rawInitial.Environment)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Environment) && dcl.IsEmptyValueIndirect(rawInitial.Environment) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Environment = rawInitial.Environment
 	} else {
 		canonicalDesired.Environment = rawDesired.Environment

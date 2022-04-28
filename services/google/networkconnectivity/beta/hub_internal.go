@@ -437,8 +437,8 @@ func canonicalizeHubDesiredState(rawDesired, rawInitial *Hub, opts ...dcl.ApplyO
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -515,10 +515,7 @@ func canonicalizeHubNewState(c *Client, rawNew, rawDesired *Hub) (*Hub, error) {
 }
 
 func canonicalizeHubRoutingVpcs(des, initial *HubRoutingVpcs, opts ...dcl.ApplyOption) *HubRoutingVpcs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -528,8 +525,8 @@ func canonicalizeHubRoutingVpcs(des, initial *HubRoutingVpcs, opts ...dcl.ApplyO
 
 	cDes := &HubRoutingVpcs{}
 
-	if dcl.IsZeroValue(des.Uri) || (dcl.IsEmptyValueIndirect(des.Uri) && dcl.IsEmptyValueIndirect(initial.Uri)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Uri) && dcl.IsEmptyValueIndirect(initial.Uri) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
@@ -540,7 +537,7 @@ func canonicalizeHubRoutingVpcs(des, initial *HubRoutingVpcs, opts ...dcl.ApplyO
 
 func canonicalizeHubRoutingVpcsSlice(des, initial []HubRoutingVpcs, opts ...dcl.ApplyOption) []HubRoutingVpcs {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

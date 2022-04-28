@@ -512,8 +512,8 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 		return rawDesired, nil
 	}
 	canonicalDesired := &Group{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -535,15 +535,15 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
 	canonicalDesired.DynamicGroupMetadata = canonicalizeGroupDynamicGroupMetadata(rawDesired.DynamicGroupMetadata, rawInitial.DynamicGroupMetadata, opts...)
-	if dcl.IsZeroValue(rawDesired.InitialGroupConfig) || (dcl.IsEmptyValueIndirect(rawDesired.InitialGroupConfig) && dcl.IsEmptyValueIndirect(rawInitial.InitialGroupConfig)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.InitialGroupConfig) && dcl.IsEmptyValueIndirect(rawInitial.InitialGroupConfig) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.InitialGroupConfig = rawInitial.InitialGroupConfig
 	} else {
 		canonicalDesired.InitialGroupConfig = rawDesired.InitialGroupConfig
@@ -639,10 +639,7 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 }
 
 func canonicalizeGroupGroupKey(des, initial *GroupGroupKey, opts ...dcl.ApplyOption) *GroupGroupKey {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -652,12 +649,12 @@ func canonicalizeGroupGroupKey(des, initial *GroupGroupKey, opts ...dcl.ApplyOpt
 
 	cDes := &GroupGroupKey{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) {
 		cDes.Namespace = initial.Namespace
 	} else {
 		cDes.Namespace = des.Namespace
@@ -668,7 +665,7 @@ func canonicalizeGroupGroupKey(des, initial *GroupGroupKey, opts ...dcl.ApplyOpt
 
 func canonicalizeGroupGroupKeySlice(des, initial []GroupGroupKey, opts ...dcl.ApplyOption) []GroupGroupKey {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -762,10 +759,7 @@ func canonicalizeNewGroupGroupKeySlice(c *Client, des, nw []GroupGroupKey) []Gro
 }
 
 func canonicalizeGroupAdditionalGroupKeys(des, initial *GroupAdditionalGroupKeys, opts ...dcl.ApplyOption) *GroupAdditionalGroupKeys {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -775,12 +769,12 @@ func canonicalizeGroupAdditionalGroupKeys(des, initial *GroupAdditionalGroupKeys
 
 	cDes := &GroupAdditionalGroupKeys{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) {
 		cDes.Namespace = initial.Namespace
 	} else {
 		cDes.Namespace = des.Namespace
@@ -791,7 +785,7 @@ func canonicalizeGroupAdditionalGroupKeys(des, initial *GroupAdditionalGroupKeys
 
 func canonicalizeGroupAdditionalGroupKeysSlice(des, initial []GroupAdditionalGroupKeys, opts ...dcl.ApplyOption) []GroupAdditionalGroupKeys {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -885,10 +879,7 @@ func canonicalizeNewGroupAdditionalGroupKeysSlice(c *Client, des, nw []GroupAddi
 }
 
 func canonicalizeGroupDirectMemberCountPerType(des, initial *GroupDirectMemberCountPerType, opts ...dcl.ApplyOption) *GroupDirectMemberCountPerType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -903,7 +894,7 @@ func canonicalizeGroupDirectMemberCountPerType(des, initial *GroupDirectMemberCo
 
 func canonicalizeGroupDirectMemberCountPerTypeSlice(des, initial []GroupDirectMemberCountPerType, opts ...dcl.ApplyOption) []GroupDirectMemberCountPerType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -990,10 +981,7 @@ func canonicalizeNewGroupDirectMemberCountPerTypeSlice(c *Client, des, nw []Grou
 }
 
 func canonicalizeGroupDerivedAliases(des, initial *GroupDerivedAliases, opts ...dcl.ApplyOption) *GroupDerivedAliases {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1003,12 +991,12 @@ func canonicalizeGroupDerivedAliases(des, initial *GroupDerivedAliases, opts ...
 
 	cDes := &GroupDerivedAliases{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) {
 		cDes.Namespace = initial.Namespace
 	} else {
 		cDes.Namespace = des.Namespace
@@ -1019,7 +1007,7 @@ func canonicalizeGroupDerivedAliases(des, initial *GroupDerivedAliases, opts ...
 
 func canonicalizeGroupDerivedAliasesSlice(des, initial []GroupDerivedAliases, opts ...dcl.ApplyOption) []GroupDerivedAliases {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1113,10 +1101,7 @@ func canonicalizeNewGroupDerivedAliasesSlice(c *Client, des, nw []GroupDerivedAl
 }
 
 func canonicalizeGroupDynamicGroupMetadata(des, initial *GroupDynamicGroupMetadata, opts ...dcl.ApplyOption) *GroupDynamicGroupMetadata {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1133,7 +1118,7 @@ func canonicalizeGroupDynamicGroupMetadata(des, initial *GroupDynamicGroupMetada
 
 func canonicalizeGroupDynamicGroupMetadataSlice(des, initial []GroupDynamicGroupMetadata, opts ...dcl.ApplyOption) []GroupDynamicGroupMetadata {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1223,10 +1208,7 @@ func canonicalizeNewGroupDynamicGroupMetadataSlice(c *Client, des, nw []GroupDyn
 }
 
 func canonicalizeGroupDynamicGroupMetadataQueries(des, initial *GroupDynamicGroupMetadataQueries, opts ...dcl.ApplyOption) *GroupDynamicGroupMetadataQueries {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1236,13 +1218,13 @@ func canonicalizeGroupDynamicGroupMetadataQueries(des, initial *GroupDynamicGrou
 
 	cDes := &GroupDynamicGroupMetadataQueries{}
 
-	if dcl.IsZeroValue(des.ResourceType) || (dcl.IsEmptyValueIndirect(des.ResourceType) && dcl.IsEmptyValueIndirect(initial.ResourceType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ResourceType) && dcl.IsEmptyValueIndirect(initial.ResourceType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ResourceType = initial.ResourceType
 	} else {
 		cDes.ResourceType = des.ResourceType
 	}
-	if dcl.StringCanonicalize(des.Query, initial.Query) || dcl.IsZeroValue(des.Query) {
+	if dcl.StringCanonicalize(des.Query, initial.Query) {
 		cDes.Query = initial.Query
 	} else {
 		cDes.Query = des.Query
@@ -1253,7 +1235,7 @@ func canonicalizeGroupDynamicGroupMetadataQueries(des, initial *GroupDynamicGrou
 
 func canonicalizeGroupDynamicGroupMetadataQueriesSlice(des, initial []GroupDynamicGroupMetadataQueries, opts ...dcl.ApplyOption) []GroupDynamicGroupMetadataQueries {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1344,10 +1326,7 @@ func canonicalizeNewGroupDynamicGroupMetadataQueriesSlice(c *Client, des, nw []G
 }
 
 func canonicalizeGroupDynamicGroupMetadataStatus(des, initial *GroupDynamicGroupMetadataStatus, opts ...dcl.ApplyOption) *GroupDynamicGroupMetadataStatus {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1357,14 +1336,14 @@ func canonicalizeGroupDynamicGroupMetadataStatus(des, initial *GroupDynamicGroup
 
 	cDes := &GroupDynamicGroupMetadataStatus{}
 
-	if dcl.IsZeroValue(des.Status) || (dcl.IsEmptyValueIndirect(des.Status) && dcl.IsEmptyValueIndirect(initial.Status)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Status) && dcl.IsEmptyValueIndirect(initial.Status) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Status = initial.Status
 	} else {
 		cDes.Status = des.Status
 	}
-	if dcl.IsZeroValue(des.StatusTime) || (dcl.IsEmptyValueIndirect(des.StatusTime) && dcl.IsEmptyValueIndirect(initial.StatusTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.StatusTime) && dcl.IsEmptyValueIndirect(initial.StatusTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.StatusTime = initial.StatusTime
 	} else {
 		cDes.StatusTime = des.StatusTime
@@ -1375,7 +1354,7 @@ func canonicalizeGroupDynamicGroupMetadataStatus(des, initial *GroupDynamicGroup
 
 func canonicalizeGroupDynamicGroupMetadataStatusSlice(des, initial []GroupDynamicGroupMetadataStatus, opts ...dcl.ApplyOption) []GroupDynamicGroupMetadataStatus {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

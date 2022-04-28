@@ -453,26 +453,26 @@ func canonicalizeCapacityCommitmentDesiredState(rawDesired, rawInitial *Capacity
 		return rawDesired, nil
 	}
 	canonicalDesired := &CapacityCommitment{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.SlotCount) || (dcl.IsEmptyValueIndirect(rawDesired.SlotCount) && dcl.IsEmptyValueIndirect(rawInitial.SlotCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.SlotCount) && dcl.IsEmptyValueIndirect(rawInitial.SlotCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.SlotCount = rawInitial.SlotCount
 	} else {
 		canonicalDesired.SlotCount = rawDesired.SlotCount
 	}
-	if dcl.IsZeroValue(rawDesired.Plan) || (dcl.IsEmptyValueIndirect(rawDesired.Plan) && dcl.IsEmptyValueIndirect(rawInitial.Plan)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Plan) && dcl.IsEmptyValueIndirect(rawInitial.Plan) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Plan = rawInitial.Plan
 	} else {
 		canonicalDesired.Plan = rawDesired.Plan
 	}
-	if dcl.IsZeroValue(rawDesired.RenewalPlan) || (dcl.IsEmptyValueIndirect(rawDesired.RenewalPlan) && dcl.IsEmptyValueIndirect(rawInitial.RenewalPlan)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.RenewalPlan) && dcl.IsEmptyValueIndirect(rawInitial.RenewalPlan) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.RenewalPlan = rawInitial.RenewalPlan
 	} else {
 		canonicalDesired.RenewalPlan = rawDesired.RenewalPlan
@@ -542,10 +542,7 @@ func canonicalizeCapacityCommitmentNewState(c *Client, rawNew, rawDesired *Capac
 }
 
 func canonicalizeCapacityCommitmentFailureStatus(des, initial *CapacityCommitmentFailureStatus, opts ...dcl.ApplyOption) *CapacityCommitmentFailureStatus {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -555,13 +552,13 @@ func canonicalizeCapacityCommitmentFailureStatus(des, initial *CapacityCommitmen
 
 	cDes := &CapacityCommitmentFailureStatus{}
 
-	if dcl.IsZeroValue(des.Code) || (dcl.IsEmptyValueIndirect(des.Code) && dcl.IsEmptyValueIndirect(initial.Code)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Code) && dcl.IsEmptyValueIndirect(initial.Code) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Code = initial.Code
 	} else {
 		cDes.Code = des.Code
 	}
-	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, initial.Message) {
 		cDes.Message = initial.Message
 	} else {
 		cDes.Message = des.Message
@@ -573,7 +570,7 @@ func canonicalizeCapacityCommitmentFailureStatus(des, initial *CapacityCommitmen
 
 func canonicalizeCapacityCommitmentFailureStatusSlice(des, initial []CapacityCommitmentFailureStatus, opts ...dcl.ApplyOption) []CapacityCommitmentFailureStatus {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -665,10 +662,7 @@ func canonicalizeNewCapacityCommitmentFailureStatusSlice(c *Client, des, nw []Ca
 }
 
 func canonicalizeCapacityCommitmentFailureStatusDetails(des, initial *CapacityCommitmentFailureStatusDetails, opts ...dcl.ApplyOption) *CapacityCommitmentFailureStatusDetails {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -678,12 +672,12 @@ func canonicalizeCapacityCommitmentFailureStatusDetails(des, initial *CapacityCo
 
 	cDes := &CapacityCommitmentFailureStatusDetails{}
 
-	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
+	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) {
 		cDes.TypeUrl = initial.TypeUrl
 	} else {
 		cDes.TypeUrl = des.TypeUrl
 	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) {
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
@@ -694,7 +688,7 @@ func canonicalizeCapacityCommitmentFailureStatusDetails(des, initial *CapacityCo
 
 func canonicalizeCapacityCommitmentFailureStatusDetailsSlice(des, initial []CapacityCommitmentFailureStatusDetails, opts ...dcl.ApplyOption) []CapacityCommitmentFailureStatusDetails {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

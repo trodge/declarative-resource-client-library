@@ -1124,10 +1124,7 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 }
 
 func canonicalizeOSPolicyAssignmentOSPolicies(des, initial *OSPolicyAssignmentOSPolicies, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPolicies {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1137,24 +1134,24 @@ func canonicalizeOSPolicyAssignmentOSPolicies(des, initial *OSPolicyAssignmentOS
 
 	cDes := &OSPolicyAssignmentOSPolicies{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
 	}
-	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
 	}
 	cDes.ResourceGroups = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsSlice(des.ResourceGroups, initial.ResourceGroups, opts...)
-	if dcl.BoolCanonicalize(des.AllowNoResourceGroupMatch, initial.AllowNoResourceGroupMatch) || dcl.IsZeroValue(des.AllowNoResourceGroupMatch) {
+	if dcl.BoolCanonicalize(des.AllowNoResourceGroupMatch, initial.AllowNoResourceGroupMatch) {
 		cDes.AllowNoResourceGroupMatch = initial.AllowNoResourceGroupMatch
 	} else {
 		cDes.AllowNoResourceGroupMatch = des.AllowNoResourceGroupMatch
@@ -1165,7 +1162,7 @@ func canonicalizeOSPolicyAssignmentOSPolicies(des, initial *OSPolicyAssignmentOS
 
 func canonicalizeOSPolicyAssignmentOSPoliciesSlice(des, initial []OSPolicyAssignmentOSPolicies, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPolicies {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1263,10 +1260,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesSlice(c *Client, des, nw []OSPol
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroups(des, initial *OSPolicyAssignmentOSPoliciesResourceGroups, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroups {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1284,7 +1278,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroups(des, initial *OSPoli
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroups, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroups {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1374,10 +1368,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c *Client, d
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1387,12 +1378,12 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(des,
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters{}
 
-	if dcl.StringCanonicalize(des.OSShortName, initial.OSShortName) || dcl.IsZeroValue(des.OSShortName) {
+	if dcl.StringCanonicalize(des.OSShortName, initial.OSShortName) {
 		cDes.OSShortName = initial.OSShortName
 	} else {
 		cDes.OSShortName = des.OSShortName
 	}
-	if dcl.StringCanonicalize(des.OSVersion, initial.OSVersion) || dcl.IsZeroValue(des.OSVersion) {
+	if dcl.StringCanonicalize(des.OSVersion, initial.OSVersion) {
 		cDes.OSVersion = initial.OSVersion
 	} else {
 		cDes.OSVersion = des.OSVersion
@@ -1403,7 +1394,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(des,
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1497,51 +1488,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersSl
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResources(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResources, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResources {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Pkg != nil || (initial != nil && initial.Pkg != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Repository, des.Exec, des.File) {
-			des.Pkg = nil
-			if initial != nil {
-				initial.Pkg = nil
-			}
-		}
-	}
-
-	if des.Repository != nil || (initial != nil && initial.Repository != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Pkg, des.Exec, des.File) {
-			des.Repository = nil
-			if initial != nil {
-				initial.Repository = nil
-			}
-		}
-	}
-
-	if des.Exec != nil || (initial != nil && initial.Exec != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Pkg, des.Repository, des.File) {
-			des.Exec = nil
-			if initial != nil {
-				initial.Exec = nil
-			}
-		}
-	}
-
-	if des.File != nil || (initial != nil && initial.File != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Pkg, des.Repository, des.Exec) {
-			des.File = nil
-			if initial != nil {
-				initial.File = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1550,7 +1498,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResources(des, initia
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResources{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
@@ -1560,12 +1508,39 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResources(des, initia
 	cDes.Exec = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(des.Exec, initial.Exec, opts...)
 	cDes.File = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(des.File, initial.File, opts...)
 
+	if cDes.Pkg != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Repository, cDes.Exec, cDes.File) {
+			cDes.Pkg = nil
+		}
+	}
+
+	if cDes.Repository != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Pkg, cDes.Exec, cDes.File) {
+			cDes.Repository = nil
+		}
+	}
+
+	if cDes.Exec != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Pkg, cDes.Repository, cDes.File) {
+			cDes.Exec = nil
+		}
+	}
+
+	if cDes.File != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Pkg, cDes.Repository, cDes.Exec) {
+			cDes.File = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResources, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResources {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1660,81 +1635,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(c *
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Apt != nil || (initial != nil && initial.Apt != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Deb, des.Yum, des.Zypper, des.Rpm, des.Googet, des.Msi) {
-			des.Apt = nil
-			if initial != nil {
-				initial.Apt = nil
-			}
-		}
-	}
-
-	if des.Deb != nil || (initial != nil && initial.Deb != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Yum, des.Zypper, des.Rpm, des.Googet, des.Msi) {
-			des.Deb = nil
-			if initial != nil {
-				initial.Deb = nil
-			}
-		}
-	}
-
-	if des.Yum != nil || (initial != nil && initial.Yum != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Deb, des.Zypper, des.Rpm, des.Googet, des.Msi) {
-			des.Yum = nil
-			if initial != nil {
-				initial.Yum = nil
-			}
-		}
-	}
-
-	if des.Zypper != nil || (initial != nil && initial.Zypper != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Deb, des.Yum, des.Rpm, des.Googet, des.Msi) {
-			des.Zypper = nil
-			if initial != nil {
-				initial.Zypper = nil
-			}
-		}
-	}
-
-	if des.Rpm != nil || (initial != nil && initial.Rpm != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Deb, des.Yum, des.Zypper, des.Googet, des.Msi) {
-			des.Rpm = nil
-			if initial != nil {
-				initial.Rpm = nil
-			}
-		}
-	}
-
-	if des.Googet != nil || (initial != nil && initial.Googet != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Deb, des.Yum, des.Zypper, des.Rpm, des.Msi) {
-			des.Googet = nil
-			if initial != nil {
-				initial.Googet = nil
-			}
-		}
-	}
-
-	if des.Msi != nil || (initial != nil && initial.Msi != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Deb, des.Yum, des.Zypper, des.Rpm, des.Googet) {
-			des.Msi = nil
-			if initial != nil {
-				initial.Msi = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1743,8 +1645,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(des, ini
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg{}
 
-	if dcl.IsZeroValue(des.DesiredState) || (dcl.IsEmptyValueIndirect(des.DesiredState) && dcl.IsEmptyValueIndirect(initial.DesiredState)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DesiredState) && dcl.IsEmptyValueIndirect(initial.DesiredState) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DesiredState = initial.DesiredState
 	} else {
 		cDes.DesiredState = des.DesiredState
@@ -1757,12 +1659,60 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(des, ini
 	cDes.Googet = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(des.Googet, initial.Googet, opts...)
 	cDes.Msi = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(des.Msi, initial.Msi, opts...)
 
+	if cDes.Apt != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Deb, cDes.Yum, cDes.Zypper, cDes.Rpm, cDes.Googet, cDes.Msi) {
+			cDes.Apt = nil
+		}
+	}
+
+	if cDes.Deb != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Yum, cDes.Zypper, cDes.Rpm, cDes.Googet, cDes.Msi) {
+			cDes.Deb = nil
+		}
+	}
+
+	if cDes.Yum != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Deb, cDes.Zypper, cDes.Rpm, cDes.Googet, cDes.Msi) {
+			cDes.Yum = nil
+		}
+	}
+
+	if cDes.Zypper != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Deb, cDes.Yum, cDes.Rpm, cDes.Googet, cDes.Msi) {
+			cDes.Zypper = nil
+		}
+	}
+
+	if cDes.Rpm != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Deb, cDes.Yum, cDes.Zypper, cDes.Googet, cDes.Msi) {
+			cDes.Rpm = nil
+		}
+	}
+
+	if cDes.Googet != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Deb, cDes.Yum, cDes.Zypper, cDes.Rpm, cDes.Msi) {
+			cDes.Googet = nil
+		}
+	}
+
+	if cDes.Msi != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Deb, cDes.Yum, cDes.Zypper, cDes.Rpm, cDes.Googet) {
+			cDes.Msi = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1857,10 +1807,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice(
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1870,7 +1817,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(des, 
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -1881,7 +1828,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(des, 
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1972,10 +1919,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSli
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1986,7 +1930,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(des, 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{}
 
 	cDes.Source = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(des.Source, initial.Source, opts...)
-	if dcl.BoolCanonicalize(des.PullDeps, initial.PullDeps) || dcl.IsZeroValue(des.PullDeps) {
+	if dcl.BoolCanonicalize(des.PullDeps, initial.PullDeps) {
 		cDes.PullDeps = initial.PullDeps
 	} else {
 		cDes.PullDeps = des.PullDeps
@@ -1997,7 +1941,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(des, 
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2089,41 +2033,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSli
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Remote != nil || (initial != nil && initial.Remote != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Gcs, des.LocalPath) {
-			des.Remote = nil
-			if initial != nil {
-				initial.Remote = nil
-			}
-		}
-	}
-
-	if des.Gcs != nil || (initial != nil && initial.Gcs != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.LocalPath) {
-			des.Gcs = nil
-			if initial != nil {
-				initial.Gcs = nil
-			}
-		}
-	}
-
-	if des.LocalPath != nil || (initial != nil && initial.LocalPath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.Gcs) {
-			des.LocalPath = nil
-			if initial != nil {
-				initial.LocalPath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2134,23 +2045,43 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 
 	cDes.Remote = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(des.Remote, initial.Remote, opts...)
 	cDes.Gcs = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(des.Gcs, initial.Gcs, opts...)
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
-	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
+	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) {
 		cDes.AllowInsecure = initial.AllowInsecure
 	} else {
 		cDes.AllowInsecure = des.AllowInsecure
 	}
 
+	if cDes.Remote != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Gcs, cDes.LocalPath) {
+			cDes.Remote = nil
+		}
+	}
+
+	if cDes.Gcs != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.LocalPath) {
+			cDes.Gcs = nil
+		}
+	}
+
+	if cDes.LocalPath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.Gcs) {
+			cDes.LocalPath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2246,10 +2177,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSou
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2259,12 +2187,12 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote{}
 
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) || dcl.IsZeroValue(des.Sha256Checksum) {
+	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) {
 		cDes.Sha256Checksum = initial.Sha256Checksum
 	} else {
 		cDes.Sha256Checksum = des.Sha256Checksum
@@ -2275,7 +2203,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2369,10 +2297,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSou
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2382,18 +2307,18 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -2404,7 +2329,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2498,10 +2423,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSou
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2511,7 +2433,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(des, 
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -2522,7 +2444,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(des, 
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2613,10 +2535,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSli
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2626,7 +2545,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(de
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -2637,7 +2556,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(de
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2728,10 +2647,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2742,7 +2658,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(des, 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{}
 
 	cDes.Source = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(des.Source, initial.Source, opts...)
-	if dcl.BoolCanonicalize(des.PullDeps, initial.PullDeps) || dcl.IsZeroValue(des.PullDeps) {
+	if dcl.BoolCanonicalize(des.PullDeps, initial.PullDeps) {
 		cDes.PullDeps = initial.PullDeps
 	} else {
 		cDes.PullDeps = des.PullDeps
@@ -2753,7 +2669,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(des, 
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2845,41 +2761,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSli
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Remote != nil || (initial != nil && initial.Remote != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Gcs, des.LocalPath) {
-			des.Remote = nil
-			if initial != nil {
-				initial.Remote = nil
-			}
-		}
-	}
-
-	if des.Gcs != nil || (initial != nil && initial.Gcs != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.LocalPath) {
-			des.Gcs = nil
-			if initial != nil {
-				initial.Gcs = nil
-			}
-		}
-	}
-
-	if des.LocalPath != nil || (initial != nil && initial.LocalPath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.Gcs) {
-			des.LocalPath = nil
-			if initial != nil {
-				initial.LocalPath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2890,23 +2773,43 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource
 
 	cDes.Remote = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(des.Remote, initial.Remote, opts...)
 	cDes.Gcs = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(des.Gcs, initial.Gcs, opts...)
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
-	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
+	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) {
 		cDes.AllowInsecure = initial.AllowInsecure
 	} else {
 		cDes.AllowInsecure = des.AllowInsecure
 	}
 
+	if cDes.Remote != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Gcs, cDes.LocalPath) {
+			cDes.Remote = nil
+		}
+	}
+
+	if cDes.Gcs != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.LocalPath) {
+			cDes.Gcs = nil
+		}
+	}
+
+	if cDes.LocalPath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.Gcs) {
+			cDes.LocalPath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3002,10 +2905,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSou
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3015,12 +2915,12 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote{}
 
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) || dcl.IsZeroValue(des.Sha256Checksum) {
+	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) {
 		cDes.Sha256Checksum = initial.Sha256Checksum
 	} else {
 		cDes.Sha256Checksum = des.Sha256Checksum
@@ -3031,7 +2931,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3125,10 +3025,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSou
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3138,18 +3035,18 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -3160,7 +3057,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3254,10 +3151,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSou
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3267,7 +3161,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(de
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -3278,7 +3172,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(de
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3369,10 +3263,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3394,7 +3285,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(des, 
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3486,41 +3377,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSli
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Remote != nil || (initial != nil && initial.Remote != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Gcs, des.LocalPath) {
-			des.Remote = nil
-			if initial != nil {
-				initial.Remote = nil
-			}
-		}
-	}
-
-	if des.Gcs != nil || (initial != nil && initial.Gcs != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.LocalPath) {
-			des.Gcs = nil
-			if initial != nil {
-				initial.Gcs = nil
-			}
-		}
-	}
-
-	if des.LocalPath != nil || (initial != nil && initial.LocalPath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.Gcs) {
-			des.LocalPath = nil
-			if initial != nil {
-				initial.LocalPath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -3531,23 +3389,43 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource
 
 	cDes.Remote = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(des.Remote, initial.Remote, opts...)
 	cDes.Gcs = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(des.Gcs, initial.Gcs, opts...)
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
-	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
+	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) {
 		cDes.AllowInsecure = initial.AllowInsecure
 	} else {
 		cDes.AllowInsecure = des.AllowInsecure
 	}
 
+	if cDes.Remote != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Gcs, cDes.LocalPath) {
+			cDes.Remote = nil
+		}
+	}
+
+	if cDes.Gcs != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.LocalPath) {
+			cDes.Gcs = nil
+		}
+	}
+
+	if cDes.LocalPath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.Gcs) {
+			cDes.LocalPath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3643,10 +3521,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSou
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3656,12 +3531,12 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote{}
 
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) || dcl.IsZeroValue(des.Sha256Checksum) {
+	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) {
 		cDes.Sha256Checksum = initial.Sha256Checksum
 	} else {
 		cDes.Sha256Checksum = des.Sha256Checksum
@@ -3672,7 +3547,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3766,10 +3641,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSou
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3779,18 +3651,18 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -3801,7 +3673,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3895,51 +3767,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSou
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Apt != nil || (initial != nil && initial.Apt != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Yum, des.Zypper, des.Goo) {
-			des.Apt = nil
-			if initial != nil {
-				initial.Apt = nil
-			}
-		}
-	}
-
-	if des.Yum != nil || (initial != nil && initial.Yum != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Zypper, des.Goo) {
-			des.Yum = nil
-			if initial != nil {
-				initial.Yum = nil
-			}
-		}
-	}
-
-	if des.Zypper != nil || (initial != nil && initial.Zypper != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Yum, des.Goo) {
-			des.Zypper = nil
-			if initial != nil {
-				initial.Zypper = nil
-			}
-		}
-	}
-
-	if des.Goo != nil || (initial != nil && initial.Goo != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Apt, des.Yum, des.Zypper) {
-			des.Goo = nil
-			if initial != nil {
-				initial.Goo = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -3953,12 +3782,39 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(d
 	cDes.Zypper = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(des.Zypper, initial.Zypper, opts...)
 	cDes.Goo = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(des.Goo, initial.Goo, opts...)
 
+	if cDes.Apt != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Yum, cDes.Zypper, cDes.Goo) {
+			cDes.Apt = nil
+		}
+	}
+
+	if cDes.Yum != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Zypper, cDes.Goo) {
+			cDes.Yum = nil
+		}
+	}
+
+	if cDes.Zypper != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Yum, cDes.Goo) {
+			cDes.Zypper = nil
+		}
+	}
+
+	if cDes.Goo != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Apt, cDes.Yum, cDes.Zypper) {
+			cDes.Goo = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4050,10 +3906,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4063,18 +3916,18 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt{}
 
-	if dcl.IsZeroValue(des.ArchiveType) || (dcl.IsEmptyValueIndirect(des.ArchiveType) && dcl.IsEmptyValueIndirect(initial.ArchiveType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ArchiveType) && dcl.IsEmptyValueIndirect(initial.ArchiveType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ArchiveType = initial.ArchiveType
 	} else {
 		cDes.ArchiveType = des.ArchiveType
 	}
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Distribution, initial.Distribution) || dcl.IsZeroValue(des.Distribution) {
+	if dcl.StringCanonicalize(des.Distribution, initial.Distribution) {
 		cDes.Distribution = initial.Distribution
 	} else {
 		cDes.Distribution = des.Distribution
@@ -4084,7 +3937,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
 	} else {
 		cDes.Components = des.Components
 	}
-	if dcl.StringCanonicalize(des.GpgKey, initial.GpgKey) || dcl.IsZeroValue(des.GpgKey) {
+	if dcl.StringCanonicalize(des.GpgKey, initial.GpgKey) {
 		cDes.GpgKey = initial.GpgKey
 	} else {
 		cDes.GpgKey = des.GpgKey
@@ -4095,7 +3948,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4195,10 +4048,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4208,17 +4058,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYu
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
+	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) {
 		cDes.DisplayName = initial.DisplayName
 	} else {
 		cDes.DisplayName = des.DisplayName
 	}
-	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) || dcl.IsZeroValue(des.BaseUrl) {
+	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) {
 		cDes.BaseUrl = initial.BaseUrl
 	} else {
 		cDes.BaseUrl = des.BaseUrl
@@ -4234,7 +4084,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYu
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4334,10 +4184,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4347,17 +4194,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZy
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
+	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) {
 		cDes.DisplayName = initial.DisplayName
 	} else {
 		cDes.DisplayName = des.DisplayName
 	}
-	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) || dcl.IsZeroValue(des.BaseUrl) {
+	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) {
 		cDes.BaseUrl = initial.BaseUrl
 	} else {
 		cDes.BaseUrl = des.BaseUrl
@@ -4373,7 +4220,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZy
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4473,10 +4320,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4486,12 +4330,12 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGo
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) {
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -4502,7 +4346,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGo
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4596,10 +4440,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4617,7 +4458,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(des, in
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4707,31 +4548,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.File != nil || (initial != nil && initial.File != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Script) {
-			des.File = nil
-			if initial != nil {
-				initial.File = nil
-			}
-		}
-	}
-
-	if des.Script != nil || (initial != nil && initial.Script != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.File) {
-			des.Script = nil
-			if initial != nil {
-				initial.Script = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -4741,7 +4559,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate{}
 
 	cDes.File = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(des.File, initial.File, opts...)
-	if dcl.StringCanonicalize(des.Script, initial.Script) || dcl.IsZeroValue(des.Script) {
+	if dcl.StringCanonicalize(des.Script, initial.Script) {
 		cDes.Script = initial.Script
 	} else {
 		cDes.Script = des.Script
@@ -4751,24 +4569,37 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 	} else {
 		cDes.Args = des.Args
 	}
-	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
 	}
-	if dcl.StringCanonicalize(des.OutputFilePath, initial.OutputFilePath) || dcl.IsZeroValue(des.OutputFilePath) {
+	if dcl.StringCanonicalize(des.OutputFilePath, initial.OutputFilePath) {
 		cDes.OutputFilePath = initial.OutputFilePath
 	} else {
 		cDes.OutputFilePath = des.OutputFilePath
 	}
 
+	if cDes.File != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Script) {
+			cDes.File = nil
+		}
+	}
+
+	if cDes.Script != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.File) {
+			cDes.Script = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4866,41 +4697,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValid
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Remote != nil || (initial != nil && initial.Remote != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Gcs, des.LocalPath) {
-			des.Remote = nil
-			if initial != nil {
-				initial.Remote = nil
-			}
-		}
-	}
-
-	if des.Gcs != nil || (initial != nil && initial.Gcs != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.LocalPath) {
-			des.Gcs = nil
-			if initial != nil {
-				initial.Gcs = nil
-			}
-		}
-	}
-
-	if des.LocalPath != nil || (initial != nil && initial.LocalPath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.Gcs) {
-			des.LocalPath = nil
-			if initial != nil {
-				initial.LocalPath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -4911,23 +4709,43 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 
 	cDes.Remote = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(des.Remote, initial.Remote, opts...)
 	cDes.Gcs = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(des.Gcs, initial.Gcs, opts...)
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
-	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
+	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) {
 		cDes.AllowInsecure = initial.AllowInsecure
 	} else {
 		cDes.AllowInsecure = des.AllowInsecure
 	}
 
+	if cDes.Remote != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Gcs, cDes.LocalPath) {
+			cDes.Remote = nil
+		}
+	}
+
+	if cDes.Gcs != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.LocalPath) {
+			cDes.Gcs = nil
+		}
+	}
+
+	if cDes.LocalPath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.Gcs) {
+			cDes.LocalPath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5023,10 +4841,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValid
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5036,12 +4851,12 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote{}
 
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) || dcl.IsZeroValue(des.Sha256Checksum) {
+	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) {
 		cDes.Sha256Checksum = initial.Sha256Checksum
 	} else {
 		cDes.Sha256Checksum = des.Sha256Checksum
@@ -5052,7 +4867,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5146,10 +4961,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValid
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5159,18 +4971,18 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -5181,7 +4993,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5275,31 +5087,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValid
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.File != nil || (initial != nil && initial.File != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Script) {
-			des.File = nil
-			if initial != nil {
-				initial.File = nil
-			}
-		}
-	}
-
-	if des.Script != nil || (initial != nil && initial.Script != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.File) {
-			des.Script = nil
-			if initial != nil {
-				initial.Script = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -5309,7 +5098,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce{}
 
 	cDes.File = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(des.File, initial.File, opts...)
-	if dcl.StringCanonicalize(des.Script, initial.Script) || dcl.IsZeroValue(des.Script) {
+	if dcl.StringCanonicalize(des.Script, initial.Script) {
 		cDes.Script = initial.Script
 	} else {
 		cDes.Script = des.Script
@@ -5319,24 +5108,37 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(
 	} else {
 		cDes.Args = des.Args
 	}
-	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
 	}
-	if dcl.StringCanonicalize(des.OutputFilePath, initial.OutputFilePath) || dcl.IsZeroValue(des.OutputFilePath) {
+	if dcl.StringCanonicalize(des.OutputFilePath, initial.OutputFilePath) {
 		cDes.OutputFilePath = initial.OutputFilePath
 	} else {
 		cDes.OutputFilePath = des.OutputFilePath
 	}
 
+	if cDes.File != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Script) {
+			cDes.File = nil
+		}
+	}
+
+	if cDes.Script != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.File) {
+			cDes.Script = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5434,41 +5236,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnfor
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Remote != nil || (initial != nil && initial.Remote != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Gcs, des.LocalPath) {
-			des.Remote = nil
-			if initial != nil {
-				initial.Remote = nil
-			}
-		}
-	}
-
-	if des.Gcs != nil || (initial != nil && initial.Gcs != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.LocalPath) {
-			des.Gcs = nil
-			if initial != nil {
-				initial.Gcs = nil
-			}
-		}
-	}
-
-	if des.LocalPath != nil || (initial != nil && initial.LocalPath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.Gcs) {
-			des.LocalPath = nil
-			if initial != nil {
-				initial.LocalPath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -5479,23 +5248,43 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceF
 
 	cDes.Remote = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(des.Remote, initial.Remote, opts...)
 	cDes.Gcs = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(des.Gcs, initial.Gcs, opts...)
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
-	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
+	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) {
 		cDes.AllowInsecure = initial.AllowInsecure
 	} else {
 		cDes.AllowInsecure = des.AllowInsecure
 	}
 
+	if cDes.Remote != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Gcs, cDes.LocalPath) {
+			cDes.Remote = nil
+		}
+	}
+
+	if cDes.Gcs != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.LocalPath) {
+			cDes.Gcs = nil
+		}
+	}
+
+	if cDes.LocalPath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.Gcs) {
+			cDes.LocalPath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5591,10 +5380,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnfor
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5604,12 +5390,12 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceF
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote{}
 
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) || dcl.IsZeroValue(des.Sha256Checksum) {
+	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) {
 		cDes.Sha256Checksum = initial.Sha256Checksum
 	} else {
 		cDes.Sha256Checksum = des.Sha256Checksum
@@ -5620,7 +5406,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceF
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5714,10 +5500,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnfor
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5727,18 +5510,18 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceF
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -5749,7 +5532,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceF
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5843,31 +5626,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnfor
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.File != nil || (initial != nil && initial.File != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Content) {
-			des.File = nil
-			if initial != nil {
-				initial.File = nil
-			}
-		}
-	}
-
-	if des.Content != nil || (initial != nil && initial.Content != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.File) {
-			des.Content = nil
-			if initial != nil {
-				initial.Content = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -5877,29 +5637,42 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(des, in
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{}
 
 	cDes.File = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(des.File, initial.File, opts...)
-	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, initial.Content) {
 		cDes.Content = initial.Content
 	} else {
 		cDes.Content = des.Content
 	}
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
 	}
-	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
 
+	if cDes.File != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Content) {
+			cDes.File = nil
+		}
+	}
+
+	if cDes.Content != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.File) {
+			cDes.Content = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5997,41 +5770,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Remote != nil || (initial != nil && initial.Remote != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Gcs, des.LocalPath) {
-			des.Remote = nil
-			if initial != nil {
-				initial.Remote = nil
-			}
-		}
-	}
-
-	if des.Gcs != nil || (initial != nil && initial.Gcs != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.LocalPath) {
-			des.Gcs = nil
-			if initial != nil {
-				initial.Gcs = nil
-			}
-		}
-	}
-
-	if des.LocalPath != nil || (initial != nil && initial.LocalPath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Remote, des.Gcs) {
-			des.LocalPath = nil
-			if initial != nil {
-				initial.LocalPath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -6042,23 +5782,43 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(des
 
 	cDes.Remote = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(des.Remote, initial.Remote, opts...)
 	cDes.Gcs = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(des.Gcs, initial.Gcs, opts...)
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
-	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
+	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) {
 		cDes.AllowInsecure = initial.AllowInsecure
 	} else {
 		cDes.AllowInsecure = des.AllowInsecure
 	}
 
+	if cDes.Remote != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Gcs, cDes.LocalPath) {
+			cDes.Remote = nil
+		}
+	}
+
+	if cDes.Gcs != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.LocalPath) {
+			cDes.Gcs = nil
+		}
+	}
+
+	if cDes.LocalPath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Remote, cDes.Gcs) {
+			cDes.LocalPath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6154,10 +5914,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileS
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6167,12 +5924,12 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemo
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote{}
 
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
 	}
-	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) || dcl.IsZeroValue(des.Sha256Checksum) {
+	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) {
 		cDes.Sha256Checksum = initial.Sha256Checksum
 	} else {
 		cDes.Sha256Checksum = des.Sha256Checksum
@@ -6183,7 +5940,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemo
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6277,10 +6034,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileR
 }
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(des, initial *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs, opts ...dcl.ApplyOption) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6290,18 +6044,18 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.Generation) || (dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Generation) && dcl.IsEmptyValueIndirect(initial.Generation) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Generation = initial.Generation
 	} else {
 		cDes.Generation = des.Generation
@@ -6312,7 +6066,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(
 
 func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6406,10 +6160,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileG
 }
 
 func canonicalizeOSPolicyAssignmentInstanceFilter(des, initial *OSPolicyAssignmentInstanceFilter, opts ...dcl.ApplyOption) *OSPolicyAssignmentInstanceFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6419,7 +6170,7 @@ func canonicalizeOSPolicyAssignmentInstanceFilter(des, initial *OSPolicyAssignme
 
 	cDes := &OSPolicyAssignmentInstanceFilter{}
 
-	if dcl.BoolCanonicalize(des.All, initial.All) || dcl.IsZeroValue(des.All) {
+	if dcl.BoolCanonicalize(des.All, initial.All) {
 		cDes.All = initial.All
 	} else {
 		cDes.All = des.All
@@ -6433,7 +6184,7 @@ func canonicalizeOSPolicyAssignmentInstanceFilter(des, initial *OSPolicyAssignme
 
 func canonicalizeOSPolicyAssignmentInstanceFilterSlice(des, initial []OSPolicyAssignmentInstanceFilter, opts ...dcl.ApplyOption) []OSPolicyAssignmentInstanceFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6527,10 +6278,7 @@ func canonicalizeNewOSPolicyAssignmentInstanceFilterSlice(c *Client, des, nw []O
 }
 
 func canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabels(des, initial *OSPolicyAssignmentInstanceFilterInclusionLabels, opts ...dcl.ApplyOption) *OSPolicyAssignmentInstanceFilterInclusionLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6540,8 +6288,8 @@ func canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabels(des, initial *O
 
 	cDes := &OSPolicyAssignmentInstanceFilterInclusionLabels{}
 
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -6552,7 +6300,7 @@ func canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabels(des, initial *O
 
 func canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(des, initial []OSPolicyAssignmentInstanceFilterInclusionLabels, opts ...dcl.ApplyOption) []OSPolicyAssignmentInstanceFilterInclusionLabels {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6639,10 +6387,7 @@ func canonicalizeNewOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c *Clie
 }
 
 func canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabels(des, initial *OSPolicyAssignmentInstanceFilterExclusionLabels, opts ...dcl.ApplyOption) *OSPolicyAssignmentInstanceFilterExclusionLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6652,8 +6397,8 @@ func canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabels(des, initial *O
 
 	cDes := &OSPolicyAssignmentInstanceFilterExclusionLabels{}
 
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -6664,7 +6409,7 @@ func canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabels(des, initial *O
 
 func canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(des, initial []OSPolicyAssignmentInstanceFilterExclusionLabels, opts ...dcl.ApplyOption) []OSPolicyAssignmentInstanceFilterExclusionLabels {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6751,10 +6496,7 @@ func canonicalizeNewOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c *Clie
 }
 
 func canonicalizeOSPolicyAssignmentInstanceFilterInventories(des, initial *OSPolicyAssignmentInstanceFilterInventories, opts ...dcl.ApplyOption) *OSPolicyAssignmentInstanceFilterInventories {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6764,12 +6506,12 @@ func canonicalizeOSPolicyAssignmentInstanceFilterInventories(des, initial *OSPol
 
 	cDes := &OSPolicyAssignmentInstanceFilterInventories{}
 
-	if dcl.StringCanonicalize(des.OSShortName, initial.OSShortName) || dcl.IsZeroValue(des.OSShortName) {
+	if dcl.StringCanonicalize(des.OSShortName, initial.OSShortName) {
 		cDes.OSShortName = initial.OSShortName
 	} else {
 		cDes.OSShortName = des.OSShortName
 	}
-	if dcl.StringCanonicalize(des.OSVersion, initial.OSVersion) || dcl.IsZeroValue(des.OSVersion) {
+	if dcl.StringCanonicalize(des.OSVersion, initial.OSVersion) {
 		cDes.OSVersion = initial.OSVersion
 	} else {
 		cDes.OSVersion = des.OSVersion
@@ -6780,7 +6522,7 @@ func canonicalizeOSPolicyAssignmentInstanceFilterInventories(des, initial *OSPol
 
 func canonicalizeOSPolicyAssignmentInstanceFilterInventoriesSlice(des, initial []OSPolicyAssignmentInstanceFilterInventories, opts ...dcl.ApplyOption) []OSPolicyAssignmentInstanceFilterInventories {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6874,10 +6616,7 @@ func canonicalizeNewOSPolicyAssignmentInstanceFilterInventoriesSlice(c *Client, 
 }
 
 func canonicalizeOSPolicyAssignmentRollout(des, initial *OSPolicyAssignmentRollout, opts ...dcl.ApplyOption) *OSPolicyAssignmentRollout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6888,7 +6627,7 @@ func canonicalizeOSPolicyAssignmentRollout(des, initial *OSPolicyAssignmentRollo
 	cDes := &OSPolicyAssignmentRollout{}
 
 	cDes.DisruptionBudget = canonicalizeOSPolicyAssignmentRolloutDisruptionBudget(des.DisruptionBudget, initial.DisruptionBudget, opts...)
-	if canonicalizeOSPolicyAssignmentRolloutMinWaitDuration(des.MinWaitDuration, initial.MinWaitDuration) || dcl.IsZeroValue(des.MinWaitDuration) {
+	if canonicalizeOSPolicyAssignmentRolloutMinWaitDuration(des.MinWaitDuration, initial.MinWaitDuration) {
 		cDes.MinWaitDuration = initial.MinWaitDuration
 	} else {
 		cDes.MinWaitDuration = des.MinWaitDuration
@@ -6899,7 +6638,7 @@ func canonicalizeOSPolicyAssignmentRollout(des, initial *OSPolicyAssignmentRollo
 
 func canonicalizeOSPolicyAssignmentRolloutSlice(des, initial []OSPolicyAssignmentRollout, opts ...dcl.ApplyOption) []OSPolicyAssignmentRollout {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6991,31 +6730,8 @@ func canonicalizeNewOSPolicyAssignmentRolloutSlice(c *Client, des, nw []OSPolicy
 }
 
 func canonicalizeOSPolicyAssignmentRolloutDisruptionBudget(des, initial *OSPolicyAssignmentRolloutDisruptionBudget, opts ...dcl.ApplyOption) *OSPolicyAssignmentRolloutDisruptionBudget {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Fixed != nil || (initial != nil && initial.Fixed != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Percent) {
-			des.Fixed = nil
-			if initial != nil {
-				initial.Fixed = nil
-			}
-		}
-	}
-
-	if des.Percent != nil || (initial != nil && initial.Percent != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Fixed) {
-			des.Percent = nil
-			if initial != nil {
-				initial.Percent = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -7024,25 +6740,38 @@ func canonicalizeOSPolicyAssignmentRolloutDisruptionBudget(des, initial *OSPolic
 
 	cDes := &OSPolicyAssignmentRolloutDisruptionBudget{}
 
-	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Fixed = initial.Fixed
 	} else {
 		cDes.Fixed = des.Fixed
 	}
-	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
 	}
 
+	if cDes.Fixed != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Percent) {
+			cDes.Fixed = nil
+		}
+	}
+
+	if cDes.Percent != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Fixed) {
+			cDes.Percent = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeOSPolicyAssignmentRolloutDisruptionBudgetSlice(des, initial []OSPolicyAssignmentRolloutDisruptionBudget, opts ...dcl.ApplyOption) []OSPolicyAssignmentRolloutDisruptionBudget {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -546,23 +546,6 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.Gke != nil || rawInitial.Gke != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.AnthosCluster) {
-			rawDesired.Gke = nil
-			rawInitial.Gke = nil
-		}
-	}
-
-	if rawDesired.AnthosCluster != nil || rawInitial.AnthosCluster != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Gke) {
-			rawDesired.AnthosCluster = nil
-			rawInitial.AnthosCluster = nil
-		}
-	}
-
 	canonicalDesired := &Target{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -574,14 +557,14 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -603,6 +586,20 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.Gke != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.AnthosCluster) {
+			canonicalDesired.Gke = nil
+		}
+	}
+
+	if canonicalDesired.AnthosCluster != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Gke) {
+			canonicalDesired.AnthosCluster = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -700,14 +697,23 @@ func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target,
 
 	rawNew.Location = rawDesired.Location
 
+	if rawNew.Gke != nil {
+		if dcl.AnySet(rawNew.AnthosCluster) && rawDesired.Gke == nil {
+			rawNew.Gke = nil
+		}
+	}
+
+	if rawNew.AnthosCluster != nil {
+		if dcl.AnySet(rawNew.Gke) && rawDesired.AnthosCluster == nil {
+			rawNew.AnthosCluster = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeTargetGke(des, initial *TargetGke, opts ...dcl.ApplyOption) *TargetGke {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -717,13 +723,13 @@ func canonicalizeTargetGke(des, initial *TargetGke, opts ...dcl.ApplyOption) *Ta
 
 	cDes := &TargetGke{}
 
-	if dcl.IsZeroValue(des.Cluster) || (dcl.IsEmptyValueIndirect(des.Cluster) && dcl.IsEmptyValueIndirect(initial.Cluster)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Cluster) && dcl.IsEmptyValueIndirect(initial.Cluster) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Cluster = initial.Cluster
 	} else {
 		cDes.Cluster = des.Cluster
 	}
-	if dcl.BoolCanonicalize(des.InternalIP, initial.InternalIP) || dcl.IsZeroValue(des.InternalIP) {
+	if dcl.BoolCanonicalize(des.InternalIP, initial.InternalIP) {
 		cDes.InternalIP = initial.InternalIP
 	} else {
 		cDes.InternalIP = des.InternalIP
@@ -734,7 +740,7 @@ func canonicalizeTargetGke(des, initial *TargetGke, opts ...dcl.ApplyOption) *Ta
 
 func canonicalizeTargetGkeSlice(des, initial []TargetGke, opts ...dcl.ApplyOption) []TargetGke {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -825,10 +831,7 @@ func canonicalizeNewTargetGkeSlice(c *Client, des, nw []TargetGke) []TargetGke {
 }
 
 func canonicalizeTargetAnthosCluster(des, initial *TargetAnthosCluster, opts ...dcl.ApplyOption) *TargetAnthosCluster {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -838,8 +841,8 @@ func canonicalizeTargetAnthosCluster(des, initial *TargetAnthosCluster, opts ...
 
 	cDes := &TargetAnthosCluster{}
 
-	if dcl.IsZeroValue(des.Membership) || (dcl.IsEmptyValueIndirect(des.Membership) && dcl.IsEmptyValueIndirect(initial.Membership)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Membership) && dcl.IsEmptyValueIndirect(initial.Membership) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Membership = initial.Membership
 	} else {
 		cDes.Membership = des.Membership
@@ -850,7 +853,7 @@ func canonicalizeTargetAnthosCluster(des, initial *TargetAnthosCluster, opts ...
 
 func canonicalizeTargetAnthosClusterSlice(des, initial []TargetAnthosCluster, opts ...dcl.ApplyOption) []TargetAnthosCluster {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -937,10 +940,7 @@ func canonicalizeNewTargetAnthosClusterSlice(c *Client, des, nw []TargetAnthosCl
 }
 
 func canonicalizeTargetExecutionConfigs(des, initial *TargetExecutionConfigs, opts ...dcl.ApplyOption) *TargetExecutionConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -950,24 +950,24 @@ func canonicalizeTargetExecutionConfigs(des, initial *TargetExecutionConfigs, op
 
 	cDes := &TargetExecutionConfigs{}
 
-	if dcl.IsZeroValue(des.Usages) || (dcl.IsEmptyValueIndirect(des.Usages) && dcl.IsEmptyValueIndirect(initial.Usages)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Usages) && dcl.IsEmptyValueIndirect(initial.Usages) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Usages = initial.Usages
 	} else {
 		cDes.Usages = des.Usages
 	}
-	if dcl.IsZeroValue(des.WorkerPool) || (dcl.IsEmptyValueIndirect(des.WorkerPool) && dcl.IsEmptyValueIndirect(initial.WorkerPool)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.WorkerPool) && dcl.IsEmptyValueIndirect(initial.WorkerPool) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.WorkerPool = initial.WorkerPool
 	} else {
 		cDes.WorkerPool = des.WorkerPool
 	}
-	if dcl.StringCanonicalize(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
+	if dcl.StringCanonicalize(des.ServiceAccount, initial.ServiceAccount) {
 		cDes.ServiceAccount = initial.ServiceAccount
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
 	}
-	if dcl.StringCanonicalize(des.ArtifactStorage, initial.ArtifactStorage) || dcl.IsZeroValue(des.ArtifactStorage) {
+	if dcl.StringCanonicalize(des.ArtifactStorage, initial.ArtifactStorage) {
 		cDes.ArtifactStorage = initial.ArtifactStorage
 	} else {
 		cDes.ArtifactStorage = des.ArtifactStorage
@@ -978,7 +978,7 @@ func canonicalizeTargetExecutionConfigs(des, initial *TargetExecutionConfigs, op
 
 func canonicalizeTargetExecutionConfigsSlice(des, initial []TargetExecutionConfigs, opts ...dcl.ApplyOption) []TargetExecutionConfigs {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

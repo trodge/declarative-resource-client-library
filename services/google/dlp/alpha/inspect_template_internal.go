@@ -609,8 +609,8 @@ func canonicalizeInspectTemplateDesiredState(rawDesired, rawInitial *InspectTemp
 		return rawDesired, nil
 	}
 	canonicalDesired := &InspectTemplate{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -695,10 +695,7 @@ func canonicalizeInspectTemplateNewState(c *Client, rawNew, rawDesired *InspectT
 }
 
 func canonicalizeInspectTemplateInspectConfig(des, initial *InspectTemplateInspectConfig, opts ...dcl.ApplyOption) *InspectTemplateInspectConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -709,26 +706,26 @@ func canonicalizeInspectTemplateInspectConfig(des, initial *InspectTemplateInspe
 	cDes := &InspectTemplateInspectConfig{}
 
 	cDes.InfoTypes = canonicalizeInspectTemplateInspectConfigInfoTypesSlice(des.InfoTypes, initial.InfoTypes, opts...)
-	if dcl.IsZeroValue(des.MinLikelihood) || (dcl.IsEmptyValueIndirect(des.MinLikelihood) && dcl.IsEmptyValueIndirect(initial.MinLikelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MinLikelihood) && dcl.IsEmptyValueIndirect(initial.MinLikelihood) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MinLikelihood = initial.MinLikelihood
 	} else {
 		cDes.MinLikelihood = des.MinLikelihood
 	}
 	cDes.Limits = canonicalizeInspectTemplateInspectConfigLimits(des.Limits, initial.Limits, opts...)
-	if dcl.BoolCanonicalize(des.IncludeQuote, initial.IncludeQuote) || dcl.IsZeroValue(des.IncludeQuote) {
+	if dcl.BoolCanonicalize(des.IncludeQuote, initial.IncludeQuote) {
 		cDes.IncludeQuote = initial.IncludeQuote
 	} else {
 		cDes.IncludeQuote = des.IncludeQuote
 	}
-	if dcl.BoolCanonicalize(des.ExcludeInfoTypes, initial.ExcludeInfoTypes) || dcl.IsZeroValue(des.ExcludeInfoTypes) {
+	if dcl.BoolCanonicalize(des.ExcludeInfoTypes, initial.ExcludeInfoTypes) {
 		cDes.ExcludeInfoTypes = initial.ExcludeInfoTypes
 	} else {
 		cDes.ExcludeInfoTypes = des.ExcludeInfoTypes
 	}
 	cDes.CustomInfoTypes = canonicalizeInspectTemplateInspectConfigCustomInfoTypesSlice(des.CustomInfoTypes, initial.CustomInfoTypes, opts...)
-	if dcl.IsZeroValue(des.ContentOptions) || (dcl.IsEmptyValueIndirect(des.ContentOptions) && dcl.IsEmptyValueIndirect(initial.ContentOptions)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ContentOptions) && dcl.IsEmptyValueIndirect(initial.ContentOptions) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ContentOptions = initial.ContentOptions
 	} else {
 		cDes.ContentOptions = des.ContentOptions
@@ -740,7 +737,7 @@ func canonicalizeInspectTemplateInspectConfig(des, initial *InspectTemplateInspe
 
 func canonicalizeInspectTemplateInspectConfigSlice(des, initial []InspectTemplateInspectConfig, opts ...dcl.ApplyOption) []InspectTemplateInspectConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -838,10 +835,7 @@ func canonicalizeNewInspectTemplateInspectConfigSlice(c *Client, des, nw []Inspe
 }
 
 func canonicalizeInspectTemplateInspectConfigInfoTypes(des, initial *InspectTemplateInspectConfigInfoTypes, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigInfoTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -851,7 +845,7 @@ func canonicalizeInspectTemplateInspectConfigInfoTypes(des, initial *InspectTemp
 
 	cDes := &InspectTemplateInspectConfigInfoTypes{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -862,7 +856,7 @@ func canonicalizeInspectTemplateInspectConfigInfoTypes(des, initial *InspectTemp
 
 func canonicalizeInspectTemplateInspectConfigInfoTypesSlice(des, initial []InspectTemplateInspectConfigInfoTypes, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigInfoTypes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -953,10 +947,7 @@ func canonicalizeNewInspectTemplateInspectConfigInfoTypesSlice(c *Client, des, n
 }
 
 func canonicalizeInspectTemplateInspectConfigLimits(des, initial *InspectTemplateInspectConfigLimits, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigLimits {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -966,14 +957,14 @@ func canonicalizeInspectTemplateInspectConfigLimits(des, initial *InspectTemplat
 
 	cDes := &InspectTemplateInspectConfigLimits{}
 
-	if dcl.IsZeroValue(des.MaxFindingsPerItem) || (dcl.IsEmptyValueIndirect(des.MaxFindingsPerItem) && dcl.IsEmptyValueIndirect(initial.MaxFindingsPerItem)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxFindingsPerItem) && dcl.IsEmptyValueIndirect(initial.MaxFindingsPerItem) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxFindingsPerItem = initial.MaxFindingsPerItem
 	} else {
 		cDes.MaxFindingsPerItem = des.MaxFindingsPerItem
 	}
-	if dcl.IsZeroValue(des.MaxFindingsPerRequest) || (dcl.IsEmptyValueIndirect(des.MaxFindingsPerRequest) && dcl.IsEmptyValueIndirect(initial.MaxFindingsPerRequest)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxFindingsPerRequest) && dcl.IsEmptyValueIndirect(initial.MaxFindingsPerRequest) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxFindingsPerRequest = initial.MaxFindingsPerRequest
 	} else {
 		cDes.MaxFindingsPerRequest = des.MaxFindingsPerRequest
@@ -985,7 +976,7 @@ func canonicalizeInspectTemplateInspectConfigLimits(des, initial *InspectTemplat
 
 func canonicalizeInspectTemplateInspectConfigLimitsSlice(des, initial []InspectTemplateInspectConfigLimits, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigLimits {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1074,10 +1065,7 @@ func canonicalizeNewInspectTemplateInspectConfigLimitsSlice(c *Client, des, nw [
 }
 
 func canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(des, initial *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1088,8 +1076,8 @@ func canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(des, i
 	cDes := &InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType{}
 
 	cDes.InfoType = canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(des.InfoType, initial.InfoType, opts...)
-	if dcl.IsZeroValue(des.MaxFindings) || (dcl.IsEmptyValueIndirect(des.MaxFindings) && dcl.IsEmptyValueIndirect(initial.MaxFindings)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxFindings) && dcl.IsEmptyValueIndirect(initial.MaxFindings) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxFindings = initial.MaxFindings
 	} else {
 		cDes.MaxFindings = des.MaxFindings
@@ -1100,7 +1088,7 @@ func canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(des, i
 
 func canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlice(des, initial []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1189,10 +1177,7 @@ func canonicalizeNewInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeSlic
 }
 
 func canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(des, initial *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1202,7 +1187,7 @@ func canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTyp
 
 	cDes := &InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -1213,7 +1198,7 @@ func canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTyp
 
 func canonicalizeInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlice(des, initial []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1304,51 +1289,8 @@ func canonicalizeNewInspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfo
 }
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypes(des, initial *InspectTemplateInspectConfigCustomInfoTypes, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Dictionary != nil || (initial != nil && initial.Dictionary != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Regex, des.SurrogateType, des.StoredType) {
-			des.Dictionary = nil
-			if initial != nil {
-				initial.Dictionary = nil
-			}
-		}
-	}
-
-	if des.Regex != nil || (initial != nil && initial.Regex != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Dictionary, des.SurrogateType, des.StoredType) {
-			des.Regex = nil
-			if initial != nil {
-				initial.Regex = nil
-			}
-		}
-	}
-
-	if des.SurrogateType != nil || (initial != nil && initial.SurrogateType != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Dictionary, des.Regex, des.StoredType) {
-			des.SurrogateType = nil
-			if initial != nil {
-				initial.SurrogateType = nil
-			}
-		}
-	}
-
-	if des.StoredType != nil || (initial != nil && initial.StoredType != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Dictionary, des.Regex, des.SurrogateType) {
-			des.StoredType = nil
-			if initial != nil {
-				initial.StoredType = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1358,8 +1300,8 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypes(des, initial *Inspe
 	cDes := &InspectTemplateInspectConfigCustomInfoTypes{}
 
 	cDes.InfoType = canonicalizeInspectTemplateInspectConfigCustomInfoTypesInfoType(des.InfoType, initial.InfoType, opts...)
-	if dcl.IsZeroValue(des.Likelihood) || (dcl.IsEmptyValueIndirect(des.Likelihood) && dcl.IsEmptyValueIndirect(initial.Likelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Likelihood) && dcl.IsEmptyValueIndirect(initial.Likelihood) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Likelihood = initial.Likelihood
 	} else {
 		cDes.Likelihood = des.Likelihood
@@ -1368,19 +1310,46 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypes(des, initial *Inspe
 	cDes.Regex = canonicalizeInspectTemplateInspectConfigCustomInfoTypesRegex(des.Regex, initial.Regex, opts...)
 	cDes.SurrogateType = canonicalizeInspectTemplateInspectConfigCustomInfoTypesSurrogateType(des.SurrogateType, initial.SurrogateType, opts...)
 	cDes.StoredType = canonicalizeInspectTemplateInspectConfigCustomInfoTypesStoredType(des.StoredType, initial.StoredType, opts...)
-	if dcl.IsZeroValue(des.ExclusionType) || (dcl.IsEmptyValueIndirect(des.ExclusionType) && dcl.IsEmptyValueIndirect(initial.ExclusionType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ExclusionType) && dcl.IsEmptyValueIndirect(initial.ExclusionType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ExclusionType = initial.ExclusionType
 	} else {
 		cDes.ExclusionType = des.ExclusionType
 	}
 
+	if cDes.Dictionary != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Regex, cDes.SurrogateType, cDes.StoredType) {
+			cDes.Dictionary = nil
+		}
+	}
+
+	if cDes.Regex != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Dictionary, cDes.SurrogateType, cDes.StoredType) {
+			cDes.Regex = nil
+		}
+	}
+
+	if cDes.SurrogateType != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Dictionary, cDes.Regex, cDes.StoredType) {
+			cDes.SurrogateType = nil
+		}
+	}
+
+	if cDes.StoredType != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Dictionary, cDes.Regex, cDes.SurrogateType) {
+			cDes.StoredType = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypes, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1473,10 +1442,7 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesSlice(c *Client, 
 }
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesInfoType(des, initial *InspectTemplateInspectConfigCustomInfoTypesInfoType, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesInfoType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1486,7 +1452,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesInfoType(des, initia
 
 	cDes := &InspectTemplateInspectConfigCustomInfoTypesInfoType{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -1497,7 +1463,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesInfoType(des, initia
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesInfoType, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesInfoType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1588,31 +1554,8 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesInfoTypeSlice(c *
 }
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionary(des, initial *InspectTemplateInspectConfigCustomInfoTypesDictionary, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesDictionary {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.WordList != nil || (initial != nil && initial.WordList != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudStoragePath) {
-			des.WordList = nil
-			if initial != nil {
-				initial.WordList = nil
-			}
-		}
-	}
-
-	if des.CloudStoragePath != nil || (initial != nil && initial.CloudStoragePath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.WordList) {
-			des.CloudStoragePath = nil
-			if initial != nil {
-				initial.CloudStoragePath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1624,12 +1567,25 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionary(des, init
 	cDes.WordList = canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(des.WordList, initial.WordList, opts...)
 	cDes.CloudStoragePath = canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(des.CloudStoragePath, initial.CloudStoragePath, opts...)
 
+	if cDes.WordList != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudStoragePath) {
+			cDes.WordList = nil
+		}
+	}
+
+	if cDes.CloudStoragePath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.WordList) {
+			cDes.CloudStoragePath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionarySlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesDictionary, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesDictionary {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1719,10 +1675,7 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDictionarySlice(c
 }
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(des, initial *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1743,7 +1696,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(d
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryWordListSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1834,10 +1787,7 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDictionaryWordLis
 }
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(des, initial *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1847,7 +1797,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStora
 
 	cDes := &InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath{}
 
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -1858,7 +1808,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStora
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1949,10 +1899,7 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesDictionaryCloudSt
 }
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesRegex(des, initial *InspectTemplateInspectConfigCustomInfoTypesRegex, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesRegex {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1962,13 +1909,13 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesRegex(des, initial *
 
 	cDes := &InspectTemplateInspectConfigCustomInfoTypesRegex{}
 
-	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) || dcl.IsZeroValue(des.Pattern) {
+	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) {
 		cDes.Pattern = initial.Pattern
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -1979,7 +1926,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesRegex(des, initial *
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesRegexSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesRegex, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesRegex {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2070,12 +2017,10 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesRegexSlice(c *Cli
 }
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesSurrogateType(des, initial *InspectTemplateInspectConfigCustomInfoTypesSurrogateType, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesSurrogateType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -2087,7 +2032,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesSurrogateType(des, i
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesSurrogateType, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesSurrogateType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2174,10 +2119,7 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesSurrogateTypeSlic
 }
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesStoredType(des, initial *InspectTemplateInspectConfigCustomInfoTypesStoredType, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigCustomInfoTypesStoredType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2187,7 +2129,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesStoredType(des, init
 
 	cDes := &InspectTemplateInspectConfigCustomInfoTypesStoredType{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -2198,7 +2140,7 @@ func canonicalizeInspectTemplateInspectConfigCustomInfoTypesStoredType(des, init
 
 func canonicalizeInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice(des, initial []InspectTemplateInspectConfigCustomInfoTypesStoredType, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigCustomInfoTypesStoredType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2289,10 +2231,7 @@ func canonicalizeNewInspectTemplateInspectConfigCustomInfoTypesStoredTypeSlice(c
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSet(des, initial *InspectTemplateInspectConfigRuleSet, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSet {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2310,7 +2249,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSet(des, initial *InspectTempla
 
 func canonicalizeInspectTemplateInspectConfigRuleSetSlice(des, initial []InspectTemplateInspectConfigRuleSet, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSet {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2400,10 +2339,7 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetSlice(c *Client, des, nw 
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetInfoTypes(des, initial *InspectTemplateInspectConfigRuleSetInfoTypes, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetInfoTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2413,7 +2349,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetInfoTypes(des, initial *Insp
 
 	cDes := &InspectTemplateInspectConfigRuleSetInfoTypes{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -2424,7 +2360,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetInfoTypes(des, initial *Insp
 
 func canonicalizeInspectTemplateInspectConfigRuleSetInfoTypesSlice(des, initial []InspectTemplateInspectConfigRuleSetInfoTypes, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetInfoTypes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2515,31 +2451,8 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetInfoTypesSlice(c *Client,
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRules(des, initial *InspectTemplateInspectConfigRuleSetRules, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.HotwordRule != nil || (initial != nil && initial.HotwordRule != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusionRule) {
-			des.HotwordRule = nil
-			if initial != nil {
-				initial.HotwordRule = nil
-			}
-		}
-	}
-
-	if des.ExclusionRule != nil || (initial != nil && initial.ExclusionRule != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.HotwordRule) {
-			des.ExclusionRule = nil
-			if initial != nil {
-				initial.ExclusionRule = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2551,12 +2464,25 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRules(des, initial *InspectT
 	cDes.HotwordRule = canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRule(des.HotwordRule, initial.HotwordRule, opts...)
 	cDes.ExclusionRule = canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRule(des.ExclusionRule, initial.ExclusionRule, opts...)
 
+	if cDes.HotwordRule != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusionRule) {
+			cDes.HotwordRule = nil
+		}
+	}
+
+	if cDes.ExclusionRule != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.HotwordRule) {
+			cDes.ExclusionRule = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesSlice(des, initial []InspectTemplateInspectConfigRuleSetRules, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRules {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2646,10 +2572,7 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesSlice(c *Client, des
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRule(des, initial *InspectTemplateInspectConfigRuleSetRulesHotwordRule, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesHotwordRule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2668,7 +2591,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRule(des, initia
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice(des, initial []InspectTemplateInspectConfigRuleSetRulesHotwordRule, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesHotwordRule {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2759,10 +2682,7 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesHotwordRuleSlice(c *
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(des, initial *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2772,13 +2692,13 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex
 
 	cDes := &InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex{}
 
-	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) || dcl.IsZeroValue(des.Pattern) {
+	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) {
 		cDes.Pattern = initial.Pattern
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -2789,7 +2709,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice(des, initial []InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2880,10 +2800,7 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRe
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(des, initial *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2893,14 +2810,14 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(de
 
 	cDes := &InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity{}
 
-	if dcl.IsZeroValue(des.WindowBefore) || (dcl.IsEmptyValueIndirect(des.WindowBefore) && dcl.IsEmptyValueIndirect(initial.WindowBefore)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.WindowBefore) && dcl.IsEmptyValueIndirect(initial.WindowBefore) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.WindowBefore = initial.WindowBefore
 	} else {
 		cDes.WindowBefore = des.WindowBefore
 	}
-	if dcl.IsZeroValue(des.WindowAfter) || (dcl.IsEmptyValueIndirect(des.WindowAfter) && dcl.IsEmptyValueIndirect(initial.WindowAfter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.WindowAfter) && dcl.IsEmptyValueIndirect(initial.WindowAfter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.WindowAfter = initial.WindowAfter
 	} else {
 		cDes.WindowAfter = des.WindowAfter
@@ -2911,7 +2828,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(de
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximitySlice(des, initial []InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2998,31 +2915,8 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(des, initial *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.FixedLikelihood != nil || (initial != nil && initial.FixedLikelihood != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RelativeLikelihood) {
-			des.FixedLikelihood = nil
-			if initial != nil {
-				initial.FixedLikelihood = nil
-			}
-		}
-	}
-
-	if des.RelativeLikelihood != nil || (initial != nil && initial.RelativeLikelihood != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.FixedLikelihood) {
-			des.RelativeLikelihood = nil
-			if initial != nil {
-				initial.RelativeLikelihood = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -3031,25 +2925,38 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAd
 
 	cDes := &InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment{}
 
-	if dcl.IsZeroValue(des.FixedLikelihood) || (dcl.IsEmptyValueIndirect(des.FixedLikelihood) && dcl.IsEmptyValueIndirect(initial.FixedLikelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.FixedLikelihood) && dcl.IsEmptyValueIndirect(initial.FixedLikelihood) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.FixedLikelihood = initial.FixedLikelihood
 	} else {
 		cDes.FixedLikelihood = des.FixedLikelihood
 	}
-	if dcl.IsZeroValue(des.RelativeLikelihood) || (dcl.IsEmptyValueIndirect(des.RelativeLikelihood) && dcl.IsEmptyValueIndirect(initial.RelativeLikelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RelativeLikelihood) && dcl.IsEmptyValueIndirect(initial.RelativeLikelihood) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RelativeLikelihood = initial.RelativeLikelihood
 	} else {
 		cDes.RelativeLikelihood = des.RelativeLikelihood
 	}
 
+	if cDes.FixedLikelihood != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.RelativeLikelihood) {
+			cDes.FixedLikelihood = nil
+		}
+	}
+
+	if cDes.RelativeLikelihood != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.FixedLikelihood) {
+			cDes.RelativeLikelihood = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentSlice(des, initial []InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3136,41 +3043,8 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoo
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRule(des, initial *InspectTemplateInspectConfigRuleSetRulesExclusionRule, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesExclusionRule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Dictionary != nil || (initial != nil && initial.Dictionary != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Regex, des.ExcludeInfoTypes) {
-			des.Dictionary = nil
-			if initial != nil {
-				initial.Dictionary = nil
-			}
-		}
-	}
-
-	if des.Regex != nil || (initial != nil && initial.Regex != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Dictionary, des.ExcludeInfoTypes) {
-			des.Regex = nil
-			if initial != nil {
-				initial.Regex = nil
-			}
-		}
-	}
-
-	if des.ExcludeInfoTypes != nil || (initial != nil && initial.ExcludeInfoTypes != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Dictionary, des.Regex) {
-			des.ExcludeInfoTypes = nil
-			if initial != nil {
-				initial.ExcludeInfoTypes = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -3182,19 +3056,39 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRule(des, init
 	cDes.Dictionary = canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(des.Dictionary, initial.Dictionary, opts...)
 	cDes.Regex = canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(des.Regex, initial.Regex, opts...)
 	cDes.ExcludeInfoTypes = canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(des.ExcludeInfoTypes, initial.ExcludeInfoTypes, opts...)
-	if dcl.IsZeroValue(des.MatchingType) || (dcl.IsEmptyValueIndirect(des.MatchingType) && dcl.IsEmptyValueIndirect(initial.MatchingType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MatchingType) && dcl.IsEmptyValueIndirect(initial.MatchingType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MatchingType = initial.MatchingType
 	} else {
 		cDes.MatchingType = des.MatchingType
 	}
 
+	if cDes.Dictionary != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Regex, cDes.ExcludeInfoTypes) {
+			cDes.Dictionary = nil
+		}
+	}
+
+	if cDes.Regex != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Dictionary, cDes.ExcludeInfoTypes) {
+			cDes.Regex = nil
+		}
+	}
+
+	if cDes.ExcludeInfoTypes != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Dictionary, cDes.Regex) {
+			cDes.ExcludeInfoTypes = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice(des, initial []InspectTemplateInspectConfigRuleSetRulesExclusionRule, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesExclusionRule {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3285,31 +3179,8 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesExclusionRuleSlice(c
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(des, initial *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.WordList != nil || (initial != nil && initial.WordList != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudStoragePath) {
-			des.WordList = nil
-			if initial != nil {
-				initial.WordList = nil
-			}
-		}
-	}
-
-	if des.CloudStoragePath != nil || (initial != nil && initial.CloudStoragePath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.WordList) {
-			des.CloudStoragePath = nil
-			if initial != nil {
-				initial.CloudStoragePath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -3321,12 +3192,25 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary
 	cDes.WordList = canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(des.WordList, initial.WordList, opts...)
 	cDes.CloudStoragePath = canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(des.CloudStoragePath, initial.CloudStoragePath, opts...)
 
+	if cDes.WordList != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudStoragePath) {
+			cDes.WordList = nil
+		}
+	}
+
+	if cDes.CloudStoragePath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.WordList) {
+			cDes.CloudStoragePath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionarySlice(des, initial []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3416,10 +3300,7 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesExclusionRuleDiction
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(des, initial *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3440,7 +3321,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListSlice(des, initial []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3531,10 +3412,7 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesExclusionRuleDiction
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(des, initial *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3544,7 +3422,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary
 
 	cDes := &InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath{}
 
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -3555,7 +3433,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathSlice(des, initial []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3646,10 +3524,7 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesExclusionRuleDiction
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(des, initial *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3659,13 +3534,13 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(des,
 
 	cDes := &InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex{}
 
-	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) || dcl.IsZeroValue(des.Pattern) {
+	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) {
 		cDes.Pattern = initial.Pattern
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -3676,7 +3551,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(des,
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSlice(des, initial []InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3767,10 +3642,7 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexSl
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(des, initial *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3787,7 +3659,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInf
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesSlice(des, initial []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3876,10 +3748,7 @@ func canonicalizeNewInspectTemplateInspectConfigRuleSetRulesExclusionRuleExclude
 }
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(des, initial *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes, opts ...dcl.ApplyOption) *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3889,7 +3758,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInf
 
 	cDes := &InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -3900,7 +3769,7 @@ func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInf
 
 func canonicalizeInspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice(des, initial []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes, opts ...dcl.ApplyOption) []InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

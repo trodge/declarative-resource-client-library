@@ -544,10 +544,7 @@ func canonicalizeTenantOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *Ten
 }
 
 func canonicalizeTenantOAuthIdpConfigResponseType(des, initial *TenantOAuthIdpConfigResponseType, opts ...dcl.ApplyOption) *TenantOAuthIdpConfigResponseType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -557,17 +554,17 @@ func canonicalizeTenantOAuthIdpConfigResponseType(des, initial *TenantOAuthIdpCo
 
 	cDes := &TenantOAuthIdpConfigResponseType{}
 
-	if dcl.BoolCanonicalize(des.IdToken, initial.IdToken) || dcl.IsZeroValue(des.IdToken) {
+	if dcl.BoolCanonicalize(des.IdToken, initial.IdToken) {
 		cDes.IdToken = initial.IdToken
 	} else {
 		cDes.IdToken = des.IdToken
 	}
-	if dcl.BoolCanonicalize(des.Code, initial.Code) || dcl.IsZeroValue(des.Code) {
+	if dcl.BoolCanonicalize(des.Code, initial.Code) {
 		cDes.Code = initial.Code
 	} else {
 		cDes.Code = des.Code
 	}
-	if dcl.BoolCanonicalize(des.Token, initial.Token) || dcl.IsZeroValue(des.Token) {
+	if dcl.BoolCanonicalize(des.Token, initial.Token) {
 		cDes.Token = initial.Token
 	} else {
 		cDes.Token = des.Token
@@ -578,7 +575,7 @@ func canonicalizeTenantOAuthIdpConfigResponseType(des, initial *TenantOAuthIdpCo
 
 func canonicalizeTenantOAuthIdpConfigResponseTypeSlice(des, initial []TenantOAuthIdpConfigResponseType, opts ...dcl.ApplyOption) []TenantOAuthIdpConfigResponseType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -544,39 +544,6 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.NetworkConfig != nil || rawInitial.NetworkConfig != nil {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			rawDesired.NetworkConfig = nil
-			rawInitial.NetworkConfig = nil
-		}
-	}
-
-	if rawDesired.PrivatePoolV1Config != nil || rawInitial.PrivatePoolV1Config != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.NetworkConfig) {
-			rawDesired.PrivatePoolV1Config = nil
-			rawInitial.PrivatePoolV1Config = nil
-		}
-	}
-
-	if rawDesired.WorkerConfig != nil || rawInitial.WorkerConfig != nil {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			rawDesired.WorkerConfig = nil
-			rawInitial.WorkerConfig = nil
-		}
-	}
-
-	if rawDesired.PrivatePoolV1Config != nil || rawInitial.PrivatePoolV1Config != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.WorkerConfig) {
-			rawDesired.PrivatePoolV1Config = nil
-			rawInitial.PrivatePoolV1Config = nil
-		}
-	}
-
 	canonicalDesired := &WorkerPool{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -588,8 +555,8 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 	} else {
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
@@ -606,6 +573,34 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.NetworkConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			canonicalDesired.NetworkConfig = nil
+		}
+	}
+
+	if canonicalDesired.PrivatePoolV1Config != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.NetworkConfig) {
+			canonicalDesired.PrivatePoolV1Config = nil
+		}
+	}
+
+	if canonicalDesired.WorkerConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			canonicalDesired.WorkerConfig = nil
+		}
+	}
+
+	if canonicalDesired.PrivatePoolV1Config != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.WorkerConfig) {
+			canonicalDesired.PrivatePoolV1Config = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -692,14 +687,35 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 
 	rawNew.Location = rawDesired.Location
 
+	if rawNew.NetworkConfig != nil {
+		if dcl.AnySet() && rawDesired.NetworkConfig == nil {
+			rawNew.NetworkConfig = nil
+		}
+	}
+
+	if rawNew.PrivatePoolV1Config != nil {
+		if dcl.AnySet(rawNew.NetworkConfig) && rawDesired.PrivatePoolV1Config == nil {
+			rawNew.PrivatePoolV1Config = nil
+		}
+	}
+
+	if rawNew.WorkerConfig != nil {
+		if dcl.AnySet() && rawDesired.WorkerConfig == nil {
+			rawNew.WorkerConfig = nil
+		}
+	}
+
+	if rawNew.PrivatePoolV1Config != nil {
+		if dcl.AnySet(rawNew.WorkerConfig) && rawDesired.PrivatePoolV1Config == nil {
+			rawNew.PrivatePoolV1Config = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeWorkerPoolPrivatePoolV1Config(des, initial *WorkerPoolPrivatePoolV1Config, opts ...dcl.ApplyOption) *WorkerPoolPrivatePoolV1Config {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -717,7 +733,7 @@ func canonicalizeWorkerPoolPrivatePoolV1Config(des, initial *WorkerPoolPrivatePo
 
 func canonicalizeWorkerPoolPrivatePoolV1ConfigSlice(des, initial []WorkerPoolPrivatePoolV1Config, opts ...dcl.ApplyOption) []WorkerPoolPrivatePoolV1Config {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -807,10 +823,7 @@ func canonicalizeNewWorkerPoolPrivatePoolV1ConfigSlice(c *Client, des, nw []Work
 }
 
 func canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfig(des, initial *WorkerPoolPrivatePoolV1ConfigWorkerConfig, opts ...dcl.ApplyOption) *WorkerPoolPrivatePoolV1ConfigWorkerConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -820,13 +833,13 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfig(des, initial *WorkerP
 
 	cDes := &WorkerPoolPrivatePoolV1ConfigWorkerConfig{}
 
-	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) {
 		cDes.MachineType = initial.MachineType
 	} else {
 		cDes.MachineType = des.MachineType
 	}
-	if dcl.IsZeroValue(des.DiskSizeGb) || (dcl.IsEmptyValueIndirect(des.DiskSizeGb) && dcl.IsEmptyValueIndirect(initial.DiskSizeGb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DiskSizeGb) && dcl.IsEmptyValueIndirect(initial.DiskSizeGb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DiskSizeGb = initial.DiskSizeGb
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
@@ -837,7 +850,7 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfig(des, initial *WorkerP
 
 func canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(des, initial []WorkerPoolPrivatePoolV1ConfigWorkerConfig, opts ...dcl.ApplyOption) []WorkerPoolPrivatePoolV1ConfigWorkerConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -928,10 +941,7 @@ func canonicalizeNewWorkerPoolPrivatePoolV1ConfigWorkerConfigSlice(c *Client, de
 }
 
 func canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(des, initial *WorkerPoolPrivatePoolV1ConfigNetworkConfig, opts ...dcl.ApplyOption) *WorkerPoolPrivatePoolV1ConfigNetworkConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -941,14 +951,14 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(des, initial *Worker
 
 	cDes := &WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
 
-	if dcl.IsZeroValue(des.PeeredNetwork) || (dcl.IsEmptyValueIndirect(des.PeeredNetwork) && dcl.IsEmptyValueIndirect(initial.PeeredNetwork)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PeeredNetwork) && dcl.IsEmptyValueIndirect(initial.PeeredNetwork) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PeeredNetwork = initial.PeeredNetwork
 	} else {
 		cDes.PeeredNetwork = des.PeeredNetwork
 	}
-	if dcl.IsZeroValue(des.EgressOption) || (dcl.IsEmptyValueIndirect(des.EgressOption) && dcl.IsEmptyValueIndirect(initial.EgressOption)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.EgressOption) && dcl.IsEmptyValueIndirect(initial.EgressOption) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.EgressOption = initial.EgressOption
 	} else {
 		cDes.EgressOption = des.EgressOption
@@ -959,7 +969,7 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(des, initial *Worker
 
 func canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(des, initial []WorkerPoolPrivatePoolV1ConfigNetworkConfig, opts ...dcl.ApplyOption) []WorkerPoolPrivatePoolV1ConfigNetworkConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1046,10 +1056,7 @@ func canonicalizeNewWorkerPoolPrivatePoolV1ConfigNetworkConfigSlice(c *Client, d
 }
 
 func canonicalizeWorkerPoolWorkerConfig(des, initial *WorkerPoolWorkerConfig, opts ...dcl.ApplyOption) *WorkerPoolWorkerConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1059,18 +1066,18 @@ func canonicalizeWorkerPoolWorkerConfig(des, initial *WorkerPoolWorkerConfig, op
 
 	cDes := &WorkerPoolWorkerConfig{}
 
-	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) {
 		cDes.MachineType = initial.MachineType
 	} else {
 		cDes.MachineType = des.MachineType
 	}
-	if dcl.IsZeroValue(des.DiskSizeGb) || (dcl.IsEmptyValueIndirect(des.DiskSizeGb) && dcl.IsEmptyValueIndirect(initial.DiskSizeGb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DiskSizeGb) && dcl.IsEmptyValueIndirect(initial.DiskSizeGb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DiskSizeGb = initial.DiskSizeGb
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
 	}
-	if dcl.BoolCanonicalize(des.NoExternalIP, initial.NoExternalIP) || dcl.IsZeroValue(des.NoExternalIP) {
+	if dcl.BoolCanonicalize(des.NoExternalIP, initial.NoExternalIP) {
 		cDes.NoExternalIP = initial.NoExternalIP
 	} else {
 		cDes.NoExternalIP = des.NoExternalIP
@@ -1081,7 +1088,7 @@ func canonicalizeWorkerPoolWorkerConfig(des, initial *WorkerPoolWorkerConfig, op
 
 func canonicalizeWorkerPoolWorkerConfigSlice(des, initial []WorkerPoolWorkerConfig, opts ...dcl.ApplyOption) []WorkerPoolWorkerConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1175,10 +1182,7 @@ func canonicalizeNewWorkerPoolWorkerConfigSlice(c *Client, des, nw []WorkerPoolW
 }
 
 func canonicalizeWorkerPoolNetworkConfig(des, initial *WorkerPoolNetworkConfig, opts ...dcl.ApplyOption) *WorkerPoolNetworkConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1188,8 +1192,8 @@ func canonicalizeWorkerPoolNetworkConfig(des, initial *WorkerPoolNetworkConfig, 
 
 	cDes := &WorkerPoolNetworkConfig{}
 
-	if dcl.IsZeroValue(des.PeeredNetwork) || (dcl.IsEmptyValueIndirect(des.PeeredNetwork) && dcl.IsEmptyValueIndirect(initial.PeeredNetwork)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PeeredNetwork) && dcl.IsEmptyValueIndirect(initial.PeeredNetwork) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PeeredNetwork = initial.PeeredNetwork
 	} else {
 		cDes.PeeredNetwork = des.PeeredNetwork
@@ -1200,7 +1204,7 @@ func canonicalizeWorkerPoolNetworkConfig(des, initial *WorkerPoolNetworkConfig, 
 
 func canonicalizeWorkerPoolNetworkConfigSlice(des, initial []WorkerPoolNetworkConfig, opts ...dcl.ApplyOption) []WorkerPoolNetworkConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

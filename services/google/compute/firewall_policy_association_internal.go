@@ -270,14 +270,14 @@ func canonicalizeFirewallPolicyAssociationDesiredState(rawDesired, rawInitial *F
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.AttachmentTarget) || (dcl.IsEmptyValueIndirect(rawDesired.AttachmentTarget) && dcl.IsEmptyValueIndirect(rawInitial.AttachmentTarget)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.AttachmentTarget) && dcl.IsEmptyValueIndirect(rawInitial.AttachmentTarget) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.AttachmentTarget = rawInitial.AttachmentTarget
 	} else {
 		canonicalDesired.AttachmentTarget = rawDesired.AttachmentTarget
 	}
-	if dcl.IsZeroValue(rawDesired.FirewallPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.FirewallPolicy) && dcl.IsEmptyValueIndirect(rawInitial.FirewallPolicy)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.FirewallPolicy) && dcl.IsEmptyValueIndirect(rawInitial.FirewallPolicy) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.FirewallPolicy = rawInitial.FirewallPolicy
 	} else {
 		canonicalDesired.FirewallPolicy = rawDesired.FirewallPolicy

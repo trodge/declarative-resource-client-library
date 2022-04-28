@@ -498,14 +498,14 @@ func canonicalizeServiceAttachmentDesiredState(rawDesired, rawInitial *ServiceAt
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.TargetService) || (dcl.IsEmptyValueIndirect(rawDesired.TargetService) && dcl.IsEmptyValueIndirect(rawInitial.TargetService)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.TargetService) && dcl.IsEmptyValueIndirect(rawInitial.TargetService) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.TargetService = rawInitial.TargetService
 	} else {
 		canonicalDesired.TargetService = rawDesired.TargetService
 	}
-	if dcl.IsZeroValue(rawDesired.ConnectionPreference) || (dcl.IsEmptyValueIndirect(rawDesired.ConnectionPreference) && dcl.IsEmptyValueIndirect(rawInitial.ConnectionPreference)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.ConnectionPreference) && dcl.IsEmptyValueIndirect(rawInitial.ConnectionPreference) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.ConnectionPreference = rawInitial.ConnectionPreference
 	} else {
 		canonicalDesired.ConnectionPreference = rawDesired.ConnectionPreference
@@ -647,10 +647,7 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 }
 
 func canonicalizeServiceAttachmentConnectedEndpoints(des, initial *ServiceAttachmentConnectedEndpoints, opts ...dcl.ApplyOption) *ServiceAttachmentConnectedEndpoints {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -660,19 +657,19 @@ func canonicalizeServiceAttachmentConnectedEndpoints(des, initial *ServiceAttach
 
 	cDes := &ServiceAttachmentConnectedEndpoints{}
 
-	if dcl.IsZeroValue(des.Status) || (dcl.IsEmptyValueIndirect(des.Status) && dcl.IsEmptyValueIndirect(initial.Status)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Status) && dcl.IsEmptyValueIndirect(initial.Status) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Status = initial.Status
 	} else {
 		cDes.Status = des.Status
 	}
-	if dcl.IsZeroValue(des.PscConnectionId) || (dcl.IsEmptyValueIndirect(des.PscConnectionId) && dcl.IsEmptyValueIndirect(initial.PscConnectionId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PscConnectionId) && dcl.IsEmptyValueIndirect(initial.PscConnectionId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PscConnectionId = initial.PscConnectionId
 	} else {
 		cDes.PscConnectionId = des.PscConnectionId
 	}
-	if dcl.StringCanonicalize(des.Endpoint, initial.Endpoint) || dcl.IsZeroValue(des.Endpoint) {
+	if dcl.StringCanonicalize(des.Endpoint, initial.Endpoint) {
 		cDes.Endpoint = initial.Endpoint
 	} else {
 		cDes.Endpoint = des.Endpoint
@@ -683,7 +680,7 @@ func canonicalizeServiceAttachmentConnectedEndpoints(des, initial *ServiceAttach
 
 func canonicalizeServiceAttachmentConnectedEndpointsSlice(des, initial []ServiceAttachmentConnectedEndpoints, opts ...dcl.ApplyOption) []ServiceAttachmentConnectedEndpoints {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -774,10 +771,7 @@ func canonicalizeNewServiceAttachmentConnectedEndpointsSlice(c *Client, des, nw 
 }
 
 func canonicalizeServiceAttachmentConsumerAcceptLists(des, initial *ServiceAttachmentConsumerAcceptLists, opts ...dcl.ApplyOption) *ServiceAttachmentConsumerAcceptLists {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -787,14 +781,14 @@ func canonicalizeServiceAttachmentConsumerAcceptLists(des, initial *ServiceAttac
 
 	cDes := &ServiceAttachmentConsumerAcceptLists{}
 
-	if dcl.IsZeroValue(des.ProjectIdOrNum) || (dcl.IsEmptyValueIndirect(des.ProjectIdOrNum) && dcl.IsEmptyValueIndirect(initial.ProjectIdOrNum)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ProjectIdOrNum) && dcl.IsEmptyValueIndirect(initial.ProjectIdOrNum) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ProjectIdOrNum = initial.ProjectIdOrNum
 	} else {
 		cDes.ProjectIdOrNum = des.ProjectIdOrNum
 	}
-	if dcl.IsZeroValue(des.ConnectionLimit) || (dcl.IsEmptyValueIndirect(des.ConnectionLimit) && dcl.IsEmptyValueIndirect(initial.ConnectionLimit)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ConnectionLimit) && dcl.IsEmptyValueIndirect(initial.ConnectionLimit) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ConnectionLimit = initial.ConnectionLimit
 	} else {
 		cDes.ConnectionLimit = des.ConnectionLimit
@@ -805,7 +799,7 @@ func canonicalizeServiceAttachmentConsumerAcceptLists(des, initial *ServiceAttac
 
 func canonicalizeServiceAttachmentConsumerAcceptListsSlice(des, initial []ServiceAttachmentConsumerAcceptLists, opts ...dcl.ApplyOption) []ServiceAttachmentConsumerAcceptLists {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -892,10 +886,7 @@ func canonicalizeNewServiceAttachmentConsumerAcceptListsSlice(c *Client, des, nw
 }
 
 func canonicalizeServiceAttachmentPscServiceAttachmentId(des, initial *ServiceAttachmentPscServiceAttachmentId, opts ...dcl.ApplyOption) *ServiceAttachmentPscServiceAttachmentId {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -910,7 +901,7 @@ func canonicalizeServiceAttachmentPscServiceAttachmentId(des, initial *ServiceAt
 
 func canonicalizeServiceAttachmentPscServiceAttachmentIdSlice(des, initial []ServiceAttachmentPscServiceAttachmentId, opts ...dcl.ApplyOption) []ServiceAttachmentPscServiceAttachmentId {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

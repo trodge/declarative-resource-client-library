@@ -353,8 +353,8 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Priority) || (dcl.IsEmptyValueIndirect(rawDesired.Priority) && dcl.IsEmptyValueIndirect(rawInitial.Priority)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Priority) && dcl.IsEmptyValueIndirect(rawInitial.Priority) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Priority = rawInitial.Priority
 	} else {
 		canonicalDesired.Priority = rawDesired.Priority
@@ -365,8 +365,8 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	} else {
 		canonicalDesired.Action = rawDesired.Action
 	}
-	if dcl.IsZeroValue(rawDesired.Direction) || (dcl.IsEmptyValueIndirect(rawDesired.Direction) && dcl.IsEmptyValueIndirect(rawInitial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Direction) && dcl.IsEmptyValueIndirect(rawInitial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Direction = rawInitial.Direction
 	} else {
 		canonicalDesired.Direction = rawDesired.Direction
@@ -391,8 +391,8 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	} else {
 		canonicalDesired.Disabled = rawDesired.Disabled
 	}
-	if dcl.IsZeroValue(rawDesired.FirewallPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.FirewallPolicy) && dcl.IsEmptyValueIndirect(rawInitial.FirewallPolicy)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.FirewallPolicy) && dcl.IsEmptyValueIndirect(rawInitial.FirewallPolicy) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.FirewallPolicy = rawInitial.FirewallPolicy
 	} else {
 		canonicalDesired.FirewallPolicy = rawDesired.FirewallPolicy
@@ -489,10 +489,7 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 }
 
 func canonicalizeFirewallPolicyRuleMatch(des, initial *FirewallPolicyRuleMatch, opts ...dcl.ApplyOption) *FirewallPolicyRuleMatch {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -519,7 +516,7 @@ func canonicalizeFirewallPolicyRuleMatch(des, initial *FirewallPolicyRuleMatch, 
 
 func canonicalizeFirewallPolicyRuleMatchSlice(des, initial []FirewallPolicyRuleMatch, opts ...dcl.ApplyOption) []FirewallPolicyRuleMatch {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -614,10 +611,7 @@ func canonicalizeNewFirewallPolicyRuleMatchSlice(c *Client, des, nw []FirewallPo
 }
 
 func canonicalizeFirewallPolicyRuleMatchLayer4Configs(des, initial *FirewallPolicyRuleMatchLayer4Configs, opts ...dcl.ApplyOption) *FirewallPolicyRuleMatchLayer4Configs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -627,7 +621,7 @@ func canonicalizeFirewallPolicyRuleMatchLayer4Configs(des, initial *FirewallPoli
 
 	cDes := &FirewallPolicyRuleMatchLayer4Configs{}
 
-	if dcl.StringCanonicalize(des.IPProtocol, initial.IPProtocol) || dcl.IsZeroValue(des.IPProtocol) {
+	if dcl.StringCanonicalize(des.IPProtocol, initial.IPProtocol) {
 		cDes.IPProtocol = initial.IPProtocol
 	} else {
 		cDes.IPProtocol = des.IPProtocol
@@ -643,7 +637,7 @@ func canonicalizeFirewallPolicyRuleMatchLayer4Configs(des, initial *FirewallPoli
 
 func canonicalizeFirewallPolicyRuleMatchLayer4ConfigsSlice(des, initial []FirewallPolicyRuleMatchLayer4Configs, opts ...dcl.ApplyOption) []FirewallPolicyRuleMatchLayer4Configs {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

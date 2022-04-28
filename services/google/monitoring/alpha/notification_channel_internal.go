@@ -450,14 +450,14 @@ func canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial *Notific
 	} else {
 		canonicalDesired.Enabled = rawDesired.Enabled
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -467,8 +467,8 @@ func canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial *Notific
 	} else {
 		canonicalDesired.Type = rawDesired.Type
 	}
-	if dcl.IsZeroValue(rawDesired.UserLabels) || (dcl.IsEmptyValueIndirect(rawDesired.UserLabels) && dcl.IsEmptyValueIndirect(rawInitial.UserLabels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.UserLabels) && dcl.IsEmptyValueIndirect(rawInitial.UserLabels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.UserLabels = rawInitial.UserLabels
 	} else {
 		canonicalDesired.UserLabels = rawDesired.UserLabels

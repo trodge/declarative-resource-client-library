@@ -781,23 +781,6 @@ func canonicalizePatchDeploymentDesiredState(rawDesired, rawInitial *PatchDeploy
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.OneTimeSchedule != nil || rawInitial.OneTimeSchedule != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.RecurringSchedule) {
-			rawDesired.OneTimeSchedule = nil
-			rawInitial.OneTimeSchedule = nil
-		}
-	}
-
-	if rawDesired.RecurringSchedule != nil || rawInitial.RecurringSchedule != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.OneTimeSchedule) {
-			rawDesired.RecurringSchedule = nil
-			rawInitial.RecurringSchedule = nil
-		}
-	}
-
 	canonicalDesired := &PatchDeployment{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -823,6 +806,20 @@ func canonicalizePatchDeploymentDesiredState(rawDesired, rawInitial *PatchDeploy
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.OneTimeSchedule != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.RecurringSchedule) {
+			canonicalDesired.OneTimeSchedule = nil
+		}
+	}
+
+	if canonicalDesired.RecurringSchedule != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.OneTimeSchedule) {
+			canonicalDesired.RecurringSchedule = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -901,95 +898,24 @@ func canonicalizePatchDeploymentNewState(c *Client, rawNew, rawDesired *PatchDep
 
 	rawNew.Project = rawDesired.Project
 
+	if rawNew.OneTimeSchedule != nil {
+		if dcl.AnySet(rawNew.RecurringSchedule) && rawDesired.OneTimeSchedule == nil {
+			rawNew.OneTimeSchedule = nil
+		}
+	}
+
+	if rawNew.RecurringSchedule != nil {
+		if dcl.AnySet(rawNew.OneTimeSchedule) && rawDesired.RecurringSchedule == nil {
+			rawNew.RecurringSchedule = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizePatchDeploymentInstanceFilter(des, initial *PatchDeploymentInstanceFilter, opts ...dcl.ApplyOption) *PatchDeploymentInstanceFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.All != nil || (initial != nil && initial.All != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GroupLabels) {
-			des.All = nil
-			if initial != nil {
-				initial.All = nil
-			}
-		}
-	}
-
-	if des.GroupLabels != nil || (initial != nil && initial.GroupLabels != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.All) {
-			des.GroupLabels = nil
-			if initial != nil {
-				initial.GroupLabels = nil
-			}
-		}
-	}
-
-	if des.All != nil || (initial != nil && initial.All != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Zones) {
-			des.All = nil
-			if initial != nil {
-				initial.All = nil
-			}
-		}
-	}
-
-	if des.Zones != nil || (initial != nil && initial.Zones != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.All) {
-			des.Zones = nil
-			if initial != nil {
-				initial.Zones = nil
-			}
-		}
-	}
-
-	if des.All != nil || (initial != nil && initial.All != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Instances) {
-			des.All = nil
-			if initial != nil {
-				initial.All = nil
-			}
-		}
-	}
-
-	if des.Instances != nil || (initial != nil && initial.Instances != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.All) {
-			des.Instances = nil
-			if initial != nil {
-				initial.Instances = nil
-			}
-		}
-	}
-
-	if des.All != nil || (initial != nil && initial.All != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.InstanceNamePrefixes) {
-			des.All = nil
-			if initial != nil {
-				initial.All = nil
-			}
-		}
-	}
-
-	if des.InstanceNamePrefixes != nil || (initial != nil && initial.InstanceNamePrefixes != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.All) {
-			des.InstanceNamePrefixes = nil
-			if initial != nil {
-				initial.InstanceNamePrefixes = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -998,7 +924,7 @@ func canonicalizePatchDeploymentInstanceFilter(des, initial *PatchDeploymentInst
 
 	cDes := &PatchDeploymentInstanceFilter{}
 
-	if dcl.BoolCanonicalize(des.All, initial.All) || dcl.IsZeroValue(des.All) {
+	if dcl.BoolCanonicalize(des.All, initial.All) {
 		cDes.All = initial.All
 	} else {
 		cDes.All = des.All
@@ -1020,12 +946,67 @@ func canonicalizePatchDeploymentInstanceFilter(des, initial *PatchDeploymentInst
 		cDes.InstanceNamePrefixes = des.InstanceNamePrefixes
 	}
 
+	if cDes.All != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GroupLabels) {
+			cDes.All = nil
+		}
+	}
+
+	if cDes.GroupLabels != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.All) {
+			cDes.GroupLabels = nil
+		}
+	}
+
+	if cDes.All != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Zones) {
+			cDes.All = nil
+		}
+	}
+
+	if cDes.Zones != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.All) {
+			cDes.Zones = nil
+		}
+	}
+
+	if cDes.All != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Instances) {
+			cDes.All = nil
+		}
+	}
+
+	if cDes.Instances != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.All) {
+			cDes.Instances = nil
+		}
+	}
+
+	if cDes.All != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.InstanceNamePrefixes) {
+			cDes.All = nil
+		}
+	}
+
+	if cDes.InstanceNamePrefixes != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.All) {
+			cDes.InstanceNamePrefixes = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentInstanceFilterSlice(des, initial []PatchDeploymentInstanceFilter, opts ...dcl.ApplyOption) []PatchDeploymentInstanceFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1126,10 +1107,7 @@ func canonicalizeNewPatchDeploymentInstanceFilterSlice(c *Client, des, nw []Patc
 }
 
 func canonicalizePatchDeploymentInstanceFilterGroupLabels(des, initial *PatchDeploymentInstanceFilterGroupLabels, opts ...dcl.ApplyOption) *PatchDeploymentInstanceFilterGroupLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1139,8 +1117,8 @@ func canonicalizePatchDeploymentInstanceFilterGroupLabels(des, initial *PatchDep
 
 	cDes := &PatchDeploymentInstanceFilterGroupLabels{}
 
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -1151,7 +1129,7 @@ func canonicalizePatchDeploymentInstanceFilterGroupLabels(des, initial *PatchDep
 
 func canonicalizePatchDeploymentInstanceFilterGroupLabelsSlice(des, initial []PatchDeploymentInstanceFilterGroupLabels, opts ...dcl.ApplyOption) []PatchDeploymentInstanceFilterGroupLabels {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1238,10 +1216,7 @@ func canonicalizeNewPatchDeploymentInstanceFilterGroupLabelsSlice(c *Client, des
 }
 
 func canonicalizePatchDeploymentPatchConfig(des, initial *PatchDeploymentPatchConfig, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1251,8 +1226,8 @@ func canonicalizePatchDeploymentPatchConfig(des, initial *PatchDeploymentPatchCo
 
 	cDes := &PatchDeploymentPatchConfig{}
 
-	if dcl.IsZeroValue(des.RebootConfig) || (dcl.IsEmptyValueIndirect(des.RebootConfig) && dcl.IsEmptyValueIndirect(initial.RebootConfig)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RebootConfig) && dcl.IsEmptyValueIndirect(initial.RebootConfig) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RebootConfig = initial.RebootConfig
 	} else {
 		cDes.RebootConfig = des.RebootConfig
@@ -1270,7 +1245,7 @@ func canonicalizePatchDeploymentPatchConfig(des, initial *PatchDeploymentPatchCo
 
 func canonicalizePatchDeploymentPatchConfigSlice(des, initial []PatchDeploymentPatchConfig, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1365,31 +1340,8 @@ func canonicalizeNewPatchDeploymentPatchConfigSlice(c *Client, des, nw []PatchDe
 }
 
 func canonicalizePatchDeploymentPatchConfigApt(des, initial *PatchDeploymentPatchConfigApt, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigApt {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Excludes != nil || (initial != nil && initial.Excludes != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusivePackages) {
-			des.Excludes = nil
-			if initial != nil {
-				initial.Excludes = nil
-			}
-		}
-	}
-
-	if des.ExclusivePackages != nil || (initial != nil && initial.ExclusivePackages != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Excludes) {
-			des.ExclusivePackages = nil
-			if initial != nil {
-				initial.ExclusivePackages = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1398,8 +1350,8 @@ func canonicalizePatchDeploymentPatchConfigApt(des, initial *PatchDeploymentPatc
 
 	cDes := &PatchDeploymentPatchConfigApt{}
 
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -1415,12 +1367,25 @@ func canonicalizePatchDeploymentPatchConfigApt(des, initial *PatchDeploymentPatc
 		cDes.ExclusivePackages = des.ExclusivePackages
 	}
 
+	if cDes.Excludes != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusivePackages) {
+			cDes.Excludes = nil
+		}
+	}
+
+	if cDes.ExclusivePackages != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Excludes) {
+			cDes.ExclusivePackages = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentPatchConfigAptSlice(des, initial []PatchDeploymentPatchConfigApt, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigApt {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1514,31 +1479,8 @@ func canonicalizeNewPatchDeploymentPatchConfigAptSlice(c *Client, des, nw []Patc
 }
 
 func canonicalizePatchDeploymentPatchConfigYum(des, initial *PatchDeploymentPatchConfigYum, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigYum {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Excludes != nil || (initial != nil && initial.Excludes != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusivePackages) {
-			des.Excludes = nil
-			if initial != nil {
-				initial.Excludes = nil
-			}
-		}
-	}
-
-	if des.ExclusivePackages != nil || (initial != nil && initial.ExclusivePackages != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Excludes) {
-			des.ExclusivePackages = nil
-			if initial != nil {
-				initial.ExclusivePackages = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1547,12 +1489,12 @@ func canonicalizePatchDeploymentPatchConfigYum(des, initial *PatchDeploymentPatc
 
 	cDes := &PatchDeploymentPatchConfigYum{}
 
-	if dcl.BoolCanonicalize(des.Security, initial.Security) || dcl.IsZeroValue(des.Security) {
+	if dcl.BoolCanonicalize(des.Security, initial.Security) {
 		cDes.Security = initial.Security
 	} else {
 		cDes.Security = des.Security
 	}
-	if dcl.BoolCanonicalize(des.Minimal, initial.Minimal) || dcl.IsZeroValue(des.Minimal) {
+	if dcl.BoolCanonicalize(des.Minimal, initial.Minimal) {
 		cDes.Minimal = initial.Minimal
 	} else {
 		cDes.Minimal = des.Minimal
@@ -1568,12 +1510,25 @@ func canonicalizePatchDeploymentPatchConfigYum(des, initial *PatchDeploymentPatc
 		cDes.ExclusivePackages = des.ExclusivePackages
 	}
 
+	if cDes.Excludes != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusivePackages) {
+			cDes.Excludes = nil
+		}
+	}
+
+	if cDes.ExclusivePackages != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Excludes) {
+			cDes.ExclusivePackages = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentPatchConfigYumSlice(des, initial []PatchDeploymentPatchConfigYum, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigYum {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1673,12 +1628,10 @@ func canonicalizeNewPatchDeploymentPatchConfigYumSlice(c *Client, des, nw []Patc
 }
 
 func canonicalizePatchDeploymentPatchConfigGoo(des, initial *PatchDeploymentPatchConfigGoo, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigGoo {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -1690,7 +1643,7 @@ func canonicalizePatchDeploymentPatchConfigGoo(des, initial *PatchDeploymentPatc
 
 func canonicalizePatchDeploymentPatchConfigGooSlice(des, initial []PatchDeploymentPatchConfigGoo, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigGoo {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1777,111 +1730,8 @@ func canonicalizeNewPatchDeploymentPatchConfigGooSlice(c *Client, des, nw []Patc
 }
 
 func canonicalizePatchDeploymentPatchConfigZypper(des, initial *PatchDeploymentPatchConfigZypper, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigZypper {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.WithOptional != nil || (initial != nil && initial.WithOptional != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusivePatches) {
-			des.WithOptional = nil
-			if initial != nil {
-				initial.WithOptional = nil
-			}
-		}
-	}
-
-	if des.ExclusivePatches != nil || (initial != nil && initial.ExclusivePatches != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.WithOptional) {
-			des.ExclusivePatches = nil
-			if initial != nil {
-				initial.ExclusivePatches = nil
-			}
-		}
-	}
-
-	if des.WithUpdate != nil || (initial != nil && initial.WithUpdate != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusivePatches) {
-			des.WithUpdate = nil
-			if initial != nil {
-				initial.WithUpdate = nil
-			}
-		}
-	}
-
-	if des.ExclusivePatches != nil || (initial != nil && initial.ExclusivePatches != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.WithUpdate) {
-			des.ExclusivePatches = nil
-			if initial != nil {
-				initial.ExclusivePatches = nil
-			}
-		}
-	}
-
-	if des.Categories != nil || (initial != nil && initial.Categories != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusivePatches) {
-			des.Categories = nil
-			if initial != nil {
-				initial.Categories = nil
-			}
-		}
-	}
-
-	if des.ExclusivePatches != nil || (initial != nil && initial.ExclusivePatches != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Categories) {
-			des.ExclusivePatches = nil
-			if initial != nil {
-				initial.ExclusivePatches = nil
-			}
-		}
-	}
-
-	if des.Severities != nil || (initial != nil && initial.Severities != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusivePatches) {
-			des.Severities = nil
-			if initial != nil {
-				initial.Severities = nil
-			}
-		}
-	}
-
-	if des.ExclusivePatches != nil || (initial != nil && initial.ExclusivePatches != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Severities) {
-			des.ExclusivePatches = nil
-			if initial != nil {
-				initial.ExclusivePatches = nil
-			}
-		}
-	}
-
-	if des.Excludes != nil || (initial != nil && initial.Excludes != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusivePatches) {
-			des.Excludes = nil
-			if initial != nil {
-				initial.Excludes = nil
-			}
-		}
-	}
-
-	if des.ExclusivePatches != nil || (initial != nil && initial.ExclusivePatches != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Excludes) {
-			des.ExclusivePatches = nil
-			if initial != nil {
-				initial.ExclusivePatches = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1890,12 +1740,12 @@ func canonicalizePatchDeploymentPatchConfigZypper(des, initial *PatchDeploymentP
 
 	cDes := &PatchDeploymentPatchConfigZypper{}
 
-	if dcl.BoolCanonicalize(des.WithOptional, initial.WithOptional) || dcl.IsZeroValue(des.WithOptional) {
+	if dcl.BoolCanonicalize(des.WithOptional, initial.WithOptional) {
 		cDes.WithOptional = initial.WithOptional
 	} else {
 		cDes.WithOptional = des.WithOptional
 	}
-	if dcl.BoolCanonicalize(des.WithUpdate, initial.WithUpdate) || dcl.IsZeroValue(des.WithUpdate) {
+	if dcl.BoolCanonicalize(des.WithUpdate, initial.WithUpdate) {
 		cDes.WithUpdate = initial.WithUpdate
 	} else {
 		cDes.WithUpdate = des.WithUpdate
@@ -1921,12 +1771,81 @@ func canonicalizePatchDeploymentPatchConfigZypper(des, initial *PatchDeploymentP
 		cDes.ExclusivePatches = des.ExclusivePatches
 	}
 
+	if cDes.WithOptional != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusivePatches) {
+			cDes.WithOptional = nil
+		}
+	}
+
+	if cDes.ExclusivePatches != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.WithOptional) {
+			cDes.ExclusivePatches = nil
+		}
+	}
+
+	if cDes.WithUpdate != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusivePatches) {
+			cDes.WithUpdate = nil
+		}
+	}
+
+	if cDes.ExclusivePatches != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.WithUpdate) {
+			cDes.ExclusivePatches = nil
+		}
+	}
+
+	if cDes.Categories != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusivePatches) {
+			cDes.Categories = nil
+		}
+	}
+
+	if cDes.ExclusivePatches != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Categories) {
+			cDes.ExclusivePatches = nil
+		}
+	}
+
+	if cDes.Severities != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusivePatches) {
+			cDes.Severities = nil
+		}
+	}
+
+	if cDes.ExclusivePatches != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Severities) {
+			cDes.ExclusivePatches = nil
+		}
+	}
+
+	if cDes.Excludes != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusivePatches) {
+			cDes.Excludes = nil
+		}
+	}
+
+	if cDes.ExclusivePatches != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Excludes) {
+			cDes.ExclusivePatches = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentPatchConfigZypperSlice(des, initial []PatchDeploymentPatchConfigZypper, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigZypper {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2032,51 +1951,8 @@ func canonicalizeNewPatchDeploymentPatchConfigZypperSlice(c *Client, des, nw []P
 }
 
 func canonicalizePatchDeploymentPatchConfigWindowsUpdate(des, initial *PatchDeploymentPatchConfigWindowsUpdate, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigWindowsUpdate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Classifications != nil || (initial != nil && initial.Classifications != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusivePatches) {
-			des.Classifications = nil
-			if initial != nil {
-				initial.Classifications = nil
-			}
-		}
-	}
-
-	if des.ExclusivePatches != nil || (initial != nil && initial.ExclusivePatches != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Classifications) {
-			des.ExclusivePatches = nil
-			if initial != nil {
-				initial.ExclusivePatches = nil
-			}
-		}
-	}
-
-	if des.Excludes != nil || (initial != nil && initial.Excludes != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusivePatches) {
-			des.Excludes = nil
-			if initial != nil {
-				initial.Excludes = nil
-			}
-		}
-	}
-
-	if des.ExclusivePatches != nil || (initial != nil && initial.ExclusivePatches != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Excludes) {
-			des.ExclusivePatches = nil
-			if initial != nil {
-				initial.ExclusivePatches = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2085,8 +1961,8 @@ func canonicalizePatchDeploymentPatchConfigWindowsUpdate(des, initial *PatchDepl
 
 	cDes := &PatchDeploymentPatchConfigWindowsUpdate{}
 
-	if dcl.IsZeroValue(des.Classifications) || (dcl.IsEmptyValueIndirect(des.Classifications) && dcl.IsEmptyValueIndirect(initial.Classifications)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Classifications) && dcl.IsEmptyValueIndirect(initial.Classifications) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Classifications = initial.Classifications
 	} else {
 		cDes.Classifications = des.Classifications
@@ -2102,12 +1978,39 @@ func canonicalizePatchDeploymentPatchConfigWindowsUpdate(des, initial *PatchDepl
 		cDes.ExclusivePatches = des.ExclusivePatches
 	}
 
+	if cDes.Classifications != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusivePatches) {
+			cDes.Classifications = nil
+		}
+	}
+
+	if cDes.ExclusivePatches != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Classifications) {
+			cDes.ExclusivePatches = nil
+		}
+	}
+
+	if cDes.Excludes != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusivePatches) {
+			cDes.Excludes = nil
+		}
+	}
+
+	if cDes.ExclusivePatches != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Excludes) {
+			cDes.ExclusivePatches = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentPatchConfigWindowsUpdateSlice(des, initial []PatchDeploymentPatchConfigWindowsUpdate, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigWindowsUpdate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2201,10 +2104,7 @@ func canonicalizeNewPatchDeploymentPatchConfigWindowsUpdateSlice(c *Client, des,
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStep(des, initial *PatchDeploymentPatchConfigPreStep, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigPreStep {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2222,7 +2122,7 @@ func canonicalizePatchDeploymentPatchConfigPreStep(des, initial *PatchDeployment
 
 func canonicalizePatchDeploymentPatchConfigPreStepSlice(des, initial []PatchDeploymentPatchConfigPreStep, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPreStep {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2312,31 +2212,8 @@ func canonicalizeNewPatchDeploymentPatchConfigPreStepSlice(c *Client, des, nw []
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfig(des, initial *PatchDeploymentPatchConfigPreStepLinuxExecStepConfig, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigPreStepLinuxExecStepConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.LocalPath != nil || (initial != nil && initial.LocalPath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GcsObject) {
-			des.LocalPath = nil
-			if initial != nil {
-				initial.LocalPath = nil
-			}
-		}
-	}
-
-	if des.GcsObject != nil || (initial != nil && initial.GcsObject != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.LocalPath) {
-			des.GcsObject = nil
-			if initial != nil {
-				initial.GcsObject = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2345,31 +2222,44 @@ func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfig(des, initi
 
 	cDes := &PatchDeploymentPatchConfigPreStepLinuxExecStepConfig{}
 
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
 	cDes.GcsObject = canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(des.GcsObject, initial.GcsObject, opts...)
-	if dcl.IsZeroValue(des.AllowedSuccessCodes) || (dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AllowedSuccessCodes = initial.AllowedSuccessCodes
 	} else {
 		cDes.AllowedSuccessCodes = des.AllowedSuccessCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
 	}
 
+	if cDes.LocalPath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GcsObject) {
+			cDes.LocalPath = nil
+		}
+	}
+
+	if cDes.GcsObject != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.LocalPath) {
+			cDes.GcsObject = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice(des, initial []PatchDeploymentPatchConfigPreStepLinuxExecStepConfig, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPreStepLinuxExecStepConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2461,10 +2351,7 @@ func canonicalizeNewPatchDeploymentPatchConfigPreStepLinuxExecStepConfigSlice(c 
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(des, initial *PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2474,18 +2361,18 @@ func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(d
 
 	cDes := &PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.GenerationNumber) || (dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GenerationNumber = initial.GenerationNumber
 	} else {
 		cDes.GenerationNumber = des.GenerationNumber
@@ -2496,7 +2383,7 @@ func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject(d
 
 func canonicalizePatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjectSlice(des, initial []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObject {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2590,31 +2477,8 @@ func canonicalizeNewPatchDeploymentPatchConfigPreStepLinuxExecStepConfigGcsObjec
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfig(des, initial *PatchDeploymentPatchConfigPreStepWindowsExecStepConfig, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigPreStepWindowsExecStepConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.LocalPath != nil || (initial != nil && initial.LocalPath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GcsObject) {
-			des.LocalPath = nil
-			if initial != nil {
-				initial.LocalPath = nil
-			}
-		}
-	}
-
-	if des.GcsObject != nil || (initial != nil && initial.GcsObject != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.LocalPath) {
-			des.GcsObject = nil
-			if initial != nil {
-				initial.GcsObject = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2623,31 +2487,44 @@ func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfig(des, ini
 
 	cDes := &PatchDeploymentPatchConfigPreStepWindowsExecStepConfig{}
 
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
 	cDes.GcsObject = canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(des.GcsObject, initial.GcsObject, opts...)
-	if dcl.IsZeroValue(des.AllowedSuccessCodes) || (dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AllowedSuccessCodes = initial.AllowedSuccessCodes
 	} else {
 		cDes.AllowedSuccessCodes = des.AllowedSuccessCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
 	}
 
+	if cDes.LocalPath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GcsObject) {
+			cDes.LocalPath = nil
+		}
+	}
+
+	if cDes.GcsObject != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.LocalPath) {
+			cDes.GcsObject = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice(des, initial []PatchDeploymentPatchConfigPreStepWindowsExecStepConfig, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPreStepWindowsExecStepConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2739,10 +2616,7 @@ func canonicalizeNewPatchDeploymentPatchConfigPreStepWindowsExecStepConfigSlice(
 }
 
 func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject(des, initial *PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2752,18 +2626,18 @@ func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject
 
 	cDes := &PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.GenerationNumber) || (dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GenerationNumber = initial.GenerationNumber
 	} else {
 		cDes.GenerationNumber = des.GenerationNumber
@@ -2774,7 +2648,7 @@ func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject
 
 func canonicalizePatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObjectSlice(des, initial []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObject {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2868,10 +2742,7 @@ func canonicalizeNewPatchDeploymentPatchConfigPreStepWindowsExecStepConfigGcsObj
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStep(des, initial *PatchDeploymentPatchConfigPostStep, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigPostStep {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2889,7 +2760,7 @@ func canonicalizePatchDeploymentPatchConfigPostStep(des, initial *PatchDeploymen
 
 func canonicalizePatchDeploymentPatchConfigPostStepSlice(des, initial []PatchDeploymentPatchConfigPostStep, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPostStep {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2979,31 +2850,8 @@ func canonicalizeNewPatchDeploymentPatchConfigPostStepSlice(c *Client, des, nw [
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfig(des, initial *PatchDeploymentPatchConfigPostStepLinuxExecStepConfig, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigPostStepLinuxExecStepConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.LocalPath != nil || (initial != nil && initial.LocalPath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GcsObject) {
-			des.LocalPath = nil
-			if initial != nil {
-				initial.LocalPath = nil
-			}
-		}
-	}
-
-	if des.GcsObject != nil || (initial != nil && initial.GcsObject != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.LocalPath) {
-			des.GcsObject = nil
-			if initial != nil {
-				initial.GcsObject = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -3012,31 +2860,44 @@ func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfig(des, init
 
 	cDes := &PatchDeploymentPatchConfigPostStepLinuxExecStepConfig{}
 
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
 	cDes.GcsObject = canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(des.GcsObject, initial.GcsObject, opts...)
-	if dcl.IsZeroValue(des.AllowedSuccessCodes) || (dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AllowedSuccessCodes = initial.AllowedSuccessCodes
 	} else {
 		cDes.AllowedSuccessCodes = des.AllowedSuccessCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
 	}
 
+	if cDes.LocalPath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GcsObject) {
+			cDes.LocalPath = nil
+		}
+	}
+
+	if cDes.GcsObject != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.LocalPath) {
+			cDes.GcsObject = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice(des, initial []PatchDeploymentPatchConfigPostStepLinuxExecStepConfig, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPostStepLinuxExecStepConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3128,10 +2989,7 @@ func canonicalizeNewPatchDeploymentPatchConfigPostStepLinuxExecStepConfigSlice(c
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(des, initial *PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3141,18 +2999,18 @@ func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(
 
 	cDes := &PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.GenerationNumber) || (dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GenerationNumber = initial.GenerationNumber
 	} else {
 		cDes.GenerationNumber = des.GenerationNumber
@@ -3163,7 +3021,7 @@ func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject(
 
 func canonicalizePatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObjectSlice(des, initial []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObject {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3257,31 +3115,8 @@ func canonicalizeNewPatchDeploymentPatchConfigPostStepLinuxExecStepConfigGcsObje
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfig(des, initial *PatchDeploymentPatchConfigPostStepWindowsExecStepConfig, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigPostStepWindowsExecStepConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.LocalPath != nil || (initial != nil && initial.LocalPath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GcsObject) {
-			des.LocalPath = nil
-			if initial != nil {
-				initial.LocalPath = nil
-			}
-		}
-	}
-
-	if des.GcsObject != nil || (initial != nil && initial.GcsObject != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.LocalPath) {
-			des.GcsObject = nil
-			if initial != nil {
-				initial.GcsObject = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -3290,31 +3125,44 @@ func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfig(des, in
 
 	cDes := &PatchDeploymentPatchConfigPostStepWindowsExecStepConfig{}
 
-	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
+	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
 		cDes.LocalPath = des.LocalPath
 	}
 	cDes.GcsObject = canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(des.GcsObject, initial.GcsObject, opts...)
-	if dcl.IsZeroValue(des.AllowedSuccessCodes) || (dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AllowedSuccessCodes) && dcl.IsEmptyValueIndirect(initial.AllowedSuccessCodes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AllowedSuccessCodes = initial.AllowedSuccessCodes
 	} else {
 		cDes.AllowedSuccessCodes = des.AllowedSuccessCodes
 	}
-	if dcl.IsZeroValue(des.Interpreter) || (dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Interpreter) && dcl.IsEmptyValueIndirect(initial.Interpreter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Interpreter = initial.Interpreter
 	} else {
 		cDes.Interpreter = des.Interpreter
 	}
 
+	if cDes.LocalPath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GcsObject) {
+			cDes.LocalPath = nil
+		}
+	}
+
+	if cDes.GcsObject != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.LocalPath) {
+			cDes.GcsObject = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice(des, initial []PatchDeploymentPatchConfigPostStepWindowsExecStepConfig, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPostStepWindowsExecStepConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3406,10 +3254,7 @@ func canonicalizeNewPatchDeploymentPatchConfigPostStepWindowsExecStepConfigSlice
 }
 
 func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject(des, initial *PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject, opts ...dcl.ApplyOption) *PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3419,18 +3264,18 @@ func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjec
 
 	cDes := &PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
 	}
-	if dcl.IsZeroValue(des.GenerationNumber) || (dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GenerationNumber) && dcl.IsEmptyValueIndirect(initial.GenerationNumber) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GenerationNumber = initial.GenerationNumber
 	} else {
 		cDes.GenerationNumber = des.GenerationNumber
@@ -3441,7 +3286,7 @@ func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjec
 
 func canonicalizePatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObjectSlice(des, initial []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject, opts ...dcl.ApplyOption) []PatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsObject {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3535,10 +3380,7 @@ func canonicalizeNewPatchDeploymentPatchConfigPostStepWindowsExecStepConfigGcsOb
 }
 
 func canonicalizePatchDeploymentOneTimeSchedule(des, initial *PatchDeploymentOneTimeSchedule, opts ...dcl.ApplyOption) *PatchDeploymentOneTimeSchedule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3548,8 +3390,8 @@ func canonicalizePatchDeploymentOneTimeSchedule(des, initial *PatchDeploymentOne
 
 	cDes := &PatchDeploymentOneTimeSchedule{}
 
-	if dcl.IsZeroValue(des.ExecuteTime) || (dcl.IsEmptyValueIndirect(des.ExecuteTime) && dcl.IsEmptyValueIndirect(initial.ExecuteTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ExecuteTime) && dcl.IsEmptyValueIndirect(initial.ExecuteTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ExecuteTime = initial.ExecuteTime
 	} else {
 		cDes.ExecuteTime = des.ExecuteTime
@@ -3560,7 +3402,7 @@ func canonicalizePatchDeploymentOneTimeSchedule(des, initial *PatchDeploymentOne
 
 func canonicalizePatchDeploymentOneTimeScheduleSlice(des, initial []PatchDeploymentOneTimeSchedule, opts ...dcl.ApplyOption) []PatchDeploymentOneTimeSchedule {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3647,51 +3489,8 @@ func canonicalizeNewPatchDeploymentOneTimeScheduleSlice(c *Client, des, nw []Pat
 }
 
 func canonicalizePatchDeploymentRecurringSchedule(des, initial *PatchDeploymentRecurringSchedule, opts ...dcl.ApplyOption) *PatchDeploymentRecurringSchedule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Weekly != nil || (initial != nil && initial.Weekly != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Monthly) {
-			des.Weekly = nil
-			if initial != nil {
-				initial.Weekly = nil
-			}
-		}
-	}
-
-	if des.Monthly != nil || (initial != nil && initial.Monthly != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Weekly) {
-			des.Monthly = nil
-			if initial != nil {
-				initial.Monthly = nil
-			}
-		}
-	}
-
-	if des.Weekly != nil || (initial != nil && initial.Weekly != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Monthly) {
-			des.Weekly = nil
-			if initial != nil {
-				initial.Weekly = nil
-			}
-		}
-	}
-
-	if des.Monthly != nil || (initial != nil && initial.Monthly != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Weekly) {
-			des.Monthly = nil
-			if initial != nil {
-				initial.Monthly = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -3701,21 +3500,21 @@ func canonicalizePatchDeploymentRecurringSchedule(des, initial *PatchDeploymentR
 	cDes := &PatchDeploymentRecurringSchedule{}
 
 	cDes.TimeZone = canonicalizePatchDeploymentRecurringScheduleTimeZone(des.TimeZone, initial.TimeZone, opts...)
-	if dcl.IsZeroValue(des.StartTime) || (dcl.IsEmptyValueIndirect(des.StartTime) && dcl.IsEmptyValueIndirect(initial.StartTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.StartTime) && dcl.IsEmptyValueIndirect(initial.StartTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.StartTime = initial.StartTime
 	} else {
 		cDes.StartTime = des.StartTime
 	}
-	if dcl.IsZeroValue(des.EndTime) || (dcl.IsEmptyValueIndirect(des.EndTime) && dcl.IsEmptyValueIndirect(initial.EndTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.EndTime) && dcl.IsEmptyValueIndirect(initial.EndTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.EndTime = initial.EndTime
 	} else {
 		cDes.EndTime = des.EndTime
 	}
 	cDes.TimeOfDay = canonicalizePatchDeploymentRecurringScheduleTimeOfDay(des.TimeOfDay, initial.TimeOfDay, opts...)
-	if dcl.IsZeroValue(des.Frequency) || (dcl.IsEmptyValueIndirect(des.Frequency) && dcl.IsEmptyValueIndirect(initial.Frequency)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Frequency) && dcl.IsEmptyValueIndirect(initial.Frequency) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Frequency = initial.Frequency
 	} else {
 		cDes.Frequency = des.Frequency
@@ -3723,12 +3522,39 @@ func canonicalizePatchDeploymentRecurringSchedule(des, initial *PatchDeploymentR
 	cDes.Weekly = canonicalizePatchDeploymentRecurringScheduleWeekly(des.Weekly, initial.Weekly, opts...)
 	cDes.Monthly = canonicalizePatchDeploymentRecurringScheduleMonthly(des.Monthly, initial.Monthly, opts...)
 
+	if cDes.Weekly != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Monthly) {
+			cDes.Weekly = nil
+		}
+	}
+
+	if cDes.Monthly != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Weekly) {
+			cDes.Monthly = nil
+		}
+	}
+
+	if cDes.Weekly != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Monthly) {
+			cDes.Weekly = nil
+		}
+	}
+
+	if cDes.Monthly != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Weekly) {
+			cDes.Monthly = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentRecurringScheduleSlice(des, initial []PatchDeploymentRecurringSchedule, opts ...dcl.ApplyOption) []PatchDeploymentRecurringSchedule {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3820,10 +3646,7 @@ func canonicalizeNewPatchDeploymentRecurringScheduleSlice(c *Client, des, nw []P
 }
 
 func canonicalizePatchDeploymentRecurringScheduleTimeZone(des, initial *PatchDeploymentRecurringScheduleTimeZone, opts ...dcl.ApplyOption) *PatchDeploymentRecurringScheduleTimeZone {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3833,12 +3656,12 @@ func canonicalizePatchDeploymentRecurringScheduleTimeZone(des, initial *PatchDep
 
 	cDes := &PatchDeploymentRecurringScheduleTimeZone{}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -3849,7 +3672,7 @@ func canonicalizePatchDeploymentRecurringScheduleTimeZone(des, initial *PatchDep
 
 func canonicalizePatchDeploymentRecurringScheduleTimeZoneSlice(des, initial []PatchDeploymentRecurringScheduleTimeZone, opts ...dcl.ApplyOption) []PatchDeploymentRecurringScheduleTimeZone {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3943,10 +3766,7 @@ func canonicalizeNewPatchDeploymentRecurringScheduleTimeZoneSlice(c *Client, des
 }
 
 func canonicalizePatchDeploymentRecurringScheduleTimeOfDay(des, initial *PatchDeploymentRecurringScheduleTimeOfDay, opts ...dcl.ApplyOption) *PatchDeploymentRecurringScheduleTimeOfDay {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3956,26 +3776,26 @@ func canonicalizePatchDeploymentRecurringScheduleTimeOfDay(des, initial *PatchDe
 
 	cDes := &PatchDeploymentRecurringScheduleTimeOfDay{}
 
-	if dcl.IsZeroValue(des.Hours) || (dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Hours) && dcl.IsEmptyValueIndirect(initial.Hours) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Hours = initial.Hours
 	} else {
 		cDes.Hours = des.Hours
 	}
-	if dcl.IsZeroValue(des.Minutes) || (dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Minutes) && dcl.IsEmptyValueIndirect(initial.Minutes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Minutes = initial.Minutes
 	} else {
 		cDes.Minutes = des.Minutes
 	}
-	if dcl.IsZeroValue(des.Seconds) || (dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Seconds) && dcl.IsEmptyValueIndirect(initial.Seconds) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Seconds = initial.Seconds
 	} else {
 		cDes.Seconds = des.Seconds
 	}
-	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -3986,7 +3806,7 @@ func canonicalizePatchDeploymentRecurringScheduleTimeOfDay(des, initial *PatchDe
 
 func canonicalizePatchDeploymentRecurringScheduleTimeOfDaySlice(des, initial []PatchDeploymentRecurringScheduleTimeOfDay, opts ...dcl.ApplyOption) []PatchDeploymentRecurringScheduleTimeOfDay {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4073,10 +3893,7 @@ func canonicalizeNewPatchDeploymentRecurringScheduleTimeOfDaySlice(c *Client, de
 }
 
 func canonicalizePatchDeploymentRecurringScheduleWeekly(des, initial *PatchDeploymentRecurringScheduleWeekly, opts ...dcl.ApplyOption) *PatchDeploymentRecurringScheduleWeekly {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4086,8 +3903,8 @@ func canonicalizePatchDeploymentRecurringScheduleWeekly(des, initial *PatchDeplo
 
 	cDes := &PatchDeploymentRecurringScheduleWeekly{}
 
-	if dcl.IsZeroValue(des.DayOfWeek) || (dcl.IsEmptyValueIndirect(des.DayOfWeek) && dcl.IsEmptyValueIndirect(initial.DayOfWeek)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DayOfWeek) && dcl.IsEmptyValueIndirect(initial.DayOfWeek) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DayOfWeek = initial.DayOfWeek
 	} else {
 		cDes.DayOfWeek = des.DayOfWeek
@@ -4098,7 +3915,7 @@ func canonicalizePatchDeploymentRecurringScheduleWeekly(des, initial *PatchDeplo
 
 func canonicalizePatchDeploymentRecurringScheduleWeeklySlice(des, initial []PatchDeploymentRecurringScheduleWeekly, opts ...dcl.ApplyOption) []PatchDeploymentRecurringScheduleWeekly {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4185,31 +4002,8 @@ func canonicalizeNewPatchDeploymentRecurringScheduleWeeklySlice(c *Client, des, 
 }
 
 func canonicalizePatchDeploymentRecurringScheduleMonthly(des, initial *PatchDeploymentRecurringScheduleMonthly, opts ...dcl.ApplyOption) *PatchDeploymentRecurringScheduleMonthly {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.WeekDayOfMonth != nil || (initial != nil && initial.WeekDayOfMonth != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.MonthDay) {
-			des.WeekDayOfMonth = nil
-			if initial != nil {
-				initial.WeekDayOfMonth = nil
-			}
-		}
-	}
-
-	if des.MonthDay != nil || (initial != nil && initial.MonthDay != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.WeekDayOfMonth) {
-			des.MonthDay = nil
-			if initial != nil {
-				initial.MonthDay = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -4219,19 +4013,32 @@ func canonicalizePatchDeploymentRecurringScheduleMonthly(des, initial *PatchDepl
 	cDes := &PatchDeploymentRecurringScheduleMonthly{}
 
 	cDes.WeekDayOfMonth = canonicalizePatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(des.WeekDayOfMonth, initial.WeekDayOfMonth, opts...)
-	if dcl.IsZeroValue(des.MonthDay) || (dcl.IsEmptyValueIndirect(des.MonthDay) && dcl.IsEmptyValueIndirect(initial.MonthDay)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MonthDay) && dcl.IsEmptyValueIndirect(initial.MonthDay) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MonthDay = initial.MonthDay
 	} else {
 		cDes.MonthDay = des.MonthDay
 	}
 
+	if cDes.WeekDayOfMonth != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.MonthDay) {
+			cDes.WeekDayOfMonth = nil
+		}
+	}
+
+	if cDes.MonthDay != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.WeekDayOfMonth) {
+			cDes.MonthDay = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentRecurringScheduleMonthlySlice(des, initial []PatchDeploymentRecurringScheduleMonthly, opts ...dcl.ApplyOption) []PatchDeploymentRecurringScheduleMonthly {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4320,10 +4127,7 @@ func canonicalizeNewPatchDeploymentRecurringScheduleMonthlySlice(c *Client, des,
 }
 
 func canonicalizePatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(des, initial *PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth, opts ...dcl.ApplyOption) *PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4333,14 +4137,14 @@ func canonicalizePatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(des, init
 
 	cDes := &PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth{}
 
-	if dcl.IsZeroValue(des.WeekOrdinal) || (dcl.IsEmptyValueIndirect(des.WeekOrdinal) && dcl.IsEmptyValueIndirect(initial.WeekOrdinal)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.WeekOrdinal) && dcl.IsEmptyValueIndirect(initial.WeekOrdinal) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.WeekOrdinal = initial.WeekOrdinal
 	} else {
 		cDes.WeekOrdinal = des.WeekOrdinal
 	}
-	if dcl.IsZeroValue(des.DayOfWeek) || (dcl.IsEmptyValueIndirect(des.DayOfWeek) && dcl.IsEmptyValueIndirect(initial.DayOfWeek)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DayOfWeek) && dcl.IsEmptyValueIndirect(initial.DayOfWeek) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DayOfWeek = initial.DayOfWeek
 	} else {
 		cDes.DayOfWeek = des.DayOfWeek
@@ -4351,7 +4155,7 @@ func canonicalizePatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth(des, init
 
 func canonicalizePatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice(des, initial []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth, opts ...dcl.ApplyOption) []PatchDeploymentRecurringScheduleMonthlyWeekDayOfMonth {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4438,10 +4242,7 @@ func canonicalizeNewPatchDeploymentRecurringScheduleMonthlyWeekDayOfMonthSlice(c
 }
 
 func canonicalizePatchDeploymentRollout(des, initial *PatchDeploymentRollout, opts ...dcl.ApplyOption) *PatchDeploymentRollout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4451,8 +4252,8 @@ func canonicalizePatchDeploymentRollout(des, initial *PatchDeploymentRollout, op
 
 	cDes := &PatchDeploymentRollout{}
 
-	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -4464,7 +4265,7 @@ func canonicalizePatchDeploymentRollout(des, initial *PatchDeploymentRollout, op
 
 func canonicalizePatchDeploymentRolloutSlice(des, initial []PatchDeploymentRollout, opts ...dcl.ApplyOption) []PatchDeploymentRollout {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4553,31 +4354,8 @@ func canonicalizeNewPatchDeploymentRolloutSlice(c *Client, des, nw []PatchDeploy
 }
 
 func canonicalizePatchDeploymentRolloutDisruptionBudget(des, initial *PatchDeploymentRolloutDisruptionBudget, opts ...dcl.ApplyOption) *PatchDeploymentRolloutDisruptionBudget {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Fixed != nil || (initial != nil && initial.Fixed != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Percent) {
-			des.Fixed = nil
-			if initial != nil {
-				initial.Fixed = nil
-			}
-		}
-	}
-
-	if des.Percent != nil || (initial != nil && initial.Percent != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Fixed) {
-			des.Percent = nil
-			if initial != nil {
-				initial.Percent = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -4586,25 +4364,38 @@ func canonicalizePatchDeploymentRolloutDisruptionBudget(des, initial *PatchDeplo
 
 	cDes := &PatchDeploymentRolloutDisruptionBudget{}
 
-	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Fixed = initial.Fixed
 	} else {
 		cDes.Fixed = des.Fixed
 	}
-	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
 	}
 
+	if cDes.Fixed != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Percent) {
+			cDes.Fixed = nil
+		}
+	}
+
+	if cDes.Percent != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Fixed) {
+			cDes.Percent = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizePatchDeploymentRolloutDisruptionBudgetSlice(des, initial []PatchDeploymentRolloutDisruptionBudget, opts ...dcl.ApplyOption) []PatchDeploymentRolloutDisruptionBudget {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

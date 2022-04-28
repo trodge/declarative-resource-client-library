@@ -364,8 +364,8 @@ func canonicalizeRulesetDesiredState(rawDesired, rawInitial *Ruleset, opts ...dc
 		return rawDesired, nil
 	}
 	canonicalDesired := &Ruleset{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -410,10 +410,7 @@ func canonicalizeRulesetNewState(c *Client, rawNew, rawDesired *Ruleset) (*Rules
 }
 
 func canonicalizeRulesetSource(des, initial *RulesetSource, opts ...dcl.ApplyOption) *RulesetSource {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -424,8 +421,8 @@ func canonicalizeRulesetSource(des, initial *RulesetSource, opts ...dcl.ApplyOpt
 	cDes := &RulesetSource{}
 
 	cDes.Files = canonicalizeRulesetSourceFilesSlice(des.Files, initial.Files, opts...)
-	if dcl.IsZeroValue(des.Language) || (dcl.IsEmptyValueIndirect(des.Language) && dcl.IsEmptyValueIndirect(initial.Language)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Language) && dcl.IsEmptyValueIndirect(initial.Language) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Language = initial.Language
 	} else {
 		cDes.Language = des.Language
@@ -436,7 +433,7 @@ func canonicalizeRulesetSource(des, initial *RulesetSource, opts ...dcl.ApplyOpt
 
 func canonicalizeRulesetSourceSlice(des, initial []RulesetSource, opts ...dcl.ApplyOption) []RulesetSource {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -525,10 +522,7 @@ func canonicalizeNewRulesetSourceSlice(c *Client, des, nw []RulesetSource) []Rul
 }
 
 func canonicalizeRulesetSourceFiles(des, initial *RulesetSourceFiles, opts ...dcl.ApplyOption) *RulesetSourceFiles {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -538,17 +532,17 @@ func canonicalizeRulesetSourceFiles(des, initial *RulesetSourceFiles, opts ...dc
 
 	cDes := &RulesetSourceFiles{}
 
-	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, initial.Content) {
 		cDes.Content = initial.Content
 	} else {
 		cDes.Content = des.Content
 	}
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Fingerprint, initial.Fingerprint) || dcl.IsZeroValue(des.Fingerprint) {
+	if dcl.StringCanonicalize(des.Fingerprint, initial.Fingerprint) {
 		cDes.Fingerprint = initial.Fingerprint
 	} else {
 		cDes.Fingerprint = des.Fingerprint
@@ -559,7 +553,7 @@ func canonicalizeRulesetSourceFiles(des, initial *RulesetSourceFiles, opts ...dc
 
 func canonicalizeRulesetSourceFilesSlice(des, initial []RulesetSourceFiles, opts ...dcl.ApplyOption) []RulesetSourceFiles {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -656,10 +650,7 @@ func canonicalizeNewRulesetSourceFilesSlice(c *Client, des, nw []RulesetSourceFi
 }
 
 func canonicalizeRulesetMetadata(des, initial *RulesetMetadata, opts ...dcl.ApplyOption) *RulesetMetadata {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -680,7 +671,7 @@ func canonicalizeRulesetMetadata(des, initial *RulesetMetadata, opts ...dcl.Appl
 
 func canonicalizeRulesetMetadataSlice(des, initial []RulesetMetadata, opts ...dcl.ApplyOption) []RulesetMetadata {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -563,10 +563,7 @@ func canonicalizeConfigNewState(c *Client, rawNew, rawDesired *Config) (*Config,
 }
 
 func canonicalizeConfigSignIn(des, initial *ConfigSignIn, opts ...dcl.ApplyOption) *ConfigSignIn {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -579,7 +576,7 @@ func canonicalizeConfigSignIn(des, initial *ConfigSignIn, opts ...dcl.ApplyOptio
 	cDes.Email = canonicalizeConfigSignInEmail(des.Email, initial.Email, opts...)
 	cDes.PhoneNumber = canonicalizeConfigSignInPhoneNumber(des.PhoneNumber, initial.PhoneNumber, opts...)
 	cDes.Anonymous = canonicalizeConfigSignInAnonymous(des.Anonymous, initial.Anonymous, opts...)
-	if dcl.BoolCanonicalize(des.AllowDuplicateEmails, initial.AllowDuplicateEmails) || dcl.IsZeroValue(des.AllowDuplicateEmails) {
+	if dcl.BoolCanonicalize(des.AllowDuplicateEmails, initial.AllowDuplicateEmails) {
 		cDes.AllowDuplicateEmails = initial.AllowDuplicateEmails
 	} else {
 		cDes.AllowDuplicateEmails = des.AllowDuplicateEmails
@@ -590,7 +587,7 @@ func canonicalizeConfigSignIn(des, initial *ConfigSignIn, opts ...dcl.ApplyOptio
 
 func canonicalizeConfigSignInSlice(des, initial []ConfigSignIn, opts ...dcl.ApplyOption) []ConfigSignIn {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -685,10 +682,7 @@ func canonicalizeNewConfigSignInSlice(c *Client, des, nw []ConfigSignIn) []Confi
 }
 
 func canonicalizeConfigSignInEmail(des, initial *ConfigSignInEmail, opts ...dcl.ApplyOption) *ConfigSignInEmail {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -698,12 +692,12 @@ func canonicalizeConfigSignInEmail(des, initial *ConfigSignInEmail, opts ...dcl.
 
 	cDes := &ConfigSignInEmail{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
 	}
-	if dcl.BoolCanonicalize(des.PasswordRequired, initial.PasswordRequired) || dcl.IsZeroValue(des.PasswordRequired) {
+	if dcl.BoolCanonicalize(des.PasswordRequired, initial.PasswordRequired) {
 		cDes.PasswordRequired = initial.PasswordRequired
 	} else {
 		cDes.PasswordRequired = des.PasswordRequired
@@ -714,7 +708,7 @@ func canonicalizeConfigSignInEmail(des, initial *ConfigSignInEmail, opts ...dcl.
 
 func canonicalizeConfigSignInEmailSlice(des, initial []ConfigSignInEmail, opts ...dcl.ApplyOption) []ConfigSignInEmail {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -809,10 +803,7 @@ func canonicalizeNewConfigSignInEmailSlice(c *Client, des, nw []ConfigSignInEmai
 }
 
 func canonicalizeConfigSignInEmailHashConfig(des, initial *ConfigSignInEmailHashConfig, opts ...dcl.ApplyOption) *ConfigSignInEmailHashConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -827,7 +818,7 @@ func canonicalizeConfigSignInEmailHashConfig(des, initial *ConfigSignInEmailHash
 
 func canonicalizeConfigSignInEmailHashConfigSlice(des, initial []ConfigSignInEmailHashConfig, opts ...dcl.ApplyOption) []ConfigSignInEmailHashConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -921,10 +912,7 @@ func canonicalizeNewConfigSignInEmailHashConfigSlice(c *Client, des, nw []Config
 }
 
 func canonicalizeConfigSignInPhoneNumber(des, initial *ConfigSignInPhoneNumber, opts ...dcl.ApplyOption) *ConfigSignInPhoneNumber {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -934,12 +922,12 @@ func canonicalizeConfigSignInPhoneNumber(des, initial *ConfigSignInPhoneNumber, 
 
 	cDes := &ConfigSignInPhoneNumber{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
 	}
-	if canonicalizeConfigTestPhoneNumbers(des.TestPhoneNumbers, initial.TestPhoneNumbers) || dcl.IsZeroValue(des.TestPhoneNumbers) {
+	if canonicalizeConfigTestPhoneNumbers(des.TestPhoneNumbers, initial.TestPhoneNumbers) {
 		cDes.TestPhoneNumbers = initial.TestPhoneNumbers
 	} else {
 		cDes.TestPhoneNumbers = des.TestPhoneNumbers
@@ -950,7 +938,7 @@ func canonicalizeConfigSignInPhoneNumber(des, initial *ConfigSignInPhoneNumber, 
 
 func canonicalizeConfigSignInPhoneNumberSlice(des, initial []ConfigSignInPhoneNumber, opts ...dcl.ApplyOption) []ConfigSignInPhoneNumber {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1044,10 +1032,7 @@ func canonicalizeNewConfigSignInPhoneNumberSlice(c *Client, des, nw []ConfigSign
 }
 
 func canonicalizeConfigSignInAnonymous(des, initial *ConfigSignInAnonymous, opts ...dcl.ApplyOption) *ConfigSignInAnonymous {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1057,7 +1042,7 @@ func canonicalizeConfigSignInAnonymous(des, initial *ConfigSignInAnonymous, opts
 
 	cDes := &ConfigSignInAnonymous{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
@@ -1068,7 +1053,7 @@ func canonicalizeConfigSignInAnonymous(des, initial *ConfigSignInAnonymous, opts
 
 func canonicalizeConfigSignInAnonymousSlice(des, initial []ConfigSignInAnonymous, opts ...dcl.ApplyOption) []ConfigSignInAnonymous {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1159,10 +1144,7 @@ func canonicalizeNewConfigSignInAnonymousSlice(c *Client, des, nw []ConfigSignIn
 }
 
 func canonicalizeConfigSignInHashConfig(des, initial *ConfigSignInHashConfig, opts ...dcl.ApplyOption) *ConfigSignInHashConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1177,7 +1159,7 @@ func canonicalizeConfigSignInHashConfig(des, initial *ConfigSignInHashConfig, op
 
 func canonicalizeConfigSignInHashConfigSlice(des, initial []ConfigSignInHashConfig, opts ...dcl.ApplyOption) []ConfigSignInHashConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1271,10 +1253,7 @@ func canonicalizeNewConfigSignInHashConfigSlice(c *Client, des, nw []ConfigSignI
 }
 
 func canonicalizeConfigNotification(des, initial *ConfigNotification, opts ...dcl.ApplyOption) *ConfigNotification {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1286,7 +1265,7 @@ func canonicalizeConfigNotification(des, initial *ConfigNotification, opts ...dc
 
 	cDes.SendEmail = canonicalizeConfigNotificationSendEmail(des.SendEmail, initial.SendEmail, opts...)
 	cDes.SendSms = canonicalizeConfigNotificationSendSms(des.SendSms, initial.SendSms, opts...)
-	if dcl.StringCanonicalize(des.DefaultLocale, initial.DefaultLocale) || dcl.IsZeroValue(des.DefaultLocale) {
+	if dcl.StringCanonicalize(des.DefaultLocale, initial.DefaultLocale) {
 		cDes.DefaultLocale = initial.DefaultLocale
 	} else {
 		cDes.DefaultLocale = des.DefaultLocale
@@ -1297,7 +1276,7 @@ func canonicalizeConfigNotification(des, initial *ConfigNotification, opts ...dc
 
 func canonicalizeConfigNotificationSlice(des, initial []ConfigNotification, opts ...dcl.ApplyOption) []ConfigNotification {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1390,10 +1369,7 @@ func canonicalizeNewConfigNotificationSlice(c *Client, des, nw []ConfigNotificat
 }
 
 func canonicalizeConfigNotificationSendEmail(des, initial *ConfigNotificationSendEmail, opts ...dcl.ApplyOption) *ConfigNotificationSendEmail {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1403,8 +1379,8 @@ func canonicalizeConfigNotificationSendEmail(des, initial *ConfigNotificationSen
 
 	cDes := &ConfigNotificationSendEmail{}
 
-	if dcl.IsZeroValue(des.Method) || (dcl.IsEmptyValueIndirect(des.Method) && dcl.IsEmptyValueIndirect(initial.Method)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Method) && dcl.IsEmptyValueIndirect(initial.Method) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Method = initial.Method
 	} else {
 		cDes.Method = des.Method
@@ -1413,7 +1389,7 @@ func canonicalizeConfigNotificationSendEmail(des, initial *ConfigNotificationSen
 	cDes.ResetPasswordTemplate = canonicalizeConfigNotificationSendEmailResetPasswordTemplate(des.ResetPasswordTemplate, initial.ResetPasswordTemplate, opts...)
 	cDes.VerifyEmailTemplate = canonicalizeConfigNotificationSendEmailVerifyEmailTemplate(des.VerifyEmailTemplate, initial.VerifyEmailTemplate, opts...)
 	cDes.ChangeEmailTemplate = canonicalizeConfigNotificationSendEmailChangeEmailTemplate(des.ChangeEmailTemplate, initial.ChangeEmailTemplate, opts...)
-	if dcl.StringCanonicalize(des.CallbackUri, initial.CallbackUri) || dcl.IsZeroValue(des.CallbackUri) {
+	if dcl.StringCanonicalize(des.CallbackUri, initial.CallbackUri) {
 		cDes.CallbackUri = initial.CallbackUri
 	} else {
 		cDes.CallbackUri = des.CallbackUri
@@ -1426,7 +1402,7 @@ func canonicalizeConfigNotificationSendEmail(des, initial *ConfigNotificationSen
 
 func canonicalizeConfigNotificationSendEmailSlice(des, initial []ConfigNotificationSendEmail, opts ...dcl.ApplyOption) []ConfigNotificationSendEmail {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1523,10 +1499,7 @@ func canonicalizeNewConfigNotificationSendEmailSlice(c *Client, des, nw []Config
 }
 
 func canonicalizeConfigNotificationSendEmailSmtp(des, initial *ConfigNotificationSendEmailSmtp, opts ...dcl.ApplyOption) *ConfigNotificationSendEmailSmtp {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1536,34 +1509,34 @@ func canonicalizeConfigNotificationSendEmailSmtp(des, initial *ConfigNotificatio
 
 	cDes := &ConfigNotificationSendEmailSmtp{}
 
-	if dcl.StringCanonicalize(des.SenderEmail, initial.SenderEmail) || dcl.IsZeroValue(des.SenderEmail) {
+	if dcl.StringCanonicalize(des.SenderEmail, initial.SenderEmail) {
 		cDes.SenderEmail = initial.SenderEmail
 	} else {
 		cDes.SenderEmail = des.SenderEmail
 	}
-	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
+	if dcl.StringCanonicalize(des.Host, initial.Host) {
 		cDes.Host = initial.Host
 	} else {
 		cDes.Host = des.Host
 	}
-	if dcl.IsZeroValue(des.Port) || (dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
 	}
-	if dcl.StringCanonicalize(des.Username, initial.Username) || dcl.IsZeroValue(des.Username) {
+	if dcl.StringCanonicalize(des.Username, initial.Username) {
 		cDes.Username = initial.Username
 	} else {
 		cDes.Username = des.Username
 	}
-	if dcl.StringCanonicalize(des.Password, initial.Password) || dcl.IsZeroValue(des.Password) {
+	if dcl.StringCanonicalize(des.Password, initial.Password) {
 		cDes.Password = initial.Password
 	} else {
 		cDes.Password = des.Password
 	}
-	if dcl.IsZeroValue(des.SecurityMode) || (dcl.IsEmptyValueIndirect(des.SecurityMode) && dcl.IsEmptyValueIndirect(initial.SecurityMode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SecurityMode) && dcl.IsEmptyValueIndirect(initial.SecurityMode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SecurityMode = initial.SecurityMode
 	} else {
 		cDes.SecurityMode = des.SecurityMode
@@ -1574,7 +1547,7 @@ func canonicalizeConfigNotificationSendEmailSmtp(des, initial *ConfigNotificatio
 
 func canonicalizeConfigNotificationSendEmailSmtpSlice(des, initial []ConfigNotificationSendEmailSmtp, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailSmtp {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1672,10 +1645,7 @@ func canonicalizeNewConfigNotificationSendEmailSmtpSlice(c *Client, des, nw []Co
 }
 
 func canonicalizeConfigNotificationSendEmailResetPasswordTemplate(des, initial *ConfigNotificationSendEmailResetPasswordTemplate, opts ...dcl.ApplyOption) *ConfigNotificationSendEmailResetPasswordTemplate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1685,33 +1655,33 @@ func canonicalizeConfigNotificationSendEmailResetPasswordTemplate(des, initial *
 
 	cDes := &ConfigNotificationSendEmailResetPasswordTemplate{}
 
-	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) || dcl.IsZeroValue(des.SenderLocalPart) {
+	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) {
 		cDes.SenderLocalPart = initial.SenderLocalPart
 	} else {
 		cDes.SenderLocalPart = des.SenderLocalPart
 	}
-	if dcl.StringCanonicalize(des.Subject, initial.Subject) || dcl.IsZeroValue(des.Subject) {
+	if dcl.StringCanonicalize(des.Subject, initial.Subject) {
 		cDes.Subject = initial.Subject
 	} else {
 		cDes.Subject = des.Subject
 	}
-	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) || dcl.IsZeroValue(des.SenderDisplayName) {
+	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) {
 		cDes.SenderDisplayName = initial.SenderDisplayName
 	} else {
 		cDes.SenderDisplayName = des.SenderDisplayName
 	}
-	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, initial.Body) {
 		cDes.Body = initial.Body
 	} else {
 		cDes.Body = des.Body
 	}
-	if dcl.IsZeroValue(des.BodyFormat) || (dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BodyFormat = initial.BodyFormat
 	} else {
 		cDes.BodyFormat = des.BodyFormat
 	}
-	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) || dcl.IsZeroValue(des.ReplyTo) {
+	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) {
 		cDes.ReplyTo = initial.ReplyTo
 	} else {
 		cDes.ReplyTo = des.ReplyTo
@@ -1722,7 +1692,7 @@ func canonicalizeConfigNotificationSendEmailResetPasswordTemplate(des, initial *
 
 func canonicalizeConfigNotificationSendEmailResetPasswordTemplateSlice(des, initial []ConfigNotificationSendEmailResetPasswordTemplate, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailResetPasswordTemplate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1828,10 +1798,7 @@ func canonicalizeNewConfigNotificationSendEmailResetPasswordTemplateSlice(c *Cli
 }
 
 func canonicalizeConfigNotificationSendEmailVerifyEmailTemplate(des, initial *ConfigNotificationSendEmailVerifyEmailTemplate, opts ...dcl.ApplyOption) *ConfigNotificationSendEmailVerifyEmailTemplate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1841,33 +1808,33 @@ func canonicalizeConfigNotificationSendEmailVerifyEmailTemplate(des, initial *Co
 
 	cDes := &ConfigNotificationSendEmailVerifyEmailTemplate{}
 
-	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) || dcl.IsZeroValue(des.SenderLocalPart) {
+	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) {
 		cDes.SenderLocalPart = initial.SenderLocalPart
 	} else {
 		cDes.SenderLocalPart = des.SenderLocalPart
 	}
-	if dcl.StringCanonicalize(des.Subject, initial.Subject) || dcl.IsZeroValue(des.Subject) {
+	if dcl.StringCanonicalize(des.Subject, initial.Subject) {
 		cDes.Subject = initial.Subject
 	} else {
 		cDes.Subject = des.Subject
 	}
-	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) || dcl.IsZeroValue(des.SenderDisplayName) {
+	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) {
 		cDes.SenderDisplayName = initial.SenderDisplayName
 	} else {
 		cDes.SenderDisplayName = des.SenderDisplayName
 	}
-	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, initial.Body) {
 		cDes.Body = initial.Body
 	} else {
 		cDes.Body = des.Body
 	}
-	if dcl.IsZeroValue(des.BodyFormat) || (dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BodyFormat = initial.BodyFormat
 	} else {
 		cDes.BodyFormat = des.BodyFormat
 	}
-	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) || dcl.IsZeroValue(des.ReplyTo) {
+	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) {
 		cDes.ReplyTo = initial.ReplyTo
 	} else {
 		cDes.ReplyTo = des.ReplyTo
@@ -1878,7 +1845,7 @@ func canonicalizeConfigNotificationSendEmailVerifyEmailTemplate(des, initial *Co
 
 func canonicalizeConfigNotificationSendEmailVerifyEmailTemplateSlice(des, initial []ConfigNotificationSendEmailVerifyEmailTemplate, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailVerifyEmailTemplate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1984,10 +1951,7 @@ func canonicalizeNewConfigNotificationSendEmailVerifyEmailTemplateSlice(c *Clien
 }
 
 func canonicalizeConfigNotificationSendEmailChangeEmailTemplate(des, initial *ConfigNotificationSendEmailChangeEmailTemplate, opts ...dcl.ApplyOption) *ConfigNotificationSendEmailChangeEmailTemplate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1997,33 +1961,33 @@ func canonicalizeConfigNotificationSendEmailChangeEmailTemplate(des, initial *Co
 
 	cDes := &ConfigNotificationSendEmailChangeEmailTemplate{}
 
-	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) || dcl.IsZeroValue(des.SenderLocalPart) {
+	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) {
 		cDes.SenderLocalPart = initial.SenderLocalPart
 	} else {
 		cDes.SenderLocalPart = des.SenderLocalPart
 	}
-	if dcl.StringCanonicalize(des.Subject, initial.Subject) || dcl.IsZeroValue(des.Subject) {
+	if dcl.StringCanonicalize(des.Subject, initial.Subject) {
 		cDes.Subject = initial.Subject
 	} else {
 		cDes.Subject = des.Subject
 	}
-	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) || dcl.IsZeroValue(des.SenderDisplayName) {
+	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) {
 		cDes.SenderDisplayName = initial.SenderDisplayName
 	} else {
 		cDes.SenderDisplayName = des.SenderDisplayName
 	}
-	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, initial.Body) {
 		cDes.Body = initial.Body
 	} else {
 		cDes.Body = des.Body
 	}
-	if dcl.IsZeroValue(des.BodyFormat) || (dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BodyFormat = initial.BodyFormat
 	} else {
 		cDes.BodyFormat = des.BodyFormat
 	}
-	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) || dcl.IsZeroValue(des.ReplyTo) {
+	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) {
 		cDes.ReplyTo = initial.ReplyTo
 	} else {
 		cDes.ReplyTo = des.ReplyTo
@@ -2034,7 +1998,7 @@ func canonicalizeConfigNotificationSendEmailChangeEmailTemplate(des, initial *Co
 
 func canonicalizeConfigNotificationSendEmailChangeEmailTemplateSlice(des, initial []ConfigNotificationSendEmailChangeEmailTemplate, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailChangeEmailTemplate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2140,10 +2104,7 @@ func canonicalizeNewConfigNotificationSendEmailChangeEmailTemplateSlice(c *Clien
 }
 
 func canonicalizeConfigNotificationSendEmailDnsInfo(des, initial *ConfigNotificationSendEmailDnsInfo, opts ...dcl.ApplyOption) *ConfigNotificationSendEmailDnsInfo {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2153,7 +2114,7 @@ func canonicalizeConfigNotificationSendEmailDnsInfo(des, initial *ConfigNotifica
 
 	cDes := &ConfigNotificationSendEmailDnsInfo{}
 
-	if dcl.BoolCanonicalize(des.UseCustomDomain, initial.UseCustomDomain) || dcl.IsZeroValue(des.UseCustomDomain) {
+	if dcl.BoolCanonicalize(des.UseCustomDomain, initial.UseCustomDomain) {
 		cDes.UseCustomDomain = initial.UseCustomDomain
 	} else {
 		cDes.UseCustomDomain = des.UseCustomDomain
@@ -2164,7 +2125,7 @@ func canonicalizeConfigNotificationSendEmailDnsInfo(des, initial *ConfigNotifica
 
 func canonicalizeConfigNotificationSendEmailDnsInfoSlice(des, initial []ConfigNotificationSendEmailDnsInfo, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailDnsInfo {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2261,10 +2222,7 @@ func canonicalizeNewConfigNotificationSendEmailDnsInfoSlice(c *Client, des, nw [
 }
 
 func canonicalizeConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(des, initial *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, opts ...dcl.ApplyOption) *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2274,33 +2232,33 @@ func canonicalizeConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(d
 
 	cDes := &ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
 
-	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) || dcl.IsZeroValue(des.SenderLocalPart) {
+	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) {
 		cDes.SenderLocalPart = initial.SenderLocalPart
 	} else {
 		cDes.SenderLocalPart = des.SenderLocalPart
 	}
-	if dcl.StringCanonicalize(des.Subject, initial.Subject) || dcl.IsZeroValue(des.Subject) {
+	if dcl.StringCanonicalize(des.Subject, initial.Subject) {
 		cDes.Subject = initial.Subject
 	} else {
 		cDes.Subject = des.Subject
 	}
-	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) || dcl.IsZeroValue(des.SenderDisplayName) {
+	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) {
 		cDes.SenderDisplayName = initial.SenderDisplayName
 	} else {
 		cDes.SenderDisplayName = des.SenderDisplayName
 	}
-	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
+	if dcl.StringCanonicalize(des.Body, initial.Body) {
 		cDes.Body = initial.Body
 	} else {
 		cDes.Body = des.Body
 	}
-	if dcl.IsZeroValue(des.BodyFormat) || (dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BodyFormat = initial.BodyFormat
 	} else {
 		cDes.BodyFormat = des.BodyFormat
 	}
-	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) || dcl.IsZeroValue(des.ReplyTo) {
+	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) {
 		cDes.ReplyTo = initial.ReplyTo
 	} else {
 		cDes.ReplyTo = des.ReplyTo
@@ -2311,7 +2269,7 @@ func canonicalizeConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(d
 
 func canonicalizeConfigNotificationSendEmailRevertSecondFactorAdditionTemplateSlice(des, initial []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2417,10 +2375,7 @@ func canonicalizeNewConfigNotificationSendEmailRevertSecondFactorAdditionTemplat
 }
 
 func canonicalizeConfigNotificationSendSms(des, initial *ConfigNotificationSendSms, opts ...dcl.ApplyOption) *ConfigNotificationSendSms {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2430,7 +2385,7 @@ func canonicalizeConfigNotificationSendSms(des, initial *ConfigNotificationSendS
 
 	cDes := &ConfigNotificationSendSms{}
 
-	if dcl.BoolCanonicalize(des.UseDeviceLocale, initial.UseDeviceLocale) || dcl.IsZeroValue(des.UseDeviceLocale) {
+	if dcl.BoolCanonicalize(des.UseDeviceLocale, initial.UseDeviceLocale) {
 		cDes.UseDeviceLocale = initial.UseDeviceLocale
 	} else {
 		cDes.UseDeviceLocale = des.UseDeviceLocale
@@ -2441,7 +2396,7 @@ func canonicalizeConfigNotificationSendSms(des, initial *ConfigNotificationSendS
 
 func canonicalizeConfigNotificationSendSmsSlice(des, initial []ConfigNotificationSendSms, opts ...dcl.ApplyOption) []ConfigNotificationSendSms {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2533,10 +2488,7 @@ func canonicalizeNewConfigNotificationSendSmsSlice(c *Client, des, nw []ConfigNo
 }
 
 func canonicalizeConfigNotificationSendSmsSmsTemplate(des, initial *ConfigNotificationSendSmsSmsTemplate, opts ...dcl.ApplyOption) *ConfigNotificationSendSmsSmsTemplate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2551,7 +2503,7 @@ func canonicalizeConfigNotificationSendSmsSmsTemplate(des, initial *ConfigNotifi
 
 func canonicalizeConfigNotificationSendSmsSmsTemplateSlice(des, initial []ConfigNotificationSendSmsSmsTemplate, opts ...dcl.ApplyOption) []ConfigNotificationSendSmsSmsTemplate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2642,10 +2594,7 @@ func canonicalizeNewConfigNotificationSendSmsSmsTemplateSlice(c *Client, des, nw
 }
 
 func canonicalizeConfigQuota(des, initial *ConfigQuota, opts ...dcl.ApplyOption) *ConfigQuota {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2662,7 +2611,7 @@ func canonicalizeConfigQuota(des, initial *ConfigQuota, opts ...dcl.ApplyOption)
 
 func canonicalizeConfigQuotaSlice(des, initial []ConfigQuota, opts ...dcl.ApplyOption) []ConfigQuota {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2751,10 +2700,7 @@ func canonicalizeNewConfigQuotaSlice(c *Client, des, nw []ConfigQuota) []ConfigQ
 }
 
 func canonicalizeConfigQuotaSignUpQuotaConfig(des, initial *ConfigQuotaSignUpQuotaConfig, opts ...dcl.ApplyOption) *ConfigQuotaSignUpQuotaConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2764,19 +2710,19 @@ func canonicalizeConfigQuotaSignUpQuotaConfig(des, initial *ConfigQuotaSignUpQuo
 
 	cDes := &ConfigQuotaSignUpQuotaConfig{}
 
-	if dcl.IsZeroValue(des.Quota) || (dcl.IsEmptyValueIndirect(des.Quota) && dcl.IsEmptyValueIndirect(initial.Quota)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Quota) && dcl.IsEmptyValueIndirect(initial.Quota) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Quota = initial.Quota
 	} else {
 		cDes.Quota = des.Quota
 	}
-	if dcl.IsZeroValue(des.StartTime) || (dcl.IsEmptyValueIndirect(des.StartTime) && dcl.IsEmptyValueIndirect(initial.StartTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.StartTime) && dcl.IsEmptyValueIndirect(initial.StartTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.StartTime = initial.StartTime
 	} else {
 		cDes.StartTime = des.StartTime
 	}
-	if dcl.StringCanonicalize(des.QuotaDuration, initial.QuotaDuration) || dcl.IsZeroValue(des.QuotaDuration) {
+	if dcl.StringCanonicalize(des.QuotaDuration, initial.QuotaDuration) {
 		cDes.QuotaDuration = initial.QuotaDuration
 	} else {
 		cDes.QuotaDuration = des.QuotaDuration
@@ -2787,7 +2733,7 @@ func canonicalizeConfigQuotaSignUpQuotaConfig(des, initial *ConfigQuotaSignUpQuo
 
 func canonicalizeConfigQuotaSignUpQuotaConfigSlice(des, initial []ConfigQuotaSignUpQuotaConfig, opts ...dcl.ApplyOption) []ConfigQuotaSignUpQuotaConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2878,10 +2824,7 @@ func canonicalizeNewConfigQuotaSignUpQuotaConfigSlice(c *Client, des, nw []Confi
 }
 
 func canonicalizeConfigMonitoring(des, initial *ConfigMonitoring, opts ...dcl.ApplyOption) *ConfigMonitoring {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2898,7 +2841,7 @@ func canonicalizeConfigMonitoring(des, initial *ConfigMonitoring, opts ...dcl.Ap
 
 func canonicalizeConfigMonitoringSlice(des, initial []ConfigMonitoring, opts ...dcl.ApplyOption) []ConfigMonitoring {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2987,10 +2930,7 @@ func canonicalizeNewConfigMonitoringSlice(c *Client, des, nw []ConfigMonitoring)
 }
 
 func canonicalizeConfigMonitoringRequestLogging(des, initial *ConfigMonitoringRequestLogging, opts ...dcl.ApplyOption) *ConfigMonitoringRequestLogging {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3000,7 +2940,7 @@ func canonicalizeConfigMonitoringRequestLogging(des, initial *ConfigMonitoringRe
 
 	cDes := &ConfigMonitoringRequestLogging{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
@@ -3011,7 +2951,7 @@ func canonicalizeConfigMonitoringRequestLogging(des, initial *ConfigMonitoringRe
 
 func canonicalizeConfigMonitoringRequestLoggingSlice(des, initial []ConfigMonitoringRequestLogging, opts ...dcl.ApplyOption) []ConfigMonitoringRequestLogging {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3102,10 +3042,7 @@ func canonicalizeNewConfigMonitoringRequestLoggingSlice(c *Client, des, nw []Con
 }
 
 func canonicalizeConfigMultiTenant(des, initial *ConfigMultiTenant, opts ...dcl.ApplyOption) *ConfigMultiTenant {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3115,13 +3052,13 @@ func canonicalizeConfigMultiTenant(des, initial *ConfigMultiTenant, opts ...dcl.
 
 	cDes := &ConfigMultiTenant{}
 
-	if dcl.BoolCanonicalize(des.AllowTenants, initial.AllowTenants) || dcl.IsZeroValue(des.AllowTenants) {
+	if dcl.BoolCanonicalize(des.AllowTenants, initial.AllowTenants) {
 		cDes.AllowTenants = initial.AllowTenants
 	} else {
 		cDes.AllowTenants = des.AllowTenants
 	}
-	if dcl.IsZeroValue(des.DefaultTenantLocation) || (dcl.IsEmptyValueIndirect(des.DefaultTenantLocation) && dcl.IsEmptyValueIndirect(initial.DefaultTenantLocation)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DefaultTenantLocation) && dcl.IsEmptyValueIndirect(initial.DefaultTenantLocation) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DefaultTenantLocation = initial.DefaultTenantLocation
 	} else {
 		cDes.DefaultTenantLocation = des.DefaultTenantLocation
@@ -3132,7 +3069,7 @@ func canonicalizeConfigMultiTenant(des, initial *ConfigMultiTenant, opts ...dcl.
 
 func canonicalizeConfigMultiTenantSlice(des, initial []ConfigMultiTenant, opts ...dcl.ApplyOption) []ConfigMultiTenant {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3223,10 +3160,7 @@ func canonicalizeNewConfigMultiTenantSlice(c *Client, des, nw []ConfigMultiTenan
 }
 
 func canonicalizeConfigClient(des, initial *ConfigClient, opts ...dcl.ApplyOption) *ConfigClient {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3243,7 +3177,7 @@ func canonicalizeConfigClient(des, initial *ConfigClient, opts ...dcl.ApplyOptio
 
 func canonicalizeConfigClientSlice(des, initial []ConfigClient, opts ...dcl.ApplyOption) []ConfigClient {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3338,10 +3272,7 @@ func canonicalizeNewConfigClientSlice(c *Client, des, nw []ConfigClient) []Confi
 }
 
 func canonicalizeConfigClientPermissions(des, initial *ConfigClientPermissions, opts ...dcl.ApplyOption) *ConfigClientPermissions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3351,12 +3282,12 @@ func canonicalizeConfigClientPermissions(des, initial *ConfigClientPermissions, 
 
 	cDes := &ConfigClientPermissions{}
 
-	if dcl.BoolCanonicalize(des.DisabledUserSignup, initial.DisabledUserSignup) || dcl.IsZeroValue(des.DisabledUserSignup) {
+	if dcl.BoolCanonicalize(des.DisabledUserSignup, initial.DisabledUserSignup) {
 		cDes.DisabledUserSignup = initial.DisabledUserSignup
 	} else {
 		cDes.DisabledUserSignup = des.DisabledUserSignup
 	}
-	if dcl.BoolCanonicalize(des.DisabledUserDeletion, initial.DisabledUserDeletion) || dcl.IsZeroValue(des.DisabledUserDeletion) {
+	if dcl.BoolCanonicalize(des.DisabledUserDeletion, initial.DisabledUserDeletion) {
 		cDes.DisabledUserDeletion = initial.DisabledUserDeletion
 	} else {
 		cDes.DisabledUserDeletion = des.DisabledUserDeletion
@@ -3367,7 +3298,7 @@ func canonicalizeConfigClientPermissions(des, initial *ConfigClientPermissions, 
 
 func canonicalizeConfigClientPermissionsSlice(des, initial []ConfigClientPermissions, opts ...dcl.ApplyOption) []ConfigClientPermissions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3461,10 +3392,7 @@ func canonicalizeNewConfigClientPermissionsSlice(c *Client, des, nw []ConfigClie
 }
 
 func canonicalizeConfigMfa(des, initial *ConfigMfa, opts ...dcl.ApplyOption) *ConfigMfa {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3474,8 +3402,8 @@ func canonicalizeConfigMfa(des, initial *ConfigMfa, opts ...dcl.ApplyOption) *Co
 
 	cDes := &ConfigMfa{}
 
-	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
@@ -3486,7 +3414,7 @@ func canonicalizeConfigMfa(des, initial *ConfigMfa, opts ...dcl.ApplyOption) *Co
 
 func canonicalizeConfigMfaSlice(des, initial []ConfigMfa, opts ...dcl.ApplyOption) []ConfigMfa {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3573,10 +3501,7 @@ func canonicalizeNewConfigMfaSlice(c *Client, des, nw []ConfigMfa) []ConfigMfa {
 }
 
 func canonicalizeConfigBlockingFunctions(des, initial *ConfigBlockingFunctions, opts ...dcl.ApplyOption) *ConfigBlockingFunctions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3586,8 +3511,8 @@ func canonicalizeConfigBlockingFunctions(des, initial *ConfigBlockingFunctions, 
 
 	cDes := &ConfigBlockingFunctions{}
 
-	if dcl.IsZeroValue(des.Triggers) || (dcl.IsEmptyValueIndirect(des.Triggers) && dcl.IsEmptyValueIndirect(initial.Triggers)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Triggers) && dcl.IsEmptyValueIndirect(initial.Triggers) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Triggers = initial.Triggers
 	} else {
 		cDes.Triggers = des.Triggers
@@ -3598,7 +3523,7 @@ func canonicalizeConfigBlockingFunctions(des, initial *ConfigBlockingFunctions, 
 
 func canonicalizeConfigBlockingFunctionsSlice(des, initial []ConfigBlockingFunctions, opts ...dcl.ApplyOption) []ConfigBlockingFunctions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3685,10 +3610,7 @@ func canonicalizeNewConfigBlockingFunctionsSlice(c *Client, des, nw []ConfigBloc
 }
 
 func canonicalizeConfigBlockingFunctionsTriggers(des, initial *ConfigBlockingFunctionsTriggers, opts ...dcl.ApplyOption) *ConfigBlockingFunctionsTriggers {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3698,8 +3620,8 @@ func canonicalizeConfigBlockingFunctionsTriggers(des, initial *ConfigBlockingFun
 
 	cDes := &ConfigBlockingFunctionsTriggers{}
 
-	if dcl.IsZeroValue(des.FunctionUri) || (dcl.IsEmptyValueIndirect(des.FunctionUri) && dcl.IsEmptyValueIndirect(initial.FunctionUri)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.FunctionUri) && dcl.IsEmptyValueIndirect(initial.FunctionUri) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.FunctionUri = initial.FunctionUri
 	} else {
 		cDes.FunctionUri = des.FunctionUri
@@ -3710,7 +3632,7 @@ func canonicalizeConfigBlockingFunctionsTriggers(des, initial *ConfigBlockingFun
 
 func canonicalizeConfigBlockingFunctionsTriggersSlice(des, initial []ConfigBlockingFunctionsTriggers, opts ...dcl.ApplyOption) []ConfigBlockingFunctionsTriggers {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

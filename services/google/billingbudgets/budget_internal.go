@@ -464,8 +464,8 @@ func canonicalizeBudgetDesiredState(rawDesired, rawInitial *Budget, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &Budget{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -541,31 +541,8 @@ func canonicalizeBudgetNewState(c *Client, rawNew, rawDesired *Budget) (*Budget,
 }
 
 func canonicalizeBudgetBudgetFilter(des, initial *BudgetBudgetFilter, opts ...dcl.ApplyOption) *BudgetBudgetFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.CalendarPeriod != nil || (initial != nil && initial.CalendarPeriod != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CustomPeriod) {
-			des.CalendarPeriod = nil
-			if initial != nil {
-				initial.CalendarPeriod = nil
-			}
-		}
-	}
-
-	if des.CustomPeriod != nil || (initial != nil && initial.CustomPeriod != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CalendarPeriod) {
-			des.CustomPeriod = nil
-			if initial != nil {
-				initial.CustomPeriod = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -584,8 +561,8 @@ func canonicalizeBudgetBudgetFilter(des, initial *BudgetBudgetFilter, opts ...dc
 	} else {
 		cDes.CreditTypes = des.CreditTypes
 	}
-	if dcl.IsZeroValue(des.CreditTypesTreatment) || (dcl.IsEmptyValueIndirect(des.CreditTypesTreatment) && dcl.IsEmptyValueIndirect(initial.CreditTypesTreatment)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CreditTypesTreatment) && dcl.IsEmptyValueIndirect(initial.CreditTypesTreatment) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CreditTypesTreatment = initial.CreditTypesTreatment
 	} else {
 		cDes.CreditTypesTreatment = des.CreditTypesTreatment
@@ -600,26 +577,39 @@ func canonicalizeBudgetBudgetFilter(des, initial *BudgetBudgetFilter, opts ...dc
 	} else {
 		cDes.Subaccounts = des.Subaccounts
 	}
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
-	if dcl.IsZeroValue(des.CalendarPeriod) || (dcl.IsEmptyValueIndirect(des.CalendarPeriod) && dcl.IsEmptyValueIndirect(initial.CalendarPeriod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CalendarPeriod) && dcl.IsEmptyValueIndirect(initial.CalendarPeriod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CalendarPeriod = initial.CalendarPeriod
 	} else {
 		cDes.CalendarPeriod = des.CalendarPeriod
 	}
 	cDes.CustomPeriod = canonicalizeBudgetBudgetFilterCustomPeriod(des.CustomPeriod, initial.CustomPeriod, opts...)
 
+	if cDes.CalendarPeriod != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CustomPeriod) {
+			cDes.CalendarPeriod = nil
+		}
+	}
+
+	if cDes.CustomPeriod != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CalendarPeriod) {
+			cDes.CustomPeriod = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeBudgetBudgetFilterSlice(des, initial []BudgetBudgetFilter, opts ...dcl.ApplyOption) []BudgetBudgetFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -720,10 +710,7 @@ func canonicalizeNewBudgetBudgetFilterSlice(c *Client, des, nw []BudgetBudgetFil
 }
 
 func canonicalizeBudgetBudgetFilterLabels(des, initial *BudgetBudgetFilterLabels, opts ...dcl.ApplyOption) *BudgetBudgetFilterLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -744,7 +731,7 @@ func canonicalizeBudgetBudgetFilterLabels(des, initial *BudgetBudgetFilterLabels
 
 func canonicalizeBudgetBudgetFilterLabelsSlice(des, initial []BudgetBudgetFilterLabels, opts ...dcl.ApplyOption) []BudgetBudgetFilterLabels {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -835,10 +822,7 @@ func canonicalizeNewBudgetBudgetFilterLabelsSlice(c *Client, des, nw []BudgetBud
 }
 
 func canonicalizeBudgetBudgetFilterCustomPeriod(des, initial *BudgetBudgetFilterCustomPeriod, opts ...dcl.ApplyOption) *BudgetBudgetFilterCustomPeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -856,7 +840,7 @@ func canonicalizeBudgetBudgetFilterCustomPeriod(des, initial *BudgetBudgetFilter
 
 func canonicalizeBudgetBudgetFilterCustomPeriodSlice(des, initial []BudgetBudgetFilterCustomPeriod, opts ...dcl.ApplyOption) []BudgetBudgetFilterCustomPeriod {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -946,10 +930,7 @@ func canonicalizeNewBudgetBudgetFilterCustomPeriodSlice(c *Client, des, nw []Bud
 }
 
 func canonicalizeBudgetBudgetFilterCustomPeriodStartDate(des, initial *BudgetBudgetFilterCustomPeriodStartDate, opts ...dcl.ApplyOption) *BudgetBudgetFilterCustomPeriodStartDate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -959,20 +940,20 @@ func canonicalizeBudgetBudgetFilterCustomPeriodStartDate(des, initial *BudgetBud
 
 	cDes := &BudgetBudgetFilterCustomPeriodStartDate{}
 
-	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -983,7 +964,7 @@ func canonicalizeBudgetBudgetFilterCustomPeriodStartDate(des, initial *BudgetBud
 
 func canonicalizeBudgetBudgetFilterCustomPeriodStartDateSlice(des, initial []BudgetBudgetFilterCustomPeriodStartDate, opts ...dcl.ApplyOption) []BudgetBudgetFilterCustomPeriodStartDate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1070,10 +1051,7 @@ func canonicalizeNewBudgetBudgetFilterCustomPeriodStartDateSlice(c *Client, des,
 }
 
 func canonicalizeBudgetBudgetFilterCustomPeriodEndDate(des, initial *BudgetBudgetFilterCustomPeriodEndDate, opts ...dcl.ApplyOption) *BudgetBudgetFilterCustomPeriodEndDate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1083,20 +1061,20 @@ func canonicalizeBudgetBudgetFilterCustomPeriodEndDate(des, initial *BudgetBudge
 
 	cDes := &BudgetBudgetFilterCustomPeriodEndDate{}
 
-	if dcl.IsZeroValue(des.Year) || (dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Year) && dcl.IsEmptyValueIndirect(initial.Year) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Year = initial.Year
 	} else {
 		cDes.Year = des.Year
 	}
-	if dcl.IsZeroValue(des.Month) || (dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Month) && dcl.IsEmptyValueIndirect(initial.Month) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Month = initial.Month
 	} else {
 		cDes.Month = des.Month
 	}
-	if dcl.IsZeroValue(des.Day) || (dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Day) && dcl.IsEmptyValueIndirect(initial.Day) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Day = initial.Day
 	} else {
 		cDes.Day = des.Day
@@ -1107,7 +1085,7 @@ func canonicalizeBudgetBudgetFilterCustomPeriodEndDate(des, initial *BudgetBudge
 
 func canonicalizeBudgetBudgetFilterCustomPeriodEndDateSlice(des, initial []BudgetBudgetFilterCustomPeriodEndDate, opts ...dcl.ApplyOption) []BudgetBudgetFilterCustomPeriodEndDate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1194,31 +1172,8 @@ func canonicalizeNewBudgetBudgetFilterCustomPeriodEndDateSlice(c *Client, des, n
 }
 
 func canonicalizeBudgetAmount(des, initial *BudgetAmount, opts ...dcl.ApplyOption) *BudgetAmount {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.SpecifiedAmount != nil || (initial != nil && initial.SpecifiedAmount != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.LastPeriodAmount) {
-			des.SpecifiedAmount = nil
-			if initial != nil {
-				initial.SpecifiedAmount = nil
-			}
-		}
-	}
-
-	if des.LastPeriodAmount != nil || (initial != nil && initial.LastPeriodAmount != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.SpecifiedAmount) {
-			des.LastPeriodAmount = nil
-			if initial != nil {
-				initial.LastPeriodAmount = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1230,12 +1185,25 @@ func canonicalizeBudgetAmount(des, initial *BudgetAmount, opts ...dcl.ApplyOptio
 	cDes.SpecifiedAmount = canonicalizeBudgetAmountSpecifiedAmount(des.SpecifiedAmount, initial.SpecifiedAmount, opts...)
 	cDes.LastPeriodAmount = canonicalizeBudgetAmountLastPeriodAmount(des.LastPeriodAmount, initial.LastPeriodAmount, opts...)
 
+	if cDes.SpecifiedAmount != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.LastPeriodAmount) {
+			cDes.SpecifiedAmount = nil
+		}
+	}
+
+	if cDes.LastPeriodAmount != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.SpecifiedAmount) {
+			cDes.LastPeriodAmount = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeBudgetAmountSlice(des, initial []BudgetAmount, opts ...dcl.ApplyOption) []BudgetAmount {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1325,10 +1293,7 @@ func canonicalizeNewBudgetAmountSlice(c *Client, des, nw []BudgetAmount) []Budge
 }
 
 func canonicalizeBudgetAmountSpecifiedAmount(des, initial *BudgetAmountSpecifiedAmount, opts ...dcl.ApplyOption) *BudgetAmountSpecifiedAmount {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1338,19 +1303,19 @@ func canonicalizeBudgetAmountSpecifiedAmount(des, initial *BudgetAmountSpecified
 
 	cDes := &BudgetAmountSpecifiedAmount{}
 
-	if dcl.StringCanonicalize(des.CurrencyCode, initial.CurrencyCode) || dcl.IsZeroValue(des.CurrencyCode) {
+	if dcl.StringCanonicalize(des.CurrencyCode, initial.CurrencyCode) {
 		cDes.CurrencyCode = initial.CurrencyCode
 	} else {
 		cDes.CurrencyCode = des.CurrencyCode
 	}
-	if dcl.IsZeroValue(des.Units) || (dcl.IsEmptyValueIndirect(des.Units) && dcl.IsEmptyValueIndirect(initial.Units)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Units) && dcl.IsEmptyValueIndirect(initial.Units) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Units = initial.Units
 	} else {
 		cDes.Units = des.Units
 	}
-	if dcl.IsZeroValue(des.Nanos) || (dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Nanos) && dcl.IsEmptyValueIndirect(initial.Nanos) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Nanos = initial.Nanos
 	} else {
 		cDes.Nanos = des.Nanos
@@ -1361,7 +1326,7 @@ func canonicalizeBudgetAmountSpecifiedAmount(des, initial *BudgetAmountSpecified
 
 func canonicalizeBudgetAmountSpecifiedAmountSlice(des, initial []BudgetAmountSpecifiedAmount, opts ...dcl.ApplyOption) []BudgetAmountSpecifiedAmount {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1452,12 +1417,10 @@ func canonicalizeNewBudgetAmountSpecifiedAmountSlice(c *Client, des, nw []Budget
 }
 
 func canonicalizeBudgetAmountLastPeriodAmount(des, initial *BudgetAmountLastPeriodAmount, opts ...dcl.ApplyOption) *BudgetAmountLastPeriodAmount {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -1469,7 +1432,7 @@ func canonicalizeBudgetAmountLastPeriodAmount(des, initial *BudgetAmountLastPeri
 
 func canonicalizeBudgetAmountLastPeriodAmountSlice(des, initial []BudgetAmountLastPeriodAmount, opts ...dcl.ApplyOption) []BudgetAmountLastPeriodAmount {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1556,10 +1519,7 @@ func canonicalizeNewBudgetAmountLastPeriodAmountSlice(c *Client, des, nw []Budge
 }
 
 func canonicalizeBudgetThresholdRules(des, initial *BudgetThresholdRules, opts ...dcl.ApplyOption) *BudgetThresholdRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1569,14 +1529,14 @@ func canonicalizeBudgetThresholdRules(des, initial *BudgetThresholdRules, opts .
 
 	cDes := &BudgetThresholdRules{}
 
-	if dcl.IsZeroValue(des.ThresholdPercent) || (dcl.IsEmptyValueIndirect(des.ThresholdPercent) && dcl.IsEmptyValueIndirect(initial.ThresholdPercent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ThresholdPercent) && dcl.IsEmptyValueIndirect(initial.ThresholdPercent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ThresholdPercent = initial.ThresholdPercent
 	} else {
 		cDes.ThresholdPercent = des.ThresholdPercent
 	}
-	if dcl.IsZeroValue(des.SpendBasis) || (dcl.IsEmptyValueIndirect(des.SpendBasis) && dcl.IsEmptyValueIndirect(initial.SpendBasis)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SpendBasis) && dcl.IsEmptyValueIndirect(initial.SpendBasis) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SpendBasis = initial.SpendBasis
 	} else {
 		cDes.SpendBasis = des.SpendBasis
@@ -1587,7 +1547,7 @@ func canonicalizeBudgetThresholdRules(des, initial *BudgetThresholdRules, opts .
 
 func canonicalizeBudgetThresholdRulesSlice(des, initial []BudgetThresholdRules, opts ...dcl.ApplyOption) []BudgetThresholdRules {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1674,10 +1634,7 @@ func canonicalizeNewBudgetThresholdRulesSlice(c *Client, des, nw []BudgetThresho
 }
 
 func canonicalizeBudgetAllUpdatesRule(des, initial *BudgetAllUpdatesRule, opts ...dcl.ApplyOption) *BudgetAllUpdatesRule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1687,13 +1644,13 @@ func canonicalizeBudgetAllUpdatesRule(des, initial *BudgetAllUpdatesRule, opts .
 
 	cDes := &BudgetAllUpdatesRule{}
 
-	if dcl.IsZeroValue(des.PubsubTopic) || (dcl.IsEmptyValueIndirect(des.PubsubTopic) && dcl.IsEmptyValueIndirect(initial.PubsubTopic)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PubsubTopic) && dcl.IsEmptyValueIndirect(initial.PubsubTopic) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PubsubTopic = initial.PubsubTopic
 	} else {
 		cDes.PubsubTopic = des.PubsubTopic
 	}
-	if dcl.StringCanonicalize(des.SchemaVersion, initial.SchemaVersion) || dcl.IsZeroValue(des.SchemaVersion) {
+	if dcl.StringCanonicalize(des.SchemaVersion, initial.SchemaVersion) {
 		cDes.SchemaVersion = initial.SchemaVersion
 	} else {
 		cDes.SchemaVersion = des.SchemaVersion
@@ -1703,7 +1660,7 @@ func canonicalizeBudgetAllUpdatesRule(des, initial *BudgetAllUpdatesRule, opts .
 	} else {
 		cDes.MonitoringNotificationChannels = des.MonitoringNotificationChannels
 	}
-	if dcl.BoolCanonicalize(des.DisableDefaultIamRecipients, initial.DisableDefaultIamRecipients) || dcl.IsZeroValue(des.DisableDefaultIamRecipients) {
+	if dcl.BoolCanonicalize(des.DisableDefaultIamRecipients, initial.DisableDefaultIamRecipients) {
 		cDes.DisableDefaultIamRecipients = initial.DisableDefaultIamRecipients
 	} else {
 		cDes.DisableDefaultIamRecipients = des.DisableDefaultIamRecipients
@@ -1714,7 +1671,7 @@ func canonicalizeBudgetAllUpdatesRule(des, initial *BudgetAllUpdatesRule, opts .
 
 func canonicalizeBudgetAllUpdatesRuleSlice(des, initial []BudgetAllUpdatesRule, opts ...dcl.ApplyOption) []BudgetAllUpdatesRule {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

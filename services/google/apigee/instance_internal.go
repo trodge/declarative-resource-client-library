@@ -361,8 +361,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-	if dcl.IsZeroValue(rawDesired.PeeringCidrRange) || (dcl.IsEmptyValueIndirect(rawDesired.PeeringCidrRange) && dcl.IsEmptyValueIndirect(rawInitial.PeeringCidrRange)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.PeeringCidrRange) && dcl.IsEmptyValueIndirect(rawInitial.PeeringCidrRange) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.PeeringCidrRange = rawInitial.PeeringCidrRange
 	} else {
 		canonicalDesired.PeeringCidrRange = rawDesired.PeeringCidrRange
@@ -377,8 +377,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.DiskEncryptionKeyName) || (dcl.IsEmptyValueIndirect(rawDesired.DiskEncryptionKeyName) && dcl.IsEmptyValueIndirect(rawInitial.DiskEncryptionKeyName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.DiskEncryptionKeyName) && dcl.IsEmptyValueIndirect(rawInitial.DiskEncryptionKeyName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.DiskEncryptionKeyName = rawInitial.DiskEncryptionKeyName
 	} else {
 		canonicalDesired.DiskEncryptionKeyName = rawDesired.DiskEncryptionKeyName

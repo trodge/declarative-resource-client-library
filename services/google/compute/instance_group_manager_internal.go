@@ -28,6 +28,9 @@ import (
 
 func (r *InstanceGroupManager) validate() error {
 
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"InstanceTemplate", "Versions"}, r.InstanceTemplate, r.Versions); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
@@ -745,6 +748,21 @@ func (c *Client) instanceGroupManagerDiffsForRawDesired(ctx context.Context, raw
 
 func canonicalizeInstanceGroupManagerInitialState(rawInitial, rawDesired *InstanceGroupManager) (*InstanceGroupManager, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if !dcl.IsZeroValue(rawInitial.InstanceTemplate) {
+		// Check if anything else is set.
+		if dcl.AnySet(rawInitial.Versions) {
+			rawInitial.InstanceTemplate = dcl.String("")
+		}
+	}
+
+	if !dcl.IsZeroValue(rawInitial.Versions) {
+		// Check if anything else is set.
+		if dcl.AnySet(rawInitial.InstanceTemplate) {
+			rawInitial.Versions = []InstanceGroupManagerVersions{}
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -780,8 +798,8 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 		canonicalDesired.Description = rawDesired.Description
 	}
 	canonicalDesired.DistributionPolicy = canonicalizeInstanceGroupManagerDistributionPolicy(rawDesired.DistributionPolicy, rawInitial.DistributionPolicy, opts...)
-	if dcl.IsZeroValue(rawDesired.InstanceTemplate) || (dcl.IsEmptyValueIndirect(rawDesired.InstanceTemplate) && dcl.IsEmptyValueIndirect(rawInitial.InstanceTemplate)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.InstanceTemplate) && dcl.IsEmptyValueIndirect(rawInitial.InstanceTemplate) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.InstanceTemplate = rawInitial.InstanceTemplate
 	} else {
 		canonicalDesired.InstanceTemplate = rawDesired.InstanceTemplate
@@ -797,8 +815,8 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 	} else {
 		canonicalDesired.BaseInstanceName = rawDesired.BaseInstanceName
 	}
-	if dcl.IsZeroValue(rawDesired.TargetSize) || (dcl.IsEmptyValueIndirect(rawDesired.TargetSize) && dcl.IsEmptyValueIndirect(rawInitial.TargetSize)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.TargetSize) && dcl.IsEmptyValueIndirect(rawInitial.TargetSize) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.TargetSize = rawInitial.TargetSize
 	} else {
 		canonicalDesired.TargetSize = rawDesired.TargetSize
@@ -816,6 +834,20 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.InstanceTemplate != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Versions) {
+			canonicalDesired.InstanceTemplate = nil
+		}
+	}
+
+	if canonicalDesired.Versions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.InstanceTemplate) {
+			canonicalDesired.Versions = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -967,14 +999,23 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 
 	rawNew.Location = rawDesired.Location
 
+	if rawNew.InstanceTemplate != nil {
+		if dcl.AnySet(rawNew.Versions) && rawDesired.InstanceTemplate == nil {
+			rawNew.InstanceTemplate = nil
+		}
+	}
+
+	if rawNew.Versions != nil {
+		if dcl.AnySet(rawNew.InstanceTemplate) && rawDesired.Versions == nil {
+			rawNew.Versions = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeInstanceGroupManagerDistributionPolicy(des, initial *InstanceGroupManagerDistributionPolicy, opts ...dcl.ApplyOption) *InstanceGroupManagerDistributionPolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -985,8 +1026,8 @@ func canonicalizeInstanceGroupManagerDistributionPolicy(des, initial *InstanceGr
 	cDes := &InstanceGroupManagerDistributionPolicy{}
 
 	cDes.Zones = canonicalizeInstanceGroupManagerDistributionPolicyZonesSlice(des.Zones, initial.Zones, opts...)
-	if dcl.IsZeroValue(des.TargetShape) || (dcl.IsEmptyValueIndirect(des.TargetShape) && dcl.IsEmptyValueIndirect(initial.TargetShape)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TargetShape) && dcl.IsEmptyValueIndirect(initial.TargetShape) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TargetShape = initial.TargetShape
 	} else {
 		cDes.TargetShape = des.TargetShape
@@ -997,7 +1038,7 @@ func canonicalizeInstanceGroupManagerDistributionPolicy(des, initial *InstanceGr
 
 func canonicalizeInstanceGroupManagerDistributionPolicySlice(des, initial []InstanceGroupManagerDistributionPolicy, opts ...dcl.ApplyOption) []InstanceGroupManagerDistributionPolicy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1086,10 +1127,7 @@ func canonicalizeNewInstanceGroupManagerDistributionPolicySlice(c *Client, des, 
 }
 
 func canonicalizeInstanceGroupManagerDistributionPolicyZones(des, initial *InstanceGroupManagerDistributionPolicyZones, opts ...dcl.ApplyOption) *InstanceGroupManagerDistributionPolicyZones {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1099,7 +1137,7 @@ func canonicalizeInstanceGroupManagerDistributionPolicyZones(des, initial *Insta
 
 	cDes := &InstanceGroupManagerDistributionPolicyZones{}
 
-	if dcl.StringCanonicalize(des.Zone, initial.Zone) || dcl.IsZeroValue(des.Zone) {
+	if dcl.StringCanonicalize(des.Zone, initial.Zone) {
 		cDes.Zone = initial.Zone
 	} else {
 		cDes.Zone = des.Zone
@@ -1110,7 +1148,7 @@ func canonicalizeInstanceGroupManagerDistributionPolicyZones(des, initial *Insta
 
 func canonicalizeInstanceGroupManagerDistributionPolicyZonesSlice(des, initial []InstanceGroupManagerDistributionPolicyZones, opts ...dcl.ApplyOption) []InstanceGroupManagerDistributionPolicyZones {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1201,10 +1239,7 @@ func canonicalizeNewInstanceGroupManagerDistributionPolicyZonesSlice(c *Client, 
 }
 
 func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManagerVersions, opts ...dcl.ApplyOption) *InstanceGroupManagerVersions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1214,13 +1249,13 @@ func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManager
 
 	cDes := &InstanceGroupManagerVersions{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.InstanceTemplate) || (dcl.IsEmptyValueIndirect(des.InstanceTemplate) && dcl.IsEmptyValueIndirect(initial.InstanceTemplate)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.InstanceTemplate) && dcl.IsEmptyValueIndirect(initial.InstanceTemplate) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.InstanceTemplate = initial.InstanceTemplate
 	} else {
 		cDes.InstanceTemplate = des.InstanceTemplate
@@ -1232,7 +1267,7 @@ func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManager
 
 func canonicalizeInstanceGroupManagerVersionsSlice(des, initial []InstanceGroupManagerVersions, opts ...dcl.ApplyOption) []InstanceGroupManagerVersions {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1324,10 +1359,7 @@ func canonicalizeNewInstanceGroupManagerVersionsSlice(c *Client, des, nw []Insta
 }
 
 func canonicalizeInstanceGroupManagerVersionsTargetSize(des, initial *InstanceGroupManagerVersionsTargetSize, opts ...dcl.ApplyOption) *InstanceGroupManagerVersionsTargetSize {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1337,14 +1369,14 @@ func canonicalizeInstanceGroupManagerVersionsTargetSize(des, initial *InstanceGr
 
 	cDes := &InstanceGroupManagerVersionsTargetSize{}
 
-	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Fixed = initial.Fixed
 	} else {
 		cDes.Fixed = des.Fixed
 	}
-	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
@@ -1355,7 +1387,7 @@ func canonicalizeInstanceGroupManagerVersionsTargetSize(des, initial *InstanceGr
 
 func canonicalizeInstanceGroupManagerVersionsTargetSizeSlice(des, initial []InstanceGroupManagerVersionsTargetSize, opts ...dcl.ApplyOption) []InstanceGroupManagerVersionsTargetSize {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1442,10 +1474,7 @@ func canonicalizeNewInstanceGroupManagerVersionsTargetSizeSlice(c *Client, des, 
 }
 
 func canonicalizeInstanceGroupManagerCurrentActions(des, initial *InstanceGroupManagerCurrentActions, opts ...dcl.ApplyOption) *InstanceGroupManagerCurrentActions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1460,7 +1489,7 @@ func canonicalizeInstanceGroupManagerCurrentActions(des, initial *InstanceGroupM
 
 func canonicalizeInstanceGroupManagerCurrentActionsSlice(des, initial []InstanceGroupManagerCurrentActions, opts ...dcl.ApplyOption) []InstanceGroupManagerCurrentActions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1547,10 +1576,7 @@ func canonicalizeNewInstanceGroupManagerCurrentActionsSlice(c *Client, des, nw [
 }
 
 func canonicalizeInstanceGroupManagerStatus(des, initial *InstanceGroupManagerStatus, opts ...dcl.ApplyOption) *InstanceGroupManagerStatus {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1565,7 +1591,7 @@ func canonicalizeInstanceGroupManagerStatus(des, initial *InstanceGroupManagerSt
 
 func canonicalizeInstanceGroupManagerStatusSlice(des, initial []InstanceGroupManagerStatus, opts ...dcl.ApplyOption) []InstanceGroupManagerStatus {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1661,10 +1687,7 @@ func canonicalizeNewInstanceGroupManagerStatusSlice(c *Client, des, nw []Instanc
 }
 
 func canonicalizeInstanceGroupManagerStatusVersionTarget(des, initial *InstanceGroupManagerStatusVersionTarget, opts ...dcl.ApplyOption) *InstanceGroupManagerStatusVersionTarget {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1679,7 +1702,7 @@ func canonicalizeInstanceGroupManagerStatusVersionTarget(des, initial *InstanceG
 
 func canonicalizeInstanceGroupManagerStatusVersionTargetSlice(des, initial []InstanceGroupManagerStatusVersionTarget, opts ...dcl.ApplyOption) []InstanceGroupManagerStatusVersionTarget {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1770,10 +1793,7 @@ func canonicalizeNewInstanceGroupManagerStatusVersionTargetSlice(c *Client, des,
 }
 
 func canonicalizeInstanceGroupManagerStatusStateful(des, initial *InstanceGroupManagerStatusStateful, opts ...dcl.ApplyOption) *InstanceGroupManagerStatusStateful {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1788,7 +1808,7 @@ func canonicalizeInstanceGroupManagerStatusStateful(des, initial *InstanceGroupM
 
 func canonicalizeInstanceGroupManagerStatusStatefulSlice(des, initial []InstanceGroupManagerStatusStateful, opts ...dcl.ApplyOption) []InstanceGroupManagerStatusStateful {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1880,10 +1900,7 @@ func canonicalizeNewInstanceGroupManagerStatusStatefulSlice(c *Client, des, nw [
 }
 
 func canonicalizeInstanceGroupManagerStatusStatefulPerInstanceConfigs(des, initial *InstanceGroupManagerStatusStatefulPerInstanceConfigs, opts ...dcl.ApplyOption) *InstanceGroupManagerStatusStatefulPerInstanceConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1893,7 +1910,7 @@ func canonicalizeInstanceGroupManagerStatusStatefulPerInstanceConfigs(des, initi
 
 	cDes := &InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
 
-	if dcl.BoolCanonicalize(des.AllEffective, initial.AllEffective) || dcl.IsZeroValue(des.AllEffective) {
+	if dcl.BoolCanonicalize(des.AllEffective, initial.AllEffective) {
 		cDes.AllEffective = initial.AllEffective
 	} else {
 		cDes.AllEffective = des.AllEffective
@@ -1904,7 +1921,7 @@ func canonicalizeInstanceGroupManagerStatusStatefulPerInstanceConfigs(des, initi
 
 func canonicalizeInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice(des, initial []InstanceGroupManagerStatusStatefulPerInstanceConfigs, opts ...dcl.ApplyOption) []InstanceGroupManagerStatusStatefulPerInstanceConfigs {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1995,10 +2012,7 @@ func canonicalizeNewInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice(c 
 }
 
 func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceGroupManagerAutoHealingPolicies, opts ...dcl.ApplyOption) *InstanceGroupManagerAutoHealingPolicies {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2008,14 +2022,14 @@ func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceG
 
 	cDes := &InstanceGroupManagerAutoHealingPolicies{}
 
-	if dcl.IsZeroValue(des.HealthCheck) || (dcl.IsEmptyValueIndirect(des.HealthCheck) && dcl.IsEmptyValueIndirect(initial.HealthCheck)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.HealthCheck) && dcl.IsEmptyValueIndirect(initial.HealthCheck) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.HealthCheck = initial.HealthCheck
 	} else {
 		cDes.HealthCheck = des.HealthCheck
 	}
-	if dcl.IsZeroValue(des.InitialDelaySec) || (dcl.IsEmptyValueIndirect(des.InitialDelaySec) && dcl.IsEmptyValueIndirect(initial.InitialDelaySec)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.InitialDelaySec) && dcl.IsEmptyValueIndirect(initial.InitialDelaySec) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.InitialDelaySec = initial.InitialDelaySec
 	} else {
 		cDes.InitialDelaySec = des.InitialDelaySec
@@ -2026,7 +2040,7 @@ func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceG
 
 func canonicalizeInstanceGroupManagerAutoHealingPoliciesSlice(des, initial []InstanceGroupManagerAutoHealingPolicies, opts ...dcl.ApplyOption) []InstanceGroupManagerAutoHealingPolicies {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2113,10 +2127,7 @@ func canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, des,
 }
 
 func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupManagerUpdatePolicy, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2126,28 +2137,28 @@ func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupMan
 
 	cDes := &InstanceGroupManagerUpdatePolicy{}
 
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.IsZeroValue(des.InstanceRedistributionType) || (dcl.IsEmptyValueIndirect(des.InstanceRedistributionType) && dcl.IsEmptyValueIndirect(initial.InstanceRedistributionType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.InstanceRedistributionType) && dcl.IsEmptyValueIndirect(initial.InstanceRedistributionType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.InstanceRedistributionType = initial.InstanceRedistributionType
 	} else {
 		cDes.InstanceRedistributionType = des.InstanceRedistributionType
 	}
-	if dcl.IsZeroValue(des.MinimalAction) || (dcl.IsEmptyValueIndirect(des.MinimalAction) && dcl.IsEmptyValueIndirect(initial.MinimalAction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MinimalAction) && dcl.IsEmptyValueIndirect(initial.MinimalAction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MinimalAction = initial.MinimalAction
 	} else {
 		cDes.MinimalAction = des.MinimalAction
 	}
 	cDes.MaxSurge = canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des.MaxSurge, initial.MaxSurge, opts...)
 	cDes.MaxUnavailable = canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des.MaxUnavailable, initial.MaxUnavailable, opts...)
-	if dcl.IsZeroValue(des.ReplacementMethod) || (dcl.IsEmptyValueIndirect(des.ReplacementMethod) && dcl.IsEmptyValueIndirect(initial.ReplacementMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ReplacementMethod) && dcl.IsEmptyValueIndirect(initial.ReplacementMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ReplacementMethod = initial.ReplacementMethod
 	} else {
 		cDes.ReplacementMethod = des.ReplacementMethod
@@ -2158,7 +2169,7 @@ func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupMan
 
 func canonicalizeInstanceGroupManagerUpdatePolicySlice(des, initial []InstanceGroupManagerUpdatePolicy, opts ...dcl.ApplyOption) []InstanceGroupManagerUpdatePolicy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2248,10 +2259,7 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicySlice(c *Client, des, nw []I
 }
 
 func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des, initial *InstanceGroupManagerUpdatePolicyMaxSurge, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicyMaxSurge {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2261,14 +2269,14 @@ func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des, initial *Instance
 
 	cDes := &InstanceGroupManagerUpdatePolicyMaxSurge{}
 
-	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Fixed = initial.Fixed
 	} else {
 		cDes.Fixed = des.Fixed
 	}
-	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
@@ -2279,7 +2287,7 @@ func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des, initial *Instance
 
 func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurgeSlice(des, initial []InstanceGroupManagerUpdatePolicyMaxSurge, opts ...dcl.ApplyOption) []InstanceGroupManagerUpdatePolicyMaxSurge {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2366,10 +2374,7 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, des
 }
 
 func canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des, initial *InstanceGroupManagerUpdatePolicyMaxUnavailable, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2379,14 +2384,14 @@ func canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des, initial *In
 
 	cDes := &InstanceGroupManagerUpdatePolicyMaxUnavailable{}
 
-	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Fixed = initial.Fixed
 	} else {
 		cDes.Fixed = des.Fixed
 	}
-	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
@@ -2397,7 +2402,7 @@ func canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des, initial *In
 
 func canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(des, initial []InstanceGroupManagerUpdatePolicyMaxUnavailable, opts ...dcl.ApplyOption) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2484,10 +2489,7 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Clien
 }
 
 func canonicalizeInstanceGroupManagerNamedPorts(des, initial *InstanceGroupManagerNamedPorts, opts ...dcl.ApplyOption) *InstanceGroupManagerNamedPorts {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2497,13 +2499,13 @@ func canonicalizeInstanceGroupManagerNamedPorts(des, initial *InstanceGroupManag
 
 	cDes := &InstanceGroupManagerNamedPorts{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.Port) || (dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Port) && dcl.IsEmptyValueIndirect(initial.Port) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Port = initial.Port
 	} else {
 		cDes.Port = des.Port
@@ -2514,7 +2516,7 @@ func canonicalizeInstanceGroupManagerNamedPorts(des, initial *InstanceGroupManag
 
 func canonicalizeInstanceGroupManagerNamedPortsSlice(des, initial []InstanceGroupManagerNamedPorts, opts ...dcl.ApplyOption) []InstanceGroupManagerNamedPorts {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2605,10 +2607,7 @@ func canonicalizeNewInstanceGroupManagerNamedPortsSlice(c *Client, des, nw []Ins
 }
 
 func canonicalizeInstanceGroupManagerStatefulPolicy(des, initial *InstanceGroupManagerStatefulPolicy, opts ...dcl.ApplyOption) *InstanceGroupManagerStatefulPolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2625,7 +2624,7 @@ func canonicalizeInstanceGroupManagerStatefulPolicy(des, initial *InstanceGroupM
 
 func canonicalizeInstanceGroupManagerStatefulPolicySlice(des, initial []InstanceGroupManagerStatefulPolicy, opts ...dcl.ApplyOption) []InstanceGroupManagerStatefulPolicy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2714,10 +2713,7 @@ func canonicalizeNewInstanceGroupManagerStatefulPolicySlice(c *Client, des, nw [
 }
 
 func canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(des, initial *InstanceGroupManagerStatefulPolicyPreservedState, opts ...dcl.ApplyOption) *InstanceGroupManagerStatefulPolicyPreservedState {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2727,8 +2723,8 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(des, initial *
 
 	cDes := &InstanceGroupManagerStatefulPolicyPreservedState{}
 
-	if dcl.IsZeroValue(des.Disks) || (dcl.IsEmptyValueIndirect(des.Disks) && dcl.IsEmptyValueIndirect(initial.Disks)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Disks) && dcl.IsEmptyValueIndirect(initial.Disks) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Disks = initial.Disks
 	} else {
 		cDes.Disks = des.Disks
@@ -2739,7 +2735,7 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(des, initial *
 
 func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateSlice(des, initial []InstanceGroupManagerStatefulPolicyPreservedState, opts ...dcl.ApplyOption) []InstanceGroupManagerStatefulPolicyPreservedState {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2826,10 +2822,7 @@ func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateSlice(c *Cli
 }
 
 func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisks(des, initial *InstanceGroupManagerStatefulPolicyPreservedStateDisks, opts ...dcl.ApplyOption) *InstanceGroupManagerStatefulPolicyPreservedStateDisks {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2839,8 +2832,8 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisks(des, init
 
 	cDes := &InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
 
-	if dcl.IsZeroValue(des.AutoDelete) || (dcl.IsEmptyValueIndirect(des.AutoDelete) && dcl.IsEmptyValueIndirect(initial.AutoDelete)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AutoDelete) && dcl.IsEmptyValueIndirect(initial.AutoDelete) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AutoDelete = initial.AutoDelete
 	} else {
 		cDes.AutoDelete = des.AutoDelete
@@ -2851,7 +2844,7 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisks(des, init
 
 func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice(des, initial []InstanceGroupManagerStatefulPolicyPreservedStateDisks, opts ...dcl.ApplyOption) []InstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

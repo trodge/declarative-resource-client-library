@@ -535,10 +535,7 @@ func canonicalizeAutoscalingPolicyNewState(c *Client, rawNew, rawDesired *Autosc
 }
 
 func canonicalizeAutoscalingPolicyBasicAlgorithm(des, initial *AutoscalingPolicyBasicAlgorithm, opts ...dcl.ApplyOption) *AutoscalingPolicyBasicAlgorithm {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -549,7 +546,7 @@ func canonicalizeAutoscalingPolicyBasicAlgorithm(des, initial *AutoscalingPolicy
 	cDes := &AutoscalingPolicyBasicAlgorithm{}
 
 	cDes.YarnConfig = canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des.YarnConfig, initial.YarnConfig, opts...)
-	if dcl.StringCanonicalize(des.CooldownPeriod, initial.CooldownPeriod) || dcl.IsZeroValue(des.CooldownPeriod) {
+	if dcl.StringCanonicalize(des.CooldownPeriod, initial.CooldownPeriod) {
 		cDes.CooldownPeriod = initial.CooldownPeriod
 	} else {
 		cDes.CooldownPeriod = des.CooldownPeriod
@@ -560,7 +557,7 @@ func canonicalizeAutoscalingPolicyBasicAlgorithm(des, initial *AutoscalingPolicy
 
 func canonicalizeAutoscalingPolicyBasicAlgorithmSlice(des, initial []AutoscalingPolicyBasicAlgorithm, opts ...dcl.ApplyOption) []AutoscalingPolicyBasicAlgorithm {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -652,10 +649,7 @@ func canonicalizeNewAutoscalingPolicyBasicAlgorithmSlice(c *Client, des, nw []Au
 }
 
 func canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des, initial *AutoscalingPolicyBasicAlgorithmYarnConfig, opts ...dcl.ApplyOption) *AutoscalingPolicyBasicAlgorithmYarnConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -665,31 +659,31 @@ func canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des, initial *Autosca
 
 	cDes := &AutoscalingPolicyBasicAlgorithmYarnConfig{}
 
-	if dcl.StringCanonicalize(des.GracefulDecommissionTimeout, initial.GracefulDecommissionTimeout) || dcl.IsZeroValue(des.GracefulDecommissionTimeout) {
+	if dcl.StringCanonicalize(des.GracefulDecommissionTimeout, initial.GracefulDecommissionTimeout) {
 		cDes.GracefulDecommissionTimeout = initial.GracefulDecommissionTimeout
 	} else {
 		cDes.GracefulDecommissionTimeout = des.GracefulDecommissionTimeout
 	}
-	if dcl.IsZeroValue(des.ScaleUpFactor) || (dcl.IsEmptyValueIndirect(des.ScaleUpFactor) && dcl.IsEmptyValueIndirect(initial.ScaleUpFactor)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ScaleUpFactor) && dcl.IsEmptyValueIndirect(initial.ScaleUpFactor) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ScaleUpFactor = initial.ScaleUpFactor
 	} else {
 		cDes.ScaleUpFactor = des.ScaleUpFactor
 	}
-	if dcl.IsZeroValue(des.ScaleDownFactor) || (dcl.IsEmptyValueIndirect(des.ScaleDownFactor) && dcl.IsEmptyValueIndirect(initial.ScaleDownFactor)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ScaleDownFactor) && dcl.IsEmptyValueIndirect(initial.ScaleDownFactor) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ScaleDownFactor = initial.ScaleDownFactor
 	} else {
 		cDes.ScaleDownFactor = des.ScaleDownFactor
 	}
-	if dcl.IsZeroValue(des.ScaleUpMinWorkerFraction) || (dcl.IsEmptyValueIndirect(des.ScaleUpMinWorkerFraction) && dcl.IsEmptyValueIndirect(initial.ScaleUpMinWorkerFraction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ScaleUpMinWorkerFraction) && dcl.IsEmptyValueIndirect(initial.ScaleUpMinWorkerFraction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ScaleUpMinWorkerFraction = initial.ScaleUpMinWorkerFraction
 	} else {
 		cDes.ScaleUpMinWorkerFraction = des.ScaleUpMinWorkerFraction
 	}
-	if dcl.IsZeroValue(des.ScaleDownMinWorkerFraction) || (dcl.IsEmptyValueIndirect(des.ScaleDownMinWorkerFraction) && dcl.IsEmptyValueIndirect(initial.ScaleDownMinWorkerFraction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ScaleDownMinWorkerFraction) && dcl.IsEmptyValueIndirect(initial.ScaleDownMinWorkerFraction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ScaleDownMinWorkerFraction = initial.ScaleDownMinWorkerFraction
 	} else {
 		cDes.ScaleDownMinWorkerFraction = des.ScaleDownMinWorkerFraction
@@ -700,7 +694,7 @@ func canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des, initial *Autosca
 
 func canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfigSlice(des, initial []AutoscalingPolicyBasicAlgorithmYarnConfig, opts ...dcl.ApplyOption) []AutoscalingPolicyBasicAlgorithmYarnConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -791,10 +785,7 @@ func canonicalizeNewAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, de
 }
 
 func canonicalizeAutoscalingPolicyWorkerConfig(des, initial *AutoscalingPolicyWorkerConfig, opts ...dcl.ApplyOption) *AutoscalingPolicyWorkerConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -804,20 +795,20 @@ func canonicalizeAutoscalingPolicyWorkerConfig(des, initial *AutoscalingPolicyWo
 
 	cDes := &AutoscalingPolicyWorkerConfig{}
 
-	if dcl.IsZeroValue(des.MinInstances) || (dcl.IsEmptyValueIndirect(des.MinInstances) && dcl.IsEmptyValueIndirect(initial.MinInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MinInstances) && dcl.IsEmptyValueIndirect(initial.MinInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MinInstances = initial.MinInstances
 	} else {
 		cDes.MinInstances = des.MinInstances
 	}
-	if dcl.IsZeroValue(des.MaxInstances) || (dcl.IsEmptyValueIndirect(des.MaxInstances) && dcl.IsEmptyValueIndirect(initial.MaxInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxInstances) && dcl.IsEmptyValueIndirect(initial.MaxInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxInstances = initial.MaxInstances
 	} else {
 		cDes.MaxInstances = des.MaxInstances
 	}
-	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
@@ -828,7 +819,7 @@ func canonicalizeAutoscalingPolicyWorkerConfig(des, initial *AutoscalingPolicyWo
 
 func canonicalizeAutoscalingPolicyWorkerConfigSlice(des, initial []AutoscalingPolicyWorkerConfig, opts ...dcl.ApplyOption) []AutoscalingPolicyWorkerConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -915,10 +906,7 @@ func canonicalizeNewAutoscalingPolicyWorkerConfigSlice(c *Client, des, nw []Auto
 }
 
 func canonicalizeAutoscalingPolicySecondaryWorkerConfig(des, initial *AutoscalingPolicySecondaryWorkerConfig, opts ...dcl.ApplyOption) *AutoscalingPolicySecondaryWorkerConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -928,20 +916,20 @@ func canonicalizeAutoscalingPolicySecondaryWorkerConfig(des, initial *Autoscalin
 
 	cDes := &AutoscalingPolicySecondaryWorkerConfig{}
 
-	if dcl.IsZeroValue(des.MinInstances) || (dcl.IsEmptyValueIndirect(des.MinInstances) && dcl.IsEmptyValueIndirect(initial.MinInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MinInstances) && dcl.IsEmptyValueIndirect(initial.MinInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MinInstances = initial.MinInstances
 	} else {
 		cDes.MinInstances = des.MinInstances
 	}
-	if dcl.IsZeroValue(des.MaxInstances) || (dcl.IsEmptyValueIndirect(des.MaxInstances) && dcl.IsEmptyValueIndirect(initial.MaxInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxInstances) && dcl.IsEmptyValueIndirect(initial.MaxInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxInstances = initial.MaxInstances
 	} else {
 		cDes.MaxInstances = des.MaxInstances
 	}
-	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
@@ -952,7 +940,7 @@ func canonicalizeAutoscalingPolicySecondaryWorkerConfig(des, initial *Autoscalin
 
 func canonicalizeAutoscalingPolicySecondaryWorkerConfigSlice(des, initial []AutoscalingPolicySecondaryWorkerConfig, opts ...dcl.ApplyOption) []AutoscalingPolicySecondaryWorkerConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

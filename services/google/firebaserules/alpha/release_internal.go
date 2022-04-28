@@ -390,8 +390,8 @@ func canonicalizeReleaseDesiredState(rawDesired, rawInitial *Release, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.RulesetName) || (dcl.IsEmptyValueIndirect(rawDesired.RulesetName) && dcl.IsEmptyValueIndirect(rawInitial.RulesetName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.RulesetName) && dcl.IsEmptyValueIndirect(rawInitial.RulesetName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.RulesetName = rawInitial.RulesetName
 	} else {
 		canonicalDesired.RulesetName = rawDesired.RulesetName

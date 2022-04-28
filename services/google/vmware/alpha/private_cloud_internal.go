@@ -701,10 +701,7 @@ func canonicalizePrivateCloudNewState(c *Client, rawNew, rawDesired *PrivateClou
 }
 
 func canonicalizePrivateCloudNetworkConfig(des, initial *PrivateCloudNetworkConfig, opts ...dcl.ApplyOption) *PrivateCloudNetworkConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -714,12 +711,12 @@ func canonicalizePrivateCloudNetworkConfig(des, initial *PrivateCloudNetworkConf
 
 	cDes := &PrivateCloudNetworkConfig{}
 
-	if canonicalizePrivateCloudNetwork(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
+	if canonicalizePrivateCloudNetwork(des.Network, initial.Network) {
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
 	}
-	if dcl.StringCanonicalize(des.ManagementCidr, initial.ManagementCidr) || dcl.IsZeroValue(des.ManagementCidr) {
+	if dcl.StringCanonicalize(des.ManagementCidr, initial.ManagementCidr) {
 		cDes.ManagementCidr = initial.ManagementCidr
 	} else {
 		cDes.ManagementCidr = des.ManagementCidr
@@ -730,7 +727,7 @@ func canonicalizePrivateCloudNetworkConfig(des, initial *PrivateCloudNetworkConf
 
 func canonicalizePrivateCloudNetworkConfigSlice(des, initial []PrivateCloudNetworkConfig, opts ...dcl.ApplyOption) []PrivateCloudNetworkConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -827,10 +824,7 @@ func canonicalizeNewPrivateCloudNetworkConfigSlice(c *Client, des, nw []PrivateC
 }
 
 func canonicalizePrivateCloudManagementCluster(des, initial *PrivateCloudManagementCluster, opts ...dcl.ApplyOption) *PrivateCloudManagementCluster {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -840,18 +834,18 @@ func canonicalizePrivateCloudManagementCluster(des, initial *PrivateCloudManagem
 
 	cDes := &PrivateCloudManagementCluster{}
 
-	if dcl.StringCanonicalize(des.ClusterId, initial.ClusterId) || dcl.IsZeroValue(des.ClusterId) {
+	if dcl.StringCanonicalize(des.ClusterId, initial.ClusterId) {
 		cDes.ClusterId = initial.ClusterId
 	} else {
 		cDes.ClusterId = des.ClusterId
 	}
-	if dcl.StringCanonicalize(des.NodeTypeId, initial.NodeTypeId) || dcl.IsZeroValue(des.NodeTypeId) {
+	if dcl.StringCanonicalize(des.NodeTypeId, initial.NodeTypeId) {
 		cDes.NodeTypeId = initial.NodeTypeId
 	} else {
 		cDes.NodeTypeId = des.NodeTypeId
 	}
-	if dcl.IsZeroValue(des.NodeCount) || (dcl.IsEmptyValueIndirect(des.NodeCount) && dcl.IsEmptyValueIndirect(initial.NodeCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NodeCount) && dcl.IsEmptyValueIndirect(initial.NodeCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NodeCount = initial.NodeCount
 	} else {
 		cDes.NodeCount = des.NodeCount
@@ -862,7 +856,7 @@ func canonicalizePrivateCloudManagementCluster(des, initial *PrivateCloudManagem
 
 func canonicalizePrivateCloudManagementClusterSlice(des, initial []PrivateCloudManagementCluster, opts ...dcl.ApplyOption) []PrivateCloudManagementCluster {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -956,10 +950,7 @@ func canonicalizeNewPrivateCloudManagementClusterSlice(c *Client, des, nw []Priv
 }
 
 func canonicalizePrivateCloudConditions(des, initial *PrivateCloudConditions, opts ...dcl.ApplyOption) *PrivateCloudConditions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -974,7 +965,7 @@ func canonicalizePrivateCloudConditions(des, initial *PrivateCloudConditions, op
 
 func canonicalizePrivateCloudConditionsSlice(des, initial []PrivateCloudConditions, opts ...dcl.ApplyOption) []PrivateCloudConditions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1068,10 +1059,7 @@ func canonicalizeNewPrivateCloudConditionsSlice(c *Client, des, nw []PrivateClou
 }
 
 func canonicalizePrivateCloudHcx(des, initial *PrivateCloudHcx, opts ...dcl.ApplyOption) *PrivateCloudHcx {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1081,22 +1069,22 @@ func canonicalizePrivateCloudHcx(des, initial *PrivateCloudHcx, opts ...dcl.Appl
 
 	cDes := &PrivateCloudHcx{}
 
-	if dcl.StringCanonicalize(des.Fdqn, initial.Fdqn) || dcl.IsZeroValue(des.Fdqn) {
+	if dcl.StringCanonicalize(des.Fdqn, initial.Fdqn) {
 		cDes.Fdqn = initial.Fdqn
 	} else {
 		cDes.Fdqn = des.Fdqn
 	}
-	if dcl.StringCanonicalize(des.InternalIP, initial.InternalIP) || dcl.IsZeroValue(des.InternalIP) {
+	if dcl.StringCanonicalize(des.InternalIP, initial.InternalIP) {
 		cDes.InternalIP = initial.InternalIP
 	} else {
 		cDes.InternalIP = des.InternalIP
 	}
-	if dcl.StringCanonicalize(des.ExternalIP, initial.ExternalIP) || dcl.IsZeroValue(des.ExternalIP) {
+	if dcl.StringCanonicalize(des.ExternalIP, initial.ExternalIP) {
 		cDes.ExternalIP = initial.ExternalIP
 	} else {
 		cDes.ExternalIP = des.ExternalIP
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -1107,7 +1095,7 @@ func canonicalizePrivateCloudHcx(des, initial *PrivateCloudHcx, opts ...dcl.Appl
 
 func canonicalizePrivateCloudHcxSlice(des, initial []PrivateCloudHcx, opts ...dcl.ApplyOption) []PrivateCloudHcx {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1207,10 +1195,7 @@ func canonicalizeNewPrivateCloudHcxSlice(c *Client, des, nw []PrivateCloudHcx) [
 }
 
 func canonicalizePrivateCloudNsx(des, initial *PrivateCloudNsx, opts ...dcl.ApplyOption) *PrivateCloudNsx {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1220,22 +1205,22 @@ func canonicalizePrivateCloudNsx(des, initial *PrivateCloudNsx, opts ...dcl.Appl
 
 	cDes := &PrivateCloudNsx{}
 
-	if dcl.StringCanonicalize(des.Fdqn, initial.Fdqn) || dcl.IsZeroValue(des.Fdqn) {
+	if dcl.StringCanonicalize(des.Fdqn, initial.Fdqn) {
 		cDes.Fdqn = initial.Fdqn
 	} else {
 		cDes.Fdqn = des.Fdqn
 	}
-	if dcl.StringCanonicalize(des.InternalIP, initial.InternalIP) || dcl.IsZeroValue(des.InternalIP) {
+	if dcl.StringCanonicalize(des.InternalIP, initial.InternalIP) {
 		cDes.InternalIP = initial.InternalIP
 	} else {
 		cDes.InternalIP = des.InternalIP
 	}
-	if dcl.StringCanonicalize(des.ExternalIP, initial.ExternalIP) || dcl.IsZeroValue(des.ExternalIP) {
+	if dcl.StringCanonicalize(des.ExternalIP, initial.ExternalIP) {
 		cDes.ExternalIP = initial.ExternalIP
 	} else {
 		cDes.ExternalIP = des.ExternalIP
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -1246,7 +1231,7 @@ func canonicalizePrivateCloudNsx(des, initial *PrivateCloudNsx, opts ...dcl.Appl
 
 func canonicalizePrivateCloudNsxSlice(des, initial []PrivateCloudNsx, opts ...dcl.ApplyOption) []PrivateCloudNsx {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1346,10 +1331,7 @@ func canonicalizeNewPrivateCloudNsxSlice(c *Client, des, nw []PrivateCloudNsx) [
 }
 
 func canonicalizePrivateCloudVcenter(des, initial *PrivateCloudVcenter, opts ...dcl.ApplyOption) *PrivateCloudVcenter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1359,22 +1341,22 @@ func canonicalizePrivateCloudVcenter(des, initial *PrivateCloudVcenter, opts ...
 
 	cDes := &PrivateCloudVcenter{}
 
-	if dcl.StringCanonicalize(des.Fdqn, initial.Fdqn) || dcl.IsZeroValue(des.Fdqn) {
+	if dcl.StringCanonicalize(des.Fdqn, initial.Fdqn) {
 		cDes.Fdqn = initial.Fdqn
 	} else {
 		cDes.Fdqn = des.Fdqn
 	}
-	if dcl.StringCanonicalize(des.InternalIP, initial.InternalIP) || dcl.IsZeroValue(des.InternalIP) {
+	if dcl.StringCanonicalize(des.InternalIP, initial.InternalIP) {
 		cDes.InternalIP = initial.InternalIP
 	} else {
 		cDes.InternalIP = des.InternalIP
 	}
-	if dcl.StringCanonicalize(des.ExternalIP, initial.ExternalIP) || dcl.IsZeroValue(des.ExternalIP) {
+	if dcl.StringCanonicalize(des.ExternalIP, initial.ExternalIP) {
 		cDes.ExternalIP = initial.ExternalIP
 	} else {
 		cDes.ExternalIP = des.ExternalIP
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -1385,7 +1367,7 @@ func canonicalizePrivateCloudVcenter(des, initial *PrivateCloudVcenter, opts ...
 
 func canonicalizePrivateCloudVcenterSlice(des, initial []PrivateCloudVcenter, opts ...dcl.ApplyOption) []PrivateCloudVcenter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

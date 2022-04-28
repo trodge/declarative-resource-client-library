@@ -598,8 +598,8 @@ func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...
 	} else {
 		canonicalDesired.SubnetId = rawDesired.SubnetId
 	}
-	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
@@ -722,10 +722,7 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 }
 
 func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyOption) *NodePoolConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -735,26 +732,26 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 
 	cDes := &NodePoolConfig{}
 
-	if dcl.StringCanonicalize(des.InstanceType, initial.InstanceType) || dcl.IsZeroValue(des.InstanceType) {
+	if dcl.StringCanonicalize(des.InstanceType, initial.InstanceType) {
 		cDes.InstanceType = initial.InstanceType
 	} else {
 		cDes.InstanceType = des.InstanceType
 	}
 	cDes.RootVolume = canonicalizeNodePoolConfigRootVolume(des.RootVolume, initial.RootVolume, opts...)
 	cDes.Taints = canonicalizeNodePoolConfigTaintsSlice(des.Taints, initial.Taints, opts...)
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
-	if dcl.IsZeroValue(des.Tags) || (dcl.IsEmptyValueIndirect(des.Tags) && dcl.IsEmptyValueIndirect(initial.Tags)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Tags) && dcl.IsEmptyValueIndirect(initial.Tags) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Tags = initial.Tags
 	} else {
 		cDes.Tags = des.Tags
 	}
-	if dcl.StringCanonicalize(des.IamInstanceProfile, initial.IamInstanceProfile) || dcl.IsZeroValue(des.IamInstanceProfile) {
+	if dcl.StringCanonicalize(des.IamInstanceProfile, initial.IamInstanceProfile) {
 		cDes.IamInstanceProfile = initial.IamInstanceProfile
 	} else {
 		cDes.IamInstanceProfile = des.IamInstanceProfile
@@ -767,7 +764,7 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 		cDes.SecurityGroupIds = des.SecurityGroupIds
 	}
 	cDes.InstancePlacement = canonicalizeNodePoolConfigInstancePlacement(des.InstancePlacement, initial.InstancePlacement, opts...)
-	if dcl.StringCanonicalize(des.ImageType, initial.ImageType) || dcl.IsZeroValue(des.ImageType) {
+	if dcl.StringCanonicalize(des.ImageType, initial.ImageType) {
 		cDes.ImageType = initial.ImageType
 	} else {
 		cDes.ImageType = des.ImageType
@@ -778,7 +775,7 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 
 func canonicalizeNodePoolConfigSlice(des, initial []NodePoolConfig, opts ...dcl.ApplyOption) []NodePoolConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -883,10 +880,7 @@ func canonicalizeNewNodePoolConfigSlice(c *Client, des, nw []NodePoolConfig) []N
 }
 
 func canonicalizeNodePoolConfigRootVolume(des, initial *NodePoolConfigRootVolume, opts ...dcl.ApplyOption) *NodePoolConfigRootVolume {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -896,25 +890,25 @@ func canonicalizeNodePoolConfigRootVolume(des, initial *NodePoolConfigRootVolume
 
 	cDes := &NodePoolConfigRootVolume{}
 
-	if dcl.IsZeroValue(des.SizeGib) || (dcl.IsEmptyValueIndirect(des.SizeGib) && dcl.IsEmptyValueIndirect(initial.SizeGib)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SizeGib) && dcl.IsEmptyValueIndirect(initial.SizeGib) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SizeGib = initial.SizeGib
 	} else {
 		cDes.SizeGib = des.SizeGib
 	}
-	if dcl.IsZeroValue(des.VolumeType) || (dcl.IsEmptyValueIndirect(des.VolumeType) && dcl.IsEmptyValueIndirect(initial.VolumeType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.VolumeType) && dcl.IsEmptyValueIndirect(initial.VolumeType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.VolumeType = initial.VolumeType
 	} else {
 		cDes.VolumeType = des.VolumeType
 	}
-	if dcl.IsZeroValue(des.Iops) || (dcl.IsEmptyValueIndirect(des.Iops) && dcl.IsEmptyValueIndirect(initial.Iops)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Iops) && dcl.IsEmptyValueIndirect(initial.Iops) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Iops = initial.Iops
 	} else {
 		cDes.Iops = des.Iops
 	}
-	if dcl.StringCanonicalize(des.KmsKeyArn, initial.KmsKeyArn) || dcl.IsZeroValue(des.KmsKeyArn) {
+	if dcl.StringCanonicalize(des.KmsKeyArn, initial.KmsKeyArn) {
 		cDes.KmsKeyArn = initial.KmsKeyArn
 	} else {
 		cDes.KmsKeyArn = des.KmsKeyArn
@@ -925,7 +919,7 @@ func canonicalizeNodePoolConfigRootVolume(des, initial *NodePoolConfigRootVolume
 
 func canonicalizeNodePoolConfigRootVolumeSlice(des, initial []NodePoolConfigRootVolume, opts ...dcl.ApplyOption) []NodePoolConfigRootVolume {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1016,10 +1010,7 @@ func canonicalizeNewNodePoolConfigRootVolumeSlice(c *Client, des, nw []NodePoolC
 }
 
 func canonicalizeNodePoolConfigTaints(des, initial *NodePoolConfigTaints, opts ...dcl.ApplyOption) *NodePoolConfigTaints {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1029,18 +1020,18 @@ func canonicalizeNodePoolConfigTaints(des, initial *NodePoolConfigTaints, opts .
 
 	cDes := &NodePoolConfigTaints{}
 
-	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) {
 		cDes.Key = initial.Key
 	} else {
 		cDes.Key = des.Key
 	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) {
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Effect) || (dcl.IsEmptyValueIndirect(des.Effect) && dcl.IsEmptyValueIndirect(initial.Effect)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Effect) && dcl.IsEmptyValueIndirect(initial.Effect) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Effect = initial.Effect
 	} else {
 		cDes.Effect = des.Effect
@@ -1051,7 +1042,7 @@ func canonicalizeNodePoolConfigTaints(des, initial *NodePoolConfigTaints, opts .
 
 func canonicalizeNodePoolConfigTaintsSlice(des, initial []NodePoolConfigTaints, opts ...dcl.ApplyOption) []NodePoolConfigTaints {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1145,10 +1136,7 @@ func canonicalizeNewNodePoolConfigTaintsSlice(c *Client, des, nw []NodePoolConfi
 }
 
 func canonicalizeNodePoolConfigConfigEncryption(des, initial *NodePoolConfigConfigEncryption, opts ...dcl.ApplyOption) *NodePoolConfigConfigEncryption {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1158,7 +1146,7 @@ func canonicalizeNodePoolConfigConfigEncryption(des, initial *NodePoolConfigConf
 
 	cDes := &NodePoolConfigConfigEncryption{}
 
-	if dcl.StringCanonicalize(des.KmsKeyArn, initial.KmsKeyArn) || dcl.IsZeroValue(des.KmsKeyArn) {
+	if dcl.StringCanonicalize(des.KmsKeyArn, initial.KmsKeyArn) {
 		cDes.KmsKeyArn = initial.KmsKeyArn
 	} else {
 		cDes.KmsKeyArn = des.KmsKeyArn
@@ -1169,7 +1157,7 @@ func canonicalizeNodePoolConfigConfigEncryption(des, initial *NodePoolConfigConf
 
 func canonicalizeNodePoolConfigConfigEncryptionSlice(des, initial []NodePoolConfigConfigEncryption, opts ...dcl.ApplyOption) []NodePoolConfigConfigEncryption {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1260,10 +1248,7 @@ func canonicalizeNewNodePoolConfigConfigEncryptionSlice(c *Client, des, nw []Nod
 }
 
 func canonicalizeNodePoolConfigSshConfig(des, initial *NodePoolConfigSshConfig, opts ...dcl.ApplyOption) *NodePoolConfigSshConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1273,7 +1258,7 @@ func canonicalizeNodePoolConfigSshConfig(des, initial *NodePoolConfigSshConfig, 
 
 	cDes := &NodePoolConfigSshConfig{}
 
-	if dcl.StringCanonicalize(des.Ec2KeyPair, initial.Ec2KeyPair) || dcl.IsZeroValue(des.Ec2KeyPair) {
+	if dcl.StringCanonicalize(des.Ec2KeyPair, initial.Ec2KeyPair) {
 		cDes.Ec2KeyPair = initial.Ec2KeyPair
 	} else {
 		cDes.Ec2KeyPair = des.Ec2KeyPair
@@ -1284,7 +1269,7 @@ func canonicalizeNodePoolConfigSshConfig(des, initial *NodePoolConfigSshConfig, 
 
 func canonicalizeNodePoolConfigSshConfigSlice(des, initial []NodePoolConfigSshConfig, opts ...dcl.ApplyOption) []NodePoolConfigSshConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1375,10 +1360,7 @@ func canonicalizeNewNodePoolConfigSshConfigSlice(c *Client, des, nw []NodePoolCo
 }
 
 func canonicalizeNodePoolConfigInstancePlacement(des, initial *NodePoolConfigInstancePlacement, opts ...dcl.ApplyOption) *NodePoolConfigInstancePlacement {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1388,8 +1370,8 @@ func canonicalizeNodePoolConfigInstancePlacement(des, initial *NodePoolConfigIns
 
 	cDes := &NodePoolConfigInstancePlacement{}
 
-	if dcl.IsZeroValue(des.Tenancy) || (dcl.IsEmptyValueIndirect(des.Tenancy) && dcl.IsEmptyValueIndirect(initial.Tenancy)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Tenancy) && dcl.IsEmptyValueIndirect(initial.Tenancy) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Tenancy = initial.Tenancy
 	} else {
 		cDes.Tenancy = des.Tenancy
@@ -1400,7 +1382,7 @@ func canonicalizeNodePoolConfigInstancePlacement(des, initial *NodePoolConfigIns
 
 func canonicalizeNodePoolConfigInstancePlacementSlice(des, initial []NodePoolConfigInstancePlacement, opts ...dcl.ApplyOption) []NodePoolConfigInstancePlacement {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1487,10 +1469,7 @@ func canonicalizeNewNodePoolConfigInstancePlacementSlice(c *Client, des, nw []No
 }
 
 func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...dcl.ApplyOption) *NodePoolAutoscaling {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1500,14 +1479,14 @@ func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...
 
 	cDes := &NodePoolAutoscaling{}
 
-	if dcl.IsZeroValue(des.MinNodeCount) || (dcl.IsEmptyValueIndirect(des.MinNodeCount) && dcl.IsEmptyValueIndirect(initial.MinNodeCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MinNodeCount) && dcl.IsEmptyValueIndirect(initial.MinNodeCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MinNodeCount = initial.MinNodeCount
 	} else {
 		cDes.MinNodeCount = des.MinNodeCount
 	}
-	if dcl.IsZeroValue(des.MaxNodeCount) || (dcl.IsEmptyValueIndirect(des.MaxNodeCount) && dcl.IsEmptyValueIndirect(initial.MaxNodeCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxNodeCount) && dcl.IsEmptyValueIndirect(initial.MaxNodeCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxNodeCount = initial.MaxNodeCount
 	} else {
 		cDes.MaxNodeCount = des.MaxNodeCount
@@ -1518,7 +1497,7 @@ func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...
 
 func canonicalizeNodePoolAutoscalingSlice(des, initial []NodePoolAutoscaling, opts ...dcl.ApplyOption) []NodePoolAutoscaling {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1605,10 +1584,7 @@ func canonicalizeNewNodePoolAutoscalingSlice(c *Client, des, nw []NodePoolAutosc
 }
 
 func canonicalizeNodePoolMaxPodsConstraint(des, initial *NodePoolMaxPodsConstraint, opts ...dcl.ApplyOption) *NodePoolMaxPodsConstraint {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1618,8 +1594,8 @@ func canonicalizeNodePoolMaxPodsConstraint(des, initial *NodePoolMaxPodsConstrai
 
 	cDes := &NodePoolMaxPodsConstraint{}
 
-	if dcl.IsZeroValue(des.MaxPodsPerNode) || (dcl.IsEmptyValueIndirect(des.MaxPodsPerNode) && dcl.IsEmptyValueIndirect(initial.MaxPodsPerNode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxPodsPerNode) && dcl.IsEmptyValueIndirect(initial.MaxPodsPerNode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxPodsPerNode = initial.MaxPodsPerNode
 	} else {
 		cDes.MaxPodsPerNode = des.MaxPodsPerNode
@@ -1630,7 +1606,7 @@ func canonicalizeNodePoolMaxPodsConstraint(des, initial *NodePoolMaxPodsConstrai
 
 func canonicalizeNodePoolMaxPodsConstraintSlice(des, initial []NodePoolMaxPodsConstraint, opts ...dcl.ApplyOption) []NodePoolMaxPodsConstraint {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -496,14 +496,14 @@ func canonicalizeInterconnectAttachmentDesiredState(rawDesired, rawInitial *Inte
 	} else {
 		canonicalDesired.Region = rawDesired.Region
 	}
-	if dcl.IsZeroValue(rawDesired.Mtu) || (dcl.IsEmptyValueIndirect(rawDesired.Mtu) && dcl.IsEmptyValueIndirect(rawInitial.Mtu)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Mtu) && dcl.IsEmptyValueIndirect(rawInitial.Mtu) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Mtu = rawInitial.Mtu
 	} else {
 		canonicalDesired.Mtu = rawDesired.Mtu
 	}
-	if dcl.IsZeroValue(rawDesired.Type) || (dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Type = rawInitial.Type
 	} else {
 		canonicalDesired.Type = rawDesired.Type
@@ -518,14 +518,14 @@ func canonicalizeInterconnectAttachmentDesiredState(rawDesired, rawInitial *Inte
 	} else {
 		canonicalDesired.AdminEnabled = rawDesired.AdminEnabled
 	}
-	if dcl.IsZeroValue(rawDesired.VlanTag8021q) || (dcl.IsEmptyValueIndirect(rawDesired.VlanTag8021q) && dcl.IsEmptyValueIndirect(rawInitial.VlanTag8021q)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.VlanTag8021q) && dcl.IsEmptyValueIndirect(rawInitial.VlanTag8021q) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.VlanTag8021q = rawInitial.VlanTag8021q
 	} else {
 		canonicalDesired.VlanTag8021q = rawDesired.VlanTag8021q
 	}
-	if dcl.IsZeroValue(rawDesired.EdgeAvailabilityDomain) || (dcl.IsEmptyValueIndirect(rawDesired.EdgeAvailabilityDomain) && dcl.IsEmptyValueIndirect(rawInitial.EdgeAvailabilityDomain)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.EdgeAvailabilityDomain) && dcl.IsEmptyValueIndirect(rawInitial.EdgeAvailabilityDomain) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.EdgeAvailabilityDomain = rawInitial.EdgeAvailabilityDomain
 	} else {
 		canonicalDesired.EdgeAvailabilityDomain = rawDesired.EdgeAvailabilityDomain
@@ -535,21 +535,21 @@ func canonicalizeInterconnectAttachmentDesiredState(rawDesired, rawInitial *Inte
 	} else {
 		canonicalDesired.CandidateSubnets = rawDesired.CandidateSubnets
 	}
-	if dcl.IsZeroValue(rawDesired.Bandwidth) || (dcl.IsEmptyValueIndirect(rawDesired.Bandwidth) && dcl.IsEmptyValueIndirect(rawInitial.Bandwidth)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Bandwidth) && dcl.IsEmptyValueIndirect(rawInitial.Bandwidth) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Bandwidth = rawInitial.Bandwidth
 	} else {
 		canonicalDesired.Bandwidth = rawDesired.Bandwidth
 	}
 	canonicalDesired.PartnerMetadata = canonicalizeInterconnectAttachmentPartnerMetadata(rawDesired.PartnerMetadata, rawInitial.PartnerMetadata, opts...)
-	if dcl.IsZeroValue(rawDesired.PartnerAsn) || (dcl.IsEmptyValueIndirect(rawDesired.PartnerAsn) && dcl.IsEmptyValueIndirect(rawInitial.PartnerAsn)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.PartnerAsn) && dcl.IsEmptyValueIndirect(rawInitial.PartnerAsn) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.PartnerAsn = rawInitial.PartnerAsn
 	} else {
 		canonicalDesired.PartnerAsn = rawDesired.PartnerAsn
 	}
-	if dcl.IsZeroValue(rawDesired.Encryption) || (dcl.IsEmptyValueIndirect(rawDesired.Encryption) && dcl.IsEmptyValueIndirect(rawInitial.Encryption)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Encryption) && dcl.IsEmptyValueIndirect(rawInitial.Encryption) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Encryption = rawInitial.Encryption
 	} else {
 		canonicalDesired.Encryption = rawDesired.Encryption
@@ -559,8 +559,8 @@ func canonicalizeInterconnectAttachmentDesiredState(rawDesired, rawInitial *Inte
 	} else {
 		canonicalDesired.IpsecInternalAddresses = rawDesired.IpsecInternalAddresses
 	}
-	if dcl.IsZeroValue(rawDesired.DataplaneVersion) || (dcl.IsEmptyValueIndirect(rawDesired.DataplaneVersion) && dcl.IsEmptyValueIndirect(rawInitial.DataplaneVersion)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.DataplaneVersion) && dcl.IsEmptyValueIndirect(rawInitial.DataplaneVersion) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.DataplaneVersion = rawInitial.DataplaneVersion
 	} else {
 		canonicalDesired.DataplaneVersion = rawDesired.DataplaneVersion
@@ -753,10 +753,7 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 }
 
 func canonicalizeInterconnectAttachmentPrivateInterconnectInfo(des, initial *InterconnectAttachmentPrivateInterconnectInfo, opts ...dcl.ApplyOption) *InterconnectAttachmentPrivateInterconnectInfo {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -771,7 +768,7 @@ func canonicalizeInterconnectAttachmentPrivateInterconnectInfo(des, initial *Int
 
 func canonicalizeInterconnectAttachmentPrivateInterconnectInfoSlice(des, initial []InterconnectAttachmentPrivateInterconnectInfo, opts ...dcl.ApplyOption) []InterconnectAttachmentPrivateInterconnectInfo {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -858,10 +855,7 @@ func canonicalizeNewInterconnectAttachmentPrivateInterconnectInfoSlice(c *Client
 }
 
 func canonicalizeInterconnectAttachmentPartnerMetadata(des, initial *InterconnectAttachmentPartnerMetadata, opts ...dcl.ApplyOption) *InterconnectAttachmentPartnerMetadata {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -871,17 +865,17 @@ func canonicalizeInterconnectAttachmentPartnerMetadata(des, initial *Interconnec
 
 	cDes := &InterconnectAttachmentPartnerMetadata{}
 
-	if dcl.StringCanonicalize(des.PartnerName, initial.PartnerName) || dcl.IsZeroValue(des.PartnerName) {
+	if dcl.StringCanonicalize(des.PartnerName, initial.PartnerName) {
 		cDes.PartnerName = initial.PartnerName
 	} else {
 		cDes.PartnerName = des.PartnerName
 	}
-	if dcl.StringCanonicalize(des.InterconnectName, initial.InterconnectName) || dcl.IsZeroValue(des.InterconnectName) {
+	if dcl.StringCanonicalize(des.InterconnectName, initial.InterconnectName) {
 		cDes.InterconnectName = initial.InterconnectName
 	} else {
 		cDes.InterconnectName = des.InterconnectName
 	}
-	if dcl.StringCanonicalize(des.PortalUrl, initial.PortalUrl) || dcl.IsZeroValue(des.PortalUrl) {
+	if dcl.StringCanonicalize(des.PortalUrl, initial.PortalUrl) {
 		cDes.PortalUrl = initial.PortalUrl
 	} else {
 		cDes.PortalUrl = des.PortalUrl
@@ -892,7 +886,7 @@ func canonicalizeInterconnectAttachmentPartnerMetadata(des, initial *Interconnec
 
 func canonicalizeInterconnectAttachmentPartnerMetadataSlice(des, initial []InterconnectAttachmentPartnerMetadata, opts ...dcl.ApplyOption) []InterconnectAttachmentPartnerMetadata {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

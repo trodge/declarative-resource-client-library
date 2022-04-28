@@ -383,8 +383,8 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 		canonicalDesired.Type = rawDesired.Type
 	}
 	canonicalDesired.Labels = canonicalizeMetricDescriptorLabelsSlice(rawDesired.Labels, rawInitial.Labels, opts...)
-	if dcl.IsZeroValue(rawDesired.MetricKind) || (dcl.IsEmptyValueIndirect(rawDesired.MetricKind) && dcl.IsEmptyValueIndirect(rawInitial.MetricKind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.MetricKind) && dcl.IsEmptyValueIndirect(rawInitial.MetricKind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.MetricKind = rawInitial.MetricKind
 	} else {
 		canonicalDesired.MetricKind = rawDesired.MetricKind
@@ -410,8 +410,8 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	canonicalDesired.Metadata = canonicalizeMetricDescriptorMetadata(rawDesired.Metadata, rawInitial.Metadata, opts...)
-	if dcl.IsZeroValue(rawDesired.LaunchStage) || (dcl.IsEmptyValueIndirect(rawDesired.LaunchStage) && dcl.IsEmptyValueIndirect(rawInitial.LaunchStage)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.LaunchStage) && dcl.IsEmptyValueIndirect(rawInitial.LaunchStage) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.LaunchStage = rawInitial.LaunchStage
 	} else {
 		canonicalDesired.LaunchStage = rawDesired.LaunchStage
@@ -504,10 +504,7 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 }
 
 func canonicalizeMetricDescriptorLabels(des, initial *MetricDescriptorLabels, opts ...dcl.ApplyOption) *MetricDescriptorLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -517,17 +514,17 @@ func canonicalizeMetricDescriptorLabels(des, initial *MetricDescriptorLabels, op
 
 	cDes := &MetricDescriptorLabels{}
 
-	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) {
 		cDes.Key = initial.Key
 	} else {
 		cDes.Key = des.Key
 	}
-	if canonicalizeMetricDescriptorLabelsValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
+	if canonicalizeMetricDescriptorLabelsValueType(des.ValueType, initial.ValueType) {
 		cDes.ValueType = initial.ValueType
 	} else {
 		cDes.ValueType = des.ValueType
 	}
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
@@ -538,7 +535,7 @@ func canonicalizeMetricDescriptorLabels(des, initial *MetricDescriptorLabels, op
 
 func canonicalizeMetricDescriptorLabelsSlice(des, initial []MetricDescriptorLabels, opts ...dcl.ApplyOption) []MetricDescriptorLabels {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -635,10 +632,7 @@ func canonicalizeNewMetricDescriptorLabelsSlice(c *Client, des, nw []MetricDescr
 }
 
 func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata, opts ...dcl.ApplyOption) *MetricDescriptorMetadata {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -648,18 +642,18 @@ func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata
 
 	cDes := &MetricDescriptorMetadata{}
 
-	if dcl.IsZeroValue(des.LaunchStage) || (dcl.IsEmptyValueIndirect(des.LaunchStage) && dcl.IsEmptyValueIndirect(initial.LaunchStage)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.LaunchStage) && dcl.IsEmptyValueIndirect(initial.LaunchStage) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.LaunchStage = initial.LaunchStage
 	} else {
 		cDes.LaunchStage = des.LaunchStage
 	}
-	if dcl.StringCanonicalize(des.SamplePeriod, initial.SamplePeriod) || dcl.IsZeroValue(des.SamplePeriod) {
+	if dcl.StringCanonicalize(des.SamplePeriod, initial.SamplePeriod) {
 		cDes.SamplePeriod = initial.SamplePeriod
 	} else {
 		cDes.SamplePeriod = des.SamplePeriod
 	}
-	if dcl.StringCanonicalize(des.IngestDelay, initial.IngestDelay) || dcl.IsZeroValue(des.IngestDelay) {
+	if dcl.StringCanonicalize(des.IngestDelay, initial.IngestDelay) {
 		cDes.IngestDelay = initial.IngestDelay
 	} else {
 		cDes.IngestDelay = des.IngestDelay
@@ -670,7 +664,7 @@ func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata
 
 func canonicalizeMetricDescriptorMetadataSlice(des, initial []MetricDescriptorMetadata, opts ...dcl.ApplyOption) []MetricDescriptorMetadata {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

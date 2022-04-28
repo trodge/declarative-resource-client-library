@@ -578,8 +578,8 @@ func canonicalizeCertificateTemplateDesiredState(rawDesired, rawInitial *Certifi
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -657,10 +657,7 @@ func canonicalizeCertificateTemplateNewState(c *Client, rawNew, rawDesired *Cert
 }
 
 func canonicalizeCertificateTemplatePredefinedValues(des, initial *CertificateTemplatePredefinedValues, opts ...dcl.ApplyOption) *CertificateTemplatePredefinedValues {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -685,7 +682,7 @@ func canonicalizeCertificateTemplatePredefinedValues(des, initial *CertificateTe
 
 func canonicalizeCertificateTemplatePredefinedValuesSlice(des, initial []CertificateTemplatePredefinedValues, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValues {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -780,10 +777,7 @@ func canonicalizeNewCertificateTemplatePredefinedValuesSlice(c *Client, des, nw 
 }
 
 func canonicalizeCertificateTemplatePredefinedValuesKeyUsage(des, initial *CertificateTemplatePredefinedValuesKeyUsage, opts ...dcl.ApplyOption) *CertificateTemplatePredefinedValuesKeyUsage {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -802,7 +796,7 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsage(des, initial *Certi
 
 func canonicalizeCertificateTemplatePredefinedValuesKeyUsageSlice(des, initial []CertificateTemplatePredefinedValuesKeyUsage, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesKeyUsage {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -893,10 +887,7 @@ func canonicalizeNewCertificateTemplatePredefinedValuesKeyUsageSlice(c *Client, 
 }
 
 func canonicalizeCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(des, initial *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage, opts ...dcl.ApplyOption) *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -906,47 +897,47 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(des, in
 
 	cDes := &CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage{}
 
-	if dcl.BoolCanonicalize(des.DigitalSignature, initial.DigitalSignature) || dcl.IsZeroValue(des.DigitalSignature) {
+	if dcl.BoolCanonicalize(des.DigitalSignature, initial.DigitalSignature) {
 		cDes.DigitalSignature = initial.DigitalSignature
 	} else {
 		cDes.DigitalSignature = des.DigitalSignature
 	}
-	if dcl.BoolCanonicalize(des.ContentCommitment, initial.ContentCommitment) || dcl.IsZeroValue(des.ContentCommitment) {
+	if dcl.BoolCanonicalize(des.ContentCommitment, initial.ContentCommitment) {
 		cDes.ContentCommitment = initial.ContentCommitment
 	} else {
 		cDes.ContentCommitment = des.ContentCommitment
 	}
-	if dcl.BoolCanonicalize(des.KeyEncipherment, initial.KeyEncipherment) || dcl.IsZeroValue(des.KeyEncipherment) {
+	if dcl.BoolCanonicalize(des.KeyEncipherment, initial.KeyEncipherment) {
 		cDes.KeyEncipherment = initial.KeyEncipherment
 	} else {
 		cDes.KeyEncipherment = des.KeyEncipherment
 	}
-	if dcl.BoolCanonicalize(des.DataEncipherment, initial.DataEncipherment) || dcl.IsZeroValue(des.DataEncipherment) {
+	if dcl.BoolCanonicalize(des.DataEncipherment, initial.DataEncipherment) {
 		cDes.DataEncipherment = initial.DataEncipherment
 	} else {
 		cDes.DataEncipherment = des.DataEncipherment
 	}
-	if dcl.BoolCanonicalize(des.KeyAgreement, initial.KeyAgreement) || dcl.IsZeroValue(des.KeyAgreement) {
+	if dcl.BoolCanonicalize(des.KeyAgreement, initial.KeyAgreement) {
 		cDes.KeyAgreement = initial.KeyAgreement
 	} else {
 		cDes.KeyAgreement = des.KeyAgreement
 	}
-	if dcl.BoolCanonicalize(des.CertSign, initial.CertSign) || dcl.IsZeroValue(des.CertSign) {
+	if dcl.BoolCanonicalize(des.CertSign, initial.CertSign) {
 		cDes.CertSign = initial.CertSign
 	} else {
 		cDes.CertSign = des.CertSign
 	}
-	if dcl.BoolCanonicalize(des.CrlSign, initial.CrlSign) || dcl.IsZeroValue(des.CrlSign) {
+	if dcl.BoolCanonicalize(des.CrlSign, initial.CrlSign) {
 		cDes.CrlSign = initial.CrlSign
 	} else {
 		cDes.CrlSign = des.CrlSign
 	}
-	if dcl.BoolCanonicalize(des.EncipherOnly, initial.EncipherOnly) || dcl.IsZeroValue(des.EncipherOnly) {
+	if dcl.BoolCanonicalize(des.EncipherOnly, initial.EncipherOnly) {
 		cDes.EncipherOnly = initial.EncipherOnly
 	} else {
 		cDes.EncipherOnly = des.EncipherOnly
 	}
-	if dcl.BoolCanonicalize(des.DecipherOnly, initial.DecipherOnly) || dcl.IsZeroValue(des.DecipherOnly) {
+	if dcl.BoolCanonicalize(des.DecipherOnly, initial.DecipherOnly) {
 		cDes.DecipherOnly = initial.DecipherOnly
 	} else {
 		cDes.DecipherOnly = des.DecipherOnly
@@ -957,7 +948,7 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(des, in
 
 func canonicalizeCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice(des, initial []CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1072,10 +1063,7 @@ func canonicalizeNewCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice
 }
 
 func canonicalizeCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(des, initial *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage, opts ...dcl.ApplyOption) *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1085,32 +1073,32 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(des
 
 	cDes := &CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage{}
 
-	if dcl.BoolCanonicalize(des.ServerAuth, initial.ServerAuth) || dcl.IsZeroValue(des.ServerAuth) {
+	if dcl.BoolCanonicalize(des.ServerAuth, initial.ServerAuth) {
 		cDes.ServerAuth = initial.ServerAuth
 	} else {
 		cDes.ServerAuth = des.ServerAuth
 	}
-	if dcl.BoolCanonicalize(des.ClientAuth, initial.ClientAuth) || dcl.IsZeroValue(des.ClientAuth) {
+	if dcl.BoolCanonicalize(des.ClientAuth, initial.ClientAuth) {
 		cDes.ClientAuth = initial.ClientAuth
 	} else {
 		cDes.ClientAuth = des.ClientAuth
 	}
-	if dcl.BoolCanonicalize(des.CodeSigning, initial.CodeSigning) || dcl.IsZeroValue(des.CodeSigning) {
+	if dcl.BoolCanonicalize(des.CodeSigning, initial.CodeSigning) {
 		cDes.CodeSigning = initial.CodeSigning
 	} else {
 		cDes.CodeSigning = des.CodeSigning
 	}
-	if dcl.BoolCanonicalize(des.EmailProtection, initial.EmailProtection) || dcl.IsZeroValue(des.EmailProtection) {
+	if dcl.BoolCanonicalize(des.EmailProtection, initial.EmailProtection) {
 		cDes.EmailProtection = initial.EmailProtection
 	} else {
 		cDes.EmailProtection = des.EmailProtection
 	}
-	if dcl.BoolCanonicalize(des.TimeStamping, initial.TimeStamping) || dcl.IsZeroValue(des.TimeStamping) {
+	if dcl.BoolCanonicalize(des.TimeStamping, initial.TimeStamping) {
 		cDes.TimeStamping = initial.TimeStamping
 	} else {
 		cDes.TimeStamping = des.TimeStamping
 	}
-	if dcl.BoolCanonicalize(des.OcspSigning, initial.OcspSigning) || dcl.IsZeroValue(des.OcspSigning) {
+	if dcl.BoolCanonicalize(des.OcspSigning, initial.OcspSigning) {
 		cDes.OcspSigning = initial.OcspSigning
 	} else {
 		cDes.OcspSigning = des.OcspSigning
@@ -1121,7 +1109,7 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(des
 
 func canonicalizeCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice(des, initial []CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1227,10 +1215,7 @@ func canonicalizeNewCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageS
 }
 
 func canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(des, initial *CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages, opts ...dcl.ApplyOption) *CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1240,8 +1225,8 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUs
 
 	cDes := &CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -1252,7 +1237,7 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUs
 
 func canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(des, initial []CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1339,10 +1324,7 @@ func canonicalizeNewCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKe
 }
 
 func canonicalizeCertificateTemplatePredefinedValuesCaOptions(des, initial *CertificateTemplatePredefinedValuesCaOptions, opts ...dcl.ApplyOption) *CertificateTemplatePredefinedValuesCaOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1352,13 +1334,13 @@ func canonicalizeCertificateTemplatePredefinedValuesCaOptions(des, initial *Cert
 
 	cDes := &CertificateTemplatePredefinedValuesCaOptions{}
 
-	if dcl.BoolCanonicalize(des.IsCa, initial.IsCa) || dcl.IsZeroValue(des.IsCa) {
+	if dcl.BoolCanonicalize(des.IsCa, initial.IsCa) {
 		cDes.IsCa = initial.IsCa
 	} else {
 		cDes.IsCa = des.IsCa
 	}
-	if dcl.IsZeroValue(des.MaxIssuerPathLength) || (dcl.IsEmptyValueIndirect(des.MaxIssuerPathLength) && dcl.IsEmptyValueIndirect(initial.MaxIssuerPathLength)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxIssuerPathLength) && dcl.IsEmptyValueIndirect(initial.MaxIssuerPathLength) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxIssuerPathLength = initial.MaxIssuerPathLength
 	} else {
 		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
@@ -1369,7 +1351,7 @@ func canonicalizeCertificateTemplatePredefinedValuesCaOptions(des, initial *Cert
 
 func canonicalizeCertificateTemplatePredefinedValuesCaOptionsSlice(des, initial []CertificateTemplatePredefinedValuesCaOptions, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesCaOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1460,10 +1442,7 @@ func canonicalizeNewCertificateTemplatePredefinedValuesCaOptionsSlice(c *Client,
 }
 
 func canonicalizeCertificateTemplatePredefinedValuesPolicyIds(des, initial *CertificateTemplatePredefinedValuesPolicyIds, opts ...dcl.ApplyOption) *CertificateTemplatePredefinedValuesPolicyIds {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1473,8 +1452,8 @@ func canonicalizeCertificateTemplatePredefinedValuesPolicyIds(des, initial *Cert
 
 	cDes := &CertificateTemplatePredefinedValuesPolicyIds{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -1485,7 +1464,7 @@ func canonicalizeCertificateTemplatePredefinedValuesPolicyIds(des, initial *Cert
 
 func canonicalizeCertificateTemplatePredefinedValuesPolicyIdsSlice(des, initial []CertificateTemplatePredefinedValuesPolicyIds, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesPolicyIds {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1572,10 +1551,7 @@ func canonicalizeNewCertificateTemplatePredefinedValuesPolicyIdsSlice(c *Client,
 }
 
 func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensions(des, initial *CertificateTemplatePredefinedValuesAdditionalExtensions, opts ...dcl.ApplyOption) *CertificateTemplatePredefinedValuesAdditionalExtensions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1586,12 +1562,12 @@ func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensions(des, in
 	cDes := &CertificateTemplatePredefinedValuesAdditionalExtensions{}
 
 	cDes.ObjectId = canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(des.ObjectId, initial.ObjectId, opts...)
-	if dcl.BoolCanonicalize(des.Critical, initial.Critical) || dcl.IsZeroValue(des.Critical) {
+	if dcl.BoolCanonicalize(des.Critical, initial.Critical) {
 		cDes.Critical = initial.Critical
 	} else {
 		cDes.Critical = des.Critical
 	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) {
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
@@ -1602,7 +1578,7 @@ func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensions(des, in
 
 func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(des, initial []CertificateTemplatePredefinedValuesAdditionalExtensions, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesAdditionalExtensions {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1697,10 +1673,7 @@ func canonicalizeNewCertificateTemplatePredefinedValuesAdditionalExtensionsSlice
 }
 
 func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(des, initial *CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId, opts ...dcl.ApplyOption) *CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1710,8 +1683,8 @@ func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId
 
 	cDes := &CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -1722,7 +1695,7 @@ func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId
 
 func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice(des, initial []CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1809,10 +1782,7 @@ func canonicalizeNewCertificateTemplatePredefinedValuesAdditionalExtensionsObjec
 }
 
 func canonicalizeCertificateTemplateIdentityConstraints(des, initial *CertificateTemplateIdentityConstraints, opts ...dcl.ApplyOption) *CertificateTemplateIdentityConstraints {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1823,12 +1793,12 @@ func canonicalizeCertificateTemplateIdentityConstraints(des, initial *Certificat
 	cDes := &CertificateTemplateIdentityConstraints{}
 
 	cDes.CelExpression = canonicalizeCertificateTemplateIdentityConstraintsCelExpression(des.CelExpression, initial.CelExpression, opts...)
-	if dcl.BoolCanonicalize(des.AllowSubjectPassthrough, initial.AllowSubjectPassthrough) || dcl.IsZeroValue(des.AllowSubjectPassthrough) {
+	if dcl.BoolCanonicalize(des.AllowSubjectPassthrough, initial.AllowSubjectPassthrough) {
 		cDes.AllowSubjectPassthrough = initial.AllowSubjectPassthrough
 	} else {
 		cDes.AllowSubjectPassthrough = des.AllowSubjectPassthrough
 	}
-	if dcl.BoolCanonicalize(des.AllowSubjectAltNamesPassthrough, initial.AllowSubjectAltNamesPassthrough) || dcl.IsZeroValue(des.AllowSubjectAltNamesPassthrough) {
+	if dcl.BoolCanonicalize(des.AllowSubjectAltNamesPassthrough, initial.AllowSubjectAltNamesPassthrough) {
 		cDes.AllowSubjectAltNamesPassthrough = initial.AllowSubjectAltNamesPassthrough
 	} else {
 		cDes.AllowSubjectAltNamesPassthrough = des.AllowSubjectAltNamesPassthrough
@@ -1839,7 +1809,7 @@ func canonicalizeCertificateTemplateIdentityConstraints(des, initial *Certificat
 
 func canonicalizeCertificateTemplateIdentityConstraintsSlice(des, initial []CertificateTemplateIdentityConstraints, opts ...dcl.ApplyOption) []CertificateTemplateIdentityConstraints {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1934,10 +1904,7 @@ func canonicalizeNewCertificateTemplateIdentityConstraintsSlice(c *Client, des, 
 }
 
 func canonicalizeCertificateTemplateIdentityConstraintsCelExpression(des, initial *CertificateTemplateIdentityConstraintsCelExpression, opts ...dcl.ApplyOption) *CertificateTemplateIdentityConstraintsCelExpression {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1947,22 +1914,22 @@ func canonicalizeCertificateTemplateIdentityConstraintsCelExpression(des, initia
 
 	cDes := &CertificateTemplateIdentityConstraintsCelExpression{}
 
-	if dcl.StringCanonicalize(des.Expression, initial.Expression) || dcl.IsZeroValue(des.Expression) {
+	if dcl.StringCanonicalize(des.Expression, initial.Expression) {
 		cDes.Expression = initial.Expression
 	} else {
 		cDes.Expression = des.Expression
 	}
-	if dcl.StringCanonicalize(des.Title, initial.Title) || dcl.IsZeroValue(des.Title) {
+	if dcl.StringCanonicalize(des.Title, initial.Title) {
 		cDes.Title = initial.Title
 	} else {
 		cDes.Title = des.Title
 	}
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
 	}
-	if dcl.StringCanonicalize(des.Location, initial.Location) || dcl.IsZeroValue(des.Location) {
+	if dcl.StringCanonicalize(des.Location, initial.Location) {
 		cDes.Location = initial.Location
 	} else {
 		cDes.Location = des.Location
@@ -1973,7 +1940,7 @@ func canonicalizeCertificateTemplateIdentityConstraintsCelExpression(des, initia
 
 func canonicalizeCertificateTemplateIdentityConstraintsCelExpressionSlice(des, initial []CertificateTemplateIdentityConstraintsCelExpression, opts ...dcl.ApplyOption) []CertificateTemplateIdentityConstraintsCelExpression {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2073,10 +2040,7 @@ func canonicalizeNewCertificateTemplateIdentityConstraintsCelExpressionSlice(c *
 }
 
 func canonicalizeCertificateTemplatePassthroughExtensions(des, initial *CertificateTemplatePassthroughExtensions, opts ...dcl.ApplyOption) *CertificateTemplatePassthroughExtensions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2086,8 +2050,8 @@ func canonicalizeCertificateTemplatePassthroughExtensions(des, initial *Certific
 
 	cDes := &CertificateTemplatePassthroughExtensions{}
 
-	if dcl.IsZeroValue(des.KnownExtensions) || (dcl.IsEmptyValueIndirect(des.KnownExtensions) && dcl.IsEmptyValueIndirect(initial.KnownExtensions)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.KnownExtensions) && dcl.IsEmptyValueIndirect(initial.KnownExtensions) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.KnownExtensions = initial.KnownExtensions
 	} else {
 		cDes.KnownExtensions = des.KnownExtensions
@@ -2099,7 +2063,7 @@ func canonicalizeCertificateTemplatePassthroughExtensions(des, initial *Certific
 
 func canonicalizeCertificateTemplatePassthroughExtensionsSlice(des, initial []CertificateTemplatePassthroughExtensions, opts ...dcl.ApplyOption) []CertificateTemplatePassthroughExtensions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2188,10 +2152,7 @@ func canonicalizeNewCertificateTemplatePassthroughExtensionsSlice(c *Client, des
 }
 
 func canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensions(des, initial *CertificateTemplatePassthroughExtensionsAdditionalExtensions, opts ...dcl.ApplyOption) *CertificateTemplatePassthroughExtensionsAdditionalExtensions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2201,8 +2162,8 @@ func canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensions(de
 
 	cDes := &CertificateTemplatePassthroughExtensionsAdditionalExtensions{}
 
-	if dcl.IsZeroValue(des.ObjectIdPath) || (dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ObjectIdPath) && dcl.IsEmptyValueIndirect(initial.ObjectIdPath) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ObjectIdPath = initial.ObjectIdPath
 	} else {
 		cDes.ObjectIdPath = des.ObjectIdPath
@@ -2213,7 +2174,7 @@ func canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensions(de
 
 func canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(des, initial []CertificateTemplatePassthroughExtensionsAdditionalExtensions, opts ...dcl.ApplyOption) []CertificateTemplatePassthroughExtensionsAdditionalExtensions {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

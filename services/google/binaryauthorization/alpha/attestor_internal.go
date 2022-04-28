@@ -479,10 +479,7 @@ func canonicalizeAttestorNewState(c *Client, rawNew, rawDesired *Attestor) (*Att
 }
 
 func canonicalizeAttestorUserOwnedDrydockNote(des, initial *AttestorUserOwnedDrydockNote, opts ...dcl.ApplyOption) *AttestorUserOwnedDrydockNote {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -492,8 +489,8 @@ func canonicalizeAttestorUserOwnedDrydockNote(des, initial *AttestorUserOwnedDry
 
 	cDes := &AttestorUserOwnedDrydockNote{}
 
-	if dcl.IsZeroValue(des.NoteReference) || (dcl.IsEmptyValueIndirect(des.NoteReference) && dcl.IsEmptyValueIndirect(initial.NoteReference)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NoteReference) && dcl.IsEmptyValueIndirect(initial.NoteReference) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NoteReference = initial.NoteReference
 	} else {
 		cDes.NoteReference = des.NoteReference
@@ -505,7 +502,7 @@ func canonicalizeAttestorUserOwnedDrydockNote(des, initial *AttestorUserOwnedDry
 
 func canonicalizeAttestorUserOwnedDrydockNoteSlice(des, initial []AttestorUserOwnedDrydockNote, opts ...dcl.ApplyOption) []AttestorUserOwnedDrydockNote {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -597,10 +594,7 @@ func canonicalizeNewAttestorUserOwnedDrydockNoteSlice(c *Client, des, nw []Attes
 }
 
 func canonicalizeAttestorUserOwnedDrydockNotePublicKeys(des, initial *AttestorUserOwnedDrydockNotePublicKeys, opts ...dcl.ApplyOption) *AttestorUserOwnedDrydockNotePublicKeys {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -610,17 +604,17 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeys(des, initial *AttestorUs
 
 	cDes := &AttestorUserOwnedDrydockNotePublicKeys{}
 
-	if dcl.StringCanonicalize(des.Comment, initial.Comment) || dcl.IsZeroValue(des.Comment) {
+	if dcl.StringCanonicalize(des.Comment, initial.Comment) {
 		cDes.Comment = initial.Comment
 	} else {
 		cDes.Comment = des.Comment
 	}
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+	if dcl.StringCanonicalize(des.Id, initial.Id) {
 		cDes.Id = initial.Id
 	} else {
 		cDes.Id = des.Id
 	}
-	if dcl.StringCanonicalize(des.AsciiArmoredPgpPublicKey, initial.AsciiArmoredPgpPublicKey) || dcl.IsZeroValue(des.AsciiArmoredPgpPublicKey) {
+	if dcl.StringCanonicalize(des.AsciiArmoredPgpPublicKey, initial.AsciiArmoredPgpPublicKey) {
 		cDes.AsciiArmoredPgpPublicKey = initial.AsciiArmoredPgpPublicKey
 	} else {
 		cDes.AsciiArmoredPgpPublicKey = des.AsciiArmoredPgpPublicKey
@@ -632,7 +626,7 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeys(des, initial *AttestorUs
 
 func canonicalizeAttestorUserOwnedDrydockNotePublicKeysSlice(des, initial []AttestorUserOwnedDrydockNotePublicKeys, opts ...dcl.ApplyOption) []AttestorUserOwnedDrydockNotePublicKeys {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -730,10 +724,7 @@ func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, des, 
 }
 
 func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des, initial *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, opts ...dcl.ApplyOption) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -743,13 +734,13 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des, initia
 
 	cDes := &AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
 
-	if dcl.StringCanonicalize(des.PublicKeyPem, initial.PublicKeyPem) || dcl.IsZeroValue(des.PublicKeyPem) {
+	if dcl.StringCanonicalize(des.PublicKeyPem, initial.PublicKeyPem) {
 		cDes.PublicKeyPem = initial.PublicKeyPem
 	} else {
 		cDes.PublicKeyPem = des.PublicKeyPem
 	}
-	if dcl.IsZeroValue(des.SignatureAlgorithm) || (dcl.IsEmptyValueIndirect(des.SignatureAlgorithm) && dcl.IsEmptyValueIndirect(initial.SignatureAlgorithm)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SignatureAlgorithm) && dcl.IsEmptyValueIndirect(initial.SignatureAlgorithm) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SignatureAlgorithm = initial.SignatureAlgorithm
 	} else {
 		cDes.SignatureAlgorithm = des.SignatureAlgorithm
@@ -760,7 +751,7 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des, initia
 
 func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(des, initial []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, opts ...dcl.ApplyOption) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -545,8 +545,8 @@ func canonicalizeClientTlsPolicyDesiredState(rawDesired, rawInitial *ClientTlsPo
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -633,31 +633,8 @@ func canonicalizeClientTlsPolicyNewState(c *Client, rawNew, rawDesired *ClientTl
 }
 
 func canonicalizeClientTlsPolicyClientCertificate(des, initial *ClientTlsPolicyClientCertificate, opts ...dcl.ApplyOption) *ClientTlsPolicyClientCertificate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.GrpcEndpoint != nil || (initial != nil && initial.GrpcEndpoint != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CertificateProviderInstance) {
-			des.GrpcEndpoint = nil
-			if initial != nil {
-				initial.GrpcEndpoint = nil
-			}
-		}
-	}
-
-	if des.CertificateProviderInstance != nil || (initial != nil && initial.CertificateProviderInstance != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GrpcEndpoint) {
-			des.CertificateProviderInstance = nil
-			if initial != nil {
-				initial.CertificateProviderInstance = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -669,12 +646,25 @@ func canonicalizeClientTlsPolicyClientCertificate(des, initial *ClientTlsPolicyC
 	cDes.GrpcEndpoint = canonicalizeClientTlsPolicyClientCertificateGrpcEndpoint(des.GrpcEndpoint, initial.GrpcEndpoint, opts...)
 	cDes.CertificateProviderInstance = canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstance(des.CertificateProviderInstance, initial.CertificateProviderInstance, opts...)
 
+	if cDes.GrpcEndpoint != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CertificateProviderInstance) {
+			cDes.GrpcEndpoint = nil
+		}
+	}
+
+	if cDes.CertificateProviderInstance != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GrpcEndpoint) {
+			cDes.CertificateProviderInstance = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeClientTlsPolicyClientCertificateSlice(des, initial []ClientTlsPolicyClientCertificate, opts ...dcl.ApplyOption) []ClientTlsPolicyClientCertificate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -764,10 +754,7 @@ func canonicalizeNewClientTlsPolicyClientCertificateSlice(c *Client, des, nw []C
 }
 
 func canonicalizeClientTlsPolicyClientCertificateGrpcEndpoint(des, initial *ClientTlsPolicyClientCertificateGrpcEndpoint, opts ...dcl.ApplyOption) *ClientTlsPolicyClientCertificateGrpcEndpoint {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -777,7 +764,7 @@ func canonicalizeClientTlsPolicyClientCertificateGrpcEndpoint(des, initial *Clie
 
 	cDes := &ClientTlsPolicyClientCertificateGrpcEndpoint{}
 
-	if dcl.StringCanonicalize(des.TargetUri, initial.TargetUri) || dcl.IsZeroValue(des.TargetUri) {
+	if dcl.StringCanonicalize(des.TargetUri, initial.TargetUri) {
 		cDes.TargetUri = initial.TargetUri
 	} else {
 		cDes.TargetUri = des.TargetUri
@@ -788,7 +775,7 @@ func canonicalizeClientTlsPolicyClientCertificateGrpcEndpoint(des, initial *Clie
 
 func canonicalizeClientTlsPolicyClientCertificateGrpcEndpointSlice(des, initial []ClientTlsPolicyClientCertificateGrpcEndpoint, opts ...dcl.ApplyOption) []ClientTlsPolicyClientCertificateGrpcEndpoint {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -879,10 +866,7 @@ func canonicalizeNewClientTlsPolicyClientCertificateGrpcEndpointSlice(c *Client,
 }
 
 func canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstance(des, initial *ClientTlsPolicyClientCertificateCertificateProviderInstance, opts ...dcl.ApplyOption) *ClientTlsPolicyClientCertificateCertificateProviderInstance {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -892,7 +876,7 @@ func canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstance(des
 
 	cDes := &ClientTlsPolicyClientCertificateCertificateProviderInstance{}
 
-	if dcl.StringCanonicalize(des.PluginInstance, initial.PluginInstance) || dcl.IsZeroValue(des.PluginInstance) {
+	if dcl.StringCanonicalize(des.PluginInstance, initial.PluginInstance) {
 		cDes.PluginInstance = initial.PluginInstance
 	} else {
 		cDes.PluginInstance = des.PluginInstance
@@ -903,7 +887,7 @@ func canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstance(des
 
 func canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstanceSlice(des, initial []ClientTlsPolicyClientCertificateCertificateProviderInstance, opts ...dcl.ApplyOption) []ClientTlsPolicyClientCertificateCertificateProviderInstance {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -994,31 +978,8 @@ func canonicalizeNewClientTlsPolicyClientCertificateCertificateProviderInstanceS
 }
 
 func canonicalizeClientTlsPolicyServerValidationCa(des, initial *ClientTlsPolicyServerValidationCa, opts ...dcl.ApplyOption) *ClientTlsPolicyServerValidationCa {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.GrpcEndpoint != nil || (initial != nil && initial.GrpcEndpoint != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CertificateProviderInstance) {
-			des.GrpcEndpoint = nil
-			if initial != nil {
-				initial.GrpcEndpoint = nil
-			}
-		}
-	}
-
-	if des.CertificateProviderInstance != nil || (initial != nil && initial.CertificateProviderInstance != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GrpcEndpoint) {
-			des.CertificateProviderInstance = nil
-			if initial != nil {
-				initial.CertificateProviderInstance = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1030,12 +991,25 @@ func canonicalizeClientTlsPolicyServerValidationCa(des, initial *ClientTlsPolicy
 	cDes.GrpcEndpoint = canonicalizeClientTlsPolicyServerValidationCaGrpcEndpoint(des.GrpcEndpoint, initial.GrpcEndpoint, opts...)
 	cDes.CertificateProviderInstance = canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstance(des.CertificateProviderInstance, initial.CertificateProviderInstance, opts...)
 
+	if cDes.GrpcEndpoint != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CertificateProviderInstance) {
+			cDes.GrpcEndpoint = nil
+		}
+	}
+
+	if cDes.CertificateProviderInstance != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GrpcEndpoint) {
+			cDes.CertificateProviderInstance = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeClientTlsPolicyServerValidationCaSlice(des, initial []ClientTlsPolicyServerValidationCa, opts ...dcl.ApplyOption) []ClientTlsPolicyServerValidationCa {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1125,10 +1099,7 @@ func canonicalizeNewClientTlsPolicyServerValidationCaSlice(c *Client, des, nw []
 }
 
 func canonicalizeClientTlsPolicyServerValidationCaGrpcEndpoint(des, initial *ClientTlsPolicyServerValidationCaGrpcEndpoint, opts ...dcl.ApplyOption) *ClientTlsPolicyServerValidationCaGrpcEndpoint {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1138,7 +1109,7 @@ func canonicalizeClientTlsPolicyServerValidationCaGrpcEndpoint(des, initial *Cli
 
 	cDes := &ClientTlsPolicyServerValidationCaGrpcEndpoint{}
 
-	if dcl.StringCanonicalize(des.TargetUri, initial.TargetUri) || dcl.IsZeroValue(des.TargetUri) {
+	if dcl.StringCanonicalize(des.TargetUri, initial.TargetUri) {
 		cDes.TargetUri = initial.TargetUri
 	} else {
 		cDes.TargetUri = des.TargetUri
@@ -1149,7 +1120,7 @@ func canonicalizeClientTlsPolicyServerValidationCaGrpcEndpoint(des, initial *Cli
 
 func canonicalizeClientTlsPolicyServerValidationCaGrpcEndpointSlice(des, initial []ClientTlsPolicyServerValidationCaGrpcEndpoint, opts ...dcl.ApplyOption) []ClientTlsPolicyServerValidationCaGrpcEndpoint {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1240,10 +1211,7 @@ func canonicalizeNewClientTlsPolicyServerValidationCaGrpcEndpointSlice(c *Client
 }
 
 func canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstance(des, initial *ClientTlsPolicyServerValidationCaCertificateProviderInstance, opts ...dcl.ApplyOption) *ClientTlsPolicyServerValidationCaCertificateProviderInstance {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1253,7 +1221,7 @@ func canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstance(de
 
 	cDes := &ClientTlsPolicyServerValidationCaCertificateProviderInstance{}
 
-	if dcl.StringCanonicalize(des.PluginInstance, initial.PluginInstance) || dcl.IsZeroValue(des.PluginInstance) {
+	if dcl.StringCanonicalize(des.PluginInstance, initial.PluginInstance) {
 		cDes.PluginInstance = initial.PluginInstance
 	} else {
 		cDes.PluginInstance = des.PluginInstance
@@ -1264,7 +1232,7 @@ func canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstance(de
 
 func canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstanceSlice(des, initial []ClientTlsPolicyServerValidationCaCertificateProviderInstance, opts ...dcl.ApplyOption) []ClientTlsPolicyServerValidationCaCertificateProviderInstance {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

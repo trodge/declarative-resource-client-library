@@ -432,8 +432,8 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 		return rawDesired, nil
 	}
 	canonicalDesired := &VpnTunnel{}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -453,20 +453,20 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	} else {
 		canonicalDesired.Region = rawDesired.Region
 	}
-	if dcl.IsZeroValue(rawDesired.TargetVpnGateway) || (dcl.IsEmptyValueIndirect(rawDesired.TargetVpnGateway) && dcl.IsEmptyValueIndirect(rawInitial.TargetVpnGateway)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.TargetVpnGateway) && dcl.IsEmptyValueIndirect(rawInitial.TargetVpnGateway) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.TargetVpnGateway = rawInitial.TargetVpnGateway
 	} else {
 		canonicalDesired.TargetVpnGateway = rawDesired.TargetVpnGateway
 	}
-	if dcl.IsZeroValue(rawDesired.VpnGateway) || (dcl.IsEmptyValueIndirect(rawDesired.VpnGateway) && dcl.IsEmptyValueIndirect(rawInitial.VpnGateway)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.VpnGateway) && dcl.IsEmptyValueIndirect(rawInitial.VpnGateway) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.VpnGateway = rawInitial.VpnGateway
 	} else {
 		canonicalDesired.VpnGateway = rawDesired.VpnGateway
 	}
-	if dcl.IsZeroValue(rawDesired.VpnGatewayInterface) || (dcl.IsEmptyValueIndirect(rawDesired.VpnGatewayInterface) && dcl.IsEmptyValueIndirect(rawInitial.VpnGatewayInterface)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.VpnGatewayInterface) && dcl.IsEmptyValueIndirect(rawInitial.VpnGatewayInterface) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.VpnGatewayInterface = rawInitial.VpnGatewayInterface
 	} else {
 		canonicalDesired.VpnGatewayInterface = rawDesired.VpnGatewayInterface
@@ -476,8 +476,8 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	} else {
 		canonicalDesired.PeerExternalGateway = rawDesired.PeerExternalGateway
 	}
-	if dcl.IsZeroValue(rawDesired.PeerExternalGatewayInterface) || (dcl.IsEmptyValueIndirect(rawDesired.PeerExternalGatewayInterface) && dcl.IsEmptyValueIndirect(rawInitial.PeerExternalGatewayInterface)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.PeerExternalGatewayInterface) && dcl.IsEmptyValueIndirect(rawInitial.PeerExternalGatewayInterface) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.PeerExternalGatewayInterface = rawInitial.PeerExternalGatewayInterface
 	} else {
 		canonicalDesired.PeerExternalGatewayInterface = rawDesired.PeerExternalGatewayInterface
@@ -502,8 +502,8 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	} else {
 		canonicalDesired.SharedSecret = rawDesired.SharedSecret
 	}
-	if dcl.IsZeroValue(rawDesired.IkeVersion) || (dcl.IsEmptyValueIndirect(rawDesired.IkeVersion) && dcl.IsEmptyValueIndirect(rawInitial.IkeVersion)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.IkeVersion) && dcl.IsEmptyValueIndirect(rawInitial.IkeVersion) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.IkeVersion = rawInitial.IkeVersion
 	} else {
 		canonicalDesired.IkeVersion = rawDesired.IkeVersion

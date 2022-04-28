@@ -652,23 +652,6 @@ func canonicalizeServiceLevelObjectiveDesiredState(rawDesired, rawInitial *Servi
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.RollingPeriod != nil || rawInitial.RollingPeriod != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.CalendarPeriod) {
-			rawDesired.RollingPeriod = nil
-			rawInitial.RollingPeriod = nil
-		}
-	}
-
-	if rawDesired.CalendarPeriod != nil || rawInitial.CalendarPeriod != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.RollingPeriod) {
-			rawDesired.CalendarPeriod = nil
-			rawInitial.CalendarPeriod = nil
-		}
-	}
-
 	canonicalDesired := &ServiceLevelObjective{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -681,8 +664,8 @@ func canonicalizeServiceLevelObjectiveDesiredState(rawDesired, rawInitial *Servi
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	canonicalDesired.ServiceLevelIndicator = canonicalizeServiceLevelObjectiveServiceLevelIndicator(rawDesired.ServiceLevelIndicator, rawInitial.ServiceLevelIndicator, opts...)
-	if dcl.IsZeroValue(rawDesired.Goal) || (dcl.IsEmptyValueIndirect(rawDesired.Goal) && dcl.IsEmptyValueIndirect(rawInitial.Goal)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Goal) && dcl.IsEmptyValueIndirect(rawInitial.Goal) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Goal = rawInitial.Goal
 	} else {
 		canonicalDesired.Goal = rawDesired.Goal
@@ -692,14 +675,14 @@ func canonicalizeServiceLevelObjectiveDesiredState(rawDesired, rawInitial *Servi
 	} else {
 		canonicalDesired.RollingPeriod = rawDesired.RollingPeriod
 	}
-	if dcl.IsZeroValue(rawDesired.CalendarPeriod) || (dcl.IsEmptyValueIndirect(rawDesired.CalendarPeriod) && dcl.IsEmptyValueIndirect(rawInitial.CalendarPeriod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.CalendarPeriod) && dcl.IsEmptyValueIndirect(rawInitial.CalendarPeriod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.CalendarPeriod = rawInitial.CalendarPeriod
 	} else {
 		canonicalDesired.CalendarPeriod = rawDesired.CalendarPeriod
 	}
-	if dcl.IsZeroValue(rawDesired.UserLabels) || (dcl.IsEmptyValueIndirect(rawDesired.UserLabels) && dcl.IsEmptyValueIndirect(rawInitial.UserLabels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.UserLabels) && dcl.IsEmptyValueIndirect(rawInitial.UserLabels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.UserLabels = rawInitial.UserLabels
 	} else {
 		canonicalDesired.UserLabels = rawDesired.UserLabels
@@ -713,6 +696,20 @@ func canonicalizeServiceLevelObjectiveDesiredState(rawDesired, rawInitial *Servi
 		canonicalDesired.Service = rawInitial.Service
 	} else {
 		canonicalDesired.Service = rawDesired.Service
+	}
+
+	if canonicalDesired.RollingPeriod != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.CalendarPeriod) {
+			canonicalDesired.RollingPeriod = nil
+		}
+	}
+
+	if canonicalDesired.CalendarPeriod != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.RollingPeriod) {
+			canonicalDesired.CalendarPeriod = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -787,45 +784,24 @@ func canonicalizeServiceLevelObjectiveNewState(c *Client, rawNew, rawDesired *Se
 
 	rawNew.Service = rawDesired.Service
 
+	if rawNew.RollingPeriod != nil {
+		if dcl.AnySet(rawNew.CalendarPeriod) && rawDesired.RollingPeriod == nil {
+			rawNew.RollingPeriod = nil
+		}
+	}
+
+	if rawNew.CalendarPeriod != nil {
+		if dcl.AnySet(rawNew.RollingPeriod) && rawDesired.CalendarPeriod == nil {
+			rawNew.CalendarPeriod = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicator(des, initial *ServiceLevelObjectiveServiceLevelIndicator, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.BasicSli != nil || (initial != nil && initial.BasicSli != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RequestBased, des.WindowsBased) {
-			des.BasicSli = nil
-			if initial != nil {
-				initial.BasicSli = nil
-			}
-		}
-	}
-
-	if des.RequestBased != nil || (initial != nil && initial.RequestBased != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.BasicSli, des.WindowsBased) {
-			des.RequestBased = nil
-			if initial != nil {
-				initial.RequestBased = nil
-			}
-		}
-	}
-
-	if des.WindowsBased != nil || (initial != nil && initial.WindowsBased != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.BasicSli, des.RequestBased) {
-			des.WindowsBased = nil
-			if initial != nil {
-				initial.WindowsBased = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -838,12 +814,32 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicator(des, initial *Servic
 	cDes.RequestBased = canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBased(des.RequestBased, initial.RequestBased, opts...)
 	cDes.WindowsBased = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBased(des.WindowsBased, initial.WindowsBased, opts...)
 
+	if cDes.BasicSli != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.RequestBased, cDes.WindowsBased) {
+			cDes.BasicSli = nil
+		}
+	}
+
+	if cDes.RequestBased != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.BasicSli, cDes.WindowsBased) {
+			cDes.RequestBased = nil
+		}
+	}
+
+	if cDes.WindowsBased != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.BasicSli, cDes.RequestBased) {
+			cDes.WindowsBased = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicator, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -934,51 +930,8 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorSlice(c *Client, d
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSli(des, initial *ServiceLevelObjectiveServiceLevelIndicatorBasicSli, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorBasicSli {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Availability != nil || (initial != nil && initial.Availability != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Latency, des.OperationAvailability, des.OperationLatency) {
-			des.Availability = nil
-			if initial != nil {
-				initial.Availability = nil
-			}
-		}
-	}
-
-	if des.Latency != nil || (initial != nil && initial.Latency != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Availability, des.OperationAvailability, des.OperationLatency) {
-			des.Latency = nil
-			if initial != nil {
-				initial.Latency = nil
-			}
-		}
-	}
-
-	if des.OperationAvailability != nil || (initial != nil && initial.OperationAvailability != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Availability, des.Latency, des.OperationLatency) {
-			des.OperationAvailability = nil
-			if initial != nil {
-				initial.OperationAvailability = nil
-			}
-		}
-	}
-
-	if des.OperationLatency != nil || (initial != nil && initial.OperationLatency != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Availability, des.Latency, des.OperationAvailability) {
-			des.OperationLatency = nil
-			if initial != nil {
-				initial.OperationLatency = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1007,12 +960,39 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSli(des, initial
 	cDes.OperationAvailability = canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(des.OperationAvailability, initial.OperationAvailability, opts...)
 	cDes.OperationLatency = canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(des.OperationLatency, initial.OperationLatency, opts...)
 
+	if cDes.Availability != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Latency, cDes.OperationAvailability, cDes.OperationLatency) {
+			cDes.Availability = nil
+		}
+	}
+
+	if cDes.Latency != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Availability, cDes.OperationAvailability, cDes.OperationLatency) {
+			cDes.Latency = nil
+		}
+	}
+
+	if cDes.OperationAvailability != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Availability, cDes.Latency, cDes.OperationLatency) {
+			cDes.OperationAvailability = nil
+		}
+	}
+
+	if cDes.OperationLatency != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Availability, cDes.Latency, cDes.OperationAvailability) {
+			cDes.OperationLatency = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorBasicSli, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorBasicSli {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1113,12 +1093,10 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorBasicSliSlice(c *C
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(des, initial *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -1130,7 +1108,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilitySlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1217,10 +1195,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabili
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(des, initial *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1230,13 +1205,13 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(des, 
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency{}
 
-	if dcl.StringCanonicalize(des.Threshold, initial.Threshold) || dcl.IsZeroValue(des.Threshold) {
+	if dcl.StringCanonicalize(des.Threshold, initial.Threshold) {
 		cDes.Threshold = initial.Threshold
 	} else {
 		cDes.Threshold = des.Threshold
 	}
-	if dcl.IsZeroValue(des.Experience) || (dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
@@ -1247,7 +1222,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(des, 
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1338,12 +1313,10 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencySli
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(des, initial *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -1355,7 +1328,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvai
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilitySlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1442,10 +1415,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationA
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(des, initial *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1455,13 +1425,13 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLate
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency{}
 
-	if dcl.StringCanonicalize(des.Threshold, initial.Threshold) || dcl.IsZeroValue(des.Threshold) {
+	if dcl.StringCanonicalize(des.Threshold, initial.Threshold) {
 		cDes.Threshold = initial.Threshold
 	} else {
 		cDes.Threshold = des.Threshold
 	}
-	if dcl.IsZeroValue(des.Experience) || (dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
@@ -1472,7 +1442,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLate
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencySlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1563,31 +1533,8 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationL
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBased(des, initial *ServiceLevelObjectiveServiceLevelIndicatorRequestBased, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorRequestBased {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.GoodTotalRatio != nil || (initial != nil && initial.GoodTotalRatio != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.DistributionCut) {
-			des.GoodTotalRatio = nil
-			if initial != nil {
-				initial.GoodTotalRatio = nil
-			}
-		}
-	}
-
-	if des.DistributionCut != nil || (initial != nil && initial.DistributionCut != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GoodTotalRatio) {
-			des.DistributionCut = nil
-			if initial != nil {
-				initial.DistributionCut = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1599,12 +1546,25 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBased(des, ini
 	cDes.GoodTotalRatio = canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(des.GoodTotalRatio, initial.GoodTotalRatio, opts...)
 	cDes.DistributionCut = canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(des.DistributionCut, initial.DistributionCut, opts...)
 
+	if cDes.GoodTotalRatio != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.DistributionCut) {
+			cDes.GoodTotalRatio = nil
+		}
+	}
+
+	if cDes.DistributionCut != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GoodTotalRatio) {
+			cDes.DistributionCut = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorRequestBased, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorRequestBased {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1694,10 +1654,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorRequestBasedSlice(
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(des, initial *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1707,17 +1664,17 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotal
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio{}
 
-	if dcl.StringCanonicalize(des.GoodServiceFilter, initial.GoodServiceFilter) || dcl.IsZeroValue(des.GoodServiceFilter) {
+	if dcl.StringCanonicalize(des.GoodServiceFilter, initial.GoodServiceFilter) {
 		cDes.GoodServiceFilter = initial.GoodServiceFilter
 	} else {
 		cDes.GoodServiceFilter = des.GoodServiceFilter
 	}
-	if dcl.StringCanonicalize(des.BadServiceFilter, initial.BadServiceFilter) || dcl.IsZeroValue(des.BadServiceFilter) {
+	if dcl.StringCanonicalize(des.BadServiceFilter, initial.BadServiceFilter) {
 		cDes.BadServiceFilter = initial.BadServiceFilter
 	} else {
 		cDes.BadServiceFilter = des.BadServiceFilter
 	}
-	if dcl.StringCanonicalize(des.TotalServiceFilter, initial.TotalServiceFilter) || dcl.IsZeroValue(des.TotalServiceFilter) {
+	if dcl.StringCanonicalize(des.TotalServiceFilter, initial.TotalServiceFilter) {
 		cDes.TotalServiceFilter = initial.TotalServiceFilter
 	} else {
 		cDes.TotalServiceFilter = des.TotalServiceFilter
@@ -1728,7 +1685,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotal
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1825,10 +1782,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(des, initial *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1838,7 +1792,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistribut
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut{}
 
-	if dcl.StringCanonicalize(des.DistributionFilter, initial.DistributionFilter) || dcl.IsZeroValue(des.DistributionFilter) {
+	if dcl.StringCanonicalize(des.DistributionFilter, initial.DistributionFilter) {
 		cDes.DistributionFilter = initial.DistributionFilter
 	} else {
 		cDes.DistributionFilter = des.DistributionFilter
@@ -1850,7 +1804,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistribut
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1942,10 +1896,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistri
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(des, initial *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1955,14 +1906,14 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistribut
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange{}
 
-	if dcl.IsZeroValue(des.Min) || (dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
-	if dcl.IsZeroValue(des.Max) || (dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
@@ -1973,7 +1924,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistribut
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2060,51 +2011,8 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistri
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBased(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.GoodBadMetricFilter != nil || (initial != nil && initial.GoodBadMetricFilter != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GoodTotalRatioThreshold, des.MetricMeanInRange, des.MetricSumInRange) {
-			des.GoodBadMetricFilter = nil
-			if initial != nil {
-				initial.GoodBadMetricFilter = nil
-			}
-		}
-	}
-
-	if des.GoodTotalRatioThreshold != nil || (initial != nil && initial.GoodTotalRatioThreshold != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GoodBadMetricFilter, des.MetricMeanInRange, des.MetricSumInRange) {
-			des.GoodTotalRatioThreshold = nil
-			if initial != nil {
-				initial.GoodTotalRatioThreshold = nil
-			}
-		}
-	}
-
-	if des.MetricMeanInRange != nil || (initial != nil && initial.MetricMeanInRange != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GoodBadMetricFilter, des.GoodTotalRatioThreshold, des.MetricSumInRange) {
-			des.MetricMeanInRange = nil
-			if initial != nil {
-				initial.MetricMeanInRange = nil
-			}
-		}
-	}
-
-	if des.MetricSumInRange != nil || (initial != nil && initial.MetricSumInRange != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GoodBadMetricFilter, des.GoodTotalRatioThreshold, des.MetricMeanInRange) {
-			des.MetricSumInRange = nil
-			if initial != nil {
-				initial.MetricSumInRange = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2113,7 +2021,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBased(des, ini
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBased{}
 
-	if dcl.StringCanonicalize(des.GoodBadMetricFilter, initial.GoodBadMetricFilter) || dcl.IsZeroValue(des.GoodBadMetricFilter) {
+	if dcl.StringCanonicalize(des.GoodBadMetricFilter, initial.GoodBadMetricFilter) {
 		cDes.GoodBadMetricFilter = initial.GoodBadMetricFilter
 	} else {
 		cDes.GoodBadMetricFilter = des.GoodBadMetricFilter
@@ -2121,18 +2029,45 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBased(des, ini
 	cDes.GoodTotalRatioThreshold = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(des.GoodTotalRatioThreshold, initial.GoodTotalRatioThreshold, opts...)
 	cDes.MetricMeanInRange = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(des.MetricMeanInRange, initial.MetricMeanInRange, opts...)
 	cDes.MetricSumInRange = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(des.MetricSumInRange, initial.MetricSumInRange, opts...)
-	if dcl.StringCanonicalize(des.WindowPeriod, initial.WindowPeriod) || dcl.IsZeroValue(des.WindowPeriod) {
+	if dcl.StringCanonicalize(des.WindowPeriod, initial.WindowPeriod) {
 		cDes.WindowPeriod = initial.WindowPeriod
 	} else {
 		cDes.WindowPeriod = des.WindowPeriod
 	}
 
+	if cDes.GoodBadMetricFilter != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GoodTotalRatioThreshold, cDes.MetricMeanInRange, cDes.MetricSumInRange) {
+			cDes.GoodBadMetricFilter = nil
+		}
+	}
+
+	if cDes.GoodTotalRatioThreshold != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GoodBadMetricFilter, cDes.MetricMeanInRange, cDes.MetricSumInRange) {
+			cDes.GoodTotalRatioThreshold = nil
+		}
+	}
+
+	if cDes.MetricMeanInRange != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GoodBadMetricFilter, cDes.GoodTotalRatioThreshold, cDes.MetricSumInRange) {
+			cDes.MetricMeanInRange = nil
+		}
+	}
+
+	if cDes.MetricSumInRange != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GoodBadMetricFilter, cDes.GoodTotalRatioThreshold, cDes.MetricMeanInRange) {
+			cDes.MetricSumInRange = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBased, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBased {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2229,31 +2164,8 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedSlice(
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Performance != nil || (initial != nil && initial.Performance != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.BasicSliPerformance) {
-			des.Performance = nil
-			if initial != nil {
-				initial.Performance = nil
-			}
-		}
-	}
-
-	if des.BasicSliPerformance != nil || (initial != nil && initial.BasicSliPerformance != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Performance) {
-			des.BasicSliPerformance = nil
-			if initial != nil {
-				initial.BasicSliPerformance = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2264,19 +2176,32 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 	cDes.Performance = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(des.Performance, initial.Performance, opts...)
 	cDes.BasicSliPerformance = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(des.BasicSliPerformance, initial.BasicSliPerformance, opts...)
-	if dcl.IsZeroValue(des.Threshold) || (dcl.IsEmptyValueIndirect(des.Threshold) && dcl.IsEmptyValueIndirect(initial.Threshold)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Threshold) && dcl.IsEmptyValueIndirect(initial.Threshold) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Threshold = initial.Threshold
 	} else {
 		cDes.Threshold = des.Threshold
 	}
 
+	if cDes.Performance != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.BasicSliPerformance) {
+			cDes.Performance = nil
+		}
+	}
+
+	if cDes.BasicSliPerformance != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Performance) {
+			cDes.BasicSliPerformance = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2366,31 +2291,8 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.GoodTotalRatio != nil || (initial != nil && initial.GoodTotalRatio != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.DistributionCut) {
-			des.GoodTotalRatio = nil
-			if initial != nil {
-				initial.GoodTotalRatio = nil
-			}
-		}
-	}
-
-	if des.DistributionCut != nil || (initial != nil && initial.DistributionCut != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GoodTotalRatio) {
-			des.DistributionCut = nil
-			if initial != nil {
-				initial.DistributionCut = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2402,12 +2304,25 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 	cDes.GoodTotalRatio = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(des.GoodTotalRatio, initial.GoodTotalRatio, opts...)
 	cDes.DistributionCut = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(des.DistributionCut, initial.DistributionCut, opts...)
 
+	if cDes.GoodTotalRatio != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.DistributionCut) {
+			cDes.GoodTotalRatio = nil
+		}
+	}
+
+	if cDes.DistributionCut != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GoodTotalRatio) {
+			cDes.DistributionCut = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2497,10 +2412,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2510,17 +2422,17 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio{}
 
-	if dcl.StringCanonicalize(des.GoodServiceFilter, initial.GoodServiceFilter) || dcl.IsZeroValue(des.GoodServiceFilter) {
+	if dcl.StringCanonicalize(des.GoodServiceFilter, initial.GoodServiceFilter) {
 		cDes.GoodServiceFilter = initial.GoodServiceFilter
 	} else {
 		cDes.GoodServiceFilter = des.GoodServiceFilter
 	}
-	if dcl.StringCanonicalize(des.BadServiceFilter, initial.BadServiceFilter) || dcl.IsZeroValue(des.BadServiceFilter) {
+	if dcl.StringCanonicalize(des.BadServiceFilter, initial.BadServiceFilter) {
 		cDes.BadServiceFilter = initial.BadServiceFilter
 	} else {
 		cDes.BadServiceFilter = des.BadServiceFilter
 	}
-	if dcl.StringCanonicalize(des.TotalServiceFilter, initial.TotalServiceFilter) || dcl.IsZeroValue(des.TotalServiceFilter) {
+	if dcl.StringCanonicalize(des.TotalServiceFilter, initial.TotalServiceFilter) {
 		cDes.TotalServiceFilter = initial.TotalServiceFilter
 	} else {
 		cDes.TotalServiceFilter = des.TotalServiceFilter
@@ -2531,7 +2443,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2628,10 +2540,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2641,7 +2550,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut{}
 
-	if dcl.StringCanonicalize(des.DistributionFilter, initial.DistributionFilter) || dcl.IsZeroValue(des.DistributionFilter) {
+	if dcl.StringCanonicalize(des.DistributionFilter, initial.DistributionFilter) {
 		cDes.DistributionFilter = initial.DistributionFilter
 	} else {
 		cDes.DistributionFilter = des.DistributionFilter
@@ -2653,7 +2562,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2745,10 +2654,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2758,14 +2664,14 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange{}
 
-	if dcl.IsZeroValue(des.Min) || (dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
-	if dcl.IsZeroValue(des.Max) || (dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
@@ -2776,7 +2682,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2863,51 +2769,8 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Availability != nil || (initial != nil && initial.Availability != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Latency, des.OperationAvailability, des.OperationLatency) {
-			des.Availability = nil
-			if initial != nil {
-				initial.Availability = nil
-			}
-		}
-	}
-
-	if des.Latency != nil || (initial != nil && initial.Latency != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Availability, des.OperationAvailability, des.OperationLatency) {
-			des.Latency = nil
-			if initial != nil {
-				initial.Latency = nil
-			}
-		}
-	}
-
-	if des.OperationAvailability != nil || (initial != nil && initial.OperationAvailability != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Availability, des.Latency, des.OperationLatency) {
-			des.OperationAvailability = nil
-			if initial != nil {
-				initial.OperationAvailability = nil
-			}
-		}
-	}
-
-	if des.OperationLatency != nil || (initial != nil && initial.OperationLatency != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Availability, des.Latency, des.OperationAvailability) {
-			des.OperationLatency = nil
-			if initial != nil {
-				initial.OperationLatency = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2936,12 +2799,39 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 	cDes.OperationAvailability = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(des.OperationAvailability, initial.OperationAvailability, opts...)
 	cDes.OperationLatency = canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(des.OperationLatency, initial.OperationLatency, opts...)
 
+	if cDes.Availability != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Latency, cDes.OperationAvailability, cDes.OperationLatency) {
+			cDes.Availability = nil
+		}
+	}
+
+	if cDes.Latency != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Availability, cDes.OperationAvailability, cDes.OperationLatency) {
+			cDes.Latency = nil
+		}
+	}
+
+	if cDes.OperationAvailability != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Availability, cDes.Latency, cDes.OperationLatency) {
+			cDes.OperationAvailability = nil
+		}
+	}
+
+	if cDes.OperationLatency != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Availability, cDes.Latency, cDes.OperationAvailability) {
+			cDes.OperationLatency = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3042,12 +2932,10 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -3059,7 +2947,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilitySlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3146,10 +3034,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3159,13 +3044,13 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency{}
 
-	if dcl.StringCanonicalize(des.Threshold, initial.Threshold) || dcl.IsZeroValue(des.Threshold) {
+	if dcl.StringCanonicalize(des.Threshold, initial.Threshold) {
 		cDes.Threshold = initial.Threshold
 	} else {
 		cDes.Threshold = des.Threshold
 	}
-	if dcl.IsZeroValue(des.Experience) || (dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
@@ -3176,7 +3061,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencySlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3267,12 +3152,10 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -3284,7 +3167,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilitySlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3371,10 +3254,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3384,13 +3264,13 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency{}
 
-	if dcl.StringCanonicalize(des.Threshold, initial.Threshold) || dcl.IsZeroValue(des.Threshold) {
+	if dcl.StringCanonicalize(des.Threshold, initial.Threshold) {
 		cDes.Threshold = initial.Threshold
 	} else {
 		cDes.Threshold = des.Threshold
 	}
-	if dcl.IsZeroValue(des.Experience) || (dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Experience) && dcl.IsEmptyValueIndirect(initial.Experience) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Experience = initial.Experience
 	} else {
 		cDes.Experience = des.Experience
@@ -3401,7 +3281,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotal
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencySlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3492,10 +3372,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTo
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3505,7 +3382,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMea
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange{}
 
-	if dcl.StringCanonicalize(des.TimeSeries, initial.TimeSeries) || dcl.IsZeroValue(des.TimeSeries) {
+	if dcl.StringCanonicalize(des.TimeSeries, initial.TimeSeries) {
 		cDes.TimeSeries = initial.TimeSeries
 	} else {
 		cDes.TimeSeries = des.TimeSeries
@@ -3517,7 +3394,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMea
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3609,10 +3486,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetric
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3622,14 +3496,14 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMea
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange{}
 
-	if dcl.IsZeroValue(des.Min) || (dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
-	if dcl.IsZeroValue(des.Max) || (dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
@@ -3640,7 +3514,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMea
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3727,10 +3601,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetric
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3740,7 +3611,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSum
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange{}
 
-	if dcl.StringCanonicalize(des.TimeSeries, initial.TimeSeries) || dcl.IsZeroValue(des.TimeSeries) {
+	if dcl.StringCanonicalize(des.TimeSeries, initial.TimeSeries) {
 		cDes.TimeSeries = initial.TimeSeries
 	} else {
 		cDes.TimeSeries = des.TimeSeries
@@ -3752,7 +3623,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSum
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3844,10 +3715,7 @@ func canonicalizeNewServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetric
 }
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(des, initial *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange, opts ...dcl.ApplyOption) *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3857,14 +3725,14 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSum
 
 	cDes := &ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange{}
 
-	if dcl.IsZeroValue(des.Min) || (dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Min) && dcl.IsEmptyValueIndirect(initial.Min) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Min = initial.Min
 	} else {
 		cDes.Min = des.Min
 	}
-	if dcl.IsZeroValue(des.Max) || (dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Max) && dcl.IsEmptyValueIndirect(initial.Max) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Max = initial.Max
 	} else {
 		cDes.Max = des.Max
@@ -3875,7 +3743,7 @@ func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSum
 
 func canonicalizeServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeSlice(des, initial []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange, opts ...dcl.ApplyOption) []ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

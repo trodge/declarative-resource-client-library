@@ -642,8 +642,8 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Annotations = rawInitial.Annotations
 	} else {
 		canonicalDesired.Annotations = rawDesired.Annotations
@@ -658,14 +658,14 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 	} else {
 		canonicalDesired.ClientVersion = rawDesired.ClientVersion
 	}
-	if dcl.IsZeroValue(rawDesired.Ingress) || (dcl.IsEmptyValueIndirect(rawDesired.Ingress) && dcl.IsEmptyValueIndirect(rawInitial.Ingress)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Ingress) && dcl.IsEmptyValueIndirect(rawInitial.Ingress) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Ingress = rawInitial.Ingress
 	} else {
 		canonicalDesired.Ingress = rawDesired.Ingress
 	}
-	if dcl.IsZeroValue(rawDesired.LaunchStage) || (dcl.IsEmptyValueIndirect(rawDesired.LaunchStage) && dcl.IsEmptyValueIndirect(rawInitial.LaunchStage)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.LaunchStage) && dcl.IsEmptyValueIndirect(rawInitial.LaunchStage) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.LaunchStage = rawInitial.LaunchStage
 	} else {
 		canonicalDesired.LaunchStage = rawDesired.LaunchStage
@@ -868,10 +868,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 }
 
 func canonicalizeServiceBinaryAuthorization(des, initial *ServiceBinaryAuthorization, opts ...dcl.ApplyOption) *ServiceBinaryAuthorization {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -881,12 +878,12 @@ func canonicalizeServiceBinaryAuthorization(des, initial *ServiceBinaryAuthoriza
 
 	cDes := &ServiceBinaryAuthorization{}
 
-	if dcl.BoolCanonicalize(des.UseDefault, initial.UseDefault) || dcl.IsZeroValue(des.UseDefault) {
+	if dcl.BoolCanonicalize(des.UseDefault, initial.UseDefault) {
 		cDes.UseDefault = initial.UseDefault
 	} else {
 		cDes.UseDefault = des.UseDefault
 	}
-	if dcl.StringCanonicalize(des.BreakglassJustification, initial.BreakglassJustification) || dcl.IsZeroValue(des.BreakglassJustification) {
+	if dcl.StringCanonicalize(des.BreakglassJustification, initial.BreakglassJustification) {
 		cDes.BreakglassJustification = initial.BreakglassJustification
 	} else {
 		cDes.BreakglassJustification = des.BreakglassJustification
@@ -897,7 +894,7 @@ func canonicalizeServiceBinaryAuthorization(des, initial *ServiceBinaryAuthoriza
 
 func canonicalizeServiceBinaryAuthorizationSlice(des, initial []ServiceBinaryAuthorization, opts ...dcl.ApplyOption) []ServiceBinaryAuthorization {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -991,10 +988,7 @@ func canonicalizeNewServiceBinaryAuthorizationSlice(c *Client, des, nw []Service
 }
 
 func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.ApplyOption) *ServiceTemplate {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1004,46 +998,46 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 
 	cDes := &ServiceTemplate{}
 
-	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
 	}
-	if dcl.IsZeroValue(des.Annotations) || (dcl.IsEmptyValueIndirect(des.Annotations) && dcl.IsEmptyValueIndirect(initial.Annotations)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Annotations) && dcl.IsEmptyValueIndirect(initial.Annotations) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Annotations = initial.Annotations
 	} else {
 		cDes.Annotations = des.Annotations
 	}
 	cDes.Scaling = canonicalizeServiceTemplateScaling(des.Scaling, initial.Scaling, opts...)
 	cDes.VPCAccess = canonicalizeServiceTemplateVPCAccess(des.VPCAccess, initial.VPCAccess, opts...)
-	if dcl.IsZeroValue(des.ContainerConcurrency) || (dcl.IsEmptyValueIndirect(des.ContainerConcurrency) && dcl.IsEmptyValueIndirect(initial.ContainerConcurrency)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ContainerConcurrency) && dcl.IsEmptyValueIndirect(initial.ContainerConcurrency) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ContainerConcurrency = initial.ContainerConcurrency
 	} else {
 		cDes.ContainerConcurrency = des.ContainerConcurrency
 	}
-	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) {
 		cDes.Timeout = initial.Timeout
 	} else {
 		cDes.Timeout = des.Timeout
 	}
-	if dcl.IsZeroValue(des.ServiceAccount) || (dcl.IsEmptyValueIndirect(des.ServiceAccount) && dcl.IsEmptyValueIndirect(initial.ServiceAccount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ServiceAccount) && dcl.IsEmptyValueIndirect(initial.ServiceAccount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ServiceAccount = initial.ServiceAccount
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
 	}
 	cDes.Containers = canonicalizeServiceTemplateContainersSlice(des.Containers, initial.Containers, opts...)
 	cDes.Volumes = canonicalizeServiceTemplateVolumesSlice(des.Volumes, initial.Volumes, opts...)
-	if dcl.IsZeroValue(des.ExecutionEnvironment) || (dcl.IsEmptyValueIndirect(des.ExecutionEnvironment) && dcl.IsEmptyValueIndirect(initial.ExecutionEnvironment)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ExecutionEnvironment) && dcl.IsEmptyValueIndirect(initial.ExecutionEnvironment) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ExecutionEnvironment = initial.ExecutionEnvironment
 	} else {
 		cDes.ExecutionEnvironment = des.ExecutionEnvironment
@@ -1054,7 +1048,7 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 
 func canonicalizeServiceTemplateSlice(des, initial []ServiceTemplate, opts ...dcl.ApplyOption) []ServiceTemplate {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1152,10 +1146,7 @@ func canonicalizeNewServiceTemplateSlice(c *Client, des, nw []ServiceTemplate) [
 }
 
 func canonicalizeServiceTemplateScaling(des, initial *ServiceTemplateScaling, opts ...dcl.ApplyOption) *ServiceTemplateScaling {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1165,14 +1156,14 @@ func canonicalizeServiceTemplateScaling(des, initial *ServiceTemplateScaling, op
 
 	cDes := &ServiceTemplateScaling{}
 
-	if dcl.IsZeroValue(des.MinInstanceCount) || (dcl.IsEmptyValueIndirect(des.MinInstanceCount) && dcl.IsEmptyValueIndirect(initial.MinInstanceCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MinInstanceCount) && dcl.IsEmptyValueIndirect(initial.MinInstanceCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MinInstanceCount = initial.MinInstanceCount
 	} else {
 		cDes.MinInstanceCount = des.MinInstanceCount
 	}
-	if dcl.IsZeroValue(des.MaxInstanceCount) || (dcl.IsEmptyValueIndirect(des.MaxInstanceCount) && dcl.IsEmptyValueIndirect(initial.MaxInstanceCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxInstanceCount) && dcl.IsEmptyValueIndirect(initial.MaxInstanceCount) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxInstanceCount = initial.MaxInstanceCount
 	} else {
 		cDes.MaxInstanceCount = des.MaxInstanceCount
@@ -1183,7 +1174,7 @@ func canonicalizeServiceTemplateScaling(des, initial *ServiceTemplateScaling, op
 
 func canonicalizeServiceTemplateScalingSlice(des, initial []ServiceTemplateScaling, opts ...dcl.ApplyOption) []ServiceTemplateScaling {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1270,10 +1261,7 @@ func canonicalizeNewServiceTemplateScalingSlice(c *Client, des, nw []ServiceTemp
 }
 
 func canonicalizeServiceTemplateVPCAccess(des, initial *ServiceTemplateVPCAccess, opts ...dcl.ApplyOption) *ServiceTemplateVPCAccess {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1283,14 +1271,14 @@ func canonicalizeServiceTemplateVPCAccess(des, initial *ServiceTemplateVPCAccess
 
 	cDes := &ServiceTemplateVPCAccess{}
 
-	if dcl.IsZeroValue(des.Connector) || (dcl.IsEmptyValueIndirect(des.Connector) && dcl.IsEmptyValueIndirect(initial.Connector)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Connector) && dcl.IsEmptyValueIndirect(initial.Connector) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Connector = initial.Connector
 	} else {
 		cDes.Connector = des.Connector
 	}
-	if dcl.IsZeroValue(des.Egress) || (dcl.IsEmptyValueIndirect(des.Egress) && dcl.IsEmptyValueIndirect(initial.Egress)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Egress) && dcl.IsEmptyValueIndirect(initial.Egress) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Egress = initial.Egress
 	} else {
 		cDes.Egress = des.Egress
@@ -1301,7 +1289,7 @@ func canonicalizeServiceTemplateVPCAccess(des, initial *ServiceTemplateVPCAccess
 
 func canonicalizeServiceTemplateVPCAccessSlice(des, initial []ServiceTemplateVPCAccess, opts ...dcl.ApplyOption) []ServiceTemplateVPCAccess {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1388,10 +1376,7 @@ func canonicalizeNewServiceTemplateVPCAccessSlice(c *Client, des, nw []ServiceTe
 }
 
 func canonicalizeServiceTemplateContainers(des, initial *ServiceTemplateContainers, opts ...dcl.ApplyOption) *ServiceTemplateContainers {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1401,12 +1386,12 @@ func canonicalizeServiceTemplateContainers(des, initial *ServiceTemplateContaine
 
 	cDes := &ServiceTemplateContainers{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Image, initial.Image) || dcl.IsZeroValue(des.Image) {
+	if dcl.StringCanonicalize(des.Image, initial.Image) {
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
@@ -1431,7 +1416,7 @@ func canonicalizeServiceTemplateContainers(des, initial *ServiceTemplateContaine
 
 func canonicalizeServiceTemplateContainersSlice(des, initial []ServiceTemplateContainers, opts ...dcl.ApplyOption) []ServiceTemplateContainers {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1535,31 +1520,8 @@ func canonicalizeNewServiceTemplateContainersSlice(c *Client, des, nw []ServiceT
 }
 
 func canonicalizeServiceTemplateContainersEnv(des, initial *ServiceTemplateContainersEnv, opts ...dcl.ApplyOption) *ServiceTemplateContainersEnv {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Value != nil || (initial != nil && initial.Value != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ValueSource) {
-			des.Value = nil
-			if initial != nil {
-				initial.Value = nil
-			}
-		}
-	}
-
-	if des.ValueSource != nil || (initial != nil && initial.ValueSource != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Value) {
-			des.ValueSource = nil
-			if initial != nil {
-				initial.ValueSource = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1568,24 +1530,37 @@ func canonicalizeServiceTemplateContainersEnv(des, initial *ServiceTemplateConta
 
 	cDes := &ServiceTemplateContainersEnv{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) {
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
 	cDes.ValueSource = canonicalizeServiceTemplateContainersEnvValueSource(des.ValueSource, initial.ValueSource, opts...)
 
+	if cDes.Value != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ValueSource) {
+			cDes.Value = nil
+		}
+	}
+
+	if cDes.ValueSource != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Value) {
+			cDes.ValueSource = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeServiceTemplateContainersEnvSlice(des, initial []ServiceTemplateContainersEnv, opts ...dcl.ApplyOption) []ServiceTemplateContainersEnv {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1680,10 +1655,7 @@ func canonicalizeNewServiceTemplateContainersEnvSlice(c *Client, des, nw []Servi
 }
 
 func canonicalizeServiceTemplateContainersEnvValueSource(des, initial *ServiceTemplateContainersEnvValueSource, opts ...dcl.ApplyOption) *ServiceTemplateContainersEnvValueSource {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1700,7 +1672,7 @@ func canonicalizeServiceTemplateContainersEnvValueSource(des, initial *ServiceTe
 
 func canonicalizeServiceTemplateContainersEnvValueSourceSlice(des, initial []ServiceTemplateContainersEnvValueSource, opts ...dcl.ApplyOption) []ServiceTemplateContainersEnvValueSource {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1789,10 +1761,7 @@ func canonicalizeNewServiceTemplateContainersEnvValueSourceSlice(c *Client, des,
 }
 
 func canonicalizeServiceTemplateContainersEnvValueSourceSecretKeyRef(des, initial *ServiceTemplateContainersEnvValueSourceSecretKeyRef, opts ...dcl.ApplyOption) *ServiceTemplateContainersEnvValueSourceSecretKeyRef {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1802,14 +1771,14 @@ func canonicalizeServiceTemplateContainersEnvValueSourceSecretKeyRef(des, initia
 
 	cDes := &ServiceTemplateContainersEnvValueSourceSecretKeyRef{}
 
-	if dcl.IsZeroValue(des.Secret) || (dcl.IsEmptyValueIndirect(des.Secret) && dcl.IsEmptyValueIndirect(initial.Secret)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Secret) && dcl.IsEmptyValueIndirect(initial.Secret) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Secret = initial.Secret
 	} else {
 		cDes.Secret = des.Secret
 	}
-	if dcl.IsZeroValue(des.Version) || (dcl.IsEmptyValueIndirect(des.Version) && dcl.IsEmptyValueIndirect(initial.Version)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Version) && dcl.IsEmptyValueIndirect(initial.Version) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -1820,7 +1789,7 @@ func canonicalizeServiceTemplateContainersEnvValueSourceSecretKeyRef(des, initia
 
 func canonicalizeServiceTemplateContainersEnvValueSourceSecretKeyRefSlice(des, initial []ServiceTemplateContainersEnvValueSourceSecretKeyRef, opts ...dcl.ApplyOption) []ServiceTemplateContainersEnvValueSourceSecretKeyRef {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1907,10 +1876,7 @@ func canonicalizeNewServiceTemplateContainersEnvValueSourceSecretKeyRefSlice(c *
 }
 
 func canonicalizeServiceTemplateContainersResources(des, initial *ServiceTemplateContainersResources, opts ...dcl.ApplyOption) *ServiceTemplateContainersResources {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1920,13 +1886,13 @@ func canonicalizeServiceTemplateContainersResources(des, initial *ServiceTemplat
 
 	cDes := &ServiceTemplateContainersResources{}
 
-	if dcl.IsZeroValue(des.Limits) || (dcl.IsEmptyValueIndirect(des.Limits) && dcl.IsEmptyValueIndirect(initial.Limits)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Limits) && dcl.IsEmptyValueIndirect(initial.Limits) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Limits = initial.Limits
 	} else {
 		cDes.Limits = des.Limits
 	}
-	if dcl.BoolCanonicalize(des.CpuIdle, initial.CpuIdle) || dcl.IsZeroValue(des.CpuIdle) {
+	if dcl.BoolCanonicalize(des.CpuIdle, initial.CpuIdle) {
 		cDes.CpuIdle = initial.CpuIdle
 	} else {
 		cDes.CpuIdle = des.CpuIdle
@@ -1937,7 +1903,7 @@ func canonicalizeServiceTemplateContainersResources(des, initial *ServiceTemplat
 
 func canonicalizeServiceTemplateContainersResourcesSlice(des, initial []ServiceTemplateContainersResources, opts ...dcl.ApplyOption) []ServiceTemplateContainersResources {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2028,10 +1994,7 @@ func canonicalizeNewServiceTemplateContainersResourcesSlice(c *Client, des, nw [
 }
 
 func canonicalizeServiceTemplateContainersPorts(des, initial *ServiceTemplateContainersPorts, opts ...dcl.ApplyOption) *ServiceTemplateContainersPorts {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2041,13 +2004,13 @@ func canonicalizeServiceTemplateContainersPorts(des, initial *ServiceTemplateCon
 
 	cDes := &ServiceTemplateContainersPorts{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.ContainerPort) || (dcl.IsEmptyValueIndirect(des.ContainerPort) && dcl.IsEmptyValueIndirect(initial.ContainerPort)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ContainerPort) && dcl.IsEmptyValueIndirect(initial.ContainerPort) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ContainerPort = initial.ContainerPort
 	} else {
 		cDes.ContainerPort = des.ContainerPort
@@ -2058,7 +2021,7 @@ func canonicalizeServiceTemplateContainersPorts(des, initial *ServiceTemplateCon
 
 func canonicalizeServiceTemplateContainersPortsSlice(des, initial []ServiceTemplateContainersPorts, opts ...dcl.ApplyOption) []ServiceTemplateContainersPorts {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2149,10 +2112,7 @@ func canonicalizeNewServiceTemplateContainersPortsSlice(c *Client, des, nw []Ser
 }
 
 func canonicalizeServiceTemplateContainersVolumeMounts(des, initial *ServiceTemplateContainersVolumeMounts, opts ...dcl.ApplyOption) *ServiceTemplateContainersVolumeMounts {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2162,12 +2122,12 @@ func canonicalizeServiceTemplateContainersVolumeMounts(des, initial *ServiceTemp
 
 	cDes := &ServiceTemplateContainersVolumeMounts{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.MountPath, initial.MountPath) || dcl.IsZeroValue(des.MountPath) {
+	if dcl.StringCanonicalize(des.MountPath, initial.MountPath) {
 		cDes.MountPath = initial.MountPath
 	} else {
 		cDes.MountPath = des.MountPath
@@ -2178,7 +2138,7 @@ func canonicalizeServiceTemplateContainersVolumeMounts(des, initial *ServiceTemp
 
 func canonicalizeServiceTemplateContainersVolumeMountsSlice(des, initial []ServiceTemplateContainersVolumeMounts, opts ...dcl.ApplyOption) []ServiceTemplateContainersVolumeMounts {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2272,31 +2232,8 @@ func canonicalizeNewServiceTemplateContainersVolumeMountsSlice(c *Client, des, n
 }
 
 func canonicalizeServiceTemplateVolumes(des, initial *ServiceTemplateVolumes, opts ...dcl.ApplyOption) *ServiceTemplateVolumes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Secret != nil || (initial != nil && initial.Secret != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudSqlInstance) {
-			des.Secret = nil
-			if initial != nil {
-				initial.Secret = nil
-			}
-		}
-	}
-
-	if des.CloudSqlInstance != nil || (initial != nil && initial.CloudSqlInstance != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Secret) {
-			des.CloudSqlInstance = nil
-			if initial != nil {
-				initial.CloudSqlInstance = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2305,7 +2242,7 @@ func canonicalizeServiceTemplateVolumes(des, initial *ServiceTemplateVolumes, op
 
 	cDes := &ServiceTemplateVolumes{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -2313,12 +2250,25 @@ func canonicalizeServiceTemplateVolumes(des, initial *ServiceTemplateVolumes, op
 	cDes.Secret = canonicalizeServiceTemplateVolumesSecret(des.Secret, initial.Secret, opts...)
 	cDes.CloudSqlInstance = canonicalizeServiceTemplateVolumesCloudSqlInstance(des.CloudSqlInstance, initial.CloudSqlInstance, opts...)
 
+	if cDes.Secret != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudSqlInstance) {
+			cDes.Secret = nil
+		}
+	}
+
+	if cDes.CloudSqlInstance != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Secret) {
+			cDes.CloudSqlInstance = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeServiceTemplateVolumesSlice(des, initial []ServiceTemplateVolumes, opts ...dcl.ApplyOption) []ServiceTemplateVolumes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2411,10 +2361,7 @@ func canonicalizeNewServiceTemplateVolumesSlice(c *Client, des, nw []ServiceTemp
 }
 
 func canonicalizeServiceTemplateVolumesSecret(des, initial *ServiceTemplateVolumesSecret, opts ...dcl.ApplyOption) *ServiceTemplateVolumesSecret {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2424,15 +2371,15 @@ func canonicalizeServiceTemplateVolumesSecret(des, initial *ServiceTemplateVolum
 
 	cDes := &ServiceTemplateVolumesSecret{}
 
-	if dcl.IsZeroValue(des.Secret) || (dcl.IsEmptyValueIndirect(des.Secret) && dcl.IsEmptyValueIndirect(initial.Secret)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Secret) && dcl.IsEmptyValueIndirect(initial.Secret) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Secret = initial.Secret
 	} else {
 		cDes.Secret = des.Secret
 	}
 	cDes.Items = canonicalizeServiceTemplateVolumesSecretItemsSlice(des.Items, initial.Items, opts...)
-	if dcl.IsZeroValue(des.DefaultMode) || (dcl.IsEmptyValueIndirect(des.DefaultMode) && dcl.IsEmptyValueIndirect(initial.DefaultMode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DefaultMode) && dcl.IsEmptyValueIndirect(initial.DefaultMode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DefaultMode = initial.DefaultMode
 	} else {
 		cDes.DefaultMode = des.DefaultMode
@@ -2443,7 +2390,7 @@ func canonicalizeServiceTemplateVolumesSecret(des, initial *ServiceTemplateVolum
 
 func canonicalizeServiceTemplateVolumesSecretSlice(des, initial []ServiceTemplateVolumesSecret, opts ...dcl.ApplyOption) []ServiceTemplateVolumesSecret {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2532,10 +2479,7 @@ func canonicalizeNewServiceTemplateVolumesSecretSlice(c *Client, des, nw []Servi
 }
 
 func canonicalizeServiceTemplateVolumesSecretItems(des, initial *ServiceTemplateVolumesSecretItems, opts ...dcl.ApplyOption) *ServiceTemplateVolumesSecretItems {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2545,19 +2489,19 @@ func canonicalizeServiceTemplateVolumesSecretItems(des, initial *ServiceTemplate
 
 	cDes := &ServiceTemplateVolumesSecretItems{}
 
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
 	}
-	if dcl.IsZeroValue(des.Version) || (dcl.IsEmptyValueIndirect(des.Version) && dcl.IsEmptyValueIndirect(initial.Version)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Version) && dcl.IsEmptyValueIndirect(initial.Version) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
 	}
-	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -2568,7 +2512,7 @@ func canonicalizeServiceTemplateVolumesSecretItems(des, initial *ServiceTemplate
 
 func canonicalizeServiceTemplateVolumesSecretItemsSlice(des, initial []ServiceTemplateVolumesSecretItems, opts ...dcl.ApplyOption) []ServiceTemplateVolumesSecretItems {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2659,10 +2603,7 @@ func canonicalizeNewServiceTemplateVolumesSecretItemsSlice(c *Client, des, nw []
 }
 
 func canonicalizeServiceTemplateVolumesCloudSqlInstance(des, initial *ServiceTemplateVolumesCloudSqlInstance, opts ...dcl.ApplyOption) *ServiceTemplateVolumesCloudSqlInstance {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2683,7 +2624,7 @@ func canonicalizeServiceTemplateVolumesCloudSqlInstance(des, initial *ServiceTem
 
 func canonicalizeServiceTemplateVolumesCloudSqlInstanceSlice(des, initial []ServiceTemplateVolumesCloudSqlInstance, opts ...dcl.ApplyOption) []ServiceTemplateVolumesCloudSqlInstance {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2774,10 +2715,7 @@ func canonicalizeNewServiceTemplateVolumesCloudSqlInstanceSlice(c *Client, des, 
 }
 
 func canonicalizeServiceTraffic(des, initial *ServiceTraffic, opts ...dcl.ApplyOption) *ServiceTraffic {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2787,24 +2725,24 @@ func canonicalizeServiceTraffic(des, initial *ServiceTraffic, opts ...dcl.ApplyO
 
 	cDes := &ServiceTraffic{}
 
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
 	}
-	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
+	if dcl.StringCanonicalize(des.Tag, initial.Tag) {
 		cDes.Tag = initial.Tag
 	} else {
 		cDes.Tag = des.Tag
@@ -2815,7 +2753,7 @@ func canonicalizeServiceTraffic(des, initial *ServiceTraffic, opts ...dcl.ApplyO
 
 func canonicalizeServiceTrafficSlice(des, initial []ServiceTraffic, opts ...dcl.ApplyOption) []ServiceTraffic {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2909,41 +2847,8 @@ func canonicalizeNewServiceTrafficSlice(c *Client, des, nw []ServiceTraffic) []S
 }
 
 func canonicalizeServiceTerminalCondition(des, initial *ServiceTerminalCondition, opts ...dcl.ApplyOption) *ServiceTerminalCondition {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Reason != nil || (initial != nil && initial.Reason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RevisionReason, des.JobReason) {
-			des.Reason = nil
-			if initial != nil {
-				initial.Reason = nil
-			}
-		}
-	}
-
-	if des.RevisionReason != nil || (initial != nil && initial.RevisionReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.JobReason) {
-			des.RevisionReason = nil
-			if initial != nil {
-				initial.RevisionReason = nil
-			}
-		}
-	}
-
-	if des.JobReason != nil || (initial != nil && initial.JobReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.RevisionReason) {
-			des.JobReason = nil
-			if initial != nil {
-				initial.JobReason = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2952,59 +2857,79 @@ func canonicalizeServiceTerminalCondition(des, initial *ServiceTerminalCondition
 
 	cDes := &ServiceTerminalCondition{}
 
-	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+	if dcl.StringCanonicalize(des.Type, initial.Type) {
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
-	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, initial.Message) {
 		cDes.Message = initial.Message
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.LastTransitionTime) || (dcl.IsEmptyValueIndirect(des.LastTransitionTime) && dcl.IsEmptyValueIndirect(initial.LastTransitionTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.LastTransitionTime) && dcl.IsEmptyValueIndirect(initial.LastTransitionTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.LastTransitionTime = initial.LastTransitionTime
 	} else {
 		cDes.LastTransitionTime = des.LastTransitionTime
 	}
-	if dcl.IsZeroValue(des.Severity) || (dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Severity = initial.Severity
 	} else {
 		cDes.Severity = des.Severity
 	}
-	if dcl.IsZeroValue(des.Reason) || (dcl.IsEmptyValueIndirect(des.Reason) && dcl.IsEmptyValueIndirect(initial.Reason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Reason) && dcl.IsEmptyValueIndirect(initial.Reason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Reason = initial.Reason
 	} else {
 		cDes.Reason = des.Reason
 	}
-	if dcl.IsZeroValue(des.RevisionReason) || (dcl.IsEmptyValueIndirect(des.RevisionReason) && dcl.IsEmptyValueIndirect(initial.RevisionReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RevisionReason) && dcl.IsEmptyValueIndirect(initial.RevisionReason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RevisionReason = initial.RevisionReason
 	} else {
 		cDes.RevisionReason = des.RevisionReason
 	}
-	if dcl.IsZeroValue(des.JobReason) || (dcl.IsEmptyValueIndirect(des.JobReason) && dcl.IsEmptyValueIndirect(initial.JobReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.JobReason) && dcl.IsEmptyValueIndirect(initial.JobReason) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.JobReason = initial.JobReason
 	} else {
 		cDes.JobReason = des.JobReason
 	}
 
+	if cDes.Reason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.RevisionReason, cDes.JobReason) {
+			cDes.Reason = nil
+		}
+	}
+
+	if cDes.RevisionReason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Reason, cDes.JobReason) {
+			cDes.RevisionReason = nil
+		}
+	}
+
+	if cDes.JobReason != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Reason, cDes.RevisionReason) {
+			cDes.JobReason = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeServiceTerminalConditionSlice(des, initial []ServiceTerminalCondition, opts ...dcl.ApplyOption) []ServiceTerminalCondition {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3098,10 +3023,7 @@ func canonicalizeNewServiceTerminalConditionSlice(c *Client, des, nw []ServiceTe
 }
 
 func canonicalizeServiceTrafficStatuses(des, initial *ServiceTrafficStatuses, opts ...dcl.ApplyOption) *ServiceTrafficStatuses {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3111,29 +3033,29 @@ func canonicalizeServiceTrafficStatuses(des, initial *ServiceTrafficStatuses, op
 
 	cDes := &ServiceTrafficStatuses{}
 
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) {
 		cDes.Revision = initial.Revision
 	} else {
 		cDes.Revision = des.Revision
 	}
-	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percent = initial.Percent
 	} else {
 		cDes.Percent = des.Percent
 	}
-	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
+	if dcl.StringCanonicalize(des.Tag, initial.Tag) {
 		cDes.Tag = initial.Tag
 	} else {
 		cDes.Tag = des.Tag
 	}
-	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.StringCanonicalize(des.Uri, initial.Uri) {
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
@@ -3144,7 +3066,7 @@ func canonicalizeServiceTrafficStatuses(des, initial *ServiceTrafficStatuses, op
 
 func canonicalizeServiceTrafficStatusesSlice(des, initial []ServiceTrafficStatuses, opts ...dcl.ApplyOption) []ServiceTrafficStatuses {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

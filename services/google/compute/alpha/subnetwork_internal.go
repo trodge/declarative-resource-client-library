@@ -599,20 +599,20 @@ func canonicalizeSubnetworkDesiredState(rawDesired, rawInitial *Subnetwork, opts
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Network) || (dcl.IsEmptyValueIndirect(rawDesired.Network) && dcl.IsEmptyValueIndirect(rawInitial.Network)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Network) && dcl.IsEmptyValueIndirect(rawInitial.Network) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Network = rawInitial.Network
 	} else {
 		canonicalDesired.Network = rawDesired.Network
 	}
-	if dcl.IsZeroValue(rawDesired.Purpose) || (dcl.IsEmptyValueIndirect(rawDesired.Purpose) && dcl.IsEmptyValueIndirect(rawInitial.Purpose)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Purpose) && dcl.IsEmptyValueIndirect(rawInitial.Purpose) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Purpose = rawInitial.Purpose
 	} else {
 		canonicalDesired.Purpose = rawDesired.Purpose
 	}
-	if dcl.IsZeroValue(rawDesired.Role) || (dcl.IsEmptyValueIndirect(rawDesired.Role) && dcl.IsEmptyValueIndirect(rawInitial.Role)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Role) && dcl.IsEmptyValueIndirect(rawInitial.Role) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Role = rawInitial.Role
 	} else {
 		canonicalDesired.Role = rawDesired.Role
@@ -749,10 +749,7 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 }
 
 func canonicalizeSubnetworkSecondaryIPRanges(des, initial *SubnetworkSecondaryIPRanges, opts ...dcl.ApplyOption) *SubnetworkSecondaryIPRanges {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -762,12 +759,12 @@ func canonicalizeSubnetworkSecondaryIPRanges(des, initial *SubnetworkSecondaryIP
 
 	cDes := &SubnetworkSecondaryIPRanges{}
 
-	if dcl.StringCanonicalize(des.RangeName, initial.RangeName) || dcl.IsZeroValue(des.RangeName) {
+	if dcl.StringCanonicalize(des.RangeName, initial.RangeName) {
 		cDes.RangeName = initial.RangeName
 	} else {
 		cDes.RangeName = des.RangeName
 	}
-	if dcl.StringCanonicalize(des.IPCidrRange, initial.IPCidrRange) || dcl.IsZeroValue(des.IPCidrRange) {
+	if dcl.StringCanonicalize(des.IPCidrRange, initial.IPCidrRange) {
 		cDes.IPCidrRange = initial.IPCidrRange
 	} else {
 		cDes.IPCidrRange = des.IPCidrRange
@@ -778,7 +775,7 @@ func canonicalizeSubnetworkSecondaryIPRanges(des, initial *SubnetworkSecondaryIP
 
 func canonicalizeSubnetworkSecondaryIPRangesSlice(des, initial []SubnetworkSecondaryIPRanges, opts ...dcl.ApplyOption) []SubnetworkSecondaryIPRanges {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -872,10 +869,7 @@ func canonicalizeNewSubnetworkSecondaryIPRangesSlice(c *Client, des, nw []Subnet
 }
 
 func canonicalizeSubnetworkLogConfig(des, initial *SubnetworkLogConfig, opts ...dcl.ApplyOption) *SubnetworkLogConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -897,20 +891,20 @@ func canonicalizeSubnetworkLogConfig(des, initial *SubnetworkLogConfig, opts ...
 
 	cDes := &SubnetworkLogConfig{}
 
-	if dcl.IsZeroValue(des.AggregationInterval) || (dcl.IsEmptyValueIndirect(des.AggregationInterval) && dcl.IsEmptyValueIndirect(initial.AggregationInterval)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.AggregationInterval) && dcl.IsEmptyValueIndirect(initial.AggregationInterval) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.AggregationInterval = initial.AggregationInterval
 	} else {
 		cDes.AggregationInterval = des.AggregationInterval
 	}
-	if dcl.IsZeroValue(des.FlowSampling) || (dcl.IsEmptyValueIndirect(des.FlowSampling) && dcl.IsEmptyValueIndirect(initial.FlowSampling)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.FlowSampling) && dcl.IsEmptyValueIndirect(initial.FlowSampling) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.FlowSampling = initial.FlowSampling
 	} else {
 		cDes.FlowSampling = des.FlowSampling
 	}
-	if dcl.IsZeroValue(des.Metadata) || (dcl.IsEmptyValueIndirect(des.Metadata) && dcl.IsEmptyValueIndirect(initial.Metadata)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Metadata) && dcl.IsEmptyValueIndirect(initial.Metadata) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Metadata = initial.Metadata
 	} else {
 		cDes.Metadata = des.Metadata
@@ -921,7 +915,7 @@ func canonicalizeSubnetworkLogConfig(des, initial *SubnetworkLogConfig, opts ...
 
 func canonicalizeSubnetworkLogConfigSlice(des, initial []SubnetworkLogConfig, opts ...dcl.ApplyOption) []SubnetworkLogConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -480,23 +480,6 @@ func canonicalizeWorkloadIdentityPoolProviderDesiredState(rawDesired, rawInitial
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.Aws != nil || rawInitial.Aws != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Oidc) {
-			rawDesired.Aws = nil
-			rawInitial.Aws = nil
-		}
-	}
-
-	if rawDesired.Oidc != nil || rawInitial.Oidc != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Aws) {
-			rawDesired.Oidc = nil
-			rawInitial.Oidc = nil
-		}
-	}
-
 	canonicalDesired := &WorkloadIdentityPoolProvider{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -518,8 +501,8 @@ func canonicalizeWorkloadIdentityPoolProviderDesiredState(rawDesired, rawInitial
 	} else {
 		canonicalDesired.Disabled = rawDesired.Disabled
 	}
-	if dcl.IsZeroValue(rawDesired.AttributeMapping) || (dcl.IsEmptyValueIndirect(rawDesired.AttributeMapping) && dcl.IsEmptyValueIndirect(rawInitial.AttributeMapping)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.AttributeMapping) && dcl.IsEmptyValueIndirect(rawInitial.AttributeMapping) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.AttributeMapping = rawInitial.AttributeMapping
 	} else {
 		canonicalDesired.AttributeMapping = rawDesired.AttributeMapping
@@ -545,6 +528,20 @@ func canonicalizeWorkloadIdentityPoolProviderDesiredState(rawDesired, rawInitial
 		canonicalDesired.WorkloadIdentityPool = rawInitial.WorkloadIdentityPool
 	} else {
 		canonicalDesired.WorkloadIdentityPool = rawDesired.WorkloadIdentityPool
+	}
+
+	if canonicalDesired.Aws != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Oidc) {
+			canonicalDesired.Aws = nil
+		}
+	}
+
+	if canonicalDesired.Oidc != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.Aws) {
+			canonicalDesired.Oidc = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -620,14 +617,23 @@ func canonicalizeWorkloadIdentityPoolProviderNewState(c *Client, rawNew, rawDesi
 
 	rawNew.WorkloadIdentityPool = rawDesired.WorkloadIdentityPool
 
+	if rawNew.Aws != nil {
+		if dcl.AnySet(rawNew.Oidc) && rawDesired.Aws == nil {
+			rawNew.Aws = nil
+		}
+	}
+
+	if rawNew.Oidc != nil {
+		if dcl.AnySet(rawNew.Aws) && rawDesired.Oidc == nil {
+			rawNew.Oidc = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeWorkloadIdentityPoolProviderAws(des, initial *WorkloadIdentityPoolProviderAws, opts ...dcl.ApplyOption) *WorkloadIdentityPoolProviderAws {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -637,7 +643,7 @@ func canonicalizeWorkloadIdentityPoolProviderAws(des, initial *WorkloadIdentityP
 
 	cDes := &WorkloadIdentityPoolProviderAws{}
 
-	if dcl.StringCanonicalize(des.AccountId, initial.AccountId) || dcl.IsZeroValue(des.AccountId) {
+	if dcl.StringCanonicalize(des.AccountId, initial.AccountId) {
 		cDes.AccountId = initial.AccountId
 	} else {
 		cDes.AccountId = des.AccountId
@@ -653,7 +659,7 @@ func canonicalizeWorkloadIdentityPoolProviderAws(des, initial *WorkloadIdentityP
 
 func canonicalizeWorkloadIdentityPoolProviderAwsSlice(des, initial []WorkloadIdentityPoolProviderAws, opts ...dcl.ApplyOption) []WorkloadIdentityPoolProviderAws {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -745,10 +751,7 @@ func canonicalizeNewWorkloadIdentityPoolProviderAwsSlice(c *Client, des, nw []Wo
 }
 
 func canonicalizeWorkloadIdentityPoolProviderOidc(des, initial *WorkloadIdentityPoolProviderOidc, opts ...dcl.ApplyOption) *WorkloadIdentityPoolProviderOidc {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -758,7 +761,7 @@ func canonicalizeWorkloadIdentityPoolProviderOidc(des, initial *WorkloadIdentity
 
 	cDes := &WorkloadIdentityPoolProviderOidc{}
 
-	if dcl.StringCanonicalize(des.IssuerUri, initial.IssuerUri) || dcl.IsZeroValue(des.IssuerUri) {
+	if dcl.StringCanonicalize(des.IssuerUri, initial.IssuerUri) {
 		cDes.IssuerUri = initial.IssuerUri
 	} else {
 		cDes.IssuerUri = des.IssuerUri
@@ -774,7 +777,7 @@ func canonicalizeWorkloadIdentityPoolProviderOidc(des, initial *WorkloadIdentity
 
 func canonicalizeWorkloadIdentityPoolProviderOidcSlice(des, initial []WorkloadIdentityPoolProviderOidc, opts ...dcl.ApplyOption) []WorkloadIdentityPoolProviderOidc {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

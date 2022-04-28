@@ -366,20 +366,20 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 		return rawDesired, nil
 	}
 	canonicalDesired := &Assignment{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Assignee) || (dcl.IsEmptyValueIndirect(rawDesired.Assignee) && dcl.IsEmptyValueIndirect(rawInitial.Assignee)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Assignee) && dcl.IsEmptyValueIndirect(rawInitial.Assignee) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Assignee = rawInitial.Assignee
 	} else {
 		canonicalDesired.Assignee = rawDesired.Assignee
 	}
-	if dcl.IsZeroValue(rawDesired.JobType) || (dcl.IsEmptyValueIndirect(rawDesired.JobType) && dcl.IsEmptyValueIndirect(rawInitial.JobType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.JobType) && dcl.IsEmptyValueIndirect(rawInitial.JobType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.JobType = rawInitial.JobType
 	} else {
 		canonicalDesired.JobType = rawDesired.JobType

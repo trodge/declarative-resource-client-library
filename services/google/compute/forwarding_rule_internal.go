@@ -625,8 +625,8 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 		return rawDesired, nil
 	}
 	canonicalDesired := &ForwardingRule{}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -656,14 +656,14 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.IPAddress = rawDesired.IPAddress
 	}
-	if dcl.IsZeroValue(rawDesired.IPProtocol) || (dcl.IsEmptyValueIndirect(rawDesired.IPProtocol) && dcl.IsEmptyValueIndirect(rawInitial.IPProtocol)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.IPProtocol) && dcl.IsEmptyValueIndirect(rawInitial.IPProtocol) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.IPProtocol = rawInitial.IPProtocol
 	} else {
 		canonicalDesired.IPProtocol = rawDesired.IPProtocol
 	}
-	if dcl.IsZeroValue(rawDesired.IPVersion) || (dcl.IsEmptyValueIndirect(rawDesired.IPVersion) && dcl.IsEmptyValueIndirect(rawInitial.IPVersion)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.IPVersion) && dcl.IsEmptyValueIndirect(rawInitial.IPVersion) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.IPVersion = rawInitial.IPVersion
 	} else {
 		canonicalDesired.IPVersion = rawDesired.IPVersion
@@ -673,8 +673,8 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.IsMirroringCollector = rawDesired.IsMirroringCollector
 	}
-	if dcl.IsZeroValue(rawDesired.LoadBalancingScheme) || (dcl.IsEmptyValueIndirect(rawDesired.LoadBalancingScheme) && dcl.IsEmptyValueIndirect(rawInitial.LoadBalancingScheme)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.LoadBalancingScheme) && dcl.IsEmptyValueIndirect(rawInitial.LoadBalancingScheme) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.LoadBalancingScheme = rawInitial.LoadBalancingScheme
 	} else {
 		canonicalDesired.LoadBalancingScheme = rawDesired.LoadBalancingScheme
@@ -690,8 +690,8 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.Network = rawDesired.Network
 	}
-	if dcl.IsZeroValue(rawDesired.NetworkTier) || (dcl.IsEmptyValueIndirect(rawDesired.NetworkTier) && dcl.IsEmptyValueIndirect(rawInitial.NetworkTier)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.NetworkTier) && dcl.IsEmptyValueIndirect(rawInitial.NetworkTier) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.NetworkTier = rawInitial.NetworkTier
 	} else {
 		canonicalDesired.NetworkTier = rawDesired.NetworkTier
@@ -726,8 +726,8 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.Target = rawDesired.Target
 	}
-	if dcl.IsZeroValue(rawDesired.Project) || (dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
@@ -936,10 +936,7 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 }
 
 func canonicalizeForwardingRuleMetadataFilter(des, initial *ForwardingRuleMetadataFilter, opts ...dcl.ApplyOption) *ForwardingRuleMetadataFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -949,8 +946,8 @@ func canonicalizeForwardingRuleMetadataFilter(des, initial *ForwardingRuleMetada
 
 	cDes := &ForwardingRuleMetadataFilter{}
 
-	if dcl.IsZeroValue(des.FilterMatchCriteria) || (dcl.IsEmptyValueIndirect(des.FilterMatchCriteria) && dcl.IsEmptyValueIndirect(initial.FilterMatchCriteria)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.FilterMatchCriteria) && dcl.IsEmptyValueIndirect(initial.FilterMatchCriteria) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.FilterMatchCriteria = initial.FilterMatchCriteria
 	} else {
 		cDes.FilterMatchCriteria = des.FilterMatchCriteria
@@ -962,7 +959,7 @@ func canonicalizeForwardingRuleMetadataFilter(des, initial *ForwardingRuleMetada
 
 func canonicalizeForwardingRuleMetadataFilterSlice(des, initial []ForwardingRuleMetadataFilter, opts ...dcl.ApplyOption) []ForwardingRuleMetadataFilter {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1051,10 +1048,7 @@ func canonicalizeNewForwardingRuleMetadataFilterSlice(c *Client, des, nw []Forwa
 }
 
 func canonicalizeForwardingRuleMetadataFilterFilterLabel(des, initial *ForwardingRuleMetadataFilterFilterLabel, opts ...dcl.ApplyOption) *ForwardingRuleMetadataFilterFilterLabel {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1064,12 +1058,12 @@ func canonicalizeForwardingRuleMetadataFilterFilterLabel(des, initial *Forwardin
 
 	cDes := &ForwardingRuleMetadataFilterFilterLabel{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) {
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
@@ -1080,7 +1074,7 @@ func canonicalizeForwardingRuleMetadataFilterFilterLabel(des, initial *Forwardin
 
 func canonicalizeForwardingRuleMetadataFilterFilterLabelSlice(des, initial []ForwardingRuleMetadataFilterFilterLabel, opts ...dcl.ApplyOption) []ForwardingRuleMetadataFilterFilterLabel {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1174,10 +1168,7 @@ func canonicalizeNewForwardingRuleMetadataFilterFilterLabelSlice(c *Client, des,
 }
 
 func canonicalizeForwardingRuleServiceDirectoryRegistrations(des, initial *ForwardingRuleServiceDirectoryRegistrations, opts ...dcl.ApplyOption) *ForwardingRuleServiceDirectoryRegistrations {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1187,12 +1178,12 @@ func canonicalizeForwardingRuleServiceDirectoryRegistrations(des, initial *Forwa
 
 	cDes := &ForwardingRuleServiceDirectoryRegistrations{}
 
-	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) {
 		cDes.Namespace = initial.Namespace
 	} else {
 		cDes.Namespace = des.Namespace
 	}
-	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, initial.Service) {
 		cDes.Service = initial.Service
 	} else {
 		cDes.Service = des.Service
@@ -1203,7 +1194,7 @@ func canonicalizeForwardingRuleServiceDirectoryRegistrations(des, initial *Forwa
 
 func canonicalizeForwardingRuleServiceDirectoryRegistrationsSlice(des, initial []ForwardingRuleServiceDirectoryRegistrations, opts ...dcl.ApplyOption) []ForwardingRuleServiceDirectoryRegistrations {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

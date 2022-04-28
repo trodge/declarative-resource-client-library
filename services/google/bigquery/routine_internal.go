@@ -527,26 +527,26 @@ func canonicalizeRoutineDesiredState(rawDesired, rawInitial *Routine, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Project) || (dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-	if dcl.IsZeroValue(rawDesired.Dataset) || (dcl.IsEmptyValueIndirect(rawDesired.Dataset) && dcl.IsEmptyValueIndirect(rawInitial.Dataset)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Dataset) && dcl.IsEmptyValueIndirect(rawInitial.Dataset) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Dataset = rawInitial.Dataset
 	} else {
 		canonicalDesired.Dataset = rawDesired.Dataset
 	}
-	if dcl.IsZeroValue(rawDesired.RoutineType) || (dcl.IsEmptyValueIndirect(rawDesired.RoutineType) && dcl.IsEmptyValueIndirect(rawInitial.RoutineType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.RoutineType) && dcl.IsEmptyValueIndirect(rawInitial.RoutineType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.RoutineType = rawInitial.RoutineType
 	} else {
 		canonicalDesired.RoutineType = rawDesired.RoutineType
 	}
-	if dcl.IsZeroValue(rawDesired.Language) || (dcl.IsEmptyValueIndirect(rawDesired.Language) && dcl.IsEmptyValueIndirect(rawInitial.Language)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Language) && dcl.IsEmptyValueIndirect(rawInitial.Language) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Language = rawInitial.Language
 	} else {
 		canonicalDesired.Language = rawDesired.Language
@@ -568,8 +568,8 @@ func canonicalizeRoutineDesiredState(rawDesired, rawInitial *Routine, opts ...dc
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.DeterminismLevel) || (dcl.IsEmptyValueIndirect(rawDesired.DeterminismLevel) && dcl.IsEmptyValueIndirect(rawInitial.DeterminismLevel)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.DeterminismLevel) && dcl.IsEmptyValueIndirect(rawInitial.DeterminismLevel) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.DeterminismLevel = rawInitial.DeterminismLevel
 	} else {
 		canonicalDesired.DeterminismLevel = rawDesired.DeterminismLevel
@@ -684,10 +684,7 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 }
 
 func canonicalizeRoutineArguments(des, initial *RoutineArguments, opts ...dcl.ApplyOption) *RoutineArguments {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -697,19 +694,19 @@ func canonicalizeRoutineArguments(des, initial *RoutineArguments, opts ...dcl.Ap
 
 	cDes := &RoutineArguments{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.ArgumentKind) || (dcl.IsEmptyValueIndirect(des.ArgumentKind) && dcl.IsEmptyValueIndirect(initial.ArgumentKind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ArgumentKind) && dcl.IsEmptyValueIndirect(initial.ArgumentKind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ArgumentKind = initial.ArgumentKind
 	} else {
 		cDes.ArgumentKind = des.ArgumentKind
 	}
-	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -721,7 +718,7 @@ func canonicalizeRoutineArguments(des, initial *RoutineArguments, opts ...dcl.Ap
 
 func canonicalizeRoutineArgumentsSlice(des, initial []RoutineArguments, opts ...dcl.ApplyOption) []RoutineArguments {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -813,31 +810,8 @@ func canonicalizeNewRoutineArgumentsSlice(c *Client, des, nw []RoutineArguments)
 }
 
 func canonicalizeRoutineArgumentsDataType(des, initial *RoutineArgumentsDataType, opts ...dcl.ApplyOption) *RoutineArgumentsDataType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.ArrayElementType != nil || (initial != nil && initial.ArrayElementType != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.StructType) {
-			des.ArrayElementType = nil
-			if initial != nil {
-				initial.ArrayElementType = nil
-			}
-		}
-	}
-
-	if des.StructType != nil || (initial != nil && initial.StructType != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ArrayElementType) {
-			des.StructType = nil
-			if initial != nil {
-				initial.StructType = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -846,8 +820,8 @@ func canonicalizeRoutineArgumentsDataType(des, initial *RoutineArgumentsDataType
 
 	cDes := &RoutineArgumentsDataType{}
 
-	if dcl.IsZeroValue(des.TypeKind) || (dcl.IsEmptyValueIndirect(des.TypeKind) && dcl.IsEmptyValueIndirect(initial.TypeKind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TypeKind) && dcl.IsEmptyValueIndirect(initial.TypeKind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TypeKind = initial.TypeKind
 	} else {
 		cDes.TypeKind = des.TypeKind
@@ -855,12 +829,25 @@ func canonicalizeRoutineArgumentsDataType(des, initial *RoutineArgumentsDataType
 	cDes.ArrayElementType = canonicalizeRoutineArgumentsDataType(des.ArrayElementType, initial.ArrayElementType, opts...)
 	cDes.StructType = canonicalizeRoutineArgumentsDataTypeStructType(des.StructType, initial.StructType, opts...)
 
+	if cDes.ArrayElementType != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.StructType) {
+			cDes.ArrayElementType = nil
+		}
+	}
+
+	if cDes.StructType != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ArrayElementType) {
+			cDes.StructType = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeRoutineArgumentsDataTypeSlice(des, initial []RoutineArgumentsDataType, opts ...dcl.ApplyOption) []RoutineArgumentsDataType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -950,10 +937,7 @@ func canonicalizeNewRoutineArgumentsDataTypeSlice(c *Client, des, nw []RoutineAr
 }
 
 func canonicalizeRoutineArgumentsDataTypeStructType(des, initial *RoutineArgumentsDataTypeStructType, opts ...dcl.ApplyOption) *RoutineArgumentsDataTypeStructType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -970,7 +954,7 @@ func canonicalizeRoutineArgumentsDataTypeStructType(des, initial *RoutineArgumen
 
 func canonicalizeRoutineArgumentsDataTypeStructTypeSlice(des, initial []RoutineArgumentsDataTypeStructType, opts ...dcl.ApplyOption) []RoutineArgumentsDataTypeStructType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1059,10 +1043,7 @@ func canonicalizeNewRoutineArgumentsDataTypeStructTypeSlice(c *Client, des, nw [
 }
 
 func canonicalizeRoutineArgumentsDataTypeStructTypeFields(des, initial *RoutineArgumentsDataTypeStructTypeFields, opts ...dcl.ApplyOption) *RoutineArgumentsDataTypeStructTypeFields {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1072,7 +1053,7 @@ func canonicalizeRoutineArgumentsDataTypeStructTypeFields(des, initial *RoutineA
 
 	cDes := &RoutineArgumentsDataTypeStructTypeFields{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -1084,7 +1065,7 @@ func canonicalizeRoutineArgumentsDataTypeStructTypeFields(des, initial *RoutineA
 
 func canonicalizeRoutineArgumentsDataTypeStructTypeFieldsSlice(des, initial []RoutineArgumentsDataTypeStructTypeFields, opts ...dcl.ApplyOption) []RoutineArgumentsDataTypeStructTypeFields {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

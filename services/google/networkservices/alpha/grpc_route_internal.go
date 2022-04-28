@@ -597,8 +597,8 @@ func canonicalizeGrpcRouteDesiredState(rawDesired, rawInitial *GrpcRoute, opts .
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -730,10 +730,7 @@ func canonicalizeGrpcRouteNewState(c *Client, rawNew, rawDesired *GrpcRoute) (*G
 }
 
 func canonicalizeGrpcRouteRules(des, initial *GrpcRouteRules, opts ...dcl.ApplyOption) *GrpcRouteRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -751,7 +748,7 @@ func canonicalizeGrpcRouteRules(des, initial *GrpcRouteRules, opts ...dcl.ApplyO
 
 func canonicalizeGrpcRouteRulesSlice(des, initial []GrpcRouteRules, opts ...dcl.ApplyOption) []GrpcRouteRules {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -841,21 +838,8 @@ func canonicalizeNewGrpcRouteRulesSlice(c *Client, des, nw []GrpcRouteRules) []G
 }
 
 func canonicalizeGrpcRouteRulesMatches(des, initial *GrpcRouteRulesMatches, opts ...dcl.ApplyOption) *GrpcRouteRulesMatches {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Method != nil || (initial != nil && initial.Method != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.Method = nil
-			if initial != nil {
-				initial.Method = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -867,12 +851,18 @@ func canonicalizeGrpcRouteRulesMatches(des, initial *GrpcRouteRulesMatches, opts
 	cDes.Method = canonicalizeGrpcRouteRulesMatchesMethod(des.Method, initial.Method, opts...)
 	cDes.Headers = canonicalizeGrpcRouteRulesMatchesHeadersSlice(des.Headers, initial.Headers, opts...)
 
+	if cDes.Method != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			cDes.Method = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeGrpcRouteRulesMatchesSlice(des, initial []GrpcRouteRulesMatches, opts ...dcl.ApplyOption) []GrpcRouteRulesMatches {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -962,21 +952,8 @@ func canonicalizeNewGrpcRouteRulesMatchesSlice(c *Client, des, nw []GrpcRouteRul
 }
 
 func canonicalizeGrpcRouteRulesMatchesMethod(des, initial *GrpcRouteRulesMatchesMethod, opts ...dcl.ApplyOption) *GrpcRouteRulesMatchesMethod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.CaseSensitive != nil || (initial != nil && initial.CaseSensitive != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.CaseSensitive = nil
-			if initial != nil {
-				initial.CaseSensitive = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -985,34 +962,40 @@ func canonicalizeGrpcRouteRulesMatchesMethod(des, initial *GrpcRouteRulesMatches
 
 	cDes := &GrpcRouteRulesMatchesMethod{}
 
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.StringCanonicalize(des.GrpcService, initial.GrpcService) || dcl.IsZeroValue(des.GrpcService) {
+	if dcl.StringCanonicalize(des.GrpcService, initial.GrpcService) {
 		cDes.GrpcService = initial.GrpcService
 	} else {
 		cDes.GrpcService = des.GrpcService
 	}
-	if dcl.StringCanonicalize(des.GrpcMethod, initial.GrpcMethod) || dcl.IsZeroValue(des.GrpcMethod) {
+	if dcl.StringCanonicalize(des.GrpcMethod, initial.GrpcMethod) {
 		cDes.GrpcMethod = initial.GrpcMethod
 	} else {
 		cDes.GrpcMethod = des.GrpcMethod
 	}
-	if dcl.BoolCanonicalize(des.CaseSensitive, initial.CaseSensitive) || dcl.IsZeroValue(des.CaseSensitive) {
+	if dcl.BoolCanonicalize(des.CaseSensitive, initial.CaseSensitive) {
 		cDes.CaseSensitive = initial.CaseSensitive
 	} else {
 		cDes.CaseSensitive = des.CaseSensitive
 	}
 
+	if cDes.CaseSensitive != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			cDes.CaseSensitive = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeGrpcRouteRulesMatchesMethodSlice(des, initial []GrpcRouteRulesMatchesMethod, opts ...dcl.ApplyOption) []GrpcRouteRulesMatchesMethod {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1109,10 +1092,7 @@ func canonicalizeNewGrpcRouteRulesMatchesMethodSlice(c *Client, des, nw []GrpcRo
 }
 
 func canonicalizeGrpcRouteRulesMatchesHeaders(des, initial *GrpcRouteRulesMatchesHeaders, opts ...dcl.ApplyOption) *GrpcRouteRulesMatchesHeaders {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1122,18 +1102,18 @@ func canonicalizeGrpcRouteRulesMatchesHeaders(des, initial *GrpcRouteRulesMatche
 
 	cDes := &GrpcRouteRulesMatchesHeaders{}
 
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
 	}
-	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) {
 		cDes.Key = initial.Key
 	} else {
 		cDes.Key = des.Key
 	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) {
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
@@ -1144,7 +1124,7 @@ func canonicalizeGrpcRouteRulesMatchesHeaders(des, initial *GrpcRouteRulesMatche
 
 func canonicalizeGrpcRouteRulesMatchesHeadersSlice(des, initial []GrpcRouteRulesMatchesHeaders, opts ...dcl.ApplyOption) []GrpcRouteRulesMatchesHeaders {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1238,10 +1218,7 @@ func canonicalizeNewGrpcRouteRulesMatchesHeadersSlice(c *Client, des, nw []GrpcR
 }
 
 func canonicalizeGrpcRouteRulesAction(des, initial *GrpcRouteRulesAction, opts ...dcl.ApplyOption) *GrpcRouteRulesAction {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1253,7 +1230,7 @@ func canonicalizeGrpcRouteRulesAction(des, initial *GrpcRouteRulesAction, opts .
 
 	cDes.Destinations = canonicalizeGrpcRouteRulesActionDestinationsSlice(des.Destinations, initial.Destinations, opts...)
 	cDes.FaultInjectionPolicy = canonicalizeGrpcRouteRulesActionFaultInjectionPolicy(des.FaultInjectionPolicy, initial.FaultInjectionPolicy, opts...)
-	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
+	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) {
 		cDes.Timeout = initial.Timeout
 	} else {
 		cDes.Timeout = des.Timeout
@@ -1265,7 +1242,7 @@ func canonicalizeGrpcRouteRulesAction(des, initial *GrpcRouteRulesAction, opts .
 
 func canonicalizeGrpcRouteRulesActionSlice(des, initial []GrpcRouteRulesAction, opts ...dcl.ApplyOption) []GrpcRouteRulesAction {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1359,21 +1336,8 @@ func canonicalizeNewGrpcRouteRulesActionSlice(c *Client, des, nw []GrpcRouteRule
 }
 
 func canonicalizeGrpcRouteRulesActionDestinations(des, initial *GrpcRouteRulesActionDestinations, opts ...dcl.ApplyOption) *GrpcRouteRulesActionDestinations {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Weight != nil || (initial != nil && initial.Weight != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.Weight = nil
-			if initial != nil {
-				initial.Weight = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1382,25 +1346,31 @@ func canonicalizeGrpcRouteRulesActionDestinations(des, initial *GrpcRouteRulesAc
 
 	cDes := &GrpcRouteRulesActionDestinations{}
 
-	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
 	}
-	if dcl.IsZeroValue(des.ServiceName) || (dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ServiceName = initial.ServiceName
 	} else {
 		cDes.ServiceName = des.ServiceName
 	}
 
+	if cDes.Weight != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			cDes.Weight = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeGrpcRouteRulesActionDestinationsSlice(des, initial []GrpcRouteRulesActionDestinations, opts ...dcl.ApplyOption) []GrpcRouteRulesActionDestinations {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1487,31 +1457,8 @@ func canonicalizeNewGrpcRouteRulesActionDestinationsSlice(c *Client, des, nw []G
 }
 
 func canonicalizeGrpcRouteRulesActionFaultInjectionPolicy(des, initial *GrpcRouteRulesActionFaultInjectionPolicy, opts ...dcl.ApplyOption) *GrpcRouteRulesActionFaultInjectionPolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Delay != nil || (initial != nil && initial.Delay != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.Delay = nil
-			if initial != nil {
-				initial.Delay = nil
-			}
-		}
-	}
-
-	if des.Abort != nil || (initial != nil && initial.Abort != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.Abort = nil
-			if initial != nil {
-				initial.Abort = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1523,12 +1470,25 @@ func canonicalizeGrpcRouteRulesActionFaultInjectionPolicy(des, initial *GrpcRout
 	cDes.Delay = canonicalizeGrpcRouteRulesActionFaultInjectionPolicyDelay(des.Delay, initial.Delay, opts...)
 	cDes.Abort = canonicalizeGrpcRouteRulesActionFaultInjectionPolicyAbort(des.Abort, initial.Abort, opts...)
 
+	if cDes.Delay != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			cDes.Delay = nil
+		}
+	}
+
+	if cDes.Abort != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			cDes.Abort = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeGrpcRouteRulesActionFaultInjectionPolicySlice(des, initial []GrpcRouteRulesActionFaultInjectionPolicy, opts ...dcl.ApplyOption) []GrpcRouteRulesActionFaultInjectionPolicy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1618,31 +1578,8 @@ func canonicalizeNewGrpcRouteRulesActionFaultInjectionPolicySlice(c *Client, des
 }
 
 func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyDelay(des, initial *GrpcRouteRulesActionFaultInjectionPolicyDelay, opts ...dcl.ApplyOption) *GrpcRouteRulesActionFaultInjectionPolicyDelay {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.FixedDelay != nil || (initial != nil && initial.FixedDelay != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.FixedDelay = nil
-			if initial != nil {
-				initial.FixedDelay = nil
-			}
-		}
-	}
-
-	if des.Percentage != nil || (initial != nil && initial.Percentage != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.Percentage = nil
-			if initial != nil {
-				initial.Percentage = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1651,24 +1588,37 @@ func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyDelay(des, initial *Grp
 
 	cDes := &GrpcRouteRulesActionFaultInjectionPolicyDelay{}
 
-	if dcl.StringCanonicalize(des.FixedDelay, initial.FixedDelay) || dcl.IsZeroValue(des.FixedDelay) {
+	if dcl.StringCanonicalize(des.FixedDelay, initial.FixedDelay) {
 		cDes.FixedDelay = initial.FixedDelay
 	} else {
 		cDes.FixedDelay = des.FixedDelay
 	}
-	if dcl.IsZeroValue(des.Percentage) || (dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
 	}
 
+	if cDes.FixedDelay != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			cDes.FixedDelay = nil
+		}
+	}
+
+	if cDes.Percentage != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			cDes.Percentage = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyDelaySlice(des, initial []GrpcRouteRulesActionFaultInjectionPolicyDelay, opts ...dcl.ApplyOption) []GrpcRouteRulesActionFaultInjectionPolicyDelay {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1759,31 +1709,8 @@ func canonicalizeNewGrpcRouteRulesActionFaultInjectionPolicyDelaySlice(c *Client
 }
 
 func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyAbort(des, initial *GrpcRouteRulesActionFaultInjectionPolicyAbort, opts ...dcl.ApplyOption) *GrpcRouteRulesActionFaultInjectionPolicyAbort {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.HttpStatus != nil || (initial != nil && initial.HttpStatus != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.HttpStatus = nil
-			if initial != nil {
-				initial.HttpStatus = nil
-			}
-		}
-	}
-
-	if des.Percentage != nil || (initial != nil && initial.Percentage != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.Percentage = nil
-			if initial != nil {
-				initial.Percentage = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1792,25 +1719,38 @@ func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyAbort(des, initial *Grp
 
 	cDes := &GrpcRouteRulesActionFaultInjectionPolicyAbort{}
 
-	if dcl.IsZeroValue(des.HttpStatus) || (dcl.IsEmptyValueIndirect(des.HttpStatus) && dcl.IsEmptyValueIndirect(initial.HttpStatus)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.HttpStatus) && dcl.IsEmptyValueIndirect(initial.HttpStatus) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.HttpStatus = initial.HttpStatus
 	} else {
 		cDes.HttpStatus = des.HttpStatus
 	}
-	if dcl.IsZeroValue(des.Percentage) || (dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Percentage) && dcl.IsEmptyValueIndirect(initial.Percentage) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Percentage = initial.Percentage
 	} else {
 		cDes.Percentage = des.Percentage
 	}
 
+	if cDes.HttpStatus != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			cDes.HttpStatus = nil
+		}
+	}
+
+	if cDes.Percentage != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			cDes.Percentage = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeGrpcRouteRulesActionFaultInjectionPolicyAbortSlice(des, initial []GrpcRouteRulesActionFaultInjectionPolicyAbort, opts ...dcl.ApplyOption) []GrpcRouteRulesActionFaultInjectionPolicyAbort {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1897,10 +1837,7 @@ func canonicalizeNewGrpcRouteRulesActionFaultInjectionPolicyAbortSlice(c *Client
 }
 
 func canonicalizeGrpcRouteRulesActionRetryPolicy(des, initial *GrpcRouteRulesActionRetryPolicy, opts ...dcl.ApplyOption) *GrpcRouteRulesActionRetryPolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1915,8 +1852,8 @@ func canonicalizeGrpcRouteRulesActionRetryPolicy(des, initial *GrpcRouteRulesAct
 	} else {
 		cDes.RetryConditions = des.RetryConditions
 	}
-	if dcl.IsZeroValue(des.NumRetries) || (dcl.IsEmptyValueIndirect(des.NumRetries) && dcl.IsEmptyValueIndirect(initial.NumRetries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumRetries) && dcl.IsEmptyValueIndirect(initial.NumRetries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumRetries = initial.NumRetries
 	} else {
 		cDes.NumRetries = des.NumRetries
@@ -1927,7 +1864,7 @@ func canonicalizeGrpcRouteRulesActionRetryPolicy(des, initial *GrpcRouteRulesAct
 
 func canonicalizeGrpcRouteRulesActionRetryPolicySlice(des, initial []GrpcRouteRulesActionRetryPolicy, opts ...dcl.ApplyOption) []GrpcRouteRulesActionRetryPolicy {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -391,8 +391,8 @@ func canonicalizeTagKeyDesiredState(rawDesired, rawInitial *TagKey, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &TagKey{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -412,14 +412,14 @@ func canonicalizeTagKeyDesiredState(rawDesired, rawInitial *TagKey, opts ...dcl.
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.Purpose) || (dcl.IsEmptyValueIndirect(rawDesired.Purpose) && dcl.IsEmptyValueIndirect(rawInitial.Purpose)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Purpose) && dcl.IsEmptyValueIndirect(rawInitial.Purpose) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Purpose = rawInitial.Purpose
 	} else {
 		canonicalDesired.Purpose = rawDesired.Purpose
 	}
-	if dcl.IsZeroValue(rawDesired.PurposeData) || (dcl.IsEmptyValueIndirect(rawDesired.PurposeData) && dcl.IsEmptyValueIndirect(rawInitial.PurposeData)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.PurposeData) && dcl.IsEmptyValueIndirect(rawInitial.PurposeData) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.PurposeData = rawInitial.PurposeData
 	} else {
 		canonicalDesired.PurposeData = rawDesired.PurposeData

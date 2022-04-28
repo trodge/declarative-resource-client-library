@@ -517,8 +517,8 @@ func canonicalizePacketMirroringDesiredState(rawDesired, rawInitial *PacketMirro
 		canonicalDesired.Description = rawDesired.Description
 	}
 	canonicalDesired.Network = canonicalizePacketMirroringNetwork(rawDesired.Network, rawInitial.Network, opts...)
-	if dcl.IsZeroValue(rawDesired.Priority) || (dcl.IsEmptyValueIndirect(rawDesired.Priority) && dcl.IsEmptyValueIndirect(rawInitial.Priority)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Priority) && dcl.IsEmptyValueIndirect(rawInitial.Priority) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Priority = rawInitial.Priority
 	} else {
 		canonicalDesired.Priority = rawDesired.Priority
@@ -526,8 +526,8 @@ func canonicalizePacketMirroringDesiredState(rawDesired, rawInitial *PacketMirro
 	canonicalDesired.CollectorIlb = canonicalizePacketMirroringCollectorIlb(rawDesired.CollectorIlb, rawInitial.CollectorIlb, opts...)
 	canonicalDesired.MirroredResources = canonicalizePacketMirroringMirroredResources(rawDesired.MirroredResources, rawInitial.MirroredResources, opts...)
 	canonicalDesired.Filter = canonicalizePacketMirroringFilter(rawDesired.Filter, rawInitial.Filter, opts...)
-	if dcl.IsZeroValue(rawDesired.Enable) || (dcl.IsEmptyValueIndirect(rawDesired.Enable) && dcl.IsEmptyValueIndirect(rawInitial.Enable)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Enable) && dcl.IsEmptyValueIndirect(rawInitial.Enable) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Enable = rawInitial.Enable
 	} else {
 		canonicalDesired.Enable = rawDesired.Enable
@@ -627,10 +627,7 @@ func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMi
 }
 
 func canonicalizePacketMirroringNetwork(des, initial *PacketMirroringNetwork, opts ...dcl.ApplyOption) *PacketMirroringNetwork {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -640,8 +637,8 @@ func canonicalizePacketMirroringNetwork(des, initial *PacketMirroringNetwork, op
 
 	cDes := &PacketMirroringNetwork{}
 
-	if dcl.IsZeroValue(des.Url) || (dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -652,7 +649,7 @@ func canonicalizePacketMirroringNetwork(des, initial *PacketMirroringNetwork, op
 
 func canonicalizePacketMirroringNetworkSlice(des, initial []PacketMirroringNetwork, opts ...dcl.ApplyOption) []PacketMirroringNetwork {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -743,10 +740,7 @@ func canonicalizeNewPacketMirroringNetworkSlice(c *Client, des, nw []PacketMirro
 }
 
 func canonicalizePacketMirroringCollectorIlb(des, initial *PacketMirroringCollectorIlb, opts ...dcl.ApplyOption) *PacketMirroringCollectorIlb {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -756,8 +750,8 @@ func canonicalizePacketMirroringCollectorIlb(des, initial *PacketMirroringCollec
 
 	cDes := &PacketMirroringCollectorIlb{}
 
-	if dcl.IsZeroValue(des.Url) || (dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -768,7 +762,7 @@ func canonicalizePacketMirroringCollectorIlb(des, initial *PacketMirroringCollec
 
 func canonicalizePacketMirroringCollectorIlbSlice(des, initial []PacketMirroringCollectorIlb, opts ...dcl.ApplyOption) []PacketMirroringCollectorIlb {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -859,10 +853,7 @@ func canonicalizeNewPacketMirroringCollectorIlbSlice(c *Client, des, nw []Packet
 }
 
 func canonicalizePacketMirroringMirroredResources(des, initial *PacketMirroringMirroredResources, opts ...dcl.ApplyOption) *PacketMirroringMirroredResources {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -885,7 +876,7 @@ func canonicalizePacketMirroringMirroredResources(des, initial *PacketMirroringM
 
 func canonicalizePacketMirroringMirroredResourcesSlice(des, initial []PacketMirroringMirroredResources, opts ...dcl.ApplyOption) []PacketMirroringMirroredResources {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -978,10 +969,7 @@ func canonicalizeNewPacketMirroringMirroredResourcesSlice(c *Client, des, nw []P
 }
 
 func canonicalizePacketMirroringMirroredResourcesSubnetworks(des, initial *PacketMirroringMirroredResourcesSubnetworks, opts ...dcl.ApplyOption) *PacketMirroringMirroredResourcesSubnetworks {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -991,8 +979,8 @@ func canonicalizePacketMirroringMirroredResourcesSubnetworks(des, initial *Packe
 
 	cDes := &PacketMirroringMirroredResourcesSubnetworks{}
 
-	if dcl.IsZeroValue(des.Url) || (dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -1003,7 +991,7 @@ func canonicalizePacketMirroringMirroredResourcesSubnetworks(des, initial *Packe
 
 func canonicalizePacketMirroringMirroredResourcesSubnetworksSlice(des, initial []PacketMirroringMirroredResourcesSubnetworks, opts ...dcl.ApplyOption) []PacketMirroringMirroredResourcesSubnetworks {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1094,10 +1082,7 @@ func canonicalizeNewPacketMirroringMirroredResourcesSubnetworksSlice(c *Client, 
 }
 
 func canonicalizePacketMirroringMirroredResourcesInstances(des, initial *PacketMirroringMirroredResourcesInstances, opts ...dcl.ApplyOption) *PacketMirroringMirroredResourcesInstances {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1107,8 +1092,8 @@ func canonicalizePacketMirroringMirroredResourcesInstances(des, initial *PacketM
 
 	cDes := &PacketMirroringMirroredResourcesInstances{}
 
-	if dcl.IsZeroValue(des.Url) || (dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -1119,7 +1104,7 @@ func canonicalizePacketMirroringMirroredResourcesInstances(des, initial *PacketM
 
 func canonicalizePacketMirroringMirroredResourcesInstancesSlice(des, initial []PacketMirroringMirroredResourcesInstances, opts ...dcl.ApplyOption) []PacketMirroringMirroredResourcesInstances {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1210,10 +1195,7 @@ func canonicalizeNewPacketMirroringMirroredResourcesInstancesSlice(c *Client, de
 }
 
 func canonicalizePacketMirroringFilter(des, initial *PacketMirroringFilter, opts ...dcl.ApplyOption) *PacketMirroringFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1233,8 +1215,8 @@ func canonicalizePacketMirroringFilter(des, initial *PacketMirroringFilter, opts
 	} else {
 		cDes.IPProtocols = des.IPProtocols
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -1245,7 +1227,7 @@ func canonicalizePacketMirroringFilter(des, initial *PacketMirroringFilter, opts
 
 func canonicalizePacketMirroringFilterSlice(des, initial []PacketMirroringFilter, opts ...dcl.ApplyOption) []PacketMirroringFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

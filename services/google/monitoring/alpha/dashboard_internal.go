@@ -1797,39 +1797,6 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.GridLayout != nil || rawInitial.GridLayout != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.MosaicLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
-			rawDesired.GridLayout = nil
-			rawInitial.GridLayout = nil
-		}
-	}
-
-	if rawDesired.MosaicLayout != nil || rawInitial.MosaicLayout != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GridLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
-			rawDesired.MosaicLayout = nil
-			rawInitial.MosaicLayout = nil
-		}
-	}
-
-	if rawDesired.RowLayout != nil || rawInitial.RowLayout != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.ColumnLayout) {
-			rawDesired.RowLayout = nil
-			rawInitial.RowLayout = nil
-		}
-	}
-
-	if rawDesired.ColumnLayout != nil || rawInitial.ColumnLayout != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.RowLayout) {
-			rawDesired.ColumnLayout = nil
-			rawInitial.ColumnLayout = nil
-		}
-	}
-
 	canonicalDesired := &Dashboard{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -1849,6 +1816,34 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.GridLayout != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.MosaicLayout, canonicalDesired.RowLayout, canonicalDesired.ColumnLayout) {
+			canonicalDesired.GridLayout = nil
+		}
+	}
+
+	if canonicalDesired.MosaicLayout != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.GridLayout, canonicalDesired.RowLayout, canonicalDesired.ColumnLayout) {
+			canonicalDesired.MosaicLayout = nil
+		}
+	}
+
+	if canonicalDesired.RowLayout != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.GridLayout, canonicalDesired.MosaicLayout, canonicalDesired.ColumnLayout) {
+			canonicalDesired.RowLayout = nil
+		}
+	}
+
+	if canonicalDesired.ColumnLayout != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.GridLayout, canonicalDesired.MosaicLayout, canonicalDesired.RowLayout) {
+			canonicalDesired.ColumnLayout = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1900,14 +1895,35 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 		}
 	}
 
+	if rawNew.GridLayout != nil {
+		if dcl.AnySet(rawNew.MosaicLayout, rawNew.RowLayout, rawNew.ColumnLayout) && rawDesired.GridLayout == nil {
+			rawNew.GridLayout = nil
+		}
+	}
+
+	if rawNew.MosaicLayout != nil {
+		if dcl.AnySet(rawNew.GridLayout, rawNew.RowLayout, rawNew.ColumnLayout) && rawDesired.MosaicLayout == nil {
+			rawNew.MosaicLayout = nil
+		}
+	}
+
+	if rawNew.RowLayout != nil {
+		if dcl.AnySet(rawNew.GridLayout, rawNew.MosaicLayout, rawNew.ColumnLayout) && rawDesired.RowLayout == nil {
+			rawNew.RowLayout = nil
+		}
+	}
+
+	if rawNew.ColumnLayout != nil {
+		if dcl.AnySet(rawNew.GridLayout, rawNew.MosaicLayout, rawNew.RowLayout) && rawDesired.ColumnLayout == nil {
+			rawNew.ColumnLayout = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...dcl.ApplyOption) *DashboardGridLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1917,8 +1933,8 @@ func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...
 
 	cDes := &DashboardGridLayout{}
 
-	if dcl.IsZeroValue(des.Columns) || (dcl.IsEmptyValueIndirect(des.Columns) && dcl.IsEmptyValueIndirect(initial.Columns)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Columns) && dcl.IsEmptyValueIndirect(initial.Columns) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Columns = initial.Columns
 	} else {
 		cDes.Columns = des.Columns
@@ -1930,7 +1946,7 @@ func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...
 
 func canonicalizeDashboardGridLayoutSlice(des, initial []DashboardGridLayout, opts ...dcl.ApplyOption) []DashboardGridLayout {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2019,61 +2035,8 @@ func canonicalizeNewDashboardGridLayoutSlice(c *Client, des, nw []DashboardGridL
 }
 
 func canonicalizeDashboardGridLayoutWidgets(des, initial *DashboardGridLayoutWidgets, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.XyChart != nil || (initial != nil && initial.XyChart != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Scorecard, des.Text, des.Blank, des.LogsPanel) {
-			des.XyChart = nil
-			if initial != nil {
-				initial.XyChart = nil
-			}
-		}
-	}
-
-	if des.Scorecard != nil || (initial != nil && initial.Scorecard != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Text, des.Blank, des.LogsPanel) {
-			des.Scorecard = nil
-			if initial != nil {
-				initial.Scorecard = nil
-			}
-		}
-	}
-
-	if des.Text != nil || (initial != nil && initial.Text != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank, des.LogsPanel) {
-			des.Text = nil
-			if initial != nil {
-				initial.Text = nil
-			}
-		}
-	}
-
-	if des.Blank != nil || (initial != nil && initial.Blank != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.LogsPanel) {
-			des.Blank = nil
-			if initial != nil {
-				initial.Blank = nil
-			}
-		}
-	}
-
-	if des.LogsPanel != nil || (initial != nil && initial.LogsPanel != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.Blank) {
-			des.LogsPanel = nil
-			if initial != nil {
-				initial.LogsPanel = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2082,7 +2045,7 @@ func canonicalizeDashboardGridLayoutWidgets(des, initial *DashboardGridLayoutWid
 
 	cDes := &DashboardGridLayoutWidgets{}
 
-	if dcl.StringCanonicalize(des.Title, initial.Title) || dcl.IsZeroValue(des.Title) {
+	if dcl.StringCanonicalize(des.Title, initial.Title) {
 		cDes.Title = initial.Title
 	} else {
 		cDes.Title = des.Title
@@ -2093,12 +2056,46 @@ func canonicalizeDashboardGridLayoutWidgets(des, initial *DashboardGridLayoutWid
 	cDes.Blank = canonicalizeDashboardGridLayoutWidgetsBlank(des.Blank, initial.Blank, opts...)
 	cDes.LogsPanel = canonicalizeDashboardGridLayoutWidgetsLogsPanel(des.LogsPanel, initial.LogsPanel, opts...)
 
+	if cDes.XyChart != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Scorecard, cDes.Text, cDes.Blank, cDes.LogsPanel) {
+			cDes.XyChart = nil
+		}
+	}
+
+	if cDes.Scorecard != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Text, cDes.Blank, cDes.LogsPanel) {
+			cDes.Scorecard = nil
+		}
+	}
+
+	if cDes.Text != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Blank, cDes.LogsPanel) {
+			cDes.Text = nil
+		}
+	}
+
+	if cDes.Blank != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Text, cDes.LogsPanel) {
+			cDes.Blank = nil
+		}
+	}
+
+	if cDes.LogsPanel != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Text, cDes.Blank) {
+			cDes.LogsPanel = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeDashboardGridLayoutWidgetsSlice(des, initial []DashboardGridLayoutWidgets, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgets {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2194,10 +2191,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsSlice(c *Client, des, nw []Dashboa
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChart(des, initial *DashboardGridLayoutWidgetsXyChart, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChart {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2208,7 +2202,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChart(des, initial *DashboardGridLa
 	cDes := &DashboardGridLayoutWidgetsXyChart{}
 
 	cDes.DataSets = canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsSlice(des.DataSets, initial.DataSets, opts...)
-	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) || dcl.IsZeroValue(des.TimeshiftDuration) {
+	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) {
 		cDes.TimeshiftDuration = initial.TimeshiftDuration
 	} else {
 		cDes.TimeshiftDuration = des.TimeshiftDuration
@@ -2223,7 +2217,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChart(des, initial *DashboardGridLa
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartSlice(des, initial []DashboardGridLayoutWidgetsXyChart, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChart {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2319,10 +2313,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartSlice(c *Client, des, nw []
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSets(des, initial *DashboardGridLayoutWidgetsXyChartDataSets, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2333,18 +2324,18 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSets(des, initial *Dashboa
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSets{}
 
 	cDes.TimeSeriesQuery = canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
-	if dcl.IsZeroValue(des.PlotType) || (dcl.IsEmptyValueIndirect(des.PlotType) && dcl.IsEmptyValueIndirect(initial.PlotType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PlotType) && dcl.IsEmptyValueIndirect(initial.PlotType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PlotType = initial.PlotType
 	} else {
 		cDes.PlotType = des.PlotType
 	}
-	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) || dcl.IsZeroValue(des.LegendTemplate) {
+	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) {
 		cDes.LegendTemplate = initial.LegendTemplate
 	} else {
 		cDes.LegendTemplate = des.LegendTemplate
 	}
-	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) {
 		cDes.MinAlignmentPeriod = initial.MinAlignmentPeriod
 	} else {
 		cDes.MinAlignmentPeriod = des.MinAlignmentPeriod
@@ -2355,7 +2346,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSets(des, initial *Dashboa
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSets, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSets {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2450,10 +2441,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsSlice(c *Client, de
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2465,12 +2453,12 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery(des, i
 
 	cDes.TimeSeriesFilter = canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
 	cDes.TimeSeriesFilterRatio = canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
-	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) {
 		cDes.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
 	} else {
 		cDes.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
 	}
-	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
+	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) {
 		cDes.UnitOverride = initial.UnitOverride
 	} else {
 		cDes.UnitOverride = des.UnitOverride
@@ -2481,7 +2469,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery(des, i
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuerySlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2577,10 +2565,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuerySlic
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2590,7 +2575,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -2604,7 +2589,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2698,10 +2683,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2711,19 +2693,19 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -2739,7 +2721,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2833,10 +2815,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2846,19 +2825,19 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -2874,7 +2853,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2968,10 +2947,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2981,20 +2957,20 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -3005,7 +2981,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3092,10 +3068,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3115,7 +3088,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3207,10 +3180,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3220,7 +3190,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -3232,7 +3202,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3324,10 +3294,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3337,19 +3304,19 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -3365,7 +3332,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3459,10 +3426,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3472,7 +3436,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -3484,7 +3448,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3576,10 +3540,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3589,19 +3550,19 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -3617,7 +3578,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3711,10 +3672,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3724,19 +3682,19 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -3752,7 +3710,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3846,10 +3804,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des, initial *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3859,20 +3814,20 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 	cDes := &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -3883,7 +3838,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3970,10 +3925,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartThresholds(des, initial *DashboardGridLayoutWidgetsXyChartThresholds, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartThresholds {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3983,25 +3935,25 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartThresholds(des, initial *Dashb
 
 	cDes := &DashboardGridLayoutWidgetsXyChartThresholds{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Value) || (dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Color) || (dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -4012,7 +3964,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartThresholds(des, initial *Dashb
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartThresholdsSlice(des, initial []DashboardGridLayoutWidgetsXyChartThresholds, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartThresholds {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4103,10 +4055,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartThresholdsSlice(c *Client, 
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartXAxis(des, initial *DashboardGridLayoutWidgetsXyChartXAxis, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartXAxis {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4116,13 +4065,13 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartXAxis(des, initial *DashboardG
 
 	cDes := &DashboardGridLayoutWidgetsXyChartXAxis{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -4133,7 +4082,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartXAxis(des, initial *DashboardG
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartXAxisSlice(des, initial []DashboardGridLayoutWidgetsXyChartXAxis, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartXAxis {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4224,10 +4173,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartXAxisSlice(c *Client, des, 
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartYAxis(des, initial *DashboardGridLayoutWidgetsXyChartYAxis, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartYAxis {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4237,13 +4183,13 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartYAxis(des, initial *DashboardG
 
 	cDes := &DashboardGridLayoutWidgetsXyChartYAxis{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -4254,7 +4200,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartYAxis(des, initial *DashboardG
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartYAxisSlice(des, initial []DashboardGridLayoutWidgetsXyChartYAxis, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartYAxis {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4345,10 +4291,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartYAxisSlice(c *Client, des, 
 }
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartChartOptions(des, initial *DashboardGridLayoutWidgetsXyChartChartOptions, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsXyChartChartOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4358,8 +4301,8 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartChartOptions(des, initial *Das
 
 	cDes := &DashboardGridLayoutWidgetsXyChartChartOptions{}
 
-	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -4370,7 +4313,7 @@ func canonicalizeDashboardGridLayoutWidgetsXyChartChartOptions(des, initial *Das
 
 func canonicalizeDashboardGridLayoutWidgetsXyChartChartOptionsSlice(des, initial []DashboardGridLayoutWidgetsXyChartChartOptions, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsXyChartChartOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4457,10 +4400,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsXyChartChartOptionsSlice(c *Client
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecard(des, initial *DashboardGridLayoutWidgetsScorecard, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecard {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4480,7 +4420,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecard(des, initial *DashboardGrid
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardSlice(des, initial []DashboardGridLayoutWidgetsScorecard, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecard {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4572,10 +4512,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardSlice(c *Client, des, nw 
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQuery(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQuery {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4587,12 +4524,12 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQuery(des, initial
 
 	cDes.TimeSeriesFilter = canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
 	cDes.TimeSeriesFilterRatio = canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
-	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) {
 		cDes.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
 	} else {
 		cDes.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
 	}
-	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
+	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) {
 		cDes.UnitOverride = initial.UnitOverride
 	} else {
 		cDes.UnitOverride = des.UnitOverride
@@ -4603,7 +4540,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQuery(des, initial
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQuerySlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQuery {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4699,10 +4636,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQuerySlice(c *C
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4712,7 +4646,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 	cDes := &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -4726,7 +4660,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4820,10 +4754,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4833,19 +4764,19 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 	cDes := &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -4861,7 +4792,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4955,10 +4886,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4968,19 +4896,19 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 	cDes := &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -4996,7 +4924,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5090,10 +5018,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5103,20 +5028,20 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 	cDes := &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -5127,7 +5052,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5214,10 +5139,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5237,7 +5159,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5329,10 +5251,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5342,7 +5261,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 	cDes := &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -5354,7 +5273,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5446,10 +5365,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5459,19 +5375,19 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 	cDes := &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -5487,7 +5403,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5581,10 +5497,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5594,7 +5507,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 	cDes := &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -5606,7 +5519,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5698,10 +5611,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5711,19 +5621,19 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 	cDes := &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -5739,7 +5649,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5833,10 +5743,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5846,19 +5753,19 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 	cDes := &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -5874,7 +5781,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5968,10 +5875,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des, initial *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5981,20 +5885,20 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 	cDes := &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -6005,7 +5909,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFil
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6092,10 +5996,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeries
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardGaugeView(des, initial *DashboardGridLayoutWidgetsScorecardGaugeView, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardGaugeView {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6105,14 +6006,14 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardGaugeView(des, initial *Dash
 
 	cDes := &DashboardGridLayoutWidgetsScorecardGaugeView{}
 
-	if dcl.IsZeroValue(des.LowerBound) || (dcl.IsEmptyValueIndirect(des.LowerBound) && dcl.IsEmptyValueIndirect(initial.LowerBound)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.LowerBound) && dcl.IsEmptyValueIndirect(initial.LowerBound) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.LowerBound = initial.LowerBound
 	} else {
 		cDes.LowerBound = des.LowerBound
 	}
-	if dcl.IsZeroValue(des.UpperBound) || (dcl.IsEmptyValueIndirect(des.UpperBound) && dcl.IsEmptyValueIndirect(initial.UpperBound)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.UpperBound) && dcl.IsEmptyValueIndirect(initial.UpperBound) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.UpperBound = initial.UpperBound
 	} else {
 		cDes.UpperBound = des.UpperBound
@@ -6123,7 +6024,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardGaugeView(des, initial *Dash
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardGaugeViewSlice(des, initial []DashboardGridLayoutWidgetsScorecardGaugeView, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardGaugeView {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6210,10 +6111,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardGaugeViewSlice(c *Client,
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardSparkChartView(des, initial *DashboardGridLayoutWidgetsScorecardSparkChartView, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardSparkChartView {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6223,13 +6121,13 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardSparkChartView(des, initial 
 
 	cDes := &DashboardGridLayoutWidgetsScorecardSparkChartView{}
 
-	if dcl.IsZeroValue(des.SparkChartType) || (dcl.IsEmptyValueIndirect(des.SparkChartType) && dcl.IsEmptyValueIndirect(initial.SparkChartType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SparkChartType) && dcl.IsEmptyValueIndirect(initial.SparkChartType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SparkChartType = initial.SparkChartType
 	} else {
 		cDes.SparkChartType = des.SparkChartType
 	}
-	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) {
 		cDes.MinAlignmentPeriod = initial.MinAlignmentPeriod
 	} else {
 		cDes.MinAlignmentPeriod = des.MinAlignmentPeriod
@@ -6240,7 +6138,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardSparkChartView(des, initial 
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardSparkChartViewSlice(des, initial []DashboardGridLayoutWidgetsScorecardSparkChartView, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardSparkChartView {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6331,10 +6229,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardSparkChartViewSlice(c *Cl
 }
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardThresholds(des, initial *DashboardGridLayoutWidgetsScorecardThresholds, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsScorecardThresholds {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6344,25 +6239,25 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardThresholds(des, initial *Das
 
 	cDes := &DashboardGridLayoutWidgetsScorecardThresholds{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Value) || (dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Color) || (dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -6373,7 +6268,7 @@ func canonicalizeDashboardGridLayoutWidgetsScorecardThresholds(des, initial *Das
 
 func canonicalizeDashboardGridLayoutWidgetsScorecardThresholdsSlice(des, initial []DashboardGridLayoutWidgetsScorecardThresholds, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsScorecardThresholds {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6464,10 +6359,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsScorecardThresholdsSlice(c *Client
 }
 
 func canonicalizeDashboardGridLayoutWidgetsText(des, initial *DashboardGridLayoutWidgetsText, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsText {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6477,13 +6369,13 @@ func canonicalizeDashboardGridLayoutWidgetsText(des, initial *DashboardGridLayou
 
 	cDes := &DashboardGridLayoutWidgetsText{}
 
-	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, initial.Content) {
 		cDes.Content = initial.Content
 	} else {
 		cDes.Content = des.Content
 	}
-	if dcl.IsZeroValue(des.Format) || (dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Format = initial.Format
 	} else {
 		cDes.Format = des.Format
@@ -6494,7 +6386,7 @@ func canonicalizeDashboardGridLayoutWidgetsText(des, initial *DashboardGridLayou
 
 func canonicalizeDashboardGridLayoutWidgetsTextSlice(des, initial []DashboardGridLayoutWidgetsText, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsText {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6585,12 +6477,10 @@ func canonicalizeNewDashboardGridLayoutWidgetsTextSlice(c *Client, des, nw []Das
 }
 
 func canonicalizeDashboardGridLayoutWidgetsBlank(des, initial *DashboardGridLayoutWidgetsBlank, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsBlank {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -6602,7 +6492,7 @@ func canonicalizeDashboardGridLayoutWidgetsBlank(des, initial *DashboardGridLayo
 
 func canonicalizeDashboardGridLayoutWidgetsBlankSlice(des, initial []DashboardGridLayoutWidgetsBlank, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsBlank {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6689,10 +6579,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsBlankSlice(c *Client, des, nw []Da
 }
 
 func canonicalizeDashboardGridLayoutWidgetsLogsPanel(des, initial *DashboardGridLayoutWidgetsLogsPanel, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsLogsPanel {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6702,7 +6589,7 @@ func canonicalizeDashboardGridLayoutWidgetsLogsPanel(des, initial *DashboardGrid
 
 	cDes := &DashboardGridLayoutWidgetsLogsPanel{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -6718,7 +6605,7 @@ func canonicalizeDashboardGridLayoutWidgetsLogsPanel(des, initial *DashboardGrid
 
 func canonicalizeDashboardGridLayoutWidgetsLogsPanelSlice(des, initial []DashboardGridLayoutWidgetsLogsPanel, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsLogsPanel {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6812,10 +6699,7 @@ func canonicalizeNewDashboardGridLayoutWidgetsLogsPanelSlice(c *Client, des, nw 
 }
 
 func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts ...dcl.ApplyOption) *DashboardMosaicLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6825,8 +6709,8 @@ func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts
 
 	cDes := &DashboardMosaicLayout{}
 
-	if dcl.IsZeroValue(des.Columns) || (dcl.IsEmptyValueIndirect(des.Columns) && dcl.IsEmptyValueIndirect(initial.Columns)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Columns) && dcl.IsEmptyValueIndirect(initial.Columns) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Columns = initial.Columns
 	} else {
 		cDes.Columns = des.Columns
@@ -6838,7 +6722,7 @@ func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts
 
 func canonicalizeDashboardMosaicLayoutSlice(des, initial []DashboardMosaicLayout, opts ...dcl.ApplyOption) []DashboardMosaicLayout {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6927,10 +6811,7 @@ func canonicalizeNewDashboardMosaicLayoutSlice(c *Client, des, nw []DashboardMos
 }
 
 func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutTiles, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTiles {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6940,26 +6821,26 @@ func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutT
 
 	cDes := &DashboardMosaicLayoutTiles{}
 
-	if dcl.IsZeroValue(des.XPos) || (dcl.IsEmptyValueIndirect(des.XPos) && dcl.IsEmptyValueIndirect(initial.XPos)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.XPos) && dcl.IsEmptyValueIndirect(initial.XPos) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.XPos = initial.XPos
 	} else {
 		cDes.XPos = des.XPos
 	}
-	if dcl.IsZeroValue(des.YPos) || (dcl.IsEmptyValueIndirect(des.YPos) && dcl.IsEmptyValueIndirect(initial.YPos)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.YPos) && dcl.IsEmptyValueIndirect(initial.YPos) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.YPos = initial.YPos
 	} else {
 		cDes.YPos = des.YPos
 	}
-	if dcl.IsZeroValue(des.Width) || (dcl.IsEmptyValueIndirect(des.Width) && dcl.IsEmptyValueIndirect(initial.Width)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Width) && dcl.IsEmptyValueIndirect(initial.Width) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Width = initial.Width
 	} else {
 		cDes.Width = des.Width
 	}
-	if dcl.IsZeroValue(des.Height) || (dcl.IsEmptyValueIndirect(des.Height) && dcl.IsEmptyValueIndirect(initial.Height)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Height) && dcl.IsEmptyValueIndirect(initial.Height) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Height = initial.Height
 	} else {
 		cDes.Height = des.Height
@@ -6971,7 +6852,7 @@ func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutT
 
 func canonicalizeDashboardMosaicLayoutTilesSlice(des, initial []DashboardMosaicLayoutTiles, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTiles {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7060,61 +6941,8 @@ func canonicalizeNewDashboardMosaicLayoutTilesSlice(c *Client, des, nw []Dashboa
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidget(des, initial *DashboardMosaicLayoutTilesWidget, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidget {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.XyChart != nil || (initial != nil && initial.XyChart != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Scorecard, des.Text, des.Blank, des.LogsPanel) {
-			des.XyChart = nil
-			if initial != nil {
-				initial.XyChart = nil
-			}
-		}
-	}
-
-	if des.Scorecard != nil || (initial != nil && initial.Scorecard != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Text, des.Blank, des.LogsPanel) {
-			des.Scorecard = nil
-			if initial != nil {
-				initial.Scorecard = nil
-			}
-		}
-	}
-
-	if des.Text != nil || (initial != nil && initial.Text != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank, des.LogsPanel) {
-			des.Text = nil
-			if initial != nil {
-				initial.Text = nil
-			}
-		}
-	}
-
-	if des.Blank != nil || (initial != nil && initial.Blank != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.LogsPanel) {
-			des.Blank = nil
-			if initial != nil {
-				initial.Blank = nil
-			}
-		}
-	}
-
-	if des.LogsPanel != nil || (initial != nil && initial.LogsPanel != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.Blank) {
-			des.LogsPanel = nil
-			if initial != nil {
-				initial.LogsPanel = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -7123,7 +6951,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidget(des, initial *DashboardMosaicL
 
 	cDes := &DashboardMosaicLayoutTilesWidget{}
 
-	if dcl.StringCanonicalize(des.Title, initial.Title) || dcl.IsZeroValue(des.Title) {
+	if dcl.StringCanonicalize(des.Title, initial.Title) {
 		cDes.Title = initial.Title
 	} else {
 		cDes.Title = des.Title
@@ -7134,12 +6962,46 @@ func canonicalizeDashboardMosaicLayoutTilesWidget(des, initial *DashboardMosaicL
 	cDes.Blank = canonicalizeDashboardMosaicLayoutTilesWidgetBlank(des.Blank, initial.Blank, opts...)
 	cDes.LogsPanel = canonicalizeDashboardMosaicLayoutTilesWidgetLogsPanel(des.LogsPanel, initial.LogsPanel, opts...)
 
+	if cDes.XyChart != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Scorecard, cDes.Text, cDes.Blank, cDes.LogsPanel) {
+			cDes.XyChart = nil
+		}
+	}
+
+	if cDes.Scorecard != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Text, cDes.Blank, cDes.LogsPanel) {
+			cDes.Scorecard = nil
+		}
+	}
+
+	if cDes.Text != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Blank, cDes.LogsPanel) {
+			cDes.Text = nil
+		}
+	}
+
+	if cDes.Blank != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Text, cDes.LogsPanel) {
+			cDes.Blank = nil
+		}
+	}
+
+	if cDes.LogsPanel != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Text, cDes.Blank) {
+			cDes.LogsPanel = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetSlice(des, initial []DashboardMosaicLayoutTilesWidget, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidget {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7235,10 +7097,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetSlice(c *Client, des, nw []D
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChart(des, initial *DashboardMosaicLayoutTilesWidgetXyChart, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChart {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7249,7 +7108,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChart(des, initial *Dashboard
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChart{}
 
 	cDes.DataSets = canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsSlice(des.DataSets, initial.DataSets, opts...)
-	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) || dcl.IsZeroValue(des.TimeshiftDuration) {
+	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) {
 		cDes.TimeshiftDuration = initial.TimeshiftDuration
 	} else {
 		cDes.TimeshiftDuration = des.TimeshiftDuration
@@ -7264,7 +7123,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChart(des, initial *Dashboard
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChart, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChart {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7360,10 +7219,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartSlice(c *Client, des,
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSets(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSets, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7374,18 +7230,18 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSets(des, initial *D
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSets{}
 
 	cDes.TimeSeriesQuery = canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
-	if dcl.IsZeroValue(des.PlotType) || (dcl.IsEmptyValueIndirect(des.PlotType) && dcl.IsEmptyValueIndirect(initial.PlotType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PlotType) && dcl.IsEmptyValueIndirect(initial.PlotType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PlotType = initial.PlotType
 	} else {
 		cDes.PlotType = des.PlotType
 	}
-	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) || dcl.IsZeroValue(des.LegendTemplate) {
+	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) {
 		cDes.LegendTemplate = initial.LegendTemplate
 	} else {
 		cDes.LegendTemplate = des.LegendTemplate
 	}
-	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) {
 		cDes.MinAlignmentPeriod = initial.MinAlignmentPeriod
 	} else {
 		cDes.MinAlignmentPeriod = des.MinAlignmentPeriod
@@ -7396,7 +7252,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSets(des, initial *D
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSets, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSets {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7491,10 +7347,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsSlice(c *Clie
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7506,12 +7359,12 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery(
 
 	cDes.TimeSeriesFilter = canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
 	cDes.TimeSeriesFilterRatio = canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
-	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) {
 		cDes.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
 	} else {
 		cDes.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
 	}
-	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
+	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) {
 		cDes.UnitOverride = initial.UnitOverride
 	} else {
 		cDes.UnitOverride = des.UnitOverride
@@ -7522,7 +7375,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery(
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuerySlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7618,10 +7471,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7631,7 +7481,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -7645,7 +7495,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7739,10 +7589,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7752,19 +7599,19 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -7780,7 +7627,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7874,10 +7721,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7887,19 +7731,19 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -7915,7 +7759,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8009,10 +7853,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8022,20 +7863,20 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -8046,7 +7887,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8133,10 +7974,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8156,7 +7994,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8248,10 +8086,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8261,7 +8096,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -8273,7 +8108,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8365,10 +8200,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8378,19 +8210,19 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -8406,7 +8238,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8500,10 +8332,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8513,7 +8342,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -8525,7 +8354,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8617,10 +8446,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8630,19 +8456,19 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -8658,7 +8484,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8752,10 +8578,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8765,19 +8588,19 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -8793,7 +8616,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8887,10 +8710,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des, initial *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8900,20 +8720,20 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -8924,7 +8744,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryT
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -9011,10 +8831,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQue
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartThresholds(des, initial *DashboardMosaicLayoutTilesWidgetXyChartThresholds, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartThresholds {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -9024,25 +8841,25 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartThresholds(des, initial 
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartThresholds{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Value) || (dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Color) || (dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -9053,7 +8870,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartThresholds(des, initial 
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartThresholdsSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartThresholds, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartThresholds {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -9144,10 +8961,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartThresholdsSlice(c *Cl
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartXAxis(des, initial *DashboardMosaicLayoutTilesWidgetXyChartXAxis, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartXAxis {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -9157,13 +8971,13 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartXAxis(des, initial *Dash
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartXAxis{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -9174,7 +8988,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartXAxis(des, initial *Dash
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartXAxisSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartXAxis, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartXAxis {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -9265,10 +9079,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartXAxisSlice(c *Client,
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartYAxis(des, initial *DashboardMosaicLayoutTilesWidgetXyChartYAxis, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartYAxis {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -9278,13 +9089,13 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartYAxis(des, initial *Dash
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartYAxis{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -9295,7 +9106,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartYAxis(des, initial *Dash
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartYAxisSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartYAxis, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartYAxis {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -9386,10 +9197,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartYAxisSlice(c *Client,
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartChartOptions(des, initial *DashboardMosaicLayoutTilesWidgetXyChartChartOptions, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetXyChartChartOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -9399,8 +9207,8 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartChartOptions(des, initia
 
 	cDes := &DashboardMosaicLayoutTilesWidgetXyChartChartOptions{}
 
-	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -9411,7 +9219,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartChartOptions(des, initia
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetXyChartChartOptionsSlice(des, initial []DashboardMosaicLayoutTilesWidgetXyChartChartOptions, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetXyChartChartOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -9498,10 +9306,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetXyChartChartOptionsSlice(c *
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecard(des, initial *DashboardMosaicLayoutTilesWidgetScorecard, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecard {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -9521,7 +9326,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecard(des, initial *Dashboa
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecard, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecard {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -9613,10 +9418,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardSlice(c *Client, de
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -9628,12 +9430,12 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery(des, i
 
 	cDes.TimeSeriesFilter = canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
 	cDes.TimeSeriesFilterRatio = canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
-	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) {
 		cDes.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
 	} else {
 		cDes.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
 	}
-	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
+	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) {
 		cDes.UnitOverride = initial.UnitOverride
 	} else {
 		cDes.UnitOverride = des.UnitOverride
@@ -9644,7 +9446,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery(des, i
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuerySlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -9740,10 +9542,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuerySlic
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -9753,7 +9552,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -9767,7 +9566,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -9861,10 +9660,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -9874,19 +9670,19 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -9902,7 +9698,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -9996,10 +9792,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -10009,19 +9802,19 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -10037,7 +9830,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -10131,10 +9924,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -10144,20 +9934,20 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -10168,7 +9958,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -10255,10 +10045,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -10278,7 +10065,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -10370,10 +10157,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -10383,7 +10167,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -10395,7 +10179,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -10487,10 +10271,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -10500,19 +10281,19 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -10528,7 +10309,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -10622,10 +10403,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -10635,7 +10413,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -10647,7 +10425,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -10739,10 +10517,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -10752,19 +10527,19 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -10780,7 +10555,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -10874,10 +10649,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -10887,19 +10659,19 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -10915,7 +10687,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -11009,10 +10781,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des, initial *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -11022,20 +10791,20 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -11046,7 +10815,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSer
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -11133,10 +10902,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTime
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardGaugeView(des, initial *DashboardMosaicLayoutTilesWidgetScorecardGaugeView, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardGaugeView {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -11146,14 +10912,14 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardGaugeView(des, initial
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardGaugeView{}
 
-	if dcl.IsZeroValue(des.LowerBound) || (dcl.IsEmptyValueIndirect(des.LowerBound) && dcl.IsEmptyValueIndirect(initial.LowerBound)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.LowerBound) && dcl.IsEmptyValueIndirect(initial.LowerBound) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.LowerBound = initial.LowerBound
 	} else {
 		cDes.LowerBound = des.LowerBound
 	}
-	if dcl.IsZeroValue(des.UpperBound) || (dcl.IsEmptyValueIndirect(des.UpperBound) && dcl.IsEmptyValueIndirect(initial.UpperBound)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.UpperBound) && dcl.IsEmptyValueIndirect(initial.UpperBound) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.UpperBound = initial.UpperBound
 	} else {
 		cDes.UpperBound = des.UpperBound
@@ -11164,7 +10930,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardGaugeView(des, initial
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardGaugeViewSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardGaugeView, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardGaugeView {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -11251,10 +11017,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardGaugeViewSlice(c *C
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardSparkChartView(des, initial *DashboardMosaicLayoutTilesWidgetScorecardSparkChartView, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardSparkChartView {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -11264,13 +11027,13 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardSparkChartView(des, in
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardSparkChartView{}
 
-	if dcl.IsZeroValue(des.SparkChartType) || (dcl.IsEmptyValueIndirect(des.SparkChartType) && dcl.IsEmptyValueIndirect(initial.SparkChartType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SparkChartType) && dcl.IsEmptyValueIndirect(initial.SparkChartType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SparkChartType = initial.SparkChartType
 	} else {
 		cDes.SparkChartType = des.SparkChartType
 	}
-	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) {
 		cDes.MinAlignmentPeriod = initial.MinAlignmentPeriod
 	} else {
 		cDes.MinAlignmentPeriod = des.MinAlignmentPeriod
@@ -11281,7 +11044,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardSparkChartView(des, in
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardSparkChartView, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardSparkChartView {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -11372,10 +11135,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSlice
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardThresholds(des, initial *DashboardMosaicLayoutTilesWidgetScorecardThresholds, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetScorecardThresholds {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -11385,25 +11145,25 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardThresholds(des, initia
 
 	cDes := &DashboardMosaicLayoutTilesWidgetScorecardThresholds{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Value) || (dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Color) || (dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -11414,7 +11174,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardThresholds(des, initia
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetScorecardThresholdsSlice(des, initial []DashboardMosaicLayoutTilesWidgetScorecardThresholds, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetScorecardThresholds {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -11505,10 +11265,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecardThresholdsSlice(c *
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetText(des, initial *DashboardMosaicLayoutTilesWidgetText, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetText {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -11518,13 +11275,13 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetText(des, initial *DashboardMos
 
 	cDes := &DashboardMosaicLayoutTilesWidgetText{}
 
-	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, initial.Content) {
 		cDes.Content = initial.Content
 	} else {
 		cDes.Content = des.Content
 	}
-	if dcl.IsZeroValue(des.Format) || (dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Format = initial.Format
 	} else {
 		cDes.Format = des.Format
@@ -11535,7 +11292,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetText(des, initial *DashboardMos
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetTextSlice(des, initial []DashboardMosaicLayoutTilesWidgetText, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetText {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -11626,12 +11383,10 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetTextSlice(c *Client, des, nw
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetBlank(des, initial *DashboardMosaicLayoutTilesWidgetBlank, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetBlank {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -11643,7 +11398,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetBlank(des, initial *DashboardMo
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetBlankSlice(des, initial []DashboardMosaicLayoutTilesWidgetBlank, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetBlank {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -11730,10 +11485,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetBlankSlice(c *Client, des, n
 }
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetLogsPanel(des, initial *DashboardMosaicLayoutTilesWidgetLogsPanel, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetLogsPanel {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -11743,7 +11495,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetLogsPanel(des, initial *Dashboa
 
 	cDes := &DashboardMosaicLayoutTilesWidgetLogsPanel{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -11759,7 +11511,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidgetLogsPanel(des, initial *Dashboa
 
 func canonicalizeDashboardMosaicLayoutTilesWidgetLogsPanelSlice(des, initial []DashboardMosaicLayoutTilesWidgetLogsPanel, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetLogsPanel {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -11853,10 +11605,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetLogsPanelSlice(c *Client, de
 }
 
 func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dcl.ApplyOption) *DashboardRowLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -11873,7 +11622,7 @@ func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dc
 
 func canonicalizeDashboardRowLayoutSlice(des, initial []DashboardRowLayout, opts ...dcl.ApplyOption) []DashboardRowLayout {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -11962,10 +11711,7 @@ func canonicalizeNewDashboardRowLayoutSlice(c *Client, des, nw []DashboardRowLay
 }
 
 func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, opts ...dcl.ApplyOption) *DashboardRowLayoutRows {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -11975,8 +11721,8 @@ func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, op
 
 	cDes := &DashboardRowLayoutRows{}
 
-	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
@@ -11988,7 +11734,7 @@ func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, op
 
 func canonicalizeDashboardRowLayoutRowsSlice(des, initial []DashboardRowLayoutRows, opts ...dcl.ApplyOption) []DashboardRowLayoutRows {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -12077,61 +11823,8 @@ func canonicalizeNewDashboardRowLayoutRowsSlice(c *Client, des, nw []DashboardRo
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgets(des, initial *DashboardRowLayoutRowsWidgets, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.XyChart != nil || (initial != nil && initial.XyChart != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Scorecard, des.Text, des.Blank, des.LogsPanel) {
-			des.XyChart = nil
-			if initial != nil {
-				initial.XyChart = nil
-			}
-		}
-	}
-
-	if des.Scorecard != nil || (initial != nil && initial.Scorecard != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Text, des.Blank, des.LogsPanel) {
-			des.Scorecard = nil
-			if initial != nil {
-				initial.Scorecard = nil
-			}
-		}
-	}
-
-	if des.Text != nil || (initial != nil && initial.Text != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank, des.LogsPanel) {
-			des.Text = nil
-			if initial != nil {
-				initial.Text = nil
-			}
-		}
-	}
-
-	if des.Blank != nil || (initial != nil && initial.Blank != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.LogsPanel) {
-			des.Blank = nil
-			if initial != nil {
-				initial.Blank = nil
-			}
-		}
-	}
-
-	if des.LogsPanel != nil || (initial != nil && initial.LogsPanel != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.Blank) {
-			des.LogsPanel = nil
-			if initial != nil {
-				initial.LogsPanel = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -12140,7 +11833,7 @@ func canonicalizeDashboardRowLayoutRowsWidgets(des, initial *DashboardRowLayoutR
 
 	cDes := &DashboardRowLayoutRowsWidgets{}
 
-	if dcl.StringCanonicalize(des.Title, initial.Title) || dcl.IsZeroValue(des.Title) {
+	if dcl.StringCanonicalize(des.Title, initial.Title) {
 		cDes.Title = initial.Title
 	} else {
 		cDes.Title = des.Title
@@ -12151,12 +11844,46 @@ func canonicalizeDashboardRowLayoutRowsWidgets(des, initial *DashboardRowLayoutR
 	cDes.Blank = canonicalizeDashboardRowLayoutRowsWidgetsBlank(des.Blank, initial.Blank, opts...)
 	cDes.LogsPanel = canonicalizeDashboardRowLayoutRowsWidgetsLogsPanel(des.LogsPanel, initial.LogsPanel, opts...)
 
+	if cDes.XyChart != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Scorecard, cDes.Text, cDes.Blank, cDes.LogsPanel) {
+			cDes.XyChart = nil
+		}
+	}
+
+	if cDes.Scorecard != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Text, cDes.Blank, cDes.LogsPanel) {
+			cDes.Scorecard = nil
+		}
+	}
+
+	if cDes.Text != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Blank, cDes.LogsPanel) {
+			cDes.Text = nil
+		}
+	}
+
+	if cDes.Blank != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Text, cDes.LogsPanel) {
+			cDes.Blank = nil
+		}
+	}
+
+	if cDes.LogsPanel != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Text, cDes.Blank) {
+			cDes.LogsPanel = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsSlice(des, initial []DashboardRowLayoutRowsWidgets, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgets {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -12252,10 +11979,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsSlice(c *Client, des, nw []Dash
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChart(des, initial *DashboardRowLayoutRowsWidgetsXyChart, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChart {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -12266,7 +11990,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChart(des, initial *DashboardRow
 	cDes := &DashboardRowLayoutRowsWidgetsXyChart{}
 
 	cDes.DataSets = canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsSlice(des.DataSets, initial.DataSets, opts...)
-	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) || dcl.IsZeroValue(des.TimeshiftDuration) {
+	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) {
 		cDes.TimeshiftDuration = initial.TimeshiftDuration
 	} else {
 		cDes.TimeshiftDuration = des.TimeshiftDuration
@@ -12281,7 +12005,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChart(des, initial *DashboardRow
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChart, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChart {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -12377,10 +12101,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartSlice(c *Client, des, nw
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSets(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSets, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -12391,18 +12112,18 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSets(des, initial *Dash
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSets{}
 
 	cDes.TimeSeriesQuery = canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
-	if dcl.IsZeroValue(des.PlotType) || (dcl.IsEmptyValueIndirect(des.PlotType) && dcl.IsEmptyValueIndirect(initial.PlotType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PlotType) && dcl.IsEmptyValueIndirect(initial.PlotType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PlotType = initial.PlotType
 	} else {
 		cDes.PlotType = des.PlotType
 	}
-	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) || dcl.IsZeroValue(des.LegendTemplate) {
+	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) {
 		cDes.LegendTemplate = initial.LegendTemplate
 	} else {
 		cDes.LegendTemplate = des.LegendTemplate
 	}
-	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) {
 		cDes.MinAlignmentPeriod = initial.MinAlignmentPeriod
 	} else {
 		cDes.MinAlignmentPeriod = des.MinAlignmentPeriod
@@ -12413,7 +12134,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSets(des, initial *Dash
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSets, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSets {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -12508,10 +12229,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsSlice(c *Client,
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -12523,12 +12241,12 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery(des
 
 	cDes.TimeSeriesFilter = canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
 	cDes.TimeSeriesFilterRatio = canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
-	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) {
 		cDes.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
 	} else {
 		cDes.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
 	}
-	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
+	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) {
 		cDes.UnitOverride = initial.UnitOverride
 	} else {
 		cDes.UnitOverride = des.UnitOverride
@@ -12539,7 +12257,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery(des
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuerySlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -12635,10 +12353,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryS
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -12648,7 +12363,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -12662,7 +12377,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -12756,10 +12471,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -12769,19 +12481,19 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -12797,7 +12509,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -12891,10 +12603,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -12904,19 +12613,19 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -12932,7 +12641,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -13026,10 +12735,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -13039,20 +12745,20 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -13063,7 +12769,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -13150,10 +12856,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -13173,7 +12876,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -13265,10 +12968,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -13278,7 +12978,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -13290,7 +12990,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -13382,10 +13082,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -13395,19 +13092,19 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -13423,7 +13120,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -13517,10 +13214,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -13530,7 +13224,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -13542,7 +13236,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -13634,10 +13328,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -13647,19 +13338,19 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -13675,7 +13366,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -13769,10 +13460,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -13782,19 +13470,19 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -13810,7 +13498,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -13904,10 +13592,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des, initial *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -13917,20 +13602,20 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -13941,7 +13626,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTime
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -14028,10 +13713,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryT
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartThresholds(des, initial *DashboardRowLayoutRowsWidgetsXyChartThresholds, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartThresholds {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -14041,25 +13723,25 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartThresholds(des, initial *Da
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartThresholds{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Value) || (dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Color) || (dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -14070,7 +13752,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartThresholds(des, initial *Da
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartThresholdsSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartThresholds, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartThresholds {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -14161,10 +13843,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartThresholdsSlice(c *Clien
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartXAxis(des, initial *DashboardRowLayoutRowsWidgetsXyChartXAxis, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartXAxis {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -14174,13 +13853,13 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartXAxis(des, initial *Dashboa
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartXAxis{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -14191,7 +13870,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartXAxis(des, initial *Dashboa
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartXAxisSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartXAxis, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartXAxis {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -14282,10 +13961,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartXAxisSlice(c *Client, de
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartYAxis(des, initial *DashboardRowLayoutRowsWidgetsXyChartYAxis, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartYAxis {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -14295,13 +13971,13 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartYAxis(des, initial *Dashboa
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartYAxis{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -14312,7 +13988,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartYAxis(des, initial *Dashboa
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartYAxisSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartYAxis, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartYAxis {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -14403,10 +14079,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartYAxisSlice(c *Client, de
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartChartOptions(des, initial *DashboardRowLayoutRowsWidgetsXyChartChartOptions, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsXyChartChartOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -14416,8 +14089,8 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartChartOptions(des, initial *
 
 	cDes := &DashboardRowLayoutRowsWidgetsXyChartChartOptions{}
 
-	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -14428,7 +14101,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsXyChartChartOptions(des, initial *
 
 func canonicalizeDashboardRowLayoutRowsWidgetsXyChartChartOptionsSlice(des, initial []DashboardRowLayoutRowsWidgetsXyChartChartOptions, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsXyChartChartOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -14515,10 +14188,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsXyChartChartOptionsSlice(c *Cli
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecard(des, initial *DashboardRowLayoutRowsWidgetsScorecard, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecard {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -14538,7 +14208,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecard(des, initial *DashboardR
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecard, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecard {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -14630,10 +14300,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardSlice(c *Client, des, 
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -14645,12 +14312,12 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery(des, init
 
 	cDes.TimeSeriesFilter = canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
 	cDes.TimeSeriesFilterRatio = canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
-	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) {
 		cDes.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
 	} else {
 		cDes.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
 	}
-	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
+	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) {
 		cDes.UnitOverride = initial.UnitOverride
 	} else {
 		cDes.UnitOverride = des.UnitOverride
@@ -14661,7 +14328,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery(des, init
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuerySlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -14757,10 +14424,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuerySlice(c
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -14770,7 +14434,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -14784,7 +14448,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -14878,10 +14542,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -14891,19 +14552,19 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -14919,7 +14580,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -15013,10 +14674,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -15026,19 +14684,19 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -15054,7 +14712,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -15148,10 +14806,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -15161,20 +14816,20 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -15185,7 +14840,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -15272,10 +14927,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -15295,7 +14947,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -15387,10 +15039,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -15400,7 +15049,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -15412,7 +15061,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -15504,10 +15153,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -15517,19 +15163,19 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -15545,7 +15191,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -15639,10 +15285,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -15652,7 +15295,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -15664,7 +15307,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -15756,10 +15399,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -15769,19 +15409,19 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -15797,7 +15437,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -15891,10 +15531,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -15904,19 +15541,19 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -15932,7 +15569,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -16026,10 +15663,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des, initial *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -16039,20 +15673,20 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -16063,7 +15697,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeries
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -16150,10 +15784,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSer
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardGaugeView(des, initial *DashboardRowLayoutRowsWidgetsScorecardGaugeView, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardGaugeView {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -16163,14 +15794,14 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardGaugeView(des, initial *D
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardGaugeView{}
 
-	if dcl.IsZeroValue(des.LowerBound) || (dcl.IsEmptyValueIndirect(des.LowerBound) && dcl.IsEmptyValueIndirect(initial.LowerBound)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.LowerBound) && dcl.IsEmptyValueIndirect(initial.LowerBound) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.LowerBound = initial.LowerBound
 	} else {
 		cDes.LowerBound = des.LowerBound
 	}
-	if dcl.IsZeroValue(des.UpperBound) || (dcl.IsEmptyValueIndirect(des.UpperBound) && dcl.IsEmptyValueIndirect(initial.UpperBound)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.UpperBound) && dcl.IsEmptyValueIndirect(initial.UpperBound) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.UpperBound = initial.UpperBound
 	} else {
 		cDes.UpperBound = des.UpperBound
@@ -16181,7 +15812,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardGaugeView(des, initial *D
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardGaugeViewSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardGaugeView, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardGaugeView {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -16268,10 +15899,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardGaugeViewSlice(c *Clie
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardSparkChartView(des, initial *DashboardRowLayoutRowsWidgetsScorecardSparkChartView, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardSparkChartView {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -16281,13 +15909,13 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardSparkChartView(des, initi
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardSparkChartView{}
 
-	if dcl.IsZeroValue(des.SparkChartType) || (dcl.IsEmptyValueIndirect(des.SparkChartType) && dcl.IsEmptyValueIndirect(initial.SparkChartType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SparkChartType) && dcl.IsEmptyValueIndirect(initial.SparkChartType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SparkChartType = initial.SparkChartType
 	} else {
 		cDes.SparkChartType = des.SparkChartType
 	}
-	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) {
 		cDes.MinAlignmentPeriod = initial.MinAlignmentPeriod
 	} else {
 		cDes.MinAlignmentPeriod = des.MinAlignmentPeriod
@@ -16298,7 +15926,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardSparkChartView(des, initi
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardSparkChartViewSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardSparkChartView, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardSparkChartView {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -16389,10 +16017,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardSparkChartViewSlice(c 
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardThresholds(des, initial *DashboardRowLayoutRowsWidgetsScorecardThresholds, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsScorecardThresholds {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -16402,25 +16027,25 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardThresholds(des, initial *
 
 	cDes := &DashboardRowLayoutRowsWidgetsScorecardThresholds{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Value) || (dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Color) || (dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -16431,7 +16056,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsScorecardThresholds(des, initial *
 
 func canonicalizeDashboardRowLayoutRowsWidgetsScorecardThresholdsSlice(des, initial []DashboardRowLayoutRowsWidgetsScorecardThresholds, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsScorecardThresholds {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -16522,10 +16147,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsScorecardThresholdsSlice(c *Cli
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsText(des, initial *DashboardRowLayoutRowsWidgetsText, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsText {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -16535,13 +16157,13 @@ func canonicalizeDashboardRowLayoutRowsWidgetsText(des, initial *DashboardRowLay
 
 	cDes := &DashboardRowLayoutRowsWidgetsText{}
 
-	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, initial.Content) {
 		cDes.Content = initial.Content
 	} else {
 		cDes.Content = des.Content
 	}
-	if dcl.IsZeroValue(des.Format) || (dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Format = initial.Format
 	} else {
 		cDes.Format = des.Format
@@ -16552,7 +16174,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsText(des, initial *DashboardRowLay
 
 func canonicalizeDashboardRowLayoutRowsWidgetsTextSlice(des, initial []DashboardRowLayoutRowsWidgetsText, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsText {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -16643,12 +16265,10 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsTextSlice(c *Client, des, nw []
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsBlank(des, initial *DashboardRowLayoutRowsWidgetsBlank, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsBlank {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -16660,7 +16280,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsBlank(des, initial *DashboardRowLa
 
 func canonicalizeDashboardRowLayoutRowsWidgetsBlankSlice(des, initial []DashboardRowLayoutRowsWidgetsBlank, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsBlank {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -16747,10 +16367,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsBlankSlice(c *Client, des, nw [
 }
 
 func canonicalizeDashboardRowLayoutRowsWidgetsLogsPanel(des, initial *DashboardRowLayoutRowsWidgetsLogsPanel, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsLogsPanel {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -16760,7 +16377,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsLogsPanel(des, initial *DashboardR
 
 	cDes := &DashboardRowLayoutRowsWidgetsLogsPanel{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -16776,7 +16393,7 @@ func canonicalizeDashboardRowLayoutRowsWidgetsLogsPanel(des, initial *DashboardR
 
 func canonicalizeDashboardRowLayoutRowsWidgetsLogsPanelSlice(des, initial []DashboardRowLayoutRowsWidgetsLogsPanel, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsLogsPanel {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -16870,10 +16487,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsLogsPanelSlice(c *Client, des, 
 }
 
 func canonicalizeDashboardColumnLayout(des, initial *DashboardColumnLayout, opts ...dcl.ApplyOption) *DashboardColumnLayout {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -16890,7 +16504,7 @@ func canonicalizeDashboardColumnLayout(des, initial *DashboardColumnLayout, opts
 
 func canonicalizeDashboardColumnLayoutSlice(des, initial []DashboardColumnLayout, opts ...dcl.ApplyOption) []DashboardColumnLayout {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -16979,10 +16593,7 @@ func canonicalizeNewDashboardColumnLayoutSlice(c *Client, des, nw []DashboardCol
 }
 
 func canonicalizeDashboardColumnLayoutColumns(des, initial *DashboardColumnLayoutColumns, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumns {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -16992,8 +16603,8 @@ func canonicalizeDashboardColumnLayoutColumns(des, initial *DashboardColumnLayou
 
 	cDes := &DashboardColumnLayoutColumns{}
 
-	if dcl.IsZeroValue(des.Weight) || (dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Weight) && dcl.IsEmptyValueIndirect(initial.Weight) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Weight = initial.Weight
 	} else {
 		cDes.Weight = des.Weight
@@ -17005,7 +16616,7 @@ func canonicalizeDashboardColumnLayoutColumns(des, initial *DashboardColumnLayou
 
 func canonicalizeDashboardColumnLayoutColumnsSlice(des, initial []DashboardColumnLayoutColumns, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumns {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -17094,61 +16705,8 @@ func canonicalizeNewDashboardColumnLayoutColumnsSlice(c *Client, des, nw []Dashb
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgets(des, initial *DashboardColumnLayoutColumnsWidgets, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.XyChart != nil || (initial != nil && initial.XyChart != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Scorecard, des.Text, des.Blank, des.LogsPanel) {
-			des.XyChart = nil
-			if initial != nil {
-				initial.XyChart = nil
-			}
-		}
-	}
-
-	if des.Scorecard != nil || (initial != nil && initial.Scorecard != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Text, des.Blank, des.LogsPanel) {
-			des.Scorecard = nil
-			if initial != nil {
-				initial.Scorecard = nil
-			}
-		}
-	}
-
-	if des.Text != nil || (initial != nil && initial.Text != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank, des.LogsPanel) {
-			des.Text = nil
-			if initial != nil {
-				initial.Text = nil
-			}
-		}
-	}
-
-	if des.Blank != nil || (initial != nil && initial.Blank != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.LogsPanel) {
-			des.Blank = nil
-			if initial != nil {
-				initial.Blank = nil
-			}
-		}
-	}
-
-	if des.LogsPanel != nil || (initial != nil && initial.LogsPanel != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.Blank) {
-			des.LogsPanel = nil
-			if initial != nil {
-				initial.LogsPanel = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -17157,7 +16715,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgets(des, initial *DashboardColu
 
 	cDes := &DashboardColumnLayoutColumnsWidgets{}
 
-	if dcl.StringCanonicalize(des.Title, initial.Title) || dcl.IsZeroValue(des.Title) {
+	if dcl.StringCanonicalize(des.Title, initial.Title) {
 		cDes.Title = initial.Title
 	} else {
 		cDes.Title = des.Title
@@ -17168,12 +16726,46 @@ func canonicalizeDashboardColumnLayoutColumnsWidgets(des, initial *DashboardColu
 	cDes.Blank = canonicalizeDashboardColumnLayoutColumnsWidgetsBlank(des.Blank, initial.Blank, opts...)
 	cDes.LogsPanel = canonicalizeDashboardColumnLayoutColumnsWidgetsLogsPanel(des.LogsPanel, initial.LogsPanel, opts...)
 
+	if cDes.XyChart != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Scorecard, cDes.Text, cDes.Blank, cDes.LogsPanel) {
+			cDes.XyChart = nil
+		}
+	}
+
+	if cDes.Scorecard != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Text, cDes.Blank, cDes.LogsPanel) {
+			cDes.Scorecard = nil
+		}
+	}
+
+	if cDes.Text != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Blank, cDes.LogsPanel) {
+			cDes.Text = nil
+		}
+	}
+
+	if cDes.Blank != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Text, cDes.LogsPanel) {
+			cDes.Blank = nil
+		}
+	}
+
+	if cDes.LogsPanel != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.XyChart, cDes.Scorecard, cDes.Text, cDes.Blank) {
+			cDes.LogsPanel = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsSlice(des, initial []DashboardColumnLayoutColumnsWidgets, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgets {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -17269,10 +16861,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsSlice(c *Client, des, nw 
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChart(des, initial *DashboardColumnLayoutColumnsWidgetsXyChart, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChart {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -17283,7 +16872,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChart(des, initial *Dashbo
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChart{}
 
 	cDes.DataSets = canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsSlice(des.DataSets, initial.DataSets, opts...)
-	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) || dcl.IsZeroValue(des.TimeshiftDuration) {
+	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) {
 		cDes.TimeshiftDuration = initial.TimeshiftDuration
 	} else {
 		cDes.TimeshiftDuration = des.TimeshiftDuration
@@ -17298,7 +16887,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChart(des, initial *Dashbo
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChart, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChart {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -17394,10 +16983,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartSlice(c *Client, d
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSets(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSets, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -17408,18 +16994,18 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSets(des, initial
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSets{}
 
 	cDes.TimeSeriesQuery = canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
-	if dcl.IsZeroValue(des.PlotType) || (dcl.IsEmptyValueIndirect(des.PlotType) && dcl.IsEmptyValueIndirect(initial.PlotType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PlotType) && dcl.IsEmptyValueIndirect(initial.PlotType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PlotType = initial.PlotType
 	} else {
 		cDes.PlotType = des.PlotType
 	}
-	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) || dcl.IsZeroValue(des.LegendTemplate) {
+	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) {
 		cDes.LegendTemplate = initial.LegendTemplate
 	} else {
 		cDes.LegendTemplate = des.LegendTemplate
 	}
-	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) {
 		cDes.MinAlignmentPeriod = initial.MinAlignmentPeriod
 	} else {
 		cDes.MinAlignmentPeriod = des.MinAlignmentPeriod
@@ -17430,7 +17016,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSets(des, initial
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSets, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSets {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -17525,10 +17111,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsSlice(c *C
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -17540,12 +17123,12 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes.TimeSeriesFilter = canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
 	cDes.TimeSeriesFilterRatio = canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
-	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) {
 		cDes.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
 	} else {
 		cDes.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
 	}
-	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
+	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) {
 		cDes.UnitOverride = initial.UnitOverride
 	} else {
 		cDes.UnitOverride = des.UnitOverride
@@ -17556,7 +17139,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuerySlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -17652,10 +17235,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -17665,7 +17245,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -17679,7 +17259,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -17773,10 +17353,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -17786,19 +17363,19 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -17814,7 +17391,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -17908,10 +17485,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -17921,19 +17495,19 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -17949,7 +17523,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -18043,10 +17617,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -18056,20 +17627,20 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -18080,7 +17651,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -18167,10 +17738,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -18190,7 +17758,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -18282,10 +17850,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -18295,7 +17860,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -18307,7 +17872,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -18399,10 +17964,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -18412,19 +17974,19 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -18440,7 +18002,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -18534,10 +18096,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -18547,7 +18106,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -18559,7 +18118,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -18651,10 +18210,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -18664,19 +18220,19 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -18692,7 +18248,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -18786,10 +18342,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -18799,19 +18352,19 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -18827,7 +18380,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -18921,10 +18474,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -18934,20 +18484,20 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -18958,7 +18508,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQue
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -19045,10 +18595,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeries
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartThresholds(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartThresholds, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartThresholds {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -19058,25 +18605,25 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartThresholds(des, initi
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartThresholds{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Value) || (dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Color) || (dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -19087,7 +18634,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartThresholds(des, initi
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartThresholdsSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartThresholds, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartThresholds {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -19178,10 +18725,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartThresholdsSlice(c 
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartXAxis(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartXAxis, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartXAxis {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -19191,13 +18735,13 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartXAxis(des, initial *D
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartXAxis{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -19208,7 +18752,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartXAxis(des, initial *D
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartXAxisSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartXAxis, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartXAxis {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -19299,10 +18843,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartXAxisSlice(c *Clie
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartYAxis(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartYAxis, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartYAxis {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -19312,13 +18853,13 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartYAxis(des, initial *D
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartYAxis{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -19329,7 +18870,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartYAxis(des, initial *D
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartYAxisSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartYAxis, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartYAxis {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -19420,10 +18961,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartYAxisSlice(c *Clie
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartChartOptions(des, initial *DashboardColumnLayoutColumnsWidgetsXyChartChartOptions, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsXyChartChartOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -19433,8 +18971,8 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartChartOptions(des, ini
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsXyChartChartOptions{}
 
-	if dcl.IsZeroValue(des.Mode) || (dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Mode) && dcl.IsEmptyValueIndirect(initial.Mode) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Mode = initial.Mode
 	} else {
 		cDes.Mode = des.Mode
@@ -19445,7 +18983,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartChartOptions(des, ini
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsXyChartChartOptionsSlice(des, initial []DashboardColumnLayoutColumnsWidgetsXyChartChartOptions, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsXyChartChartOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -19532,10 +19070,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsXyChartChartOptionsSlice(
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecard(des, initial *DashboardColumnLayoutColumnsWidgetsScorecard, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecard {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -19555,7 +19090,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecard(des, initial *Dash
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecard, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecard {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -19647,10 +19182,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardSlice(c *Client,
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -19662,12 +19194,12 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery(des
 
 	cDes.TimeSeriesFilter = canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
 	cDes.TimeSeriesFilterRatio = canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
-	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
+	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) {
 		cDes.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
 	} else {
 		cDes.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
 	}
-	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
+	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) {
 		cDes.UnitOverride = initial.UnitOverride
 	} else {
 		cDes.UnitOverride = des.UnitOverride
@@ -19678,7 +19210,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery(des
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuerySlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -19774,10 +19306,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryS
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -19787,7 +19316,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -19801,7 +19330,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -19895,10 +19424,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -19908,19 +19434,19 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -19936,7 +19462,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -20030,10 +19556,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -20043,19 +19566,19 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -20071,7 +19594,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -20165,10 +19688,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -20178,20 +19698,20 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -20202,7 +19722,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -20289,10 +19809,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -20312,7 +19829,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -20404,10 +19921,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -20417,7 +19931,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -20429,7 +19943,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -20521,10 +20035,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -20534,19 +20045,19 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -20562,7 +20073,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -20656,10 +20167,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -20669,7 +20177,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -20681,7 +20189,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -20773,10 +20281,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -20786,19 +20291,19 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -20814,7 +20319,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -20908,10 +20413,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -20921,19 +20423,19 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
 
-	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
+	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) {
 		cDes.AlignmentPeriod = initial.AlignmentPeriod
 	} else {
 		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(des.PerSeriesAligner) || (dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.PerSeriesAligner) && dcl.IsEmptyValueIndirect(initial.PerSeriesAligner) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.PerSeriesAligner = initial.PerSeriesAligner
 	} else {
 		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
-	if dcl.IsZeroValue(des.CrossSeriesReducer) || (dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CrossSeriesReducer) && dcl.IsEmptyValueIndirect(initial.CrossSeriesReducer) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CrossSeriesReducer = initial.CrossSeriesReducer
 	} else {
 		cDes.CrossSeriesReducer = des.CrossSeriesReducer
@@ -20949,7 +20451,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -21043,10 +20545,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -21056,20 +20555,20 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
 
-	if dcl.IsZeroValue(des.RankingMethod) || (dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RankingMethod) && dcl.IsEmptyValueIndirect(initial.RankingMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RankingMethod = initial.RankingMethod
 	} else {
 		cDes.RankingMethod = des.RankingMethod
 	}
-	if dcl.IsZeroValue(des.NumTimeSeries) || (dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumTimeSeries) && dcl.IsEmptyValueIndirect(initial.NumTimeSeries) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumTimeSeries = initial.NumTimeSeries
 	} else {
 		cDes.NumTimeSeries = des.NumTimeSeries
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -21080,7 +20579,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTime
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -21167,10 +20666,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryT
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardGaugeView(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardGaugeView, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardGaugeView {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -21180,14 +20676,14 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardGaugeView(des, init
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardGaugeView{}
 
-	if dcl.IsZeroValue(des.LowerBound) || (dcl.IsEmptyValueIndirect(des.LowerBound) && dcl.IsEmptyValueIndirect(initial.LowerBound)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.LowerBound) && dcl.IsEmptyValueIndirect(initial.LowerBound) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.LowerBound = initial.LowerBound
 	} else {
 		cDes.LowerBound = des.LowerBound
 	}
-	if dcl.IsZeroValue(des.UpperBound) || (dcl.IsEmptyValueIndirect(des.UpperBound) && dcl.IsEmptyValueIndirect(initial.UpperBound)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.UpperBound) && dcl.IsEmptyValueIndirect(initial.UpperBound) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.UpperBound = initial.UpperBound
 	} else {
 		cDes.UpperBound = des.UpperBound
@@ -21198,7 +20694,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardGaugeView(des, init
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardGaugeViewSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardGaugeView, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardGaugeView {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -21285,10 +20781,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardGaugeViewSlice(c
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardSparkChartView(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -21298,13 +20791,13 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardSparkChartView(des,
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView{}
 
-	if dcl.IsZeroValue(des.SparkChartType) || (dcl.IsEmptyValueIndirect(des.SparkChartType) && dcl.IsEmptyValueIndirect(initial.SparkChartType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SparkChartType) && dcl.IsEmptyValueIndirect(initial.SparkChartType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SparkChartType = initial.SparkChartType
 	} else {
 		cDes.SparkChartType = des.SparkChartType
 	}
-	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
+	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) {
 		cDes.MinAlignmentPeriod = initial.MinAlignmentPeriod
 	} else {
 		cDes.MinAlignmentPeriod = des.MinAlignmentPeriod
@@ -21315,7 +20808,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardSparkChartView(des,
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -21406,10 +20899,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSl
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardThresholds(des, initial *DashboardColumnLayoutColumnsWidgetsScorecardThresholds, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsScorecardThresholds {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -21419,25 +20909,25 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardThresholds(des, ini
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsScorecardThresholds{}
 
-	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
+	if dcl.StringCanonicalize(des.Label, initial.Label) {
 		cDes.Label = initial.Label
 	} else {
 		cDes.Label = des.Label
 	}
-	if dcl.IsZeroValue(des.Value) || (dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Value) && dcl.IsEmptyValueIndirect(initial.Value) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
 	}
-	if dcl.IsZeroValue(des.Color) || (dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Color) && dcl.IsEmptyValueIndirect(initial.Color) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Color = initial.Color
 	} else {
 		cDes.Color = des.Color
 	}
-	if dcl.IsZeroValue(des.Direction) || (dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Direction) && dcl.IsEmptyValueIndirect(initial.Direction) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Direction = initial.Direction
 	} else {
 		cDes.Direction = des.Direction
@@ -21448,7 +20938,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardThresholds(des, ini
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsScorecardThresholdsSlice(des, initial []DashboardColumnLayoutColumnsWidgetsScorecardThresholds, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsScorecardThresholds {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -21539,10 +21029,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecardThresholdsSlice(
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsText(des, initial *DashboardColumnLayoutColumnsWidgetsText, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsText {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -21552,13 +21039,13 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsText(des, initial *Dashboard
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsText{}
 
-	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
+	if dcl.StringCanonicalize(des.Content, initial.Content) {
 		cDes.Content = initial.Content
 	} else {
 		cDes.Content = des.Content
 	}
-	if dcl.IsZeroValue(des.Format) || (dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Format) && dcl.IsEmptyValueIndirect(initial.Format) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Format = initial.Format
 	} else {
 		cDes.Format = des.Format
@@ -21569,7 +21056,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsText(des, initial *Dashboard
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsTextSlice(des, initial []DashboardColumnLayoutColumnsWidgetsText, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsText {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -21660,12 +21147,10 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsTextSlice(c *Client, des,
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsBlank(des, initial *DashboardColumnLayoutColumnsWidgetsBlank, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsBlank {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -21677,7 +21162,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsBlank(des, initial *Dashboar
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsBlankSlice(des, initial []DashboardColumnLayoutColumnsWidgetsBlank, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsBlank {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -21764,10 +21249,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsBlankSlice(c *Client, des
 }
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsLogsPanel(des, initial *DashboardColumnLayoutColumnsWidgetsLogsPanel, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsLogsPanel {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -21777,7 +21259,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsLogsPanel(des, initial *Dash
 
 	cDes := &DashboardColumnLayoutColumnsWidgetsLogsPanel{}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) {
 		cDes.Filter = initial.Filter
 	} else {
 		cDes.Filter = des.Filter
@@ -21793,7 +21275,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgetsLogsPanel(des, initial *Dash
 
 func canonicalizeDashboardColumnLayoutColumnsWidgetsLogsPanelSlice(des, initial []DashboardColumnLayoutColumnsWidgetsLogsPanel, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsLogsPanel {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

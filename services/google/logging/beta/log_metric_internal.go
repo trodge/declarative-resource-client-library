@@ -502,8 +502,8 @@ func canonicalizeLogMetricDesiredState(rawDesired, rawInitial *LogMetric, opts .
 	} else {
 		canonicalDesired.ValueExtractor = rawDesired.ValueExtractor
 	}
-	if dcl.IsZeroValue(rawDesired.LabelExtractors) || (dcl.IsEmptyValueIndirect(rawDesired.LabelExtractors) && dcl.IsEmptyValueIndirect(rawInitial.LabelExtractors)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.LabelExtractors) && dcl.IsEmptyValueIndirect(rawInitial.LabelExtractors) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.LabelExtractors = rawInitial.LabelExtractors
 	} else {
 		canonicalDesired.LabelExtractors = rawDesired.LabelExtractors
@@ -593,10 +593,7 @@ func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*L
 }
 
 func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescriptor, opts ...dcl.ApplyOption) *LogMetricMetricDescriptor {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -607,30 +604,30 @@ func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescript
 	cDes := &LogMetricMetricDescriptor{}
 
 	cDes.Labels = canonicalizeLogMetricMetricDescriptorLabelsSlice(des.Labels, initial.Labels, opts...)
-	if dcl.IsZeroValue(des.MetricKind) || (dcl.IsEmptyValueIndirect(des.MetricKind) && dcl.IsEmptyValueIndirect(initial.MetricKind)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MetricKind) && dcl.IsEmptyValueIndirect(initial.MetricKind) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MetricKind = initial.MetricKind
 	} else {
 		cDes.MetricKind = des.MetricKind
 	}
-	if canonicalizeLogMetricMetricDescriptorValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
+	if canonicalizeLogMetricMetricDescriptorValueType(des.ValueType, initial.ValueType) {
 		cDes.ValueType = initial.ValueType
 	} else {
 		cDes.ValueType = des.ValueType
 	}
-	if dcl.StringCanonicalize(des.Unit, initial.Unit) || dcl.IsZeroValue(des.Unit) {
+	if dcl.StringCanonicalize(des.Unit, initial.Unit) {
 		cDes.Unit = initial.Unit
 	} else {
 		cDes.Unit = des.Unit
 	}
-	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
+	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) {
 		cDes.DisplayName = initial.DisplayName
 	} else {
 		cDes.DisplayName = des.DisplayName
 	}
 	cDes.Metadata = canonicalizeLogMetricMetricDescriptorMetadata(des.Metadata, initial.Metadata, opts...)
-	if dcl.IsZeroValue(des.LaunchStage) || (dcl.IsEmptyValueIndirect(des.LaunchStage) && dcl.IsEmptyValueIndirect(initial.LaunchStage)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.LaunchStage) && dcl.IsEmptyValueIndirect(initial.LaunchStage) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.LaunchStage = initial.LaunchStage
 	} else {
 		cDes.LaunchStage = des.LaunchStage
@@ -641,7 +638,7 @@ func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescript
 
 func canonicalizeLogMetricMetricDescriptorSlice(des, initial []LogMetricMetricDescriptor, opts ...dcl.ApplyOption) []LogMetricMetricDescriptor {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -753,10 +750,7 @@ func canonicalizeNewLogMetricMetricDescriptorSlice(c *Client, des, nw []LogMetri
 }
 
 func canonicalizeLogMetricMetricDescriptorLabels(des, initial *LogMetricMetricDescriptorLabels, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorLabels {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -766,17 +760,17 @@ func canonicalizeLogMetricMetricDescriptorLabels(des, initial *LogMetricMetricDe
 
 	cDes := &LogMetricMetricDescriptorLabels{}
 
-	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
+	if dcl.StringCanonicalize(des.Key, initial.Key) {
 		cDes.Key = initial.Key
 	} else {
 		cDes.Key = des.Key
 	}
-	if canonicalizeLogMetricMetricDescriptorLabelsValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
+	if canonicalizeLogMetricMetricDescriptorLabelsValueType(des.ValueType, initial.ValueType) {
 		cDes.ValueType = initial.ValueType
 	} else {
 		cDes.ValueType = des.ValueType
 	}
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
@@ -787,7 +781,7 @@ func canonicalizeLogMetricMetricDescriptorLabels(des, initial *LogMetricMetricDe
 
 func canonicalizeLogMetricMetricDescriptorLabelsSlice(des, initial []LogMetricMetricDescriptorLabels, opts ...dcl.ApplyOption) []LogMetricMetricDescriptorLabels {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -884,10 +878,7 @@ func canonicalizeNewLogMetricMetricDescriptorLabelsSlice(c *Client, des, nw []Lo
 }
 
 func canonicalizeLogMetricMetricDescriptorMetadata(des, initial *LogMetricMetricDescriptorMetadata, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorMetadata {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -897,12 +888,12 @@ func canonicalizeLogMetricMetricDescriptorMetadata(des, initial *LogMetricMetric
 
 	cDes := &LogMetricMetricDescriptorMetadata{}
 
-	if dcl.StringCanonicalize(des.SamplePeriod, initial.SamplePeriod) || dcl.IsZeroValue(des.SamplePeriod) {
+	if dcl.StringCanonicalize(des.SamplePeriod, initial.SamplePeriod) {
 		cDes.SamplePeriod = initial.SamplePeriod
 	} else {
 		cDes.SamplePeriod = des.SamplePeriod
 	}
-	if dcl.StringCanonicalize(des.IngestDelay, initial.IngestDelay) || dcl.IsZeroValue(des.IngestDelay) {
+	if dcl.StringCanonicalize(des.IngestDelay, initial.IngestDelay) {
 		cDes.IngestDelay = initial.IngestDelay
 	} else {
 		cDes.IngestDelay = des.IngestDelay
@@ -913,7 +904,7 @@ func canonicalizeLogMetricMetricDescriptorMetadata(des, initial *LogMetricMetric
 
 func canonicalizeLogMetricMetricDescriptorMetadataSlice(des, initial []LogMetricMetricDescriptorMetadata, opts ...dcl.ApplyOption) []LogMetricMetricDescriptorMetadata {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1007,41 +998,8 @@ func canonicalizeNewLogMetricMetricDescriptorMetadataSlice(c *Client, des, nw []
 }
 
 func canonicalizeLogMetricBucketOptions(des, initial *LogMetricBucketOptions, opts ...dcl.ApplyOption) *LogMetricBucketOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.LinearBuckets != nil || (initial != nil && initial.LinearBuckets != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExponentialBuckets, des.ExplicitBuckets) {
-			des.LinearBuckets = nil
-			if initial != nil {
-				initial.LinearBuckets = nil
-			}
-		}
-	}
-
-	if des.ExponentialBuckets != nil || (initial != nil && initial.ExponentialBuckets != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.LinearBuckets, des.ExplicitBuckets) {
-			des.ExponentialBuckets = nil
-			if initial != nil {
-				initial.ExponentialBuckets = nil
-			}
-		}
-	}
-
-	if des.ExplicitBuckets != nil || (initial != nil && initial.ExplicitBuckets != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.LinearBuckets, des.ExponentialBuckets) {
-			des.ExplicitBuckets = nil
-			if initial != nil {
-				initial.ExplicitBuckets = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1054,12 +1012,32 @@ func canonicalizeLogMetricBucketOptions(des, initial *LogMetricBucketOptions, op
 	cDes.ExponentialBuckets = canonicalizeLogMetricBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
 	cDes.ExplicitBuckets = canonicalizeLogMetricBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
 
+	if cDes.LinearBuckets != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExponentialBuckets, cDes.ExplicitBuckets) {
+			cDes.LinearBuckets = nil
+		}
+	}
+
+	if cDes.ExponentialBuckets != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.LinearBuckets, cDes.ExplicitBuckets) {
+			cDes.ExponentialBuckets = nil
+		}
+	}
+
+	if cDes.ExplicitBuckets != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.LinearBuckets, cDes.ExponentialBuckets) {
+			cDes.ExplicitBuckets = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeLogMetricBucketOptionsSlice(des, initial []LogMetricBucketOptions, opts ...dcl.ApplyOption) []LogMetricBucketOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1150,10 +1128,7 @@ func canonicalizeNewLogMetricBucketOptionsSlice(c *Client, des, nw []LogMetricBu
 }
 
 func canonicalizeLogMetricBucketOptionsLinearBuckets(des, initial *LogMetricBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) *LogMetricBucketOptionsLinearBuckets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1163,20 +1138,20 @@ func canonicalizeLogMetricBucketOptionsLinearBuckets(des, initial *LogMetricBuck
 
 	cDes := &LogMetricBucketOptionsLinearBuckets{}
 
-	if dcl.IsZeroValue(des.NumFiniteBuckets) || (dcl.IsEmptyValueIndirect(des.NumFiniteBuckets) && dcl.IsEmptyValueIndirect(initial.NumFiniteBuckets)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumFiniteBuckets) && dcl.IsEmptyValueIndirect(initial.NumFiniteBuckets) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumFiniteBuckets = initial.NumFiniteBuckets
 	} else {
 		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
-	if dcl.IsZeroValue(des.Width) || (dcl.IsEmptyValueIndirect(des.Width) && dcl.IsEmptyValueIndirect(initial.Width)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Width) && dcl.IsEmptyValueIndirect(initial.Width) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Width = initial.Width
 	} else {
 		cDes.Width = des.Width
 	}
-	if dcl.IsZeroValue(des.Offset) || (dcl.IsEmptyValueIndirect(des.Offset) && dcl.IsEmptyValueIndirect(initial.Offset)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Offset) && dcl.IsEmptyValueIndirect(initial.Offset) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Offset = initial.Offset
 	} else {
 		cDes.Offset = des.Offset
@@ -1187,7 +1162,7 @@ func canonicalizeLogMetricBucketOptionsLinearBuckets(des, initial *LogMetricBuck
 
 func canonicalizeLogMetricBucketOptionsLinearBucketsSlice(des, initial []LogMetricBucketOptionsLinearBuckets, opts ...dcl.ApplyOption) []LogMetricBucketOptionsLinearBuckets {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1274,10 +1249,7 @@ func canonicalizeNewLogMetricBucketOptionsLinearBucketsSlice(c *Client, des, nw 
 }
 
 func canonicalizeLogMetricBucketOptionsExponentialBuckets(des, initial *LogMetricBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) *LogMetricBucketOptionsExponentialBuckets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1287,20 +1259,20 @@ func canonicalizeLogMetricBucketOptionsExponentialBuckets(des, initial *LogMetri
 
 	cDes := &LogMetricBucketOptionsExponentialBuckets{}
 
-	if dcl.IsZeroValue(des.NumFiniteBuckets) || (dcl.IsEmptyValueIndirect(des.NumFiniteBuckets) && dcl.IsEmptyValueIndirect(initial.NumFiniteBuckets)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumFiniteBuckets) && dcl.IsEmptyValueIndirect(initial.NumFiniteBuckets) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumFiniteBuckets = initial.NumFiniteBuckets
 	} else {
 		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
-	if dcl.IsZeroValue(des.GrowthFactor) || (dcl.IsEmptyValueIndirect(des.GrowthFactor) && dcl.IsEmptyValueIndirect(initial.GrowthFactor)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GrowthFactor) && dcl.IsEmptyValueIndirect(initial.GrowthFactor) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GrowthFactor = initial.GrowthFactor
 	} else {
 		cDes.GrowthFactor = des.GrowthFactor
 	}
-	if dcl.IsZeroValue(des.Scale) || (dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Scale) && dcl.IsEmptyValueIndirect(initial.Scale) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Scale = initial.Scale
 	} else {
 		cDes.Scale = des.Scale
@@ -1311,7 +1283,7 @@ func canonicalizeLogMetricBucketOptionsExponentialBuckets(des, initial *LogMetri
 
 func canonicalizeLogMetricBucketOptionsExponentialBucketsSlice(des, initial []LogMetricBucketOptionsExponentialBuckets, opts ...dcl.ApplyOption) []LogMetricBucketOptionsExponentialBuckets {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1398,10 +1370,7 @@ func canonicalizeNewLogMetricBucketOptionsExponentialBucketsSlice(c *Client, des
 }
 
 func canonicalizeLogMetricBucketOptionsExplicitBuckets(des, initial *LogMetricBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) *LogMetricBucketOptionsExplicitBuckets {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1411,8 +1380,8 @@ func canonicalizeLogMetricBucketOptionsExplicitBuckets(des, initial *LogMetricBu
 
 	cDes := &LogMetricBucketOptionsExplicitBuckets{}
 
-	if dcl.IsZeroValue(des.Bounds) || (dcl.IsEmptyValueIndirect(des.Bounds) && dcl.IsEmptyValueIndirect(initial.Bounds)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Bounds) && dcl.IsEmptyValueIndirect(initial.Bounds) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Bounds = initial.Bounds
 	} else {
 		cDes.Bounds = des.Bounds
@@ -1423,7 +1392,7 @@ func canonicalizeLogMetricBucketOptionsExplicitBuckets(des, initial *LogMetricBu
 
 func canonicalizeLogMetricBucketOptionsExplicitBucketsSlice(des, initial []LogMetricBucketOptionsExplicitBuckets, opts ...dcl.ApplyOption) []LogMetricBucketOptionsExplicitBuckets {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

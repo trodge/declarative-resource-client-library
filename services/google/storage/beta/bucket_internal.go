@@ -523,8 +523,8 @@ func canonicalizeBucketDesiredState(rawDesired, rawInitial *Bucket, opts ...dcl.
 	canonicalDesired.Cors = canonicalizeBucketCorsSlice(rawDesired.Cors, rawInitial.Cors, opts...)
 	canonicalDesired.Lifecycle = canonicalizeBucketLifecycle(rawDesired.Lifecycle, rawInitial.Lifecycle, opts...)
 	canonicalDesired.Logging = canonicalizeBucketLogging(rawDesired.Logging, rawInitial.Logging, opts...)
-	if dcl.IsZeroValue(rawDesired.StorageClass) || (dcl.IsEmptyValueIndirect(rawDesired.StorageClass) && dcl.IsEmptyValueIndirect(rawInitial.StorageClass)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.StorageClass) && dcl.IsEmptyValueIndirect(rawInitial.StorageClass) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.StorageClass = rawInitial.StorageClass
 	} else {
 		canonicalDesired.StorageClass = rawDesired.StorageClass
@@ -594,10 +594,7 @@ func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket,
 }
 
 func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *BucketCors {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -607,8 +604,8 @@ func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *
 
 	cDes := &BucketCors{}
 
-	if dcl.IsZeroValue(des.MaxAgeSeconds) || (dcl.IsEmptyValueIndirect(des.MaxAgeSeconds) && dcl.IsEmptyValueIndirect(initial.MaxAgeSeconds)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxAgeSeconds) && dcl.IsEmptyValueIndirect(initial.MaxAgeSeconds) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxAgeSeconds = initial.MaxAgeSeconds
 	} else {
 		cDes.MaxAgeSeconds = des.MaxAgeSeconds
@@ -634,7 +631,7 @@ func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *
 
 func canonicalizeBucketCorsSlice(des, initial []BucketCors, opts ...dcl.ApplyOption) []BucketCors {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -731,10 +728,7 @@ func canonicalizeNewBucketCorsSlice(c *Client, des, nw []BucketCors) []BucketCor
 }
 
 func canonicalizeBucketLifecycle(des, initial *BucketLifecycle, opts ...dcl.ApplyOption) *BucketLifecycle {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -751,7 +745,7 @@ func canonicalizeBucketLifecycle(des, initial *BucketLifecycle, opts ...dcl.Appl
 
 func canonicalizeBucketLifecycleSlice(des, initial []BucketLifecycle, opts ...dcl.ApplyOption) []BucketLifecycle {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -840,10 +834,7 @@ func canonicalizeNewBucketLifecycleSlice(c *Client, des, nw []BucketLifecycle) [
 }
 
 func canonicalizeBucketLifecycleRule(des, initial *BucketLifecycleRule, opts ...dcl.ApplyOption) *BucketLifecycleRule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -861,7 +852,7 @@ func canonicalizeBucketLifecycleRule(des, initial *BucketLifecycleRule, opts ...
 
 func canonicalizeBucketLifecycleRuleSlice(des, initial []BucketLifecycleRule, opts ...dcl.ApplyOption) []BucketLifecycleRule {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -951,10 +942,7 @@ func canonicalizeNewBucketLifecycleRuleSlice(c *Client, des, nw []BucketLifecycl
 }
 
 func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleAction, opts ...dcl.ApplyOption) *BucketLifecycleRuleAction {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -964,13 +952,13 @@ func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleActi
 
 	cDes := &BucketLifecycleRuleAction{}
 
-	if dcl.StringCanonicalize(des.StorageClass, initial.StorageClass) || dcl.IsZeroValue(des.StorageClass) {
+	if dcl.StringCanonicalize(des.StorageClass, initial.StorageClass) {
 		cDes.StorageClass = initial.StorageClass
 	} else {
 		cDes.StorageClass = des.StorageClass
 	}
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Type = initial.Type
 	} else {
 		cDes.Type = des.Type
@@ -981,7 +969,7 @@ func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleActi
 
 func canonicalizeBucketLifecycleRuleActionSlice(des, initial []BucketLifecycleRuleAction, opts ...dcl.ApplyOption) []BucketLifecycleRuleAction {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1072,10 +1060,7 @@ func canonicalizeNewBucketLifecycleRuleActionSlice(c *Client, des, nw []BucketLi
 }
 
 func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleCondition, opts ...dcl.ApplyOption) *BucketLifecycleRuleCondition {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1085,20 +1070,20 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 
 	cDes := &BucketLifecycleRuleCondition{}
 
-	if dcl.IsZeroValue(des.Age) || (dcl.IsEmptyValueIndirect(des.Age) && dcl.IsEmptyValueIndirect(initial.Age)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Age) && dcl.IsEmptyValueIndirect(initial.Age) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Age = initial.Age
 	} else {
 		cDes.Age = des.Age
 	}
-	if dcl.IsZeroValue(des.CreatedBefore) || (dcl.IsEmptyValueIndirect(des.CreatedBefore) && dcl.IsEmptyValueIndirect(initial.CreatedBefore)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.CreatedBefore) && dcl.IsEmptyValueIndirect(initial.CreatedBefore) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.CreatedBefore = initial.CreatedBefore
 	} else {
 		cDes.CreatedBefore = des.CreatedBefore
 	}
-	if dcl.IsZeroValue(des.WithState) || (dcl.IsEmptyValueIndirect(des.WithState) && dcl.IsEmptyValueIndirect(initial.WithState)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.WithState) && dcl.IsEmptyValueIndirect(initial.WithState) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.WithState = initial.WithState
 	} else {
 		cDes.WithState = des.WithState
@@ -1108,8 +1093,8 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 	} else {
 		cDes.MatchesStorageClass = des.MatchesStorageClass
 	}
-	if dcl.IsZeroValue(des.NumNewerVersions) || (dcl.IsEmptyValueIndirect(des.NumNewerVersions) && dcl.IsEmptyValueIndirect(initial.NumNewerVersions)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.NumNewerVersions) && dcl.IsEmptyValueIndirect(initial.NumNewerVersions) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.NumNewerVersions = initial.NumNewerVersions
 	} else {
 		cDes.NumNewerVersions = des.NumNewerVersions
@@ -1120,7 +1105,7 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 
 func canonicalizeBucketLifecycleRuleConditionSlice(des, initial []BucketLifecycleRuleCondition, opts ...dcl.ApplyOption) []BucketLifecycleRuleCondition {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1211,10 +1196,7 @@ func canonicalizeNewBucketLifecycleRuleConditionSlice(c *Client, des, nw []Bucke
 }
 
 func canonicalizeBucketLogging(des, initial *BucketLogging, opts ...dcl.ApplyOption) *BucketLogging {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1224,12 +1206,12 @@ func canonicalizeBucketLogging(des, initial *BucketLogging, opts ...dcl.ApplyOpt
 
 	cDes := &BucketLogging{}
 
-	if dcl.StringCanonicalize(des.LogBucket, initial.LogBucket) || dcl.IsZeroValue(des.LogBucket) {
+	if dcl.StringCanonicalize(des.LogBucket, initial.LogBucket) {
 		cDes.LogBucket = initial.LogBucket
 	} else {
 		cDes.LogBucket = des.LogBucket
 	}
-	if dcl.StringCanonicalize(des.LogObjectPrefix, initial.LogObjectPrefix) || dcl.IsZeroValue(des.LogObjectPrefix) {
+	if dcl.StringCanonicalize(des.LogObjectPrefix, initial.LogObjectPrefix) {
 		cDes.LogObjectPrefix = initial.LogObjectPrefix
 	} else {
 		cDes.LogObjectPrefix = des.LogObjectPrefix
@@ -1240,7 +1222,7 @@ func canonicalizeBucketLogging(des, initial *BucketLogging, opts ...dcl.ApplyOpt
 
 func canonicalizeBucketLoggingSlice(des, initial []BucketLogging, opts ...dcl.ApplyOption) []BucketLogging {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1334,10 +1316,7 @@ func canonicalizeNewBucketLoggingSlice(c *Client, des, nw []BucketLogging) []Buc
 }
 
 func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.ApplyOption) *BucketVersioning {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1347,7 +1326,7 @@ func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.Ap
 
 	cDes := &BucketVersioning{}
 
-	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
+	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) {
 		cDes.Enabled = initial.Enabled
 	} else {
 		cDes.Enabled = des.Enabled
@@ -1358,7 +1337,7 @@ func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.Ap
 
 func canonicalizeBucketVersioningSlice(des, initial []BucketVersioning, opts ...dcl.ApplyOption) []BucketVersioning {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1449,10 +1428,7 @@ func canonicalizeNewBucketVersioningSlice(c *Client, des, nw []BucketVersioning)
 }
 
 func canonicalizeBucketWebsite(des, initial *BucketWebsite, opts ...dcl.ApplyOption) *BucketWebsite {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1462,12 +1438,12 @@ func canonicalizeBucketWebsite(des, initial *BucketWebsite, opts ...dcl.ApplyOpt
 
 	cDes := &BucketWebsite{}
 
-	if dcl.StringCanonicalize(des.MainPageSuffix, initial.MainPageSuffix) || dcl.IsZeroValue(des.MainPageSuffix) {
+	if dcl.StringCanonicalize(des.MainPageSuffix, initial.MainPageSuffix) {
 		cDes.MainPageSuffix = initial.MainPageSuffix
 	} else {
 		cDes.MainPageSuffix = des.MainPageSuffix
 	}
-	if dcl.StringCanonicalize(des.NotFoundPage, initial.NotFoundPage) || dcl.IsZeroValue(des.NotFoundPage) {
+	if dcl.StringCanonicalize(des.NotFoundPage, initial.NotFoundPage) {
 		cDes.NotFoundPage = initial.NotFoundPage
 	} else {
 		cDes.NotFoundPage = des.NotFoundPage
@@ -1478,7 +1454,7 @@ func canonicalizeBucketWebsite(des, initial *BucketWebsite, opts ...dcl.ApplyOpt
 
 func canonicalizeBucketWebsiteSlice(des, initial []BucketWebsite, opts ...dcl.ApplyOption) []BucketWebsite {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

@@ -916,8 +916,8 @@ func canonicalizeJobTriggerDesiredState(rawDesired, rawInitial *JobTrigger, opts
 		return rawDesired, nil
 	}
 	canonicalDesired := &JobTrigger{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -934,8 +934,8 @@ func canonicalizeJobTriggerDesiredState(rawDesired, rawInitial *JobTrigger, opts
 	}
 	canonicalDesired.InspectJob = canonicalizeJobTriggerInspectJob(rawDesired.InspectJob, rawInitial.InspectJob, opts...)
 	canonicalDesired.Triggers = canonicalizeJobTriggerTriggersSlice(rawDesired.Triggers, rawInitial.Triggers, opts...)
-	if dcl.IsZeroValue(rawDesired.Status) || (dcl.IsEmptyValueIndirect(rawDesired.Status) && dcl.IsEmptyValueIndirect(rawInitial.Status)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Status) && dcl.IsEmptyValueIndirect(rawInitial.Status) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Status = rawInitial.Status
 	} else {
 		canonicalDesired.Status = rawDesired.Status
@@ -1031,10 +1031,7 @@ func canonicalizeJobTriggerNewState(c *Client, rawNew, rawDesired *JobTrigger) (
 }
 
 func canonicalizeJobTriggerInspectJob(des, initial *JobTriggerInspectJob, opts ...dcl.ApplyOption) *JobTriggerInspectJob {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1046,7 +1043,7 @@ func canonicalizeJobTriggerInspectJob(des, initial *JobTriggerInspectJob, opts .
 
 	cDes.StorageConfig = canonicalizeJobTriggerInspectJobStorageConfig(des.StorageConfig, initial.StorageConfig, opts...)
 	cDes.InspectConfig = canonicalizeJobTriggerInspectJobInspectConfig(des.InspectConfig, initial.InspectConfig, opts...)
-	if dcl.StringCanonicalize(des.InspectTemplateName, initial.InspectTemplateName) || dcl.IsZeroValue(des.InspectTemplateName) {
+	if dcl.StringCanonicalize(des.InspectTemplateName, initial.InspectTemplateName) {
 		cDes.InspectTemplateName = initial.InspectTemplateName
 	} else {
 		cDes.InspectTemplateName = des.InspectTemplateName
@@ -1058,7 +1055,7 @@ func canonicalizeJobTriggerInspectJob(des, initial *JobTriggerInspectJob, opts .
 
 func canonicalizeJobTriggerInspectJobSlice(des, initial []JobTriggerInspectJob, opts ...dcl.ApplyOption) []JobTriggerInspectJob {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1152,91 +1149,8 @@ func canonicalizeNewJobTriggerInspectJobSlice(c *Client, des, nw []JobTriggerIns
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfig(des, initial *JobTriggerInspectJobStorageConfig, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.DatastoreOptions != nil || (initial != nil && initial.DatastoreOptions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudStorageOptions, des.BigQueryOptions, des.HybridOptions) {
-			des.DatastoreOptions = nil
-			if initial != nil {
-				initial.DatastoreOptions = nil
-			}
-		}
-	}
-
-	if des.CloudStorageOptions != nil || (initial != nil && initial.CloudStorageOptions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.DatastoreOptions, des.BigQueryOptions, des.HybridOptions) {
-			des.CloudStorageOptions = nil
-			if initial != nil {
-				initial.CloudStorageOptions = nil
-			}
-		}
-	}
-
-	if des.BigQueryOptions != nil || (initial != nil && initial.BigQueryOptions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.DatastoreOptions, des.CloudStorageOptions, des.HybridOptions) {
-			des.BigQueryOptions = nil
-			if initial != nil {
-				initial.BigQueryOptions = nil
-			}
-		}
-	}
-
-	if des.HybridOptions != nil || (initial != nil && initial.HybridOptions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.DatastoreOptions, des.CloudStorageOptions, des.BigQueryOptions) {
-			des.HybridOptions = nil
-			if initial != nil {
-				initial.HybridOptions = nil
-			}
-		}
-	}
-
-	if des.DatastoreOptions != nil || (initial != nil && initial.DatastoreOptions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudStorageOptions, des.BigQueryOptions, des.HybridOptions) {
-			des.DatastoreOptions = nil
-			if initial != nil {
-				initial.DatastoreOptions = nil
-			}
-		}
-	}
-
-	if des.CloudStorageOptions != nil || (initial != nil && initial.CloudStorageOptions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.DatastoreOptions, des.BigQueryOptions, des.HybridOptions) {
-			des.CloudStorageOptions = nil
-			if initial != nil {
-				initial.CloudStorageOptions = nil
-			}
-		}
-	}
-
-	if des.BigQueryOptions != nil || (initial != nil && initial.BigQueryOptions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.DatastoreOptions, des.CloudStorageOptions, des.HybridOptions) {
-			des.BigQueryOptions = nil
-			if initial != nil {
-				initial.BigQueryOptions = nil
-			}
-		}
-	}
-
-	if des.HybridOptions != nil || (initial != nil && initial.HybridOptions != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.DatastoreOptions, des.CloudStorageOptions, des.BigQueryOptions) {
-			des.HybridOptions = nil
-			if initial != nil {
-				initial.HybridOptions = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1251,12 +1165,67 @@ func canonicalizeJobTriggerInspectJobStorageConfig(des, initial *JobTriggerInspe
 	cDes.HybridOptions = canonicalizeJobTriggerInspectJobStorageConfigHybridOptions(des.HybridOptions, initial.HybridOptions, opts...)
 	cDes.TimespanConfig = canonicalizeJobTriggerInspectJobStorageConfigTimespanConfig(des.TimespanConfig, initial.TimespanConfig, opts...)
 
+	if cDes.DatastoreOptions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudStorageOptions, cDes.BigQueryOptions, cDes.HybridOptions) {
+			cDes.DatastoreOptions = nil
+		}
+	}
+
+	if cDes.CloudStorageOptions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.DatastoreOptions, cDes.BigQueryOptions, cDes.HybridOptions) {
+			cDes.CloudStorageOptions = nil
+		}
+	}
+
+	if cDes.BigQueryOptions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.DatastoreOptions, cDes.CloudStorageOptions, cDes.HybridOptions) {
+			cDes.BigQueryOptions = nil
+		}
+	}
+
+	if cDes.HybridOptions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.DatastoreOptions, cDes.CloudStorageOptions, cDes.BigQueryOptions) {
+			cDes.HybridOptions = nil
+		}
+	}
+
+	if cDes.DatastoreOptions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudStorageOptions, cDes.BigQueryOptions, cDes.HybridOptions) {
+			cDes.DatastoreOptions = nil
+		}
+	}
+
+	if cDes.CloudStorageOptions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.DatastoreOptions, cDes.BigQueryOptions, cDes.HybridOptions) {
+			cDes.CloudStorageOptions = nil
+		}
+	}
+
+	if cDes.BigQueryOptions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.DatastoreOptions, cDes.CloudStorageOptions, cDes.HybridOptions) {
+			cDes.BigQueryOptions = nil
+		}
+	}
+
+	if cDes.HybridOptions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.DatastoreOptions, cDes.CloudStorageOptions, cDes.BigQueryOptions) {
+			cDes.HybridOptions = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigSlice(des, initial []JobTriggerInspectJobStorageConfig, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1349,10 +1318,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigSlice(c *Client, des, nw []
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptions(des, initial *JobTriggerInspectJobStorageConfigDatastoreOptions, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigDatastoreOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1370,7 +1336,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptions(des, initial 
 
 func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptionsSlice(des, initial []JobTriggerInspectJobStorageConfigDatastoreOptions, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigDatastoreOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1460,10 +1426,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigDatastoreOptionsSlice(c *Cl
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId(des, initial *JobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1473,13 +1436,13 @@ func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId(de
 
 	cDes := &JobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId{}
 
-	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
 	}
-	if dcl.StringCanonicalize(des.NamespaceId, initial.NamespaceId) || dcl.IsZeroValue(des.NamespaceId) {
+	if dcl.StringCanonicalize(des.NamespaceId, initial.NamespaceId) {
 		cDes.NamespaceId = initial.NamespaceId
 	} else {
 		cDes.NamespaceId = des.NamespaceId
@@ -1490,7 +1453,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId(de
 
 func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionIdSlice(des, initial []JobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1581,10 +1544,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptionsKind(des, initial *JobTriggerInspectJobStorageConfigDatastoreOptionsKind, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigDatastoreOptionsKind {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1594,7 +1554,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptionsKind(des, init
 
 	cDes := &JobTriggerInspectJobStorageConfigDatastoreOptionsKind{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -1605,7 +1565,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptionsKind(des, init
 
 func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptionsKindSlice(des, initial []JobTriggerInspectJobStorageConfigDatastoreOptionsKind, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigDatastoreOptionsKind {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1696,31 +1656,8 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigDatastoreOptionsKindSlice(c
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptions(des, initial *JobTriggerInspectJobStorageConfigCloudStorageOptions, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigCloudStorageOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.BytesLimitPerFile != nil || (initial != nil && initial.BytesLimitPerFile != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.BytesLimitPerFilePercent) {
-			des.BytesLimitPerFile = nil
-			if initial != nil {
-				initial.BytesLimitPerFile = nil
-			}
-		}
-	}
-
-	if des.BytesLimitPerFilePercent != nil || (initial != nil && initial.BytesLimitPerFilePercent != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.BytesLimitPerFile) {
-			des.BytesLimitPerFilePercent = nil
-			if initial != nil {
-				initial.BytesLimitPerFilePercent = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1730,43 +1667,56 @@ func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptions(des, initi
 	cDes := &JobTriggerInspectJobStorageConfigCloudStorageOptions{}
 
 	cDes.FileSet = canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet(des.FileSet, initial.FileSet, opts...)
-	if dcl.IsZeroValue(des.BytesLimitPerFile) || (dcl.IsEmptyValueIndirect(des.BytesLimitPerFile) && dcl.IsEmptyValueIndirect(initial.BytesLimitPerFile)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BytesLimitPerFile) && dcl.IsEmptyValueIndirect(initial.BytesLimitPerFile) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BytesLimitPerFile = initial.BytesLimitPerFile
 	} else {
 		cDes.BytesLimitPerFile = des.BytesLimitPerFile
 	}
-	if dcl.IsZeroValue(des.BytesLimitPerFilePercent) || (dcl.IsEmptyValueIndirect(des.BytesLimitPerFilePercent) && dcl.IsEmptyValueIndirect(initial.BytesLimitPerFilePercent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BytesLimitPerFilePercent) && dcl.IsEmptyValueIndirect(initial.BytesLimitPerFilePercent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BytesLimitPerFilePercent = initial.BytesLimitPerFilePercent
 	} else {
 		cDes.BytesLimitPerFilePercent = des.BytesLimitPerFilePercent
 	}
-	if dcl.IsZeroValue(des.FileTypes) || (dcl.IsEmptyValueIndirect(des.FileTypes) && dcl.IsEmptyValueIndirect(initial.FileTypes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.FileTypes) && dcl.IsEmptyValueIndirect(initial.FileTypes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.FileTypes = initial.FileTypes
 	} else {
 		cDes.FileTypes = des.FileTypes
 	}
-	if dcl.IsZeroValue(des.SampleMethod) || (dcl.IsEmptyValueIndirect(des.SampleMethod) && dcl.IsEmptyValueIndirect(initial.SampleMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SampleMethod) && dcl.IsEmptyValueIndirect(initial.SampleMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SampleMethod = initial.SampleMethod
 	} else {
 		cDes.SampleMethod = des.SampleMethod
 	}
-	if dcl.IsZeroValue(des.FilesLimitPercent) || (dcl.IsEmptyValueIndirect(des.FilesLimitPercent) && dcl.IsEmptyValueIndirect(initial.FilesLimitPercent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.FilesLimitPercent) && dcl.IsEmptyValueIndirect(initial.FilesLimitPercent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.FilesLimitPercent = initial.FilesLimitPercent
 	} else {
 		cDes.FilesLimitPercent = des.FilesLimitPercent
 	}
 
+	if cDes.BytesLimitPerFile != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.BytesLimitPerFilePercent) {
+			cDes.BytesLimitPerFile = nil
+		}
+	}
+
+	if cDes.BytesLimitPerFilePercent != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.BytesLimitPerFile) {
+			cDes.BytesLimitPerFilePercent = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsSlice(des, initial []JobTriggerInspectJobStorageConfigCloudStorageOptions, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigCloudStorageOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1855,31 +1805,8 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigCloudStorageOptionsSlice(c 
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet(des, initial *JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Url != nil || (initial != nil && initial.Url != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RegexFileSet) {
-			des.Url = nil
-			if initial != nil {
-				initial.Url = nil
-			}
-		}
-	}
-
-	if des.RegexFileSet != nil || (initial != nil && initial.RegexFileSet != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Url) {
-			des.RegexFileSet = nil
-			if initial != nil {
-				initial.RegexFileSet = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -1888,19 +1815,32 @@ func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet(des
 
 	cDes := &JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet{}
 
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.StringCanonicalize(des.Url, initial.Url) {
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
 	}
 	cDes.RegexFileSet = canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet(des.RegexFileSet, initial.RegexFileSet, opts...)
 
+	if cDes.Url != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.RegexFileSet) {
+			cDes.Url = nil
+		}
+	}
+
+	if cDes.RegexFileSet != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Url) {
+			cDes.RegexFileSet = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetSlice(des, initial []JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1992,10 +1932,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetS
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet(des, initial *JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2005,8 +1942,8 @@ func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRege
 
 	cDes := &JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet{}
 
-	if dcl.IsZeroValue(des.BucketName) || (dcl.IsEmptyValueIndirect(des.BucketName) && dcl.IsEmptyValueIndirect(initial.BucketName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.BucketName) && dcl.IsEmptyValueIndirect(initial.BucketName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.BucketName = initial.BucketName
 	} else {
 		cDes.BucketName = des.BucketName
@@ -2027,7 +1964,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRege
 
 func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSetSlice(des, initial []JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2121,51 +2058,8 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetR
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptions(des, initial *JobTriggerInspectJobStorageConfigBigQueryOptions, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigBigQueryOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.RowsLimit != nil || (initial != nil && initial.RowsLimit != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RowsLimitPercent) {
-			des.RowsLimit = nil
-			if initial != nil {
-				initial.RowsLimit = nil
-			}
-		}
-	}
-
-	if des.RowsLimitPercent != nil || (initial != nil && initial.RowsLimitPercent != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RowsLimit) {
-			des.RowsLimitPercent = nil
-			if initial != nil {
-				initial.RowsLimitPercent = nil
-			}
-		}
-	}
-
-	if des.ExcludedFields != nil || (initial != nil && initial.ExcludedFields != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.IncludedFields) {
-			des.ExcludedFields = nil
-			if initial != nil {
-				initial.ExcludedFields = nil
-			}
-		}
-	}
-
-	if des.IncludedFields != nil || (initial != nil && initial.IncludedFields != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExcludedFields) {
-			des.IncludedFields = nil
-			if initial != nil {
-				initial.IncludedFields = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -2176,20 +2070,20 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptions(des, initial *
 
 	cDes.TableReference = canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsTableReference(des.TableReference, initial.TableReference, opts...)
 	cDes.IdentifyingFields = canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFieldsSlice(des.IdentifyingFields, initial.IdentifyingFields, opts...)
-	if dcl.IsZeroValue(des.RowsLimit) || (dcl.IsEmptyValueIndirect(des.RowsLimit) && dcl.IsEmptyValueIndirect(initial.RowsLimit)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RowsLimit) && dcl.IsEmptyValueIndirect(initial.RowsLimit) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RowsLimit = initial.RowsLimit
 	} else {
 		cDes.RowsLimit = des.RowsLimit
 	}
-	if dcl.IsZeroValue(des.RowsLimitPercent) || (dcl.IsEmptyValueIndirect(des.RowsLimitPercent) && dcl.IsEmptyValueIndirect(initial.RowsLimitPercent)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RowsLimitPercent) && dcl.IsEmptyValueIndirect(initial.RowsLimitPercent) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RowsLimitPercent = initial.RowsLimitPercent
 	} else {
 		cDes.RowsLimitPercent = des.RowsLimitPercent
 	}
-	if dcl.IsZeroValue(des.SampleMethod) || (dcl.IsEmptyValueIndirect(des.SampleMethod) && dcl.IsEmptyValueIndirect(initial.SampleMethod)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SampleMethod) && dcl.IsEmptyValueIndirect(initial.SampleMethod) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SampleMethod = initial.SampleMethod
 	} else {
 		cDes.SampleMethod = des.SampleMethod
@@ -2197,12 +2091,39 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptions(des, initial *
 	cDes.ExcludedFields = canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFieldsSlice(des.ExcludedFields, initial.ExcludedFields, opts...)
 	cDes.IncludedFields = canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFieldsSlice(des.IncludedFields, initial.IncludedFields, opts...)
 
+	if cDes.RowsLimit != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.RowsLimitPercent) {
+			cDes.RowsLimit = nil
+		}
+	}
+
+	if cDes.RowsLimitPercent != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.RowsLimit) {
+			cDes.RowsLimitPercent = nil
+		}
+	}
+
+	if cDes.ExcludedFields != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.IncludedFields) {
+			cDes.ExcludedFields = nil
+		}
+	}
+
+	if cDes.IncludedFields != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExcludedFields) {
+			cDes.IncludedFields = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsSlice(des, initial []JobTriggerInspectJobStorageConfigBigQueryOptions, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigBigQueryOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2294,10 +2215,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigBigQueryOptionsSlice(c *Cli
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsTableReference(des, initial *JobTriggerInspectJobStorageConfigBigQueryOptionsTableReference, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigBigQueryOptionsTableReference {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2307,20 +2225,20 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsTableReference(
 
 	cDes := &JobTriggerInspectJobStorageConfigBigQueryOptionsTableReference{}
 
-	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
 	}
-	if dcl.IsZeroValue(des.DatasetId) || (dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DatasetId = initial.DatasetId
 	} else {
 		cDes.DatasetId = des.DatasetId
 	}
-	if dcl.IsZeroValue(des.TableId) || (dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TableId = initial.TableId
 	} else {
 		cDes.TableId = des.TableId
@@ -2331,7 +2249,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsTableReference(
 
 func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsTableReferenceSlice(des, initial []JobTriggerInspectJobStorageConfigBigQueryOptionsTableReference, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigBigQueryOptionsTableReference {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2418,10 +2336,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigBigQueryOptionsTableReferen
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields(des, initial *JobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2431,7 +2346,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFiel
 
 	cDes := &JobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -2442,7 +2357,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFiel
 
 func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFieldsSlice(des, initial []JobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2533,10 +2448,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingF
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields(des, initial *JobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2546,7 +2458,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields(
 
 	cDes := &JobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -2557,7 +2469,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields(
 
 func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFieldsSlice(des, initial []JobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2648,10 +2560,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFiel
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields(des, initial *JobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2661,7 +2570,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields(
 
 	cDes := &JobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -2672,7 +2581,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields(
 
 func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFieldsSlice(des, initial []JobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2763,10 +2672,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFiel
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigHybridOptions(des, initial *JobTriggerInspectJobStorageConfigHybridOptions, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigHybridOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2776,7 +2682,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigHybridOptions(des, initial *Jo
 
 	cDes := &JobTriggerInspectJobStorageConfigHybridOptions{}
 
-	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+	if dcl.StringCanonicalize(des.Description, initial.Description) {
 		cDes.Description = initial.Description
 	} else {
 		cDes.Description = des.Description
@@ -2786,8 +2692,8 @@ func canonicalizeJobTriggerInspectJobStorageConfigHybridOptions(des, initial *Jo
 	} else {
 		cDes.RequiredFindingLabelKeys = des.RequiredFindingLabelKeys
 	}
-	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Labels = initial.Labels
 	} else {
 		cDes.Labels = des.Labels
@@ -2799,7 +2705,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigHybridOptions(des, initial *Jo
 
 func canonicalizeJobTriggerInspectJobStorageConfigHybridOptionsSlice(des, initial []JobTriggerInspectJobStorageConfigHybridOptions, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigHybridOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -2894,10 +2800,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigHybridOptionsSlice(c *Clien
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigHybridOptionsTableOptions(des, initial *JobTriggerInspectJobStorageConfigHybridOptionsTableOptions, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigHybridOptionsTableOptions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -2914,7 +2817,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigHybridOptionsTableOptions(des,
 
 func canonicalizeJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsSlice(des, initial []JobTriggerInspectJobStorageConfigHybridOptionsTableOptions, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigHybridOptionsTableOptions {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3003,10 +2906,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsSl
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFields(des, initial *JobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFields, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFields {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3016,7 +2916,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdent
 
 	cDes := &JobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFields{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -3027,7 +2927,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdent
 
 func canonicalizeJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFieldsSlice(des, initial []JobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFields, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFields {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3118,10 +3018,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsId
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigTimespanConfig(des, initial *JobTriggerInspectJobStorageConfigTimespanConfig, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigTimespanConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3131,20 +3028,20 @@ func canonicalizeJobTriggerInspectJobStorageConfigTimespanConfig(des, initial *J
 
 	cDes := &JobTriggerInspectJobStorageConfigTimespanConfig{}
 
-	if dcl.IsZeroValue(des.StartTime) || (dcl.IsEmptyValueIndirect(des.StartTime) && dcl.IsEmptyValueIndirect(initial.StartTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.StartTime) && dcl.IsEmptyValueIndirect(initial.StartTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.StartTime = initial.StartTime
 	} else {
 		cDes.StartTime = des.StartTime
 	}
-	if dcl.IsZeroValue(des.EndTime) || (dcl.IsEmptyValueIndirect(des.EndTime) && dcl.IsEmptyValueIndirect(initial.EndTime)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.EndTime) && dcl.IsEmptyValueIndirect(initial.EndTime) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.EndTime = initial.EndTime
 	} else {
 		cDes.EndTime = des.EndTime
 	}
 	cDes.TimestampField = canonicalizeJobTriggerInspectJobStorageConfigTimespanConfigTimestampField(des.TimestampField, initial.TimestampField, opts...)
-	if dcl.BoolCanonicalize(des.EnableAutoPopulationOfTimespanConfig, initial.EnableAutoPopulationOfTimespanConfig) || dcl.IsZeroValue(des.EnableAutoPopulationOfTimespanConfig) {
+	if dcl.BoolCanonicalize(des.EnableAutoPopulationOfTimespanConfig, initial.EnableAutoPopulationOfTimespanConfig) {
 		cDes.EnableAutoPopulationOfTimespanConfig = initial.EnableAutoPopulationOfTimespanConfig
 	} else {
 		cDes.EnableAutoPopulationOfTimespanConfig = des.EnableAutoPopulationOfTimespanConfig
@@ -3155,7 +3052,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigTimespanConfig(des, initial *J
 
 func canonicalizeJobTriggerInspectJobStorageConfigTimespanConfigSlice(des, initial []JobTriggerInspectJobStorageConfigTimespanConfig, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigTimespanConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3247,10 +3144,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigTimespanConfigSlice(c *Clie
 }
 
 func canonicalizeJobTriggerInspectJobStorageConfigTimespanConfigTimestampField(des, initial *JobTriggerInspectJobStorageConfigTimespanConfigTimestampField, opts ...dcl.ApplyOption) *JobTriggerInspectJobStorageConfigTimespanConfigTimestampField {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3260,7 +3154,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigTimespanConfigTimestampField(d
 
 	cDes := &JobTriggerInspectJobStorageConfigTimespanConfigTimestampField{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -3271,7 +3165,7 @@ func canonicalizeJobTriggerInspectJobStorageConfigTimespanConfigTimestampField(d
 
 func canonicalizeJobTriggerInspectJobStorageConfigTimespanConfigTimestampFieldSlice(des, initial []JobTriggerInspectJobStorageConfigTimespanConfigTimestampField, opts ...dcl.ApplyOption) []JobTriggerInspectJobStorageConfigTimespanConfigTimestampField {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3362,10 +3256,7 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigTimespanConfigTimestampFiel
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfig(des, initial *JobTriggerInspectJobInspectConfig, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3376,19 +3267,19 @@ func canonicalizeJobTriggerInspectJobInspectConfig(des, initial *JobTriggerInspe
 	cDes := &JobTriggerInspectJobInspectConfig{}
 
 	cDes.InfoTypes = canonicalizeJobTriggerInspectJobInspectConfigInfoTypesSlice(des.InfoTypes, initial.InfoTypes, opts...)
-	if dcl.IsZeroValue(des.MinLikelihood) || (dcl.IsEmptyValueIndirect(des.MinLikelihood) && dcl.IsEmptyValueIndirect(initial.MinLikelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MinLikelihood) && dcl.IsEmptyValueIndirect(initial.MinLikelihood) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MinLikelihood = initial.MinLikelihood
 	} else {
 		cDes.MinLikelihood = des.MinLikelihood
 	}
 	cDes.Limits = canonicalizeJobTriggerInspectJobInspectConfigLimits(des.Limits, initial.Limits, opts...)
-	if dcl.BoolCanonicalize(des.IncludeQuote, initial.IncludeQuote) || dcl.IsZeroValue(des.IncludeQuote) {
+	if dcl.BoolCanonicalize(des.IncludeQuote, initial.IncludeQuote) {
 		cDes.IncludeQuote = initial.IncludeQuote
 	} else {
 		cDes.IncludeQuote = des.IncludeQuote
 	}
-	if dcl.BoolCanonicalize(des.ExcludeInfoTypes, initial.ExcludeInfoTypes) || dcl.IsZeroValue(des.ExcludeInfoTypes) {
+	if dcl.BoolCanonicalize(des.ExcludeInfoTypes, initial.ExcludeInfoTypes) {
 		cDes.ExcludeInfoTypes = initial.ExcludeInfoTypes
 	} else {
 		cDes.ExcludeInfoTypes = des.ExcludeInfoTypes
@@ -3401,7 +3292,7 @@ func canonicalizeJobTriggerInspectJobInspectConfig(des, initial *JobTriggerInspe
 
 func canonicalizeJobTriggerInspectJobInspectConfigSlice(des, initial []JobTriggerInspectJobInspectConfig, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3499,10 +3390,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigSlice(c *Client, des, nw []
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigInfoTypes(des, initial *JobTriggerInspectJobInspectConfigInfoTypes, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigInfoTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3512,7 +3400,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigInfoTypes(des, initial *JobTri
 
 	cDes := &JobTriggerInspectJobInspectConfigInfoTypes{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -3523,7 +3411,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigInfoTypes(des, initial *JobTri
 
 func canonicalizeJobTriggerInspectJobInspectConfigInfoTypesSlice(des, initial []JobTriggerInspectJobInspectConfigInfoTypes, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigInfoTypes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3614,10 +3502,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigInfoTypesSlice(c *Client, d
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigLimits(des, initial *JobTriggerInspectJobInspectConfigLimits, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigLimits {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3627,14 +3512,14 @@ func canonicalizeJobTriggerInspectJobInspectConfigLimits(des, initial *JobTrigge
 
 	cDes := &JobTriggerInspectJobInspectConfigLimits{}
 
-	if dcl.IsZeroValue(des.MaxFindingsPerItem) || (dcl.IsEmptyValueIndirect(des.MaxFindingsPerItem) && dcl.IsEmptyValueIndirect(initial.MaxFindingsPerItem)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxFindingsPerItem) && dcl.IsEmptyValueIndirect(initial.MaxFindingsPerItem) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxFindingsPerItem = initial.MaxFindingsPerItem
 	} else {
 		cDes.MaxFindingsPerItem = des.MaxFindingsPerItem
 	}
-	if dcl.IsZeroValue(des.MaxFindingsPerRequest) || (dcl.IsEmptyValueIndirect(des.MaxFindingsPerRequest) && dcl.IsEmptyValueIndirect(initial.MaxFindingsPerRequest)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxFindingsPerRequest) && dcl.IsEmptyValueIndirect(initial.MaxFindingsPerRequest) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxFindingsPerRequest = initial.MaxFindingsPerRequest
 	} else {
 		cDes.MaxFindingsPerRequest = des.MaxFindingsPerRequest
@@ -3646,7 +3531,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigLimits(des, initial *JobTrigge
 
 func canonicalizeJobTriggerInspectJobInspectConfigLimitsSlice(des, initial []JobTriggerInspectJobInspectConfigLimits, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigLimits {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3735,10 +3620,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigLimitsSlice(c *Client, des,
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType(des, initial *JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3749,8 +3631,8 @@ func canonicalizeJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType(d
 	cDes := &JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType{}
 
 	cDes.InfoType = canonicalizeJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(des.InfoType, initial.InfoType, opts...)
-	if dcl.IsZeroValue(des.MaxFindings) || (dcl.IsEmptyValueIndirect(des.MaxFindings) && dcl.IsEmptyValueIndirect(initial.MaxFindings)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MaxFindings) && dcl.IsEmptyValueIndirect(initial.MaxFindings) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MaxFindings = initial.MaxFindings
 	} else {
 		cDes.MaxFindings = des.MaxFindings
@@ -3761,7 +3643,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType(d
 
 func canonicalizeJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeSlice(des, initial []JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3850,10 +3732,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTyp
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(des, initial *JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -3863,12 +3742,12 @@ func canonicalizeJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeIn
 
 	cDes := &JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -3879,7 +3758,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeIn
 
 func canonicalizeJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeSlice(des, initial []JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -3973,51 +3852,8 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTyp
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypes(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypes, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Dictionary != nil || (initial != nil && initial.Dictionary != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Regex, des.SurrogateType, des.StoredType) {
-			des.Dictionary = nil
-			if initial != nil {
-				initial.Dictionary = nil
-			}
-		}
-	}
-
-	if des.Regex != nil || (initial != nil && initial.Regex != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Dictionary, des.SurrogateType, des.StoredType) {
-			des.Regex = nil
-			if initial != nil {
-				initial.Regex = nil
-			}
-		}
-	}
-
-	if des.SurrogateType != nil || (initial != nil && initial.SurrogateType != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Dictionary, des.Regex, des.StoredType) {
-			des.SurrogateType = nil
-			if initial != nil {
-				initial.SurrogateType = nil
-			}
-		}
-	}
-
-	if des.StoredType != nil || (initial != nil && initial.StoredType != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Dictionary, des.Regex, des.SurrogateType) {
-			des.StoredType = nil
-			if initial != nil {
-				initial.StoredType = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -4027,8 +3863,8 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypes(des, initial *
 	cDes := &JobTriggerInspectJobInspectConfigCustomInfoTypes{}
 
 	cDes.InfoType = canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesInfoType(des.InfoType, initial.InfoType, opts...)
-	if dcl.IsZeroValue(des.Likelihood) || (dcl.IsEmptyValueIndirect(des.Likelihood) && dcl.IsEmptyValueIndirect(initial.Likelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Likelihood) && dcl.IsEmptyValueIndirect(initial.Likelihood) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Likelihood = initial.Likelihood
 	} else {
 		cDes.Likelihood = des.Likelihood
@@ -4038,19 +3874,46 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypes(des, initial *
 	cDes.SurrogateType = canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType(des.SurrogateType, initial.SurrogateType, opts...)
 	cDes.StoredType = canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesStoredType(des.StoredType, initial.StoredType, opts...)
 	cDes.DetectionRules = canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesSlice(des.DetectionRules, initial.DetectionRules, opts...)
-	if dcl.IsZeroValue(des.ExclusionType) || (dcl.IsEmptyValueIndirect(des.ExclusionType) && dcl.IsEmptyValueIndirect(initial.ExclusionType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ExclusionType) && dcl.IsEmptyValueIndirect(initial.ExclusionType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ExclusionType = initial.ExclusionType
 	} else {
 		cDes.ExclusionType = des.ExclusionType
 	}
 
+	if cDes.Dictionary != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Regex, cDes.SurrogateType, cDes.StoredType) {
+			cDes.Dictionary = nil
+		}
+	}
+
+	if cDes.Regex != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Dictionary, cDes.SurrogateType, cDes.StoredType) {
+			cDes.Regex = nil
+		}
+	}
+
+	if cDes.SurrogateType != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Dictionary, cDes.Regex, cDes.StoredType) {
+			cDes.SurrogateType = nil
+		}
+	}
+
+	if cDes.StoredType != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Dictionary, cDes.Regex, cDes.SurrogateType) {
+			cDes.StoredType = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypes, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4144,10 +4007,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesSlice(c *Cli
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesInfoType(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesInfoType, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesInfoType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4157,12 +4017,12 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesInfoType(des, i
 
 	cDes := &JobTriggerInspectJobInspectConfigCustomInfoTypesInfoType{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -4173,7 +4033,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesInfoType(des, i
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesInfoTypeSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesInfoType, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesInfoType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4267,31 +4127,8 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesInfoTypeSlic
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionary(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionary, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionary {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.WordList != nil || (initial != nil && initial.WordList != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudStoragePath) {
-			des.WordList = nil
-			if initial != nil {
-				initial.WordList = nil
-			}
-		}
-	}
-
-	if des.CloudStoragePath != nil || (initial != nil && initial.CloudStoragePath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.WordList) {
-			des.CloudStoragePath = nil
-			if initial != nil {
-				initial.CloudStoragePath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -4303,12 +4140,25 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionary(des,
 	cDes.WordList = canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList(des.WordList, initial.WordList, opts...)
 	cDes.CloudStoragePath = canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath(des.CloudStoragePath, initial.CloudStoragePath, opts...)
 
+	if cDes.WordList != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudStoragePath) {
+			cDes.WordList = nil
+		}
+	}
+
+	if cDes.CloudStoragePath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.WordList) {
+			cDes.CloudStoragePath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionarySlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesDictionary, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesDictionary {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4398,10 +4248,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesDictionarySl
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4422,7 +4269,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordL
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordListSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4513,10 +4360,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWo
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4526,7 +4370,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloud
 
 	cDes := &JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath{}
 
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -4537,7 +4381,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloud
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePathSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4628,10 +4472,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCl
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesRegex(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesRegex, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesRegex {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4641,13 +4482,13 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesRegex(des, init
 
 	cDes := &JobTriggerInspectJobInspectConfigCustomInfoTypesRegex{}
 
-	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) || dcl.IsZeroValue(des.Pattern) {
+	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) {
 		cDes.Pattern = initial.Pattern
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -4658,7 +4499,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesRegex(des, init
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesRegexSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesRegex, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesRegex {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4749,12 +4590,10 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesRegexSlice(c
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -4766,7 +4605,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType(d
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateTypeSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4853,10 +4692,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateTyp
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesStoredType(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesStoredType, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesStoredType {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -4866,7 +4702,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesStoredType(des,
 
 	cDes := &JobTriggerInspectJobInspectConfigCustomInfoTypesStoredType{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -4877,7 +4713,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesStoredType(des,
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesStoredTypeSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesStoredType, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesStoredType {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -4968,21 +4804,8 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesStoredTypeSl
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.HotwordRule != nil || (initial != nil && initial.HotwordRule != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			des.HotwordRule = nil
-			if initial != nil {
-				initial.HotwordRule = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -4993,12 +4816,18 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules(
 
 	cDes.HotwordRule = canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRule(des.HotwordRule, initial.HotwordRule, opts...)
 
+	if cDes.HotwordRule != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			cDes.HotwordRule = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5087,10 +4916,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRul
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRule(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRule, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5109,7 +4935,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesH
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRule, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRule {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5200,10 +5026,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRul
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5213,13 +5036,13 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesH
 
 	cDes := &JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex{}
 
-	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) || dcl.IsZeroValue(des.Pattern) {
+	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) {
 		cDes.Pattern = initial.Pattern
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -5230,7 +5053,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesH
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5321,10 +5144,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRul
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5334,14 +5154,14 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesH
 
 	cDes := &JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity{}
 
-	if dcl.IsZeroValue(des.WindowBefore) || (dcl.IsEmptyValueIndirect(des.WindowBefore) && dcl.IsEmptyValueIndirect(initial.WindowBefore)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.WindowBefore) && dcl.IsEmptyValueIndirect(initial.WindowBefore) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.WindowBefore = initial.WindowBefore
 	} else {
 		cDes.WindowBefore = des.WindowBefore
 	}
-	if dcl.IsZeroValue(des.WindowAfter) || (dcl.IsEmptyValueIndirect(des.WindowAfter) && dcl.IsEmptyValueIndirect(initial.WindowAfter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.WindowAfter) && dcl.IsEmptyValueIndirect(initial.WindowAfter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.WindowAfter = initial.WindowAfter
 	} else {
 		cDes.WindowAfter = des.WindowAfter
@@ -5352,7 +5172,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesH
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximitySlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5439,31 +5259,8 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRul
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(des, initial *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.FixedLikelihood != nil || (initial != nil && initial.FixedLikelihood != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RelativeLikelihood) {
-			des.FixedLikelihood = nil
-			if initial != nil {
-				initial.FixedLikelihood = nil
-			}
-		}
-	}
-
-	if des.RelativeLikelihood != nil || (initial != nil && initial.RelativeLikelihood != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.FixedLikelihood) {
-			des.RelativeLikelihood = nil
-			if initial != nil {
-				initial.RelativeLikelihood = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -5472,25 +5269,38 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesH
 
 	cDes := &JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment{}
 
-	if dcl.IsZeroValue(des.FixedLikelihood) || (dcl.IsEmptyValueIndirect(des.FixedLikelihood) && dcl.IsEmptyValueIndirect(initial.FixedLikelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.FixedLikelihood) && dcl.IsEmptyValueIndirect(initial.FixedLikelihood) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.FixedLikelihood = initial.FixedLikelihood
 	} else {
 		cDes.FixedLikelihood = des.FixedLikelihood
 	}
-	if dcl.IsZeroValue(des.RelativeLikelihood) || (dcl.IsEmptyValueIndirect(des.RelativeLikelihood) && dcl.IsEmptyValueIndirect(initial.RelativeLikelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RelativeLikelihood) && dcl.IsEmptyValueIndirect(initial.RelativeLikelihood) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RelativeLikelihood = initial.RelativeLikelihood
 	} else {
 		cDes.RelativeLikelihood = des.RelativeLikelihood
 	}
 
+	if cDes.FixedLikelihood != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.RelativeLikelihood) {
+			cDes.FixedLikelihood = nil
+		}
+	}
+
+	if cDes.RelativeLikelihood != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.FixedLikelihood) {
+			cDes.RelativeLikelihood = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentSlice(des, initial []JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5577,10 +5387,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRul
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSet(des, initial *JobTriggerInspectJobInspectConfigRuleSet, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSet {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5598,7 +5405,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSet(des, initial *JobTrigg
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSet, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSet {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5688,10 +5495,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetSlice(c *Client, des
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetInfoTypes(des, initial *JobTriggerInspectJobInspectConfigRuleSetInfoTypes, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetInfoTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5701,12 +5505,12 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetInfoTypes(des, initial 
 
 	cDes := &JobTriggerInspectJobInspectConfigRuleSetInfoTypes{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -5717,7 +5521,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetInfoTypes(des, initial 
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetInfoTypesSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetInfoTypes, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetInfoTypes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5811,31 +5615,8 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetInfoTypesSlice(c *Cl
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRules(des, initial *JobTriggerInspectJobInspectConfigRuleSetRules, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRules {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.HotwordRule != nil || (initial != nil && initial.HotwordRule != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.ExclusionRule) {
-			des.HotwordRule = nil
-			if initial != nil {
-				initial.HotwordRule = nil
-			}
-		}
-	}
-
-	if des.ExclusionRule != nil || (initial != nil && initial.ExclusionRule != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.HotwordRule) {
-			des.ExclusionRule = nil
-			if initial != nil {
-				initial.ExclusionRule = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -5847,12 +5628,25 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRules(des, initial *Job
 	cDes.HotwordRule = canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule(des.HotwordRule, initial.HotwordRule, opts...)
 	cDes.ExclusionRule = canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule(des.ExclusionRule, initial.ExclusionRule, opts...)
 
+	if cDes.HotwordRule != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.ExclusionRule) {
+			cDes.HotwordRule = nil
+		}
+	}
+
+	if cDes.ExclusionRule != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.HotwordRule) {
+			cDes.ExclusionRule = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRules, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRules {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -5942,10 +5736,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesSlice(c *Client
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -5964,7 +5755,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule(des, i
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6055,10 +5846,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleSlic
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6068,13 +5856,13 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotword
 
 	cDes := &JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex{}
 
-	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) || dcl.IsZeroValue(des.Pattern) {
+	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) {
 		cDes.Pattern = initial.Pattern
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -6085,7 +5873,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotword
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegexSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6176,10 +5964,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotw
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6189,14 +5974,14 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximi
 
 	cDes := &JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity{}
 
-	if dcl.IsZeroValue(des.WindowBefore) || (dcl.IsEmptyValueIndirect(des.WindowBefore) && dcl.IsEmptyValueIndirect(initial.WindowBefore)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.WindowBefore) && dcl.IsEmptyValueIndirect(initial.WindowBefore) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.WindowBefore = initial.WindowBefore
 	} else {
 		cDes.WindowBefore = des.WindowBefore
 	}
-	if dcl.IsZeroValue(des.WindowAfter) || (dcl.IsEmptyValueIndirect(des.WindowAfter) && dcl.IsEmptyValueIndirect(initial.WindowAfter)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.WindowAfter) && dcl.IsEmptyValueIndirect(initial.WindowAfter) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.WindowAfter = initial.WindowAfter
 	} else {
 		cDes.WindowAfter = des.WindowAfter
@@ -6207,7 +5992,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximi
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximitySlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6294,31 +6079,8 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProx
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.FixedLikelihood != nil || (initial != nil && initial.FixedLikelihood != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.RelativeLikelihood) {
-			des.FixedLikelihood = nil
-			if initial != nil {
-				initial.FixedLikelihood = nil
-			}
-		}
-	}
-
-	if des.RelativeLikelihood != nil || (initial != nil && initial.RelativeLikelihood != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.FixedLikelihood) {
-			des.RelativeLikelihood = nil
-			if initial != nil {
-				initial.RelativeLikelihood = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -6327,25 +6089,38 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelih
 
 	cDes := &JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment{}
 
-	if dcl.IsZeroValue(des.FixedLikelihood) || (dcl.IsEmptyValueIndirect(des.FixedLikelihood) && dcl.IsEmptyValueIndirect(initial.FixedLikelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.FixedLikelihood) && dcl.IsEmptyValueIndirect(initial.FixedLikelihood) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.FixedLikelihood = initial.FixedLikelihood
 	} else {
 		cDes.FixedLikelihood = des.FixedLikelihood
 	}
-	if dcl.IsZeroValue(des.RelativeLikelihood) || (dcl.IsEmptyValueIndirect(des.RelativeLikelihood) && dcl.IsEmptyValueIndirect(initial.RelativeLikelihood)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RelativeLikelihood) && dcl.IsEmptyValueIndirect(initial.RelativeLikelihood) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RelativeLikelihood = initial.RelativeLikelihood
 	} else {
 		cDes.RelativeLikelihood = des.RelativeLikelihood
 	}
 
+	if cDes.FixedLikelihood != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.RelativeLikelihood) {
+			cDes.FixedLikelihood = nil
+		}
+	}
+
+	if cDes.RelativeLikelihood != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.FixedLikelihood) {
+			cDes.RelativeLikelihood = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6432,41 +6207,8 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLike
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Dictionary != nil || (initial != nil && initial.Dictionary != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Regex, des.ExcludeInfoTypes) {
-			des.Dictionary = nil
-			if initial != nil {
-				initial.Dictionary = nil
-			}
-		}
-	}
-
-	if des.Regex != nil || (initial != nil && initial.Regex != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Dictionary, des.ExcludeInfoTypes) {
-			des.Regex = nil
-			if initial != nil {
-				initial.Regex = nil
-			}
-		}
-	}
-
-	if des.ExcludeInfoTypes != nil || (initial != nil && initial.ExcludeInfoTypes != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Dictionary, des.Regex) {
-			des.ExcludeInfoTypes = nil
-			if initial != nil {
-				initial.ExcludeInfoTypes = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -6478,19 +6220,39 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule(des,
 	cDes.Dictionary = canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary(des.Dictionary, initial.Dictionary, opts...)
 	cDes.Regex = canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex(des.Regex, initial.Regex, opts...)
 	cDes.ExcludeInfoTypes = canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(des.ExcludeInfoTypes, initial.ExcludeInfoTypes, opts...)
-	if dcl.IsZeroValue(des.MatchingType) || (dcl.IsEmptyValueIndirect(des.MatchingType) && dcl.IsEmptyValueIndirect(initial.MatchingType)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.MatchingType) && dcl.IsEmptyValueIndirect(initial.MatchingType) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.MatchingType = initial.MatchingType
 	} else {
 		cDes.MatchingType = des.MatchingType
 	}
 
+	if cDes.Dictionary != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Regex, cDes.ExcludeInfoTypes) {
+			cDes.Dictionary = nil
+		}
+	}
+
+	if cDes.Regex != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Dictionary, cDes.ExcludeInfoTypes) {
+			cDes.Regex = nil
+		}
+	}
+
+	if cDes.ExcludeInfoTypes != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Dictionary, cDes.Regex) {
+			cDes.ExcludeInfoTypes = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6581,31 +6343,8 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleSl
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.WordList != nil || (initial != nil && initial.WordList != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.CloudStoragePath) {
-			des.WordList = nil
-			if initial != nil {
-				initial.WordList = nil
-			}
-		}
-	}
-
-	if des.CloudStoragePath != nil || (initial != nil && initial.CloudStoragePath != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.WordList) {
-			des.CloudStoragePath = nil
-			if initial != nil {
-				initial.CloudStoragePath = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -6617,12 +6356,25 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDicti
 	cDes.WordList = canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(des.WordList, initial.WordList, opts...)
 	cDes.CloudStoragePath = canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(des.CloudStoragePath, initial.CloudStoragePath, opts...)
 
+	if cDes.WordList != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.CloudStoragePath) {
+			cDes.WordList = nil
+		}
+	}
+
+	if cDes.CloudStoragePath != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.WordList) {
+			cDes.CloudStoragePath = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionarySlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6712,10 +6464,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDi
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordList, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordList {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6736,7 +6485,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDicti
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordListSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordList, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordList {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6827,10 +6576,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDi
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6840,7 +6586,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDicti
 
 	cDes := &JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath{}
 
-	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+	if dcl.StringCanonicalize(des.Path, initial.Path) {
 		cDes.Path = initial.Path
 	} else {
 		cDes.Path = des.Path
@@ -6851,7 +6597,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDicti
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -6942,10 +6688,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDi
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -6955,13 +6698,13 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex
 
 	cDes := &JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex{}
 
-	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) || dcl.IsZeroValue(des.Pattern) {
+	if dcl.StringCanonicalize(des.Pattern, initial.Pattern) {
 		cDes.Pattern = initial.Pattern
 	} else {
 		cDes.Pattern = des.Pattern
 	}
-	if dcl.IsZeroValue(des.GroupIndexes) || (dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.GroupIndexes) && dcl.IsEmptyValueIndirect(initial.GroupIndexes) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.GroupIndexes = initial.GroupIndexes
 	} else {
 		cDes.GroupIndexes = des.GroupIndexes
@@ -6972,7 +6715,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegexSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7063,10 +6806,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRe
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7083,7 +6823,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExclu
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7172,10 +6912,7 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleEx
 }
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(des, initial *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes, opts ...dcl.ApplyOption) *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7185,12 +6922,12 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExclu
 
 	cDes := &JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.StringCanonicalize(des.Version, initial.Version) {
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -7201,7 +6938,7 @@ func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExclu
 
 func canonicalizeJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesSlice(des, initial []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes, opts ...dcl.ApplyOption) []JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7295,71 +7032,8 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleEx
 }
 
 func canonicalizeJobTriggerInspectJobActions(des, initial *JobTriggerInspectJobActions, opts ...dcl.ApplyOption) *JobTriggerInspectJobActions {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.SaveFindings != nil || (initial != nil && initial.SaveFindings != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.PubSub, des.PublishSummaryToCscc, des.PublishFindingsToCloudDataCatalog, des.JobNotificationEmails, des.PublishToStackdriver) {
-			des.SaveFindings = nil
-			if initial != nil {
-				initial.SaveFindings = nil
-			}
-		}
-	}
-
-	if des.PubSub != nil || (initial != nil && initial.PubSub != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.SaveFindings, des.PublishSummaryToCscc, des.PublishFindingsToCloudDataCatalog, des.JobNotificationEmails, des.PublishToStackdriver) {
-			des.PubSub = nil
-			if initial != nil {
-				initial.PubSub = nil
-			}
-		}
-	}
-
-	if des.PublishSummaryToCscc != nil || (initial != nil && initial.PublishSummaryToCscc != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.SaveFindings, des.PubSub, des.PublishFindingsToCloudDataCatalog, des.JobNotificationEmails, des.PublishToStackdriver) {
-			des.PublishSummaryToCscc = nil
-			if initial != nil {
-				initial.PublishSummaryToCscc = nil
-			}
-		}
-	}
-
-	if des.PublishFindingsToCloudDataCatalog != nil || (initial != nil && initial.PublishFindingsToCloudDataCatalog != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.SaveFindings, des.PubSub, des.PublishSummaryToCscc, des.JobNotificationEmails, des.PublishToStackdriver) {
-			des.PublishFindingsToCloudDataCatalog = nil
-			if initial != nil {
-				initial.PublishFindingsToCloudDataCatalog = nil
-			}
-		}
-	}
-
-	if des.JobNotificationEmails != nil || (initial != nil && initial.JobNotificationEmails != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.SaveFindings, des.PubSub, des.PublishSummaryToCscc, des.PublishFindingsToCloudDataCatalog, des.PublishToStackdriver) {
-			des.JobNotificationEmails = nil
-			if initial != nil {
-				initial.JobNotificationEmails = nil
-			}
-		}
-	}
-
-	if des.PublishToStackdriver != nil || (initial != nil && initial.PublishToStackdriver != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.SaveFindings, des.PubSub, des.PublishSummaryToCscc, des.PublishFindingsToCloudDataCatalog, des.JobNotificationEmails) {
-			des.PublishToStackdriver = nil
-			if initial != nil {
-				initial.PublishToStackdriver = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -7375,12 +7049,53 @@ func canonicalizeJobTriggerInspectJobActions(des, initial *JobTriggerInspectJobA
 	cDes.JobNotificationEmails = canonicalizeJobTriggerInspectJobActionsJobNotificationEmails(des.JobNotificationEmails, initial.JobNotificationEmails, opts...)
 	cDes.PublishToStackdriver = canonicalizeJobTriggerInspectJobActionsPublishToStackdriver(des.PublishToStackdriver, initial.PublishToStackdriver, opts...)
 
+	if cDes.SaveFindings != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.PubSub, cDes.PublishSummaryToCscc, cDes.PublishFindingsToCloudDataCatalog, cDes.JobNotificationEmails, cDes.PublishToStackdriver) {
+			cDes.SaveFindings = nil
+		}
+	}
+
+	if cDes.PubSub != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.SaveFindings, cDes.PublishSummaryToCscc, cDes.PublishFindingsToCloudDataCatalog, cDes.JobNotificationEmails, cDes.PublishToStackdriver) {
+			cDes.PubSub = nil
+		}
+	}
+
+	if cDes.PublishSummaryToCscc != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.SaveFindings, cDes.PubSub, cDes.PublishFindingsToCloudDataCatalog, cDes.JobNotificationEmails, cDes.PublishToStackdriver) {
+			cDes.PublishSummaryToCscc = nil
+		}
+	}
+
+	if cDes.PublishFindingsToCloudDataCatalog != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.SaveFindings, cDes.PubSub, cDes.PublishSummaryToCscc, cDes.JobNotificationEmails, cDes.PublishToStackdriver) {
+			cDes.PublishFindingsToCloudDataCatalog = nil
+		}
+	}
+
+	if cDes.JobNotificationEmails != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.SaveFindings, cDes.PubSub, cDes.PublishSummaryToCscc, cDes.PublishFindingsToCloudDataCatalog, cDes.PublishToStackdriver) {
+			cDes.JobNotificationEmails = nil
+		}
+	}
+
+	if cDes.PublishToStackdriver != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.SaveFindings, cDes.PubSub, cDes.PublishSummaryToCscc, cDes.PublishFindingsToCloudDataCatalog, cDes.JobNotificationEmails) {
+			cDes.PublishToStackdriver = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobActionsSlice(des, initial []JobTriggerInspectJobActions, opts ...dcl.ApplyOption) []JobTriggerInspectJobActions {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7474,10 +7189,7 @@ func canonicalizeNewJobTriggerInspectJobActionsSlice(c *Client, des, nw []JobTri
 }
 
 func canonicalizeJobTriggerInspectJobActionsSaveFindings(des, initial *JobTriggerInspectJobActionsSaveFindings, opts ...dcl.ApplyOption) *JobTriggerInspectJobActionsSaveFindings {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7494,7 +7206,7 @@ func canonicalizeJobTriggerInspectJobActionsSaveFindings(des, initial *JobTrigge
 
 func canonicalizeJobTriggerInspectJobActionsSaveFindingsSlice(des, initial []JobTriggerInspectJobActionsSaveFindings, opts ...dcl.ApplyOption) []JobTriggerInspectJobActionsSaveFindings {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7583,31 +7295,8 @@ func canonicalizeNewJobTriggerInspectJobActionsSaveFindingsSlice(c *Client, des,
 }
 
 func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfig(des, initial *JobTriggerInspectJobActionsSaveFindingsOutputConfig, opts ...dcl.ApplyOption) *JobTriggerInspectJobActionsSaveFindingsOutputConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Table != nil || (initial != nil && initial.Table != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.DlpStorage) {
-			des.Table = nil
-			if initial != nil {
-				initial.Table = nil
-			}
-		}
-	}
-
-	if des.DlpStorage != nil || (initial != nil && initial.DlpStorage != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Table) {
-			des.DlpStorage = nil
-			if initial != nil {
-				initial.DlpStorage = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -7618,19 +7307,32 @@ func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfig(des, initia
 
 	cDes.Table = canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigTable(des.Table, initial.Table, opts...)
 	cDes.DlpStorage = canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage(des.DlpStorage, initial.DlpStorage, opts...)
-	if dcl.IsZeroValue(des.OutputSchema) || (dcl.IsEmptyValueIndirect(des.OutputSchema) && dcl.IsEmptyValueIndirect(initial.OutputSchema)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.OutputSchema) && dcl.IsEmptyValueIndirect(initial.OutputSchema) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.OutputSchema = initial.OutputSchema
 	} else {
 		cDes.OutputSchema = des.OutputSchema
 	}
 
+	if cDes.Table != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.DlpStorage) {
+			cDes.Table = nil
+		}
+	}
+
+	if cDes.DlpStorage != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Table) {
+			cDes.DlpStorage = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigSlice(des, initial []JobTriggerInspectJobActionsSaveFindingsOutputConfig, opts ...dcl.ApplyOption) []JobTriggerInspectJobActionsSaveFindingsOutputConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7720,10 +7422,7 @@ func canonicalizeNewJobTriggerInspectJobActionsSaveFindingsOutputConfigSlice(c *
 }
 
 func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigTable(des, initial *JobTriggerInspectJobActionsSaveFindingsOutputConfigTable, opts ...dcl.ApplyOption) *JobTriggerInspectJobActionsSaveFindingsOutputConfigTable {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7733,20 +7432,20 @@ func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigTable(des, i
 
 	cDes := &JobTriggerInspectJobActionsSaveFindingsOutputConfigTable{}
 
-	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
 	}
-	if dcl.IsZeroValue(des.DatasetId) || (dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DatasetId = initial.DatasetId
 	} else {
 		cDes.DatasetId = des.DatasetId
 	}
-	if dcl.IsZeroValue(des.TableId) || (dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TableId = initial.TableId
 	} else {
 		cDes.TableId = des.TableId
@@ -7757,7 +7456,7 @@ func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigTable(des, i
 
 func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigTableSlice(des, initial []JobTriggerInspectJobActionsSaveFindingsOutputConfigTable, opts ...dcl.ApplyOption) []JobTriggerInspectJobActionsSaveFindingsOutputConfigTable {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7844,12 +7543,10 @@ func canonicalizeNewJobTriggerInspectJobActionsSaveFindingsOutputConfigTableSlic
 }
 
 func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage(des, initial *JobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage, opts ...dcl.ApplyOption) *JobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -7861,7 +7558,7 @@ func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage(d
 
 func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorageSlice(des, initial []JobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage, opts ...dcl.ApplyOption) []JobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -7948,10 +7645,7 @@ func canonicalizeNewJobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorag
 }
 
 func canonicalizeJobTriggerInspectJobActionsPubSub(des, initial *JobTriggerInspectJobActionsPubSub, opts ...dcl.ApplyOption) *JobTriggerInspectJobActionsPubSub {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -7961,8 +7655,8 @@ func canonicalizeJobTriggerInspectJobActionsPubSub(des, initial *JobTriggerInspe
 
 	cDes := &JobTriggerInspectJobActionsPubSub{}
 
-	if dcl.IsZeroValue(des.Topic) || (dcl.IsEmptyValueIndirect(des.Topic) && dcl.IsEmptyValueIndirect(initial.Topic)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Topic) && dcl.IsEmptyValueIndirect(initial.Topic) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Topic = initial.Topic
 	} else {
 		cDes.Topic = des.Topic
@@ -7973,7 +7667,7 @@ func canonicalizeJobTriggerInspectJobActionsPubSub(des, initial *JobTriggerInspe
 
 func canonicalizeJobTriggerInspectJobActionsPubSubSlice(des, initial []JobTriggerInspectJobActionsPubSub, opts ...dcl.ApplyOption) []JobTriggerInspectJobActionsPubSub {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8060,12 +7754,10 @@ func canonicalizeNewJobTriggerInspectJobActionsPubSubSlice(c *Client, des, nw []
 }
 
 func canonicalizeJobTriggerInspectJobActionsPublishSummaryToCscc(des, initial *JobTriggerInspectJobActionsPublishSummaryToCscc, opts ...dcl.ApplyOption) *JobTriggerInspectJobActionsPublishSummaryToCscc {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -8077,7 +7769,7 @@ func canonicalizeJobTriggerInspectJobActionsPublishSummaryToCscc(des, initial *J
 
 func canonicalizeJobTriggerInspectJobActionsPublishSummaryToCsccSlice(des, initial []JobTriggerInspectJobActionsPublishSummaryToCscc, opts ...dcl.ApplyOption) []JobTriggerInspectJobActionsPublishSummaryToCscc {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8164,12 +7856,10 @@ func canonicalizeNewJobTriggerInspectJobActionsPublishSummaryToCsccSlice(c *Clie
 }
 
 func canonicalizeJobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog(des, initial *JobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog, opts ...dcl.ApplyOption) *JobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -8181,7 +7871,7 @@ func canonicalizeJobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog(de
 
 func canonicalizeJobTriggerInspectJobActionsPublishFindingsToCloudDataCatalogSlice(des, initial []JobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog, opts ...dcl.ApplyOption) []JobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8268,12 +7958,10 @@ func canonicalizeNewJobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog
 }
 
 func canonicalizeJobTriggerInspectJobActionsJobNotificationEmails(des, initial *JobTriggerInspectJobActionsJobNotificationEmails, opts ...dcl.ApplyOption) *JobTriggerInspectJobActionsJobNotificationEmails {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -8285,7 +7973,7 @@ func canonicalizeJobTriggerInspectJobActionsJobNotificationEmails(des, initial *
 
 func canonicalizeJobTriggerInspectJobActionsJobNotificationEmailsSlice(des, initial []JobTriggerInspectJobActionsJobNotificationEmails, opts ...dcl.ApplyOption) []JobTriggerInspectJobActionsJobNotificationEmails {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8372,12 +8060,10 @@ func canonicalizeNewJobTriggerInspectJobActionsJobNotificationEmailsSlice(c *Cli
 }
 
 func canonicalizeJobTriggerInspectJobActionsPublishToStackdriver(des, initial *JobTriggerInspectJobActionsPublishToStackdriver, opts ...dcl.ApplyOption) *JobTriggerInspectJobActionsPublishToStackdriver {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -8389,7 +8075,7 @@ func canonicalizeJobTriggerInspectJobActionsPublishToStackdriver(des, initial *J
 
 func canonicalizeJobTriggerInspectJobActionsPublishToStackdriverSlice(des, initial []JobTriggerInspectJobActionsPublishToStackdriver, opts ...dcl.ApplyOption) []JobTriggerInspectJobActionsPublishToStackdriver {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8476,31 +8162,8 @@ func canonicalizeNewJobTriggerInspectJobActionsPublishToStackdriverSlice(c *Clie
 }
 
 func canonicalizeJobTriggerTriggers(des, initial *JobTriggerTriggers, opts ...dcl.ApplyOption) *JobTriggerTriggers {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.Schedule != nil || (initial != nil && initial.Schedule != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Manual) {
-			des.Schedule = nil
-			if initial != nil {
-				initial.Schedule = nil
-			}
-		}
-	}
-
-	if des.Manual != nil || (initial != nil && initial.Manual != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Schedule) {
-			des.Manual = nil
-			if initial != nil {
-				initial.Manual = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -8512,12 +8175,25 @@ func canonicalizeJobTriggerTriggers(des, initial *JobTriggerTriggers, opts ...dc
 	cDes.Schedule = canonicalizeJobTriggerTriggersSchedule(des.Schedule, initial.Schedule, opts...)
 	cDes.Manual = canonicalizeJobTriggerTriggersManual(des.Manual, initial.Manual, opts...)
 
+	if cDes.Schedule != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Manual) {
+			cDes.Schedule = nil
+		}
+	}
+
+	if cDes.Manual != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.Schedule) {
+			cDes.Manual = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeJobTriggerTriggersSlice(des, initial []JobTriggerTriggers, opts ...dcl.ApplyOption) []JobTriggerTriggers {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8607,10 +8283,7 @@ func canonicalizeNewJobTriggerTriggersSlice(c *Client, des, nw []JobTriggerTrigg
 }
 
 func canonicalizeJobTriggerTriggersSchedule(des, initial *JobTriggerTriggersSchedule, opts ...dcl.ApplyOption) *JobTriggerTriggersSchedule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8620,7 +8293,7 @@ func canonicalizeJobTriggerTriggersSchedule(des, initial *JobTriggerTriggersSche
 
 	cDes := &JobTriggerTriggersSchedule{}
 
-	if dcl.StringCanonicalize(des.RecurrencePeriodDuration, initial.RecurrencePeriodDuration) || dcl.IsZeroValue(des.RecurrencePeriodDuration) {
+	if dcl.StringCanonicalize(des.RecurrencePeriodDuration, initial.RecurrencePeriodDuration) {
 		cDes.RecurrencePeriodDuration = initial.RecurrencePeriodDuration
 	} else {
 		cDes.RecurrencePeriodDuration = des.RecurrencePeriodDuration
@@ -8631,7 +8304,7 @@ func canonicalizeJobTriggerTriggersSchedule(des, initial *JobTriggerTriggersSche
 
 func canonicalizeJobTriggerTriggersScheduleSlice(des, initial []JobTriggerTriggersSchedule, opts ...dcl.ApplyOption) []JobTriggerTriggersSchedule {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8722,12 +8395,10 @@ func canonicalizeNewJobTriggerTriggersScheduleSlice(c *Client, des, nw []JobTrig
 }
 
 func canonicalizeJobTriggerTriggersManual(des, initial *JobTriggerTriggersManual, opts ...dcl.ApplyOption) *JobTriggerTriggersManual {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
+
 	if initial == nil {
 		return des
 	}
@@ -8739,7 +8410,7 @@ func canonicalizeJobTriggerTriggersManual(des, initial *JobTriggerTriggersManual
 
 func canonicalizeJobTriggerTriggersManualSlice(des, initial []JobTriggerTriggersManual, opts ...dcl.ApplyOption) []JobTriggerTriggersManual {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8826,10 +8497,7 @@ func canonicalizeNewJobTriggerTriggersManualSlice(c *Client, des, nw []JobTrigge
 }
 
 func canonicalizeJobTriggerErrors(des, initial *JobTriggerErrors, opts ...dcl.ApplyOption) *JobTriggerErrors {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8840,8 +8508,8 @@ func canonicalizeJobTriggerErrors(des, initial *JobTriggerErrors, opts ...dcl.Ap
 	cDes := &JobTriggerErrors{}
 
 	cDes.Details = canonicalizeJobTriggerErrorsDetails(des.Details, initial.Details, opts...)
-	if dcl.IsZeroValue(des.Timestamps) || (dcl.IsEmptyValueIndirect(des.Timestamps) && dcl.IsEmptyValueIndirect(initial.Timestamps)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Timestamps) && dcl.IsEmptyValueIndirect(initial.Timestamps) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Timestamps = initial.Timestamps
 	} else {
 		cDes.Timestamps = des.Timestamps
@@ -8852,7 +8520,7 @@ func canonicalizeJobTriggerErrors(des, initial *JobTriggerErrors, opts ...dcl.Ap
 
 func canonicalizeJobTriggerErrorsSlice(des, initial []JobTriggerErrors, opts ...dcl.ApplyOption) []JobTriggerErrors {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -8941,10 +8609,7 @@ func canonicalizeNewJobTriggerErrorsSlice(c *Client, des, nw []JobTriggerErrors)
 }
 
 func canonicalizeJobTriggerErrorsDetails(des, initial *JobTriggerErrorsDetails, opts ...dcl.ApplyOption) *JobTriggerErrorsDetails {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -8954,13 +8619,13 @@ func canonicalizeJobTriggerErrorsDetails(des, initial *JobTriggerErrorsDetails, 
 
 	cDes := &JobTriggerErrorsDetails{}
 
-	if dcl.IsZeroValue(des.Code) || (dcl.IsEmptyValueIndirect(des.Code) && dcl.IsEmptyValueIndirect(initial.Code)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Code) && dcl.IsEmptyValueIndirect(initial.Code) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Code = initial.Code
 	} else {
 		cDes.Code = des.Code
 	}
-	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
+	if dcl.StringCanonicalize(des.Message, initial.Message) {
 		cDes.Message = initial.Message
 	} else {
 		cDes.Message = des.Message
@@ -8972,7 +8637,7 @@ func canonicalizeJobTriggerErrorsDetails(des, initial *JobTriggerErrorsDetails, 
 
 func canonicalizeJobTriggerErrorsDetailsSlice(des, initial []JobTriggerErrorsDetails, opts ...dcl.ApplyOption) []JobTriggerErrorsDetails {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -9064,10 +8729,7 @@ func canonicalizeNewJobTriggerErrorsDetailsSlice(c *Client, des, nw []JobTrigger
 }
 
 func canonicalizeJobTriggerErrorsDetailsDetails(des, initial *JobTriggerErrorsDetailsDetails, opts ...dcl.ApplyOption) *JobTriggerErrorsDetailsDetails {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -9077,12 +8739,12 @@ func canonicalizeJobTriggerErrorsDetailsDetails(des, initial *JobTriggerErrorsDe
 
 	cDes := &JobTriggerErrorsDetailsDetails{}
 
-	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
+	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) {
 		cDes.TypeUrl = initial.TypeUrl
 	} else {
 		cDes.TypeUrl = des.TypeUrl
 	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+	if dcl.StringCanonicalize(des.Value, initial.Value) {
 		cDes.Value = initial.Value
 	} else {
 		cDes.Value = des.Value
@@ -9093,7 +8755,7 @@ func canonicalizeJobTriggerErrorsDetailsDetails(des, initial *JobTriggerErrorsDe
 
 func canonicalizeJobTriggerErrorsDetailsDetailsSlice(des, initial []JobTriggerErrorsDetailsDetails, opts ...dcl.ApplyOption) []JobTriggerErrorsDetailsDetails {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

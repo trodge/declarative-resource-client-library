@@ -438,8 +438,8 @@ func canonicalizeTenantDesiredState(rawDesired, rawInitial *Tenant, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &Tenant{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -470,8 +470,8 @@ func canonicalizeTenantDesiredState(rawDesired, rawInitial *Tenant, opts ...dcl.
 		canonicalDesired.EnableAnonymousUser = rawDesired.EnableAnonymousUser
 	}
 	canonicalDesired.MfaConfig = canonicalizeTenantMfaConfig(rawDesired.MfaConfig, rawInitial.MfaConfig, opts...)
-	if dcl.IsZeroValue(rawDesired.TestPhoneNumbers) || (dcl.IsEmptyValueIndirect(rawDesired.TestPhoneNumbers) && dcl.IsEmptyValueIndirect(rawInitial.TestPhoneNumbers)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.TestPhoneNumbers) && dcl.IsEmptyValueIndirect(rawInitial.TestPhoneNumbers) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.TestPhoneNumbers = rawInitial.TestPhoneNumbers
 	} else {
 		canonicalDesired.TestPhoneNumbers = rawDesired.TestPhoneNumbers
@@ -549,10 +549,7 @@ func canonicalizeTenantNewState(c *Client, rawNew, rawDesired *Tenant) (*Tenant,
 }
 
 func canonicalizeTenantMfaConfig(des, initial *TenantMfaConfig, opts ...dcl.ApplyOption) *TenantMfaConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -562,14 +559,14 @@ func canonicalizeTenantMfaConfig(des, initial *TenantMfaConfig, opts ...dcl.Appl
 
 	cDes := &TenantMfaConfig{}
 
-	if dcl.IsZeroValue(des.State) || (dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.State) && dcl.IsEmptyValueIndirect(initial.State) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.State = initial.State
 	} else {
 		cDes.State = des.State
 	}
-	if dcl.IsZeroValue(des.EnabledProviders) || (dcl.IsEmptyValueIndirect(des.EnabledProviders) && dcl.IsEmptyValueIndirect(initial.EnabledProviders)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.EnabledProviders) && dcl.IsEmptyValueIndirect(initial.EnabledProviders) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.EnabledProviders = initial.EnabledProviders
 	} else {
 		cDes.EnabledProviders = des.EnabledProviders
@@ -580,7 +577,7 @@ func canonicalizeTenantMfaConfig(des, initial *TenantMfaConfig, opts ...dcl.Appl
 
 func canonicalizeTenantMfaConfigSlice(des, initial []TenantMfaConfig, opts ...dcl.ApplyOption) []TenantMfaConfig {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

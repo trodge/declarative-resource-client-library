@@ -496,8 +496,8 @@ func canonicalizeDatasetDesiredState(rawDesired, rawInitial *Dataset, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Project) || (dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
@@ -522,8 +522,8 @@ func canonicalizeDatasetDesiredState(rawDesired, rawInitial *Dataset, opts ...dc
 	} else {
 		canonicalDesired.DefaultPartitionExpirationMs = rawDesired.DefaultPartitionExpirationMs
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
@@ -662,81 +662,8 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 }
 
 func canonicalizeDatasetAccess(des, initial *DatasetAccess, opts ...dcl.ApplyOption) *DatasetAccess {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
-	}
-
-	if des.UserByEmail != nil || (initial != nil && initial.UserByEmail != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.GroupByEmail, des.Domain, des.SpecialGroup, des.IamMember, des.View, des.Routine) {
-			des.UserByEmail = nil
-			if initial != nil {
-				initial.UserByEmail = nil
-			}
-		}
-	}
-
-	if des.GroupByEmail != nil || (initial != nil && initial.GroupByEmail != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.UserByEmail, des.Domain, des.SpecialGroup, des.IamMember, des.View, des.Routine) {
-			des.GroupByEmail = nil
-			if initial != nil {
-				initial.GroupByEmail = nil
-			}
-		}
-	}
-
-	if des.Domain != nil || (initial != nil && initial.Domain != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.UserByEmail, des.GroupByEmail, des.SpecialGroup, des.IamMember, des.View, des.Routine) {
-			des.Domain = nil
-			if initial != nil {
-				initial.Domain = nil
-			}
-		}
-	}
-
-	if des.SpecialGroup != nil || (initial != nil && initial.SpecialGroup != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.UserByEmail, des.GroupByEmail, des.Domain, des.IamMember, des.View, des.Routine) {
-			des.SpecialGroup = nil
-			if initial != nil {
-				initial.SpecialGroup = nil
-			}
-		}
-	}
-
-	if des.IamMember != nil || (initial != nil && initial.IamMember != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.UserByEmail, des.GroupByEmail, des.Domain, des.SpecialGroup, des.View, des.Routine) {
-			des.IamMember = nil
-			if initial != nil {
-				initial.IamMember = nil
-			}
-		}
-	}
-
-	if des.View != nil || (initial != nil && initial.View != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.UserByEmail, des.GroupByEmail, des.Domain, des.SpecialGroup, des.IamMember, des.Routine) {
-			des.View = nil
-			if initial != nil {
-				initial.View = nil
-			}
-		}
-	}
-
-	if des.Routine != nil || (initial != nil && initial.Routine != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.UserByEmail, des.GroupByEmail, des.Domain, des.SpecialGroup, des.IamMember, des.View) {
-			des.Routine = nil
-			if initial != nil {
-				initial.Routine = nil
-			}
-		}
 	}
 
 	if initial == nil {
@@ -745,32 +672,32 @@ func canonicalizeDatasetAccess(des, initial *DatasetAccess, opts ...dcl.ApplyOpt
 
 	cDes := &DatasetAccess{}
 
-	if canonicalizeDatasetAccessRole(des.Role, initial.Role) || dcl.IsZeroValue(des.Role) {
+	if canonicalizeDatasetAccessRole(des.Role, initial.Role) {
 		cDes.Role = initial.Role
 	} else {
 		cDes.Role = des.Role
 	}
-	if dcl.StringCanonicalize(des.UserByEmail, initial.UserByEmail) || dcl.IsZeroValue(des.UserByEmail) {
+	if dcl.StringCanonicalize(des.UserByEmail, initial.UserByEmail) {
 		cDes.UserByEmail = initial.UserByEmail
 	} else {
 		cDes.UserByEmail = des.UserByEmail
 	}
-	if dcl.StringCanonicalize(des.GroupByEmail, initial.GroupByEmail) || dcl.IsZeroValue(des.GroupByEmail) {
+	if dcl.StringCanonicalize(des.GroupByEmail, initial.GroupByEmail) {
 		cDes.GroupByEmail = initial.GroupByEmail
 	} else {
 		cDes.GroupByEmail = des.GroupByEmail
 	}
-	if dcl.StringCanonicalize(des.Domain, initial.Domain) || dcl.IsZeroValue(des.Domain) {
+	if dcl.StringCanonicalize(des.Domain, initial.Domain) {
 		cDes.Domain = initial.Domain
 	} else {
 		cDes.Domain = des.Domain
 	}
-	if dcl.StringCanonicalize(des.SpecialGroup, initial.SpecialGroup) || dcl.IsZeroValue(des.SpecialGroup) {
+	if dcl.StringCanonicalize(des.SpecialGroup, initial.SpecialGroup) {
 		cDes.SpecialGroup = initial.SpecialGroup
 	} else {
 		cDes.SpecialGroup = des.SpecialGroup
 	}
-	if dcl.StringCanonicalize(des.IamMember, initial.IamMember) || dcl.IsZeroValue(des.IamMember) {
+	if dcl.StringCanonicalize(des.IamMember, initial.IamMember) {
 		cDes.IamMember = initial.IamMember
 	} else {
 		cDes.IamMember = des.IamMember
@@ -778,12 +705,60 @@ func canonicalizeDatasetAccess(des, initial *DatasetAccess, opts ...dcl.ApplyOpt
 	cDes.View = canonicalizeDatasetAccessView(des.View, initial.View, opts...)
 	cDes.Routine = canonicalizeDatasetAccessRoutine(des.Routine, initial.Routine, opts...)
 
+	if cDes.UserByEmail != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.GroupByEmail, cDes.Domain, cDes.SpecialGroup, cDes.IamMember, cDes.View, cDes.Routine) {
+			cDes.UserByEmail = nil
+		}
+	}
+
+	if cDes.GroupByEmail != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.UserByEmail, cDes.Domain, cDes.SpecialGroup, cDes.IamMember, cDes.View, cDes.Routine) {
+			cDes.GroupByEmail = nil
+		}
+	}
+
+	if cDes.Domain != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.UserByEmail, cDes.GroupByEmail, cDes.SpecialGroup, cDes.IamMember, cDes.View, cDes.Routine) {
+			cDes.Domain = nil
+		}
+	}
+
+	if cDes.SpecialGroup != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.UserByEmail, cDes.GroupByEmail, cDes.Domain, cDes.IamMember, cDes.View, cDes.Routine) {
+			cDes.SpecialGroup = nil
+		}
+	}
+
+	if cDes.IamMember != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.UserByEmail, cDes.GroupByEmail, cDes.Domain, cDes.SpecialGroup, cDes.View, cDes.Routine) {
+			cDes.IamMember = nil
+		}
+	}
+
+	if cDes.View != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.UserByEmail, cDes.GroupByEmail, cDes.Domain, cDes.SpecialGroup, cDes.IamMember, cDes.Routine) {
+			cDes.View = nil
+		}
+	}
+
+	if cDes.Routine != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(cDes.UserByEmail, cDes.GroupByEmail, cDes.Domain, cDes.SpecialGroup, cDes.IamMember, cDes.View) {
+			cDes.Routine = nil
+		}
+	}
 	return cDes
 }
 
 func canonicalizeDatasetAccessSlice(des, initial []DatasetAccess, opts ...dcl.ApplyOption) []DatasetAccess {
 	if des == nil {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -891,10 +866,7 @@ func canonicalizeNewDatasetAccessSlice(c *Client, des, nw []DatasetAccess) []Dat
 }
 
 func canonicalizeDatasetAccessView(des, initial *DatasetAccessView, opts ...dcl.ApplyOption) *DatasetAccessView {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -904,20 +876,20 @@ func canonicalizeDatasetAccessView(des, initial *DatasetAccessView, opts ...dcl.
 
 	cDes := &DatasetAccessView{}
 
-	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
 	}
-	if dcl.IsZeroValue(des.DatasetId) || (dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DatasetId = initial.DatasetId
 	} else {
 		cDes.DatasetId = des.DatasetId
 	}
-	if dcl.IsZeroValue(des.TableId) || (dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.TableId = initial.TableId
 	} else {
 		cDes.TableId = des.TableId
@@ -928,7 +900,7 @@ func canonicalizeDatasetAccessView(des, initial *DatasetAccessView, opts ...dcl.
 
 func canonicalizeDatasetAccessViewSlice(des, initial []DatasetAccessView, opts ...dcl.ApplyOption) []DatasetAccessView {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1015,10 +987,7 @@ func canonicalizeNewDatasetAccessViewSlice(c *Client, des, nw []DatasetAccessVie
 }
 
 func canonicalizeDatasetAccessRoutine(des, initial *DatasetAccessRoutine, opts ...dcl.ApplyOption) *DatasetAccessRoutine {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1028,20 +997,20 @@ func canonicalizeDatasetAccessRoutine(des, initial *DatasetAccessRoutine, opts .
 
 	cDes := &DatasetAccessRoutine{}
 
-	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
 	}
-	if dcl.IsZeroValue(des.DatasetId) || (dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.DatasetId = initial.DatasetId
 	} else {
 		cDes.DatasetId = des.DatasetId
 	}
-	if dcl.IsZeroValue(des.RoutineId) || (dcl.IsEmptyValueIndirect(des.RoutineId) && dcl.IsEmptyValueIndirect(initial.RoutineId)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.RoutineId) && dcl.IsEmptyValueIndirect(initial.RoutineId) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.RoutineId = initial.RoutineId
 	} else {
 		cDes.RoutineId = des.RoutineId
@@ -1052,7 +1021,7 @@ func canonicalizeDatasetAccessRoutine(des, initial *DatasetAccessRoutine, opts .
 
 func canonicalizeDatasetAccessRoutineSlice(des, initial []DatasetAccessRoutine, opts ...dcl.ApplyOption) []DatasetAccessRoutine {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1139,10 +1108,7 @@ func canonicalizeNewDatasetAccessRoutineSlice(c *Client, des, nw []DatasetAccess
 }
 
 func canonicalizeDatasetDefaultEncryptionConfiguration(des, initial *DatasetDefaultEncryptionConfiguration, opts ...dcl.ApplyOption) *DatasetDefaultEncryptionConfiguration {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1152,8 +1118,8 @@ func canonicalizeDatasetDefaultEncryptionConfiguration(des, initial *DatasetDefa
 
 	cDes := &DatasetDefaultEncryptionConfiguration{}
 
-	if dcl.IsZeroValue(des.KmsKeyName) || (dcl.IsEmptyValueIndirect(des.KmsKeyName) && dcl.IsEmptyValueIndirect(initial.KmsKeyName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.KmsKeyName) && dcl.IsEmptyValueIndirect(initial.KmsKeyName) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.KmsKeyName = initial.KmsKeyName
 	} else {
 		cDes.KmsKeyName = des.KmsKeyName
@@ -1164,7 +1130,7 @@ func canonicalizeDatasetDefaultEncryptionConfiguration(des, initial *DatasetDefa
 
 func canonicalizeDatasetDefaultEncryptionConfigurationSlice(des, initial []DatasetDefaultEncryptionConfiguration, opts ...dcl.ApplyOption) []DatasetDefaultEncryptionConfiguration {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

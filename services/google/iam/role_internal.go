@@ -432,8 +432,8 @@ func canonicalizeRoleDesiredState(rawDesired, rawInitial *Role, opts ...dcl.Appl
 	} else {
 		canonicalDesired.IncludedPermissions = rawDesired.IncludedPermissions
 	}
-	if dcl.IsZeroValue(rawDesired.Stage) || (dcl.IsEmptyValueIndirect(rawDesired.Stage) && dcl.IsEmptyValueIndirect(rawInitial.Stage)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Stage) && dcl.IsEmptyValueIndirect(rawInitial.Stage) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Stage = rawInitial.Stage
 	} else {
 		canonicalDesired.Stage = rawDesired.Stage
@@ -561,10 +561,7 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 }
 
 func canonicalizeRoleLocalizedValues(des, initial *RoleLocalizedValues, opts ...dcl.ApplyOption) *RoleLocalizedValues {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -574,12 +571,12 @@ func canonicalizeRoleLocalizedValues(des, initial *RoleLocalizedValues, opts ...
 
 	cDes := &RoleLocalizedValues{}
 
-	if dcl.StringCanonicalize(des.LocalizedTitle, initial.LocalizedTitle) || dcl.IsZeroValue(des.LocalizedTitle) {
+	if dcl.StringCanonicalize(des.LocalizedTitle, initial.LocalizedTitle) {
 		cDes.LocalizedTitle = initial.LocalizedTitle
 	} else {
 		cDes.LocalizedTitle = des.LocalizedTitle
 	}
-	if dcl.StringCanonicalize(des.LocalizedDescription, initial.LocalizedDescription) || dcl.IsZeroValue(des.LocalizedDescription) {
+	if dcl.StringCanonicalize(des.LocalizedDescription, initial.LocalizedDescription) {
 		cDes.LocalizedDescription = initial.LocalizedDescription
 	} else {
 		cDes.LocalizedDescription = des.LocalizedDescription
@@ -590,7 +587,7 @@ func canonicalizeRoleLocalizedValues(des, initial *RoleLocalizedValues, opts ...
 
 func canonicalizeRoleLocalizedValuesSlice(des, initial []RoleLocalizedValues, opts ...dcl.ApplyOption) []RoleLocalizedValues {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

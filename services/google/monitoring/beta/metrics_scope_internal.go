@@ -196,10 +196,7 @@ func canonicalizeMetricsScopeNewState(c *Client, rawNew, rawDesired *MetricsScop
 }
 
 func canonicalizeMetricsScopeMonitoredProjects(des, initial *MetricsScopeMonitoredProjects, opts ...dcl.ApplyOption) *MetricsScopeMonitoredProjects {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -209,7 +206,7 @@ func canonicalizeMetricsScopeMonitoredProjects(des, initial *MetricsScopeMonitor
 
 	cDes := &MetricsScopeMonitoredProjects{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.StringCanonicalize(des.Name, initial.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -220,7 +217,7 @@ func canonicalizeMetricsScopeMonitoredProjects(des, initial *MetricsScopeMonitor
 
 func canonicalizeMetricsScopeMonitoredProjectsSlice(des, initial []MetricsScopeMonitoredProjects, opts ...dcl.ApplyOption) []MetricsScopeMonitoredProjects {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {

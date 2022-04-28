@@ -417,8 +417,8 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.SlotCapacity) || (dcl.IsEmptyValueIndirect(rawDesired.SlotCapacity) && dcl.IsEmptyValueIndirect(rawInitial.SlotCapacity)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.SlotCapacity) && dcl.IsEmptyValueIndirect(rawInitial.SlotCapacity) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.SlotCapacity = rawInitial.SlotCapacity
 	} else {
 		canonicalDesired.SlotCapacity = rawDesired.SlotCapacity

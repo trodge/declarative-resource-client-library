@@ -561,39 +561,6 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.SourceArchiveUrl != nil || rawInitial.SourceArchiveUrl != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.SourceRepository) {
-			rawDesired.SourceArchiveUrl = nil
-			rawInitial.SourceArchiveUrl = nil
-		}
-	}
-
-	if rawDesired.SourceRepository != nil || rawInitial.SourceRepository != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.SourceArchiveUrl) {
-			rawDesired.SourceRepository = nil
-			rawInitial.SourceRepository = nil
-		}
-	}
-
-	if rawDesired.EventTrigger != nil || rawInitial.EventTrigger != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.HttpsTrigger) {
-			rawDesired.EventTrigger = nil
-			rawInitial.EventTrigger = nil
-		}
-	}
-
-	if rawDesired.HttpsTrigger != nil || rawInitial.HttpsTrigger != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.EventTrigger) {
-			rawDesired.HttpsTrigger = nil
-			rawInitial.HttpsTrigger = nil
-		}
-	}
-
 	canonicalDesired := &Function{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -628,50 +595,50 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	} else {
 		canonicalDesired.Timeout = rawDesired.Timeout
 	}
-	if dcl.IsZeroValue(rawDesired.AvailableMemoryMb) || (dcl.IsEmptyValueIndirect(rawDesired.AvailableMemoryMb) && dcl.IsEmptyValueIndirect(rawInitial.AvailableMemoryMb)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.AvailableMemoryMb) && dcl.IsEmptyValueIndirect(rawInitial.AvailableMemoryMb) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.AvailableMemoryMb = rawInitial.AvailableMemoryMb
 	} else {
 		canonicalDesired.AvailableMemoryMb = rawDesired.AvailableMemoryMb
 	}
-	if dcl.IsZeroValue(rawDesired.ServiceAccountEmail) || (dcl.IsEmptyValueIndirect(rawDesired.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(rawInitial.ServiceAccountEmail)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(rawInitial.ServiceAccountEmail) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.ServiceAccountEmail = rawInitial.ServiceAccountEmail
 	} else {
 		canonicalDesired.ServiceAccountEmail = rawDesired.ServiceAccountEmail
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.Labels = rawInitial.Labels
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.EnvironmentVariables) || (dcl.IsEmptyValueIndirect(rawDesired.EnvironmentVariables) && dcl.IsEmptyValueIndirect(rawInitial.EnvironmentVariables)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.EnvironmentVariables) && dcl.IsEmptyValueIndirect(rawInitial.EnvironmentVariables) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.EnvironmentVariables = rawInitial.EnvironmentVariables
 	} else {
 		canonicalDesired.EnvironmentVariables = rawDesired.EnvironmentVariables
 	}
-	if dcl.IsZeroValue(rawDesired.MaxInstances) || (dcl.IsEmptyValueIndirect(rawDesired.MaxInstances) && dcl.IsEmptyValueIndirect(rawInitial.MaxInstances)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.MaxInstances) && dcl.IsEmptyValueIndirect(rawInitial.MaxInstances) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.MaxInstances = rawInitial.MaxInstances
 	} else {
 		canonicalDesired.MaxInstances = rawDesired.MaxInstances
 	}
-	if dcl.IsZeroValue(rawDesired.VPCConnector) || (dcl.IsEmptyValueIndirect(rawDesired.VPCConnector) && dcl.IsEmptyValueIndirect(rawInitial.VPCConnector)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.VPCConnector) && dcl.IsEmptyValueIndirect(rawInitial.VPCConnector) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.VPCConnector = rawInitial.VPCConnector
 	} else {
 		canonicalDesired.VPCConnector = rawDesired.VPCConnector
 	}
-	if dcl.IsZeroValue(rawDesired.VPCConnectorEgressSettings) || (dcl.IsEmptyValueIndirect(rawDesired.VPCConnectorEgressSettings) && dcl.IsEmptyValueIndirect(rawInitial.VPCConnectorEgressSettings)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.VPCConnectorEgressSettings) && dcl.IsEmptyValueIndirect(rawInitial.VPCConnectorEgressSettings) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.VPCConnectorEgressSettings = rawInitial.VPCConnectorEgressSettings
 	} else {
 		canonicalDesired.VPCConnectorEgressSettings = rawDesired.VPCConnectorEgressSettings
 	}
-	if dcl.IsZeroValue(rawDesired.IngressSettings) || (dcl.IsEmptyValueIndirect(rawDesired.IngressSettings) && dcl.IsEmptyValueIndirect(rawInitial.IngressSettings)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(rawDesired.IngressSettings) && dcl.IsEmptyValueIndirect(rawInitial.IngressSettings) {
+		// Both desired and initial are empty values, set desired to match initial.
 		canonicalDesired.IngressSettings = rawInitial.IngressSettings
 	} else {
 		canonicalDesired.IngressSettings = rawDesired.IngressSettings
@@ -685,6 +652,34 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.SourceArchiveUrl != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.SourceRepository) {
+			canonicalDesired.SourceArchiveUrl = nil
+		}
+	}
+
+	if canonicalDesired.SourceRepository != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.SourceArchiveUrl) {
+			canonicalDesired.SourceRepository = nil
+		}
+	}
+
+	if canonicalDesired.EventTrigger != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.HttpsTrigger) {
+			canonicalDesired.EventTrigger = nil
+		}
+	}
+
+	if canonicalDesired.HttpsTrigger != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(canonicalDesired.EventTrigger) {
+			canonicalDesired.HttpsTrigger = nil
+		}
 	}
 
 	return canonicalDesired, nil
@@ -820,14 +815,35 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 
 	rawNew.Project = rawDesired.Project
 
+	if rawNew.SourceArchiveUrl != nil {
+		if dcl.AnySet(rawNew.SourceRepository) && rawDesired.SourceArchiveUrl == nil {
+			rawNew.SourceArchiveUrl = nil
+		}
+	}
+
+	if rawNew.SourceRepository != nil {
+		if dcl.AnySet(rawNew.SourceArchiveUrl) && rawDesired.SourceRepository == nil {
+			rawNew.SourceRepository = nil
+		}
+	}
+
+	if rawNew.EventTrigger != nil {
+		if dcl.AnySet(rawNew.HttpsTrigger) && rawDesired.EventTrigger == nil {
+			rawNew.EventTrigger = nil
+		}
+	}
+
+	if rawNew.HttpsTrigger != nil {
+		if dcl.AnySet(rawNew.EventTrigger) && rawDesired.HttpsTrigger == nil {
+			rawNew.HttpsTrigger = nil
+		}
+	}
+
 	return rawNew, nil
 }
 
 func canonicalizeFunctionSourceRepository(des, initial *FunctionSourceRepository, opts ...dcl.ApplyOption) *FunctionSourceRepository {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -837,7 +853,7 @@ func canonicalizeFunctionSourceRepository(des, initial *FunctionSourceRepository
 
 	cDes := &FunctionSourceRepository{}
 
-	if CanonicalizeFunctionSourceRepoURL(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if CanonicalizeFunctionSourceRepoURL(des.Url, initial.Url) {
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -848,7 +864,7 @@ func canonicalizeFunctionSourceRepository(des, initial *FunctionSourceRepository
 
 func canonicalizeFunctionSourceRepositorySlice(des, initial []FunctionSourceRepository, opts ...dcl.ApplyOption) []FunctionSourceRepository {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -942,10 +958,7 @@ func canonicalizeNewFunctionSourceRepositorySlice(c *Client, des, nw []FunctionS
 }
 
 func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts ...dcl.ApplyOption) *FunctionHttpsTrigger {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -955,8 +968,8 @@ func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts .
 
 	cDes := &FunctionHttpsTrigger{}
 
-	if dcl.IsZeroValue(des.SecurityLevel) || (dcl.IsEmptyValueIndirect(des.SecurityLevel) && dcl.IsEmptyValueIndirect(initial.SecurityLevel)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.SecurityLevel) && dcl.IsEmptyValueIndirect(initial.SecurityLevel) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.SecurityLevel = initial.SecurityLevel
 	} else {
 		cDes.SecurityLevel = des.SecurityLevel
@@ -967,7 +980,7 @@ func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts .
 
 func canonicalizeFunctionHttpsTriggerSlice(des, initial []FunctionHttpsTrigger, opts ...dcl.ApplyOption) []FunctionHttpsTrigger {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
@@ -1058,10 +1071,7 @@ func canonicalizeNewFunctionHttpsTriggerSlice(c *Client, des, nw []FunctionHttps
 }
 
 func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts ...dcl.ApplyOption) *FunctionEventTrigger {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
+	if des == nil || des.empty {
 		return des
 	}
 
@@ -1071,23 +1081,23 @@ func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts .
 
 	cDes := &FunctionEventTrigger{}
 
-	if dcl.StringCanonicalize(des.EventType, initial.EventType) || dcl.IsZeroValue(des.EventType) {
+	if dcl.StringCanonicalize(des.EventType, initial.EventType) {
 		cDes.EventType = initial.EventType
 	} else {
 		cDes.EventType = des.EventType
 	}
-	if dcl.IsZeroValue(des.Resource) || (dcl.IsEmptyValueIndirect(des.Resource) && dcl.IsEmptyValueIndirect(initial.Resource)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.IsEmptyValueIndirect(des.Resource) && dcl.IsEmptyValueIndirect(initial.Resource) {
+		// Both desired and initial are empty values, set desired to match initial.
 		cDes.Resource = initial.Resource
 	} else {
 		cDes.Resource = des.Resource
 	}
-	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.StringCanonicalize(des.Service, initial.Service) {
 		cDes.Service = initial.Service
 	} else {
 		cDes.Service = des.Service
 	}
-	if dcl.BoolCanonicalize(des.FailurePolicy, initial.FailurePolicy) || dcl.IsZeroValue(des.FailurePolicy) {
+	if dcl.BoolCanonicalize(des.FailurePolicy, initial.FailurePolicy) {
 		cDes.FailurePolicy = initial.FailurePolicy
 	} else {
 		cDes.FailurePolicy = des.FailurePolicy
@@ -1098,7 +1108,7 @@ func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts .
 
 func canonicalizeFunctionEventTriggerSlice(des, initial []FunctionEventTrigger, opts ...dcl.ApplyOption) []FunctionEventTrigger {
 	if dcl.IsEmptyValueIndirect(des) {
-		return initial
+		return des
 	}
 
 	if len(des) != len(initial) {
