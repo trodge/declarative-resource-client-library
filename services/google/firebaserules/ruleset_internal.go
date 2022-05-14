@@ -364,8 +364,7 @@ func canonicalizeRulesetDesiredState(rawDesired, rawInitial *Ruleset, opts ...dc
 		return rawDesired, nil
 	}
 	canonicalDesired := &Ruleset{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -385,6 +384,9 @@ func canonicalizeRulesetNewState(c *Client, rawNew, rawDesired *Ruleset) (*Rules
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Source) && dcl.IsNotReturnedByServer(rawDesired.Source) {
@@ -788,7 +790,7 @@ func diffRuleset(c *Client, desired, actual *Ruleset, opts ...dcl.ApplyOption) (
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1013,7 +1015,7 @@ func flattenRuleset(c *Client, i interface{}, res *Ruleset) *Ruleset {
 	}
 
 	resultRes := &Ruleset{}
-	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.Source = flattenRulesetSource(c, m["source"], res)
 	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
 	resultRes.Metadata = flattenRulesetMetadata(c, m["metadata"], res)

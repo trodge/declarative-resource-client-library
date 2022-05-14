@@ -593,8 +593,7 @@ func canonicalizeCryptoKeyPrimary(des, initial *CryptoKeyPrimary, opts ...dcl.Ap
 
 	cDes := &CryptoKeyPrimary{}
 
-	if dcl.IsZeroValue(des.Name) || (dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -652,6 +651,9 @@ func canonicalizeNewCryptoKeyPrimary(c *Client, des, nw *CryptoKeyPrimary) *Cryp
 		return nil
 	}
 
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
 	nw.Attestation = canonicalizeNewCryptoKeyPrimaryAttestation(c, des.Attestation, nw.Attestation)
 	if dcl.StringCanonicalize(des.ImportJob, nw.ImportJob) {
 		nw.ImportJob = des.ImportJob
@@ -1315,7 +1317,7 @@ func compareCryptoKeyPrimaryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1829,7 +1831,7 @@ func flattenCryptoKeyPrimary(c *Client, i interface{}, res *CryptoKey) *CryptoKe
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyCryptoKeyPrimary
 	}
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	r.Name = dcl.FlattenString(m["name"])
 	r.State = flattenCryptoKeyPrimaryStateEnum(m["state"])
 	r.ProtectionLevel = flattenCryptoKeyPrimaryProtectionLevelEnum(m["protectionLevel"])
 	r.Algorithm = flattenCryptoKeyPrimaryAlgorithmEnum(m["algorithm"])

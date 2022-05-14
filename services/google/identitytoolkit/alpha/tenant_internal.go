@@ -438,8 +438,7 @@ func canonicalizeTenantDesiredState(rawDesired, rawInitial *Tenant, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &Tenant{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -490,6 +489,9 @@ func canonicalizeTenantNewState(c *Client, rawNew, rawDesired *Tenant) (*Tenant,
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
@@ -684,7 +686,7 @@ func diffTenant(c *Client, desired, actual *Tenant, opts ...dcl.ApplyOption) ([]
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -894,7 +896,7 @@ func flattenTenant(c *Client, i interface{}, res *Tenant) *Tenant {
 	}
 
 	resultRes := &Tenant{}
-	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
 	resultRes.AllowPasswordSignup = dcl.FlattenBool(m["allowPasswordSignup"])
 	resultRes.EnableEmailLinkSignin = dcl.FlattenBool(m["enableEmailLinkSignin"])

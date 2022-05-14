@@ -456,8 +456,7 @@ func canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial *Notific
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -516,6 +515,9 @@ func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *Noti
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
@@ -587,7 +589,7 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -737,7 +739,7 @@ func flattenNotificationChannel(c *Client, i interface{}, res *NotificationChann
 		resultRes.Enabled = dcl.Bool(true)
 	}
 	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.Type = dcl.FlattenString(m["type"])
 	resultRes.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
 	resultRes.VerificationStatus = flattenNotificationChannelVerificationStatusEnum(m["verificationStatus"])

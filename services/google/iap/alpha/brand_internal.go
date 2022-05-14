@@ -278,8 +278,7 @@ func canonicalizeBrandDesiredState(rawDesired, rawInitial *Brand, opts ...dcl.Ap
 	} else {
 		canonicalDesired.ApplicationTitle = rawDesired.ApplicationTitle
 	}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -311,6 +310,9 @@ func canonicalizeBrandNewState(c *Client, rawNew, rawDesired *Brand) (*Brand, er
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.OrgInternalOnly) && dcl.IsNotReturnedByServer(rawDesired.OrgInternalOnly) {
@@ -359,7 +361,7 @@ func diffBrand(c *Client, desired, actual *Brand, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -474,7 +476,7 @@ func flattenBrand(c *Client, i interface{}, res *Brand) *Brand {
 
 	resultRes := &Brand{}
 	resultRes.ApplicationTitle = dcl.FlattenString(m["applicationTitle"])
-	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.OrgInternalOnly = dcl.FlattenBool(m["orgInternalOnly"])
 	resultRes.SupportEmail = dcl.FlattenString(m["supportEmail"])
 	resultRes.Project = dcl.FlattenString(m["project"])

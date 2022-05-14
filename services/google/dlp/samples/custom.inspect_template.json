@@ -51,7 +51,7 @@
           "name": "HOME_ADDRESS"
         },
         "storedType": {
-          "name": "projects/{{project}}/locations/global/storedInfoTypes/{{ref:minimal.stored_info_type.json:name}}"
+          "name": "{{ref:minimal.stored_info_type.json:name}}"
         }
       },
       {

@@ -464,8 +464,7 @@ func canonicalizeBudgetDesiredState(rawDesired, rawInitial *Budget, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &Budget{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -493,6 +492,9 @@ func canonicalizeBudgetNewState(c *Client, rawNew, rawDesired *Budget) (*Budget,
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
@@ -1828,7 +1830,7 @@ func diffBudget(c *Client, desired, actual *Budget, opts ...dcl.ApplyOption) ([]
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2396,7 +2398,7 @@ func flattenBudget(c *Client, i interface{}, res *Budget) *Budget {
 	}
 
 	resultRes := &Budget{}
-	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
 	resultRes.BudgetFilter = flattenBudgetBudgetFilter(c, m["budgetFilter"], res)
 	resultRes.Amount = flattenBudgetAmount(c, m["amount"], res)

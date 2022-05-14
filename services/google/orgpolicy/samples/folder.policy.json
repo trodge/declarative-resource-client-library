@@ -1,6 +1,6 @@
 {
-  "name": "folders/{{ref:basic.cloudresourcemanager.folder.json:name}}/policies/gcp.resourceLocations",
-  "parent": "folders/{{ref:basic.cloudresourcemanager.folder.json:name}}",
+  "name": "{{ref:basic.cloudresourcemanager.folder.json:name}}/policies/gcp.resourceLocations",
+  "parent": "{{ref:basic.cloudresourcemanager.folder.json:name}}",
   "spec": {
     "rules": [
       {

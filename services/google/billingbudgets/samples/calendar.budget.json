@@ -30,7 +30,7 @@
   "allUpdatesRule": {
     "pubsubTopic": "projects/{{project}}/topics/{{ref:first.pubsub.topic.json:name}}",
     "schemaVersion": "1.0",
-    "monitoringNotificationChannels": ["projects/{{project}}/notificationChannels/{{ref:first.monitoring.notification_channel.json:name}}"],
+    "monitoringNotificationChannels": ["{{ref:first.monitoring.notification_channel.json:name}}"],
     "disableDefaultIamRecipients": false
   }
 }

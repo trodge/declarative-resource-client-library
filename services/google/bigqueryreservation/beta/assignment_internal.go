@@ -366,8 +366,7 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 		return rawDesired, nil
 	}
 	canonicalDesired := &Assignment{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -408,6 +407,9 @@ func canonicalizeAssignmentNewState(c *Client, rawNew, rawDesired *Assignment) (
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Assignee) && dcl.IsNotReturnedByServer(rawDesired.Assignee) {
@@ -452,7 +454,7 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -596,7 +598,7 @@ func flattenAssignment(c *Client, i interface{}, res *Assignment) *Assignment {
 	}
 
 	resultRes := &Assignment{}
-	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.Assignee = dcl.FlattenString(m["assignee"])
 	resultRes.JobType = flattenAssignmentJobTypeEnum(m["jobType"])
 	resultRes.State = flattenAssignmentStateEnum(m["state"])

@@ -453,8 +453,7 @@ func canonicalizeCapacityCommitmentDesiredState(rawDesired, rawInitial *Capacity
 		return rawDesired, nil
 	}
 	canonicalDesired := &CapacityCommitment{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -496,6 +495,9 @@ func canonicalizeCapacityCommitmentNewState(c *Client, rawNew, rawDesired *Capac
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SlotCount) && dcl.IsNotReturnedByServer(rawDesired.SlotCount) {
@@ -805,7 +807,7 @@ func diffCapacityCommitment(c *Client, desired, actual *CapacityCommitment, opts
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1057,7 +1059,7 @@ func flattenCapacityCommitment(c *Client, i interface{}, res *CapacityCommitment
 	}
 
 	resultRes := &CapacityCommitment{}
-	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.SlotCount = dcl.FlattenInteger(m["slotCount"])
 	resultRes.Plan = flattenCapacityCommitmentPlanEnum(m["plan"])
 	resultRes.State = flattenCapacityCommitmentStateEnum(m["state"])

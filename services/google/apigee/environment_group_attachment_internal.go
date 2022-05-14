@@ -365,8 +365,7 @@ func canonicalizeEnvironmentGroupAttachmentDesiredState(rawDesired, rawInitial *
 		return rawDesired, nil
 	}
 	canonicalDesired := &EnvironmentGroupAttachment{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -391,6 +390,9 @@ func canonicalizeEnvironmentGroupAttachmentNewState(c *Client, rawNew, rawDesire
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Environment) && dcl.IsNotReturnedByServer(rawDesired.Environment) {
@@ -426,7 +428,7 @@ func diffEnvironmentGroupAttachment(c *Client, desired, actual *EnvironmentGroup
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -536,7 +538,7 @@ func flattenEnvironmentGroupAttachment(c *Client, i interface{}, res *Environmen
 	}
 
 	resultRes := &EnvironmentGroupAttachment{}
-	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.Environment = dcl.FlattenString(m["environment"])
 	resultRes.CreatedAt = dcl.FlattenInteger(m["createdAt"])
 	resultRes.Envgroup = dcl.FlattenString(m["envgroup"])
