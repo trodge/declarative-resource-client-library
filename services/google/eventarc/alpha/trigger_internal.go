@@ -571,12 +571,6 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-	if dcl.IsZeroValue(rawDesired.Channel) || (dcl.IsEmptyValueIndirect(rawDesired.Channel) && dcl.IsEmptyValueIndirect(rawInitial.Channel)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		canonicalDesired.Channel = rawInitial.Channel
-	} else {
-		canonicalDesired.Channel = rawDesired.Channel
-	}
 
 	return canonicalDesired, nil
 }
@@ -648,16 +642,6 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 	rawNew.Project = rawDesired.Project
 
 	rawNew.Location = rawDesired.Location
-
-	if dcl.IsEmptyValueIndirect(rawNew.Channel) && dcl.IsEmptyValueIndirect(rawDesired.Channel) {
-		rawNew.Channel = rawDesired.Channel
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Conditions) && dcl.IsEmptyValueIndirect(rawDesired.Conditions) {
-		rawNew.Conditions = rawDesired.Conditions
-	} else {
-	}
 
 	return rawNew, nil
 }
@@ -1563,20 +1547,6 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Channel, actual.Channel, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Channel")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	return newDiffs, nil
 }
 func compareTriggerMatchingCriteriaNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1848,7 +1818,6 @@ func (r *Trigger) urlNormalized() *Trigger {
 	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.Channel = dcl.SelfLinkToName(r.Channel)
 	return &normalized
 }
 
@@ -1938,9 +1907,6 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
-	if v := f.Channel; dcl.ValueShouldBeSent(v) {
-		m["channel"] = v
-	}
 
 	return m, nil
 }
@@ -1969,8 +1935,6 @@ func flattenTrigger(c *Client, i interface{}, res *Trigger) *Trigger {
 	resultRes.Etag = dcl.FlattenString(m["etag"])
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
-	resultRes.Channel = dcl.FlattenString(m["channel"])
-	resultRes.Conditions = dcl.FlattenKeyValuePairs(m["conditions"])
 
 	return resultRes
 }

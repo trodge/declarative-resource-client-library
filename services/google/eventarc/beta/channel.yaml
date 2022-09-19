@@ -106,7 +106,8 @@ components:
           type: string
           x-dcl-go-name: Name
           description: Required. The resource name of the channel. Must be unique
-            within the location on the project.
+            within the location on the project and must be in `projects/{project}/locations/{location}/channels/{channel_id}`
+            format.
           x-kubernetes-immutable: true
         project:
           type: string
